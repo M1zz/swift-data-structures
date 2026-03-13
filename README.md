@@ -11,7 +11,7 @@
 
 | 파일 | 설명 |
 |------|------|
-| [`index.html`](./index.html) | 인터랙티브 시각화 (GitHub Pages) |
+| [`docs/index.html`](./docs/index.html) | 인터랙티브 시각화 (GitHub Pages) |
 | [`DataStructures.playgroundbook/`](./DataStructures.playgroundbook/) | Swift Playgrounds 실습 북 |
 | [`Swift_자료구조_교안.docx`](./Swift_자료구조_교안.docx) | 학습 교안 |
 
@@ -37,7 +37,7 @@
 
 또는 로컬에서:
 ```bash
-open index.html
+open docs/index.html
 ```
 
 ### Swift Playground Book
