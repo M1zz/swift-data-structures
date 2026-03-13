@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Chapters</key>
+  <array>
+    <string>Ch01_Array.playgroundchapter</string>
+    <string>Ch02_LinkedList.playgroundchapter</string>
+    <string>Ch03_Stack.playgroundchapter</string>
+    <string>Ch04_Deque.playgroundchapter</string>
+    <string>Ch05_BinaryTree.playgroundchapter</string>
+    <string>Ch06_BST.playgroundchapter</string>
+    <string>Ch07_Heap.playgroundchapter</string>
+    <string>Ch08_Graph.playgroundchapter</string>
+    <string>Ch09_HashTable.playgroundchapter</string>
+    <string>Ch10_Trie.playgroundchapter</string>
+  </array>
+  <key>ContentIdentifier</key>
+  <string>com.gaebaljari.swift-data-structures</string>
+  <key>ContentVersion</key>
+  <string>1.0</string>
+  <key>DeploymentTarget</key>
+  <string>ios-latest</string>
+  <key>Name</key>
+  <string>Swift로 배우는 자료구조</string>
+  <key>SwiftVersion</key>
+  <string>5.9</string>
+  <key>Version</key>
+  <string>7.0</string>
+</dict>
+</plist>

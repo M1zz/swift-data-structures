@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swift 자료구조 — 인터랙티브 시각화 | 개발자리</title>
+<meta name="description" content="컴공과 필수 자료구조 10개를 Swift로 배우는 인터랙티브 시각화. Array, LinkedList, Stack, Queue, Deque, Tree, BST, Heap, Graph, HashTable, Trie.">
+<meta property="og:title" content="Swift로 배우는 자료구조 — 인터랙티브 시각화">
+<meta property="og:description" content="10개 자료구조의 동작 원리를 애니메이션으로 확인하세요.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0a0e1a">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Pretendard:wght@300;400;600;800&display=swap');
+
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2236;
+    --border: #1e2d47;
+    --accent: #f05a28;
+    --accent2: #3b82f6;
+    --accent3: #22c55e;
+    --accent4: #a78bfa;
+    --text: #e2e8f0;
+    --text2: #94a3b8;
+    --text3: #475569;
+    --node-r: 26px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Pretendard', sans-serif;
+    min-height: 100vh;
+    display: flex;
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: 240px;
+    min-width: 240px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .sidebar-title {
+    padding: 0 20px 20px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+
+  .sidebar-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all .2s;
+    border-left: 3px solid transparent;
+  }
+  .sidebar-item:hover { color: var(--text); background: var(--surface2); }
+  .sidebar-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(240,90,40,.08); }
+  .sidebar-item .ch-num { font-size: 10px; font-family: 'JetBrains Mono'; color: var(--text3); min-width: 24px; }
+
+  /* MAIN */
+  .main {
+    flex: 1;
+    padding: 40px 48px;
+    max-width: 900px;
+  }
+
+  .chapter {
+    display: none;
+    animation: fadeIn .4s ease;
+  }
+  .chapter.active { display: block; }
+
+  @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+  .chapter-header {
+    margin-bottom: 32px;
+  }
+  .chapter-tag {
+    font-size: 11px;
+    font-family: 'JetBrains Mono';
+    color: var(--accent);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .chapter-title {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .chapter-subtitle {
+    font-size: 15px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+
+  /* VIZ CONTAINER */
+  .viz-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .viz-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+  }
+  .viz-label {
+    font-size: 11px;
+    font-family: 'JetBrains Mono';
+    color: var(--text3);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  svg.diagram { width: 100%; overflow: visible; }
+
+  /* CONTROLS */
+  .controls {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    align-items: center;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--text);
+    font-size: 13px;
+    font-family: 'Pretendard';
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover { background: #d04a1a; }
+
+  .input-field {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 13px;
+    width: 80px;
+    font-family: 'JetBrains Mono';
+  }
+  .input-field:focus { outline: none; border-color: var(--accent); }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text2);
+  }
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+
+  /* STATUS */
+  .status-bar {
+    font-family: 'JetBrains Mono';
+    font-size: 12px;
+    color: var(--accent3);
+    min-height: 20px;
+    margin-top: 8px;
+    padding: 6px 10px;
+    background: rgba(34,197,94,.08);
+    border-radius: 4px;
+    border-left: 3px solid var(--accent3);
+  }
+
+  /* NODE STYLES */
+  .node-circle { transition: all .4s ease; cursor: pointer; }
+  .node-text { font-family: 'JetBrains Mono'; font-size: 13px; font-weight: 700; pointer-events: none; }
+  .edge-line { stroke: var(--border); stroke-width: 2; fill: none; transition: all .4s; }
+  .arrow-head { fill: var(--border); }
+
+  /* ARRAY CELL */
+  .arr-cell { transition: all .4s ease; }
+  .arr-label { font-family: 'JetBrains Mono'; font-size: 12px; }
+
+  /* COMPLEXITY TABLE */
+  .complexity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 16px;
+  }
+  .complexity-cell {
+    background: var(--surface);
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+  .complexity-cell.header { background: var(--surface2); font-weight: 700; color: var(--text2); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+  .complexity-cell .big-o { font-family: 'JetBrains Mono'; color: var(--accent3); font-weight: 700; }
+  .complexity-cell .big-o.warn { color: var(--accent); }
+  .complexity-cell .big-o.bad { color: #ef4444; }
+
+  .section-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 28px 0;
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-title">Swift 자료구조</div>
+  <div class="sidebar-item active" onclick="showChapter(0)"><span class="ch-num">01</span> Array & ContiguousArray</div>
+  <div class="sidebar-item" onclick="showChapter(1)"><span class="ch-num">02</span> Linked List</div>
+  <div class="sidebar-item" onclick="showChapter(2)"><span class="ch-num">03</span> Stack / Queue</div>
+  <div class="sidebar-item" onclick="showChapter(3)"><span class="ch-num">04</span> Deque</div>
+  <div class="sidebar-item" onclick="showChapter(4)"><span class="ch-num">05</span> Binary Tree</div>
+  <div class="sidebar-item" onclick="showChapter(5)"><span class="ch-num">06</span> BST</div>
+  <div class="sidebar-item" onclick="showChapter(6)"><span class="ch-num">07</span> Heap / Priority Queue</div>
+  <div class="sidebar-item" onclick="showChapter(7)"><span class="ch-num">08</span> Graph</div>
+  <div class="sidebar-item" onclick="showChapter(8)"><span class="ch-num">09</span> Hash Table</div>
+  <div class="sidebar-item" onclick="showChapter(9)"><span class="ch-num">10</span> Trie</div>
+</nav>
+
+<main class="main">
+
+<!-- ===================== CH1: ARRAY ===================== -->
+<div class="chapter active" id="ch-0">
+  <div class="chapter-header">
+    <div class="chapter-tag">Chapter 01</div>
+    <h1 class="chapter-title">Array vs ContiguousArray</h1>
+    <p class="chapter-subtitle">CoW(Copy-on-Write) 동작과 메모리 레이아웃의 차이를 시각적으로 확인합니다.</p>
+  </div>
+
+  <div class="viz-card">
+    <div class="viz-label">메모리 레이아웃 — CoW 시뮬레이션</div>
+    <div class="controls">
+      <button class="btn primary" onclick="arrPush()">append()</button>
+      <button class="btn" onclick="arrCopy()">b = a (복사)</button>
+      <button class="btn" onclick="arrMutate()">b.append() → CoW 발동</button>
+      <button class="btn" onclick="arrReset()">초기화</button>
+    </div>
+    <svg class="diagram" id="arr-svg" height="220"></svg>
+    <div class="status-bar" id="arr-status">배열 a = [1, 2, 3] 에서 시작합니다.</div>
+  </div>
+
+  <div class="viz-card">
+    <div class="viz-label">시간복잡도</div>
+    <div class="complexity-grid">
+      <div class="complexity-cell header">연산</div><div class="complexity-cell header">복잡도</div><div class="complexity-cell header">비고</div>
+      <div class="complexity-cell">subscript [i]</div><div class="complexity-cell"><span class="big-o">O(1)</span></div><div class="complexity-cell">연속 메모리 직접 접근</div>
+      <div class="complexity-cell">append()</div><div class="complexity-cell"><span class="big-o">O(1)*</span></div><div class="complexity-cell">amortized, 2배 재할당</div>
+      <div class="complexity-cell">insert(at:)</div><div class="complexity-cell"><span class="big-o warn">O(n)</span></div><div class="complexity-cell">이후 원소 전부 이동</div>
+      <div class="complexity-cell">remove(at:)</div><div class="complexity-cell"><span class="big-o warn">O(n)</span></div><div class="complexity-cell">이후 원소 전부 이동</div>
+      <div class="complexity-cell">contains()</div><div class="complexity-cell"><span class="big-o warn">O(n)</span></div><div class="complexity-cell">선형 탐색</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== CH2: LINKED LIST ===================== -->
+<div class="chapter" id="ch-1">
+  <div class="chapter-header">
+    <div class="chapter-tag">Chapter 02</div>
+    <h1 class="chapter-title">Linked List</h1>
+    <p class="chapter-subtitle">노드가 포인터로 연결되는 구조. prepend/removeFirst는 O(1), 인덱스 접근은 O(n).</p>
+  </div>
+  <div class="viz-card">
+    <div class="viz-label">단방향 연결 리스트 — 동적 삽입/삭제</div>
+    <div class="controls">
+      <input class="input-field" id="ll-val" type="number" value="42" min="0" max="99">
+      <button class="btn primary" onclick="llPrepend()">prepend()</button>
+      <button class="btn primary" onclick="llAppend()">append()</button>
+      <button class="btn" onclick="llRemoveFirst()">removeFirst()</button>
+      <button class="btn" onclick="llReset()">초기화</button>
+    </div>
+    <svg class="diagram" id="ll-svg" height="120"></svg>
+    <div class="status-bar" id="ll-status">초기 리스트: 10 → 20 → 30</div>
+  </div>
+</div>
+
+<!-- ===================== CH3: STACK / QUEUE ===================== -->
+<div class="chapter" id="ch-2">
+  <div class="chapter-header">
+    <div class="chapter-tag">Chapter 03</div>
+    <h1 class="chapter-title">Stack / Queue</h1>
+    <p class="chapter-subtitle">Stack은 LIFO, Queue는 FIFO. 이중 Stack으로 Queue를 amortized O(1)로 구현합니다.</p>
+  </div>
+  <div class="viz-card">
+    <div class="viz-label">Stack — LIFO (Last In, First Out)</div>
+    <div class="controls">
+      <input class="input-field" id="stack-val" type="number" value="7" min="0" max="99">
+      <button class="btn primary" onclick="stackPush()">push()</button>
+      <button class="btn" onclick="stackPop()">pop()</button>
+      <button class="btn" onclick="stackReset()">초기화</button>
+    </div>
+    <svg class="diagram" id="stack-svg" height="240"></svg>
+    <div class="status-bar" id="stack-status">Stack이 비어있습니다. push()로 원소를 추가하세요.</div>
+  </div>
+  <div class="viz-card">
+    <div class="viz-label">Queue — FIFO (이중 Stack 구현)</div>
+    <div class="controls">
+      <input class="input-field" id="queue-val" type="number" value="5" min="0" max="99">
+      <button class="btn primary" onclick="queueEnqueue()">enqueue()</button>
+      <button class="btn" onclick="queueDequeue()">dequeue()</button>
+      <button class="btn" onclick="queueReset()">초기화</button>
+    </div>
+    <svg class="diagram" id="queue-svg" height="140"></svg>
+    <div class="status-bar" id="queue-status">inbox: []  outbox: []</div>
+  </div>
+</div>
+
+<!-- ===================== CH4: DEQUE ===================== -->
+<div class="chapter" id="ch-3">
+  <div class="chapter-header">
+    <div class="chapter-tag">Chapter 04</div>
+    <h1 class="chapter-title">Deque</h1>
+    <p class="chapter-subtitle">링 버퍼(Ring Buffer) 기반 양방향 큐. 앞/뒤 모두 O(1) 삽입/삭제.</p>
+  </div>
+  <div class="viz-card">
+    <div class="viz-label">Ring Buffer 시각화</div>
+    <div class="controls">
+      <input class="input-field" id="dq-val" type="number" value="9" min="0" max="99">
+      <button class="btn primary" onclick="dqPushFront()">pushFront()</button>
+      <button class="btn primary" onclick="dqPushBack()">pushBack()</button>
+      <button class="btn" onclick="dqPopFront()">popFront()</button>
+      <button class="btn" onclick="dqPopBack()">popBack()</button>
+      <button class="btn" onclick="dqReset()">초기화</button>
+    </div>
+    <svg class="diagram" id="dq-svg" height="260"></svg>
+    <div class="status-bar" id="dq-status">Deque 초기화됨 (capacity=8). 원소를 추가하세요.</div>
+  </div>
+</div>
+
+<!-- ===================== CH5: BINARY TREE ===================== -->
+<div class="chapter" id="ch-4">
+  <div class="chapter-header">
+    <div class="chapter-tag">Chapter 05</div>
+    <h1 class="chapter-title">Binary Tree</h1>
+    <p class="chapter-subtitle">전위/중위/후위 순회를 애니메이션으로 확인합니다. 방문 순서가 핵심입니다.</p>
+  </div>
+  <div class="viz-card">
+    <div class="viz-label">트리 순회 애니메이션</div>
+    <div class="controls">
+      <button class="btn primary" onclick="treeTraverse('pre')">전위 순회 (Pre)</button>
+      <button class="btn primary" onclick="treeTraverse('in')">중위 순회 (In)</button>
+      <button class="btn primary" onclick="treeTraverse('post')">후위 순회 (Post)</button>
+      <button class="btn primary" onclick="treeTraverse('level')">레벨 순회 (BFS)</button>
+      <button class="btn" onclick="treeReset()">초기화</button>
+    </div>
+    <svg class="diagram" id="tree-svg" height="280"></svg>
+    <div class="status-bar" id="tree-status">순회 방법을 선택하세요.</div>
+  </div>
+</div>
+
+<!-- ===================== CH6: BST ===================== -->
+<div class="chapter" id="ch-5">
+  <div class="chapter-header">
+    <div class="chapter-tag">Chapter 06</div>
+    <h1 class="chapter-title">Binary Search Tree</h1>
+    <p class="chapter-subtitle">삽입 시 불변 조건(왼쪽 < 루트 < 오른쪽)을 유지하며 트리가 자라는 과정을 봅니다.</p>
+  </div>
+  <div class="viz-card">
+    <div class="viz-label">BST 삽입 / 탐색 시뮬레이션</div>
+    <div class="controls">
+      <input class="input-field" id="bst-val" type="number" value="25" min="1" max="99">
+      <button class="btn primary" onclick="bstInsert()">insert()</button>
+      <button class="btn" onclick="bstSearch()">search()</button>
+      <button class="btn" onclick="bstReset()">초기화</button>
+    </div>
+    <svg class="diagram" id="bst-svg" height="300"></svg>
+    <div class="status-bar" id="bst-status">초기 BST: [40, 20, 60, 10, 30]</div>
+  </div>
+</div>
+
+<!-- ===================== CH7: HEAP ===================== -->
+<div class="chapter" id="ch-6">
+  <div class="chapter-header">
+    <div class="chapter-tag">Chapter 07</div>
+    <h1 class="chapter-title">Heap / Priority Queue</h1>
+    <p class="chapter-subtitle">Min-Heap: 루트가 항상 최솟값. siftUp/siftDown 과정을 시각화합니다.</p>
+  </div>
+  <div class="viz-card">
+    <div class="viz-label">Min-Heap 트리 ↔ 배열 표현</div>
+    <div class="controls">
+      <input class="input-field" id="heap-val" type="number" value="5" min="1" max="99">
+      <button class="btn primary" onclick="heapInsert()">insert()</button>
+      <button class="btn" onclick="heapRemove()">remove() 최솟값 추출</button>
+      <button class="btn" onclick="heapReset()">초기화</button>
+    </div>
+    <svg class="diagram" id="heap-svg" height="300"></svg>
+    <div class="status-bar" id="heap-status">초기 힙: [1, 3, 2, 7, 5]</div>
+  </div>
+</div>
+
+<!-- ===================== CH8: GRAPH ===================== -->
+<div class="chapter" id="ch-7">
+  <div class="chapter-header">
+    <div class="chapter-tag">Chapter 08</div>
+    <h1 class="chapter-title">Graph</h1>
+    <p class="chapter-subtitle">BFS와 DFS 탐색 경로를 애니메이션으로 비교합니다.</p>
+  </div>
+  <div class="viz-card">
+    <div class="viz-label">그래프 BFS / DFS 탐색 시각화</div>
+    <div class="controls">
+      <button class="btn primary" onclick="graphBFS()">BFS 탐색</button>
+      <button class="btn primary" onclick="graphDFS()">DFS 탐색</button>
+      <button class="btn" onclick="graphReset()">초기화</button>
+    </div>
+    <svg class="diagram" id="graph-svg" height="280"></svg>
+    <div class="status-bar" id="graph-status">BFS 또는 DFS를 선택하세요. 시작: 노드 A</div>
+  </div>
+</div>
+
+<!-- ===================== CH9: HASH TABLE ===================== -->
+<div class="chapter" id="ch-8">
+  <div class="chapter-header">
+    <div class="chapter-tag">Chapter 09</div>
+    <h1 class="chapter-title">Hash Table</h1>
+    <p class="chapter-subtitle">해시 충돌과 Separate Chaining을 직접 관찰합니다.</p>
+  </div>
+  <div class="viz-card">
+    <div class="viz-label">Hash Table — 충돌 시각화</div>
+    <div class="controls">
+      <input class="input-field" id="ht-key" type="text" value="swift" style="width:90px;">
+      <input class="input-field" id="ht-val" type="number" value="100" style="width:70px;">
+      <button class="btn primary" onclick="htInsert()">insert(key, val)</button>
+      <button class="btn" onclick="htSearch()">search(key)</button>
+      <button class="btn" onclick="htReset()">초기화</button>
+    </div>
+    <svg class="diagram" id="ht-svg" height="300"></svg>
+    <div class="status-bar" id="ht-status">키를 입력하고 insert를 눌러보세요.</div>
+  </div>
+</div>
+
+<!-- ===================== CH10: TRIE ===================== -->
+<div class="chapter" id="ch-9">
+  <div class="chapter-header">
+    <div class="chapter-tag">Chapter 10</div>
+    <h1 class="chapter-title">Trie</h1>
+    <p class="chapter-subtitle">자동완성 탐색 경로가 트리 위에서 빛나며 강조됩니다.</p>
+  </div>
+  <div class="viz-card">
+    <div class="viz-label">Trie 자동완성 시뮬레이션</div>
+    <div class="controls">
+      <input class="input-field" id="trie-word" type="text" value="apply" style="width:100px;">
+      <button class="btn primary" onclick="trieInsert()">insert(word)</button>
+      <button class="btn primary" onclick="trieSearch()">autocomplete(prefix)</button>
+      <button class="btn" onclick="trieReset()">초기화</button>
+    </div>
+    <svg class="diagram" id="trie-svg" height="340"></svg>
+    <div class="status-bar" id="trie-status">초기 단어: app, apple, apply, apt, application</div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ─── UTILS ───────────────────────────────────────────────────────────────
+const C = { bg:'#0a0e1a', surface:'#111827', s2:'#1a2236', border:'#1e2d47',
+  accent:'#f05a28', a2:'#3b82f6', a3:'#22c55e', a4:'#a78bfa',
+  text:'#e2e8f0', text2:'#94a3b8', text3:'#475569',
+  hi:'#fbbf24', hiLight:'rgba(251,191,36,.18)' };
+
+function svgEl(tag, attrs={}) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  Object.entries(attrs).forEach(([k,v]) => el.setAttribute(k,v));
+  return el;
+}
+function txt(x,y,t,attrs={}) {
+  const el = svgEl('text', {x,y,'text-anchor':'middle','dominant-baseline':'central',...attrs});
+  el.textContent = t; return el;
+}
+function rect(x,y,w,h,attrs={}) { return svgEl('rect',{x,y,width:w,height:h,...attrs}); }
+function circle(cx,cy,r,attrs={}) { return svgEl('circle',{cx,cy,r,...attrs}); }
+function line(x1,y1,x2,y2,attrs={}) { return svgEl('line',{x1,y1,x2,y2,...attrs}); }
+function path(d,attrs={}) { return svgEl('path',{d,...attrs}); }
+
+function delay(ms) { return new Promise(r => setTimeout(r,ms)); }
+
+function setStatus(id, msg, color='') {
+  const el = document.getElementById(id);
+  if(el) { el.textContent = msg; if(color) el.style.borderLeftColor = color; }
+}
+
+function showChapter(i) {
+  document.querySelectorAll('.chapter').forEach((c,j) => c.classList.toggle('active', i===j));
+  document.querySelectorAll('.sidebar-item').forEach((s,j) => s.classList.toggle('active', i===j));
+}
+
+// ─── CH1: ARRAY ──────────────────────────────────────────────────────────
+let arrA = [1,2,3], arrB = null, arrSharing = false;
+
+function arrDraw() {
+  const svg = document.getElementById('arr-svg');
+  svg.innerHTML = '';
+  const W = svg.parentElement.clientWidth - 56;
+  svg.setAttribute('viewBox', `0 0 ${W} 220`);
+
+  const drawArray = (arr, label, y, color, dimmed=false) => {
+    svg.appendChild(txt(12, y+18, label, {'text-anchor':'start', fill:dimmed?C.text3:C.text2, 'font-size':'13', 'font-family':'JetBrains Mono'}));
+    arr.forEach((v,i) => {
+      const x = 80 + i*52;
+      const g = svgEl('g');
+      g.appendChild(rect(x, y, 46, 36, {fill:C.s2, stroke:color, 'stroke-width':'1.5', rx:'4'}));
+      g.appendChild(txt(x+23, y+18, String(v), {fill:color, 'font-size':'14', 'font-family':'JetBrains Mono', 'font-weight':'700'}));
+      g.appendChild(txt(x+23, y+48, String(i), {fill:C.text3, 'font-size':'10', 'font-family':'JetBrains Mono'}));
+      svg.appendChild(g);
+    });
+  };
+
+  drawArray(arrA, 'a:', 20, C.accent);
+  if(arrB !== null) {
+    drawArray(arrB, 'b:', 100, arrSharing ? C.a2 : C.a4);
+    // sharing arrow
+    if(arrSharing) {
+      const ax = 80 + arrA.length*52 + 8, ay = 38;
+      const bx = 80 + arrB.length*52 + 8, by = 118;
+      const p = path(`M${ax},${ay} Q${ax+40},${(ay+by)/2} ${bx},${by}`, {stroke:C.a2,'stroke-width':'1.5','stroke-dasharray':'5,3',fill:'none'});
+      svg.appendChild(p);
+      svg.appendChild(txt(ax+50, (ay+by)/2, '같은 버퍼 공유', {fill:C.a2,'font-size':'11','font-family':'JetBrains Mono'}));
+    } else {
+      svg.appendChild(txt(W/2, 175, '⚡ CoW 발동 — 버퍼 분리됨', {fill:C.hi,'font-size':'12','font-family':'JetBrains Mono'}));
+    }
+  }
+}
+
+function arrPush() { arrA.push(arrA.length+1); arrDraw(); setStatus('arr-status', `a.append(${arrA[arrA.length-1]}) → a = [${arrA.join(', ')}]`); }
+function arrCopy() { arrB = [...arrA]; arrSharing = true; arrDraw(); setStatus('arr-status', 'b = a → 아직 복사 없음! 같은 버퍼를 공유합니다.', C.a2); }
+function arrMutate() {
+  if(!arrB) { setStatus('arr-status', '먼저 b = a 복사를 해주세요.'); return; }
+  arrB.push(99); arrSharing = false; arrDraw();
+  setStatus('arr-status', `b.append(99) → CoW 발동! 버퍼가 분리됩니다. a=[${arrA.join(',')}]  b=[${arrB.join(',')}]`, C.hi);
+}
+function arrReset() { arrA=[1,2,3]; arrB=null; arrSharing=false; arrDraw(); setStatus('arr-status','배열 a = [1, 2, 3] 에서 시작합니다.'); }
+
+// ─── CH2: LINKED LIST ────────────────────────────────────────────────────
+let llNodes = [{v:10},{v:20},{v:30}];
+let llAnimating = false;
+
+function llDraw(highlight=-1) {
+  const svg = document.getElementById('ll-svg');
+  const W = svg.parentElement.clientWidth - 56;
+  svg.setAttribute('viewBox', `0 0 ${W} 120`);
+  svg.innerHTML = '';
+  const spacing = Math.min(100, (W-60) / Math.max(llNodes.length,1));
+  const startX = 40;
+
+  llNodes.forEach((n,i) => {
+    const x = startX + i*spacing;
+    const isHi = i === highlight;
+    const nodeG = svgEl('g');
+    // box
+    nodeG.appendChild(rect(x, 40, 70, 36, {fill:isHi?C.hiLight:C.s2, stroke:isHi?C.hi:C.accent,'stroke-width':isHi?'2':'1.5',rx:'6'}));
+    nodeG.appendChild(txt(x+28, 58, String(n.v), {fill:isHi?C.hi:C.text,'font-size':'14','font-family':'JetBrains Mono','font-weight':'700'}));
+    // pointer divider
+    nodeG.appendChild(line(x+56,40,x+56,76,{stroke:C.border,'stroke-width':'1'}));
+    nodeG.appendChild(txt(x+63, 58, '→', {fill:i===llNodes.length-1?C.text3:C.accent,'font-size':'10'}));
+    // labels
+    if(i===0) nodeG.appendChild(txt(x+35, 26, 'head', {fill:C.a3,'font-size':'11','font-family':'JetBrains Mono'}));
+    if(i===llNodes.length-1) nodeG.appendChild(txt(x+35, 26, 'tail', {fill:C.a2,'font-size':'11','font-family':'JetBrains Mono'}));
+    svg.appendChild(nodeG);
+    // arrow to next
+    if(i<llNodes.length-1) {
+      const ax1 = x+70, ay=58, ax2 = startX+(i+1)*spacing;
+      svg.appendChild(path(`M${ax1},${ay} L${ax2-4},${ay}`, {stroke:C.accent,'stroke-width':'1.5',fill:'none','marker-end':`url(#arr-arrow${i})`}));
+    }
+  });
+  if(llNodes.length===0) svg.appendChild(txt(W/2,58,'(리스트가 비어있습니다)',{fill:C.text3,'font-size':'13','font-family':'JetBrains Mono'}));
+}
+
+async function llPrepend() {
+  if(llAnimating) return; llAnimating=true;
+  const v = parseInt(document.getElementById('ll-val').value)||0;
+  llNodes.unshift({v}); llDraw(0);
+  setStatus('ll-status', `prepend(${v}) → O(1) — head를 새 노드로 교체`);
+  await delay(400); llDraw(); llAnimating=false;
+}
+async function llAppend() {
+  if(llAnimating) return; llAnimating=true;
+  const v = parseInt(document.getElementById('ll-val').value)||0;
+  llNodes.push({v}); llDraw(llNodes.length-1);
+  setStatus('ll-status', `append(${v}) → O(1) — tail에 연결`);
+  await delay(400); llDraw(); llAnimating=false;
+}
+async function llRemoveFirst() {
+  if(llAnimating||!llNodes.length) return; llAnimating=true;
+  const v = llNodes[0].v;
+  llDraw(0); await delay(300);
+  llNodes.shift(); llDraw();
+  setStatus('ll-status', `removeFirst() → ${v} 반환. O(1) — head를 next로 이동`);
+  llAnimating=false;
+}
+function llReset() { llNodes=[{v:10},{v:20},{v:30}]; llDraw(); setStatus('ll-status','초기 리스트: 10 → 20 → 30'); }
+
+// ─── CH3: STACK ──────────────────────────────────────────────────────────
+let stackData = [];
+let stackAnimating = false;
+
+function stackDraw() {
+  const svg = document.getElementById('stack-svg');
+  svg.setAttribute('viewBox','0 0 300 240');
+  svg.innerHTML = '';
+  const W=200, startX=50;
+  svg.appendChild(rect(startX-2,20,W+4,210,{fill:'none',stroke:C.border,'stroke-width':'1',rx:'4'}));
+  const maxShow = 5;
+  const shown = stackData.slice(-maxShow);
+  shown.forEach((v,i) => {
+    const fromBottom = shown.length-1-i;
+    const y = 30 + fromBottom*38;
+    const isTop = i===shown.length-1;
+    svg.appendChild(rect(startX, y, W, 32, {fill:isTop?C.hiLight:C.s2, stroke:isTop?C.hi:C.accent,'stroke-width':isTop?'2':'1',rx:'4'}));
+    svg.appendChild(txt(startX+W/2, y+16, String(v), {fill:isTop?C.hi:C.text,'font-size':'15','font-family':'JetBrains Mono','font-weight':'700'}));
+    if(isTop) svg.appendChild(txt(startX+W+24, y+16, '← top', {fill:C.hi,'font-size':'12','font-family':'JetBrains Mono','text-anchor':'start'}));
+  });
+  if(!stackData.length) svg.appendChild(txt(startX+W/2,120,'(비어있음)',{fill:C.text3,'font-size':'13','font-family':'JetBrains Mono'}));
+  svg.appendChild(txt(startX+W/2,220,`count: ${stackData.length}`,{fill:C.text3,'font-size':'12','font-family':'JetBrains Mono'}));
+}
+
+async function stackPush() {
+  if(stackAnimating) return; stackAnimating=true;
+  const v = parseInt(document.getElementById('stack-val').value)||0;
+  stackData.push(v); stackDraw();
+  setStatus('stack-status',`push(${v}) → O(1)  Stack: [${stackData.join(', ')}]`);
+  stackAnimating=false;
+}
+async function stackPop() {
+  if(stackAnimating||!stackData.length) return; stackAnimating=true;
+  const v = stackData.pop();
+  stackDraw();
+  setStatus('stack-status',`pop() → ${v} 반환 (LIFO). Stack: [${stackData.join(', ')}]`);
+  stackAnimating=false;
+}
+function stackReset() { stackData=[]; stackDraw(); setStatus('stack-status','Stack이 비어있습니다.'); }
+
+// ─── CH3: QUEUE ──────────────────────────────────────────────────────────
+let qInbox=[], qOutbox=[];
+
+function queueDraw() {
+  const svg = document.getElementById('queue-svg');
+  const W = svg.parentElement.clientWidth-56;
+  svg.setAttribute('viewBox',`0 0 ${W} 140`);
+  svg.innerHTML = '';
+
+  const drawBox = (arr, label, x0, color) => {
+    svg.appendChild(txt(x0+10, 15, label, {'text-anchor':'start',fill:color,'font-size':'11','font-family':'JetBrains Mono'}));
+    arr.forEach((v,i) => {
+      svg.appendChild(rect(x0+i*46, 24, 40, 32, {fill:C.s2,stroke:color,'stroke-width':'1.5',rx:'4'}));
+      svg.appendChild(txt(x0+i*46+20, 40, String(v), {fill:color,'font-size':'13','font-family':'JetBrains Mono','font-weight':'700'}));
+    });
+    if(!arr.length) svg.appendChild(txt(x0+30,40,'[]',{fill:C.text3,'font-size':'13','font-family':'JetBrains Mono'}));
+  };
+
+  const half = Math.floor(W/2)-20;
+  drawBox(qInbox, 'inbox (enqueue →)', 10, C.accent);
+  svg.appendChild(txt(half+20, 60, '⚡', {fill:C.hi,'font-size':'18'}));
+  drawBox([...qOutbox].reverse(), 'outbox (← dequeue)', half+40, C.a2);
+  svg.appendChild(txt(W/2, 105, 'dequeue: outbox가 비면 inbox를 reverse → outbox (O(n) 단 한번)', {fill:C.text2,'font-size':'11','font-family':'JetBrains Mono'}));
+}
+
+function queueEnqueue() {
+  const v=parseInt(document.getElementById('queue-val').value)||0;
+  qInbox.push(v); queueDraw();
+  setStatus('queue-status',`enqueue(${v}) → inbox에 추가. inbox:[${qInbox}]  outbox:[${qOutbox}]`);
+}
+function queueDequeue() {
+  if(!qInbox.length&&!qOutbox.length) { setStatus('queue-status','Queue가 비어있습니다.'); return; }
+  if(!qOutbox.length) { qOutbox=[...qInbox].reverse(); qInbox=[]; }
+  const v=qOutbox.pop();
+  queueDraw();
+  setStatus('queue-status',`dequeue() → ${v} 반환. inbox:[${qInbox}]  outbox:[${qOutbox}]`);
+}
+function queueReset() { qInbox=[]; qOutbox=[]; queueDraw(); setStatus('queue-status','inbox: []  outbox: []'); }
+
+// ─── CH4: DEQUE ──────────────────────────────────────────────────────────
+const DQ_CAP=8;
+let dqBuf=new Array(DQ_CAP).fill(null), dqHead=3, dqCount=0;
+
+function dqIdx(i) { return (dqHead+i+DQ_CAP*4)%DQ_CAP; }
+function dqDraw() {
+  const svg=document.getElementById('dq-svg');
+  const W=svg.parentElement.clientWidth-56;
+  svg.setAttribute('viewBox',`0 0 ${W} 260`);
+  svg.innerHTML='';
+  const cellW=(W-40)/DQ_CAP, cellH=52, startY=60, startX=20;
+
+  // Draw ring cells
+  dqBuf.forEach((v,i) => {
+    const x=startX+i*cellW;
+    const isFront = dqCount>0 && i===dqHead%DQ_CAP;
+    const isBack = dqCount>0 && i===dqIdx(dqCount-1);
+    const isEmpty = v===null;
+    const color = isEmpty?C.border : (isFront||isBack?C.hi:C.accent);
+    const fill = isEmpty?C.s2 : (isFront||isBack?C.hiLight:C.s2);
+    svg.appendChild(rect(x+2,startY,cellW-4,cellH,{fill,stroke:color,'stroke-width':isFront||isBack?'2':'1',rx:'4'}));
+    svg.appendChild(txt(x+cellW/2,startY+26, v===null?'·':String(v), {fill:isEmpty?C.text3:color,'font-size':'15','font-family':'JetBrains Mono','font-weight':'700'}));
+    svg.appendChild(txt(x+cellW/2,startY+cellH+16, String(i), {fill:C.text3,'font-size':'11','font-family':'JetBrains Mono'}));
+  });
+
+  // head/tail labels
+  if(dqCount>0) {
+    const hx=startX+dqHead%DQ_CAP*cellW+cellW/2;
+    svg.appendChild(txt(hx,startY-14,'head',{fill:C.a3,'font-size':'11','font-family':'JetBrains Mono'}));
+    const tx=startX+dqIdx(dqCount-1)*cellW+cellW/2;
+    svg.appendChild(txt(tx,startY-14,'tail',{fill:C.a2,'font-size':'11','font-family':'JetBrains Mono'}));
+  }
+
+  // circular arrow bottom
+  svg.appendChild(txt(W/2,startY+cellH+44,'← ring buffer: 인덱스 = (head + i) % capacity →',{fill:C.text3,'font-size':'11','font-family':'JetBrains Mono'}));
+  svg.appendChild(txt(W/2,startY+cellH+68,`count: ${dqCount}  head: ${dqHead%DQ_CAP}  capacity: ${DQ_CAP}`,{fill:C.text2,'font-size':'12','font-family':'JetBrains Mono'}));
+}
+
+function dqPushFront() {
+  if(dqCount>=DQ_CAP){setStatus('dq-status','⚠️ 꽉 찼습니다 — resize 필요',C.accent);return;}
+  const v=parseInt(document.getElementById('dq-val').value)||0;
+  dqHead=(dqHead-1+DQ_CAP)%DQ_CAP; dqBuf[dqHead]=v; dqCount++;
+  dqDraw(); setStatus('dq-status',`pushFront(${v}) → head를 왼쪽으로 이동 (순환). O(1)`);
+}
+function dqPushBack() {
+  if(dqCount>=DQ_CAP){setStatus('dq-status','⚠️ 꽉 찼습니다 — resize 필요',C.accent);return;}
+  const v=parseInt(document.getElementById('dq-val').value)||0;
+  dqBuf[dqIdx(dqCount)]=v; dqCount++;
+  dqDraw(); setStatus('dq-status',`pushBack(${v}) → tail을 오른쪽으로 이동. O(1)`);
+}
+function dqPopFront() {
+  if(!dqCount){setStatus('dq-status','Deque가 비어있습니다.');return;}
+  const v=dqBuf[dqHead]; dqBuf[dqHead]=null;
+  dqHead=(dqHead+1)%DQ_CAP; dqCount--;
+  dqDraw(); setStatus('dq-status',`popFront() → ${v} 반환. head를 오른쪽으로. O(1)`);
+}
+function dqPopBack() {
+  if(!dqCount){setStatus('dq-status','Deque가 비어있습니다.');return;}
+  const ti=dqIdx(dqCount-1); const v=dqBuf[ti]; dqBuf[ti]=null; dqCount--;
+  dqDraw(); setStatus('dq-status',`popBack() → ${v} 반환. tail을 왼쪽으로. O(1)`);
+}
+function dqReset() { dqBuf=new Array(DQ_CAP).fill(null);dqHead=3;dqCount=0;dqDraw();setStatus('dq-status','Deque 초기화됨 (capacity=8).'); }
+
+// ─── CH5: BINARY TREE ────────────────────────────────────────────────────
+const TREE_DATA = {v:1,l:{v:2,l:{v:4},r:{v:5}},r:{v:3,r:{v:6}}};
+let treeAnimating=false;
+
+function treeLayout(node,x,y,spread) {
+  if(!node) return [];
+  const nodes=[{v:node.v,x,y}];
+  if(node.l) nodes.push(...treeLayout(node.l,x-spread,y+70,spread/2));
+  if(node.r) nodes.push(...treeLayout(node.r,x+spread,y+70,spread/2));
+  return nodes;
+}
+function treeEdges(node,x,y,spread) {
+  if(!node) return [];
+  const edges=[];
+  if(node.l){edges.push({x1:x,y1:y,x2:x-spread,y2:y+70});edges.push(...treeEdges(node.l,x-spread,y+70,spread/2));}
+  if(node.r){edges.push({x1:x,y1:y,x2:x+spread,y2:y+70});edges.push(...treeEdges(node.r,x+spread,y+70,spread/2));}
+  return edges;
+}
+
+function treeDrawBase(highlights=[]) {
+  const svg=document.getElementById('tree-svg');
+  const W=svg.parentElement.clientWidth-56;
+  svg.setAttribute('viewBox',`0 0 ${W} 280`);
+  svg.innerHTML='';
+  const cx=W/2, nodes=treeLayout(TREE_DATA,cx,40,120);
+  const edges=treeEdges(TREE_DATA,cx,40,120);
+  const nodeMap={}; nodes.forEach(n=>nodeMap[n.v]=n);
+
+  edges.forEach(e=>svg.appendChild(line(e.x1,e.y1,e.x2,e.y2,{stroke:C.border,'stroke-width':'2'})));
+  nodes.forEach((n,i)=>{
+    const hi=highlights.indexOf(n.v);
+    const color = hi>=0?(hi===highlights.length-1?C.hi:C.a3):C.accent;
+    const fill = hi>=0?(hi===highlights.length-1?C.hiLight:C.s2):C.s2;
+    svg.appendChild(circle(n.x,n.y,22,{fill,stroke:color,'stroke-width':hi>=0?'2.5':'1.5'}));
+    svg.appendChild(txt(n.x,n.y,String(n.v),{fill:hi>=0?color:C.text,'font-size':'15','font-family':'JetBrains Mono','font-weight':'700'}));
+    if(hi>=0) svg.appendChild(txt(n.x,n.y+36,String(hi+1),{fill:C.hi,'font-size':'11','font-family':'JetBrains Mono'}));
+  });
+}
+
+function preorder(node,res=[]) { if(!node) return res; res.push(node.v); preorder(node.l,res); preorder(node.r,res); return res; }
+function inorder(node,res=[]) { if(!node) return res; inorder(node.l,res); res.push(node.v); inorder(node.r,res); return res; }
+function postorder(node,res=[]) { if(!node) return res; postorder(node.l,res); postorder(node.r,res); res.push(node.v); return res; }
+function levelorder(node) {
+  const res=[],q=[node];
+  while(q.length){const n=q.shift();if(!n)continue;res.push(n.v);q.push(n.l);q.push(n.r);}
+  return res;
+}
+
+async function treeTraverse(type) {
+  if(treeAnimating) return; treeAnimating=true;
+  const labels={pre:'전위 (Root→L→R)',in:'중위 (L→Root→R)',post:'후위 (L→R→Root)',level:'레벨 (BFS)'};
+  const orders={pre:preorder(TREE_DATA),in:inorder(TREE_DATA),post:postorder(TREE_DATA),level:levelorder(TREE_DATA)};
+  const order=orders[type];
+  treeDrawBase([]);
+  for(let i=0;i<order.length;i++) {
+    treeDrawBase(order.slice(0,i+1));
+    setStatus('tree-status',`${labels[type]}: [${order.slice(0,i+1).join(' → ')}]`);
+    await delay(600);
+  }
+  treeAnimating=false;
+}
+function treeReset() { treeAnimating=false; treeDrawBase([]); setStatus('tree-status','순회 방법을 선택하세요.'); }
+
+// ─── CH6: BST ────────────────────────────────────────────────────────────
+class BSTNode { constructor(v){this.v=v;this.l=null;this.r=null;} }
+function bstInsertNode(root,v) {
+  if(!root) return new BSTNode(v);
+  if(v<root.v) root.l=bstInsertNode(root.l,v);
+  else if(v>root.v) root.r=bstInsertNode(root.r,v);
+  return root;
+}
+function bstSearchPath(root,v,path=[]) {
+  if(!root) return path;
+  path.push(root.v);
+  if(v===root.v) return path;
+  return v<root.v ? bstSearchPath(root.l,v,path) : bstSearchPath(root.r,v,path);
+}
+
+let bstRoot=null;
+[40,20,60,10,30].forEach(v=>{bstRoot=bstInsertNode(bstRoot,v);});
+
+function bstLayout(node,x,y,spread) {
+  if(!node) return [];
+  return [{v:node.v,x,y},...bstLayout(node.l,x-spread,y+70,spread/2),...bstLayout(node.r,x+spread,y+70,spread/2)];
+}
+function bstEdgesList(node,x,y,spread) {
+  if(!node) return [];
+  const e=[];
+  if(node.l){e.push({x1:x,y1:y,x2:x-spread,y2:y+70});e.push(...bstEdgesList(node.l,x-spread,y+70,spread/2));}
+  if(node.r){e.push({x1:x,y1:y,x2:x+spread,y2:y+70});e.push(...bstEdgesList(node.r,x+spread,y+70,spread/2));}
+  return e;
+}
+function bstDraw(highlights=[],found=-1) {
+  const svg=document.getElementById('bst-svg');
+  const W=svg.parentElement.clientWidth-56;
+  svg.setAttribute('viewBox',`0 0 ${W} 300`);
+  svg.innerHTML='';
+  if(!bstRoot){svg.appendChild(txt(W/2,150,'(비어있음)',{fill:C.text3,'font-size':'14','font-family':'JetBrains Mono'}));return;}
+  const cx=W/2, nodes=bstLayout(bstRoot,cx,40,110), edges=bstEdgesList(bstRoot,cx,40,110);
+  edges.forEach(e=>svg.appendChild(line(e.x1,e.y1,e.x2,e.y2,{stroke:C.border,'stroke-width':'2'})));
+  nodes.forEach(n=>{
+    const isPath=highlights.includes(n.v);
+    const isFound=n.v===found;
+    const color=isFound?C.a3:isPath?C.hi:C.accent;
+    const fill=isFound?'rgba(34,197,94,.2)':isPath?C.hiLight:C.s2;
+    svg.appendChild(circle(n.x,n.y,22,{fill,stroke:color,'stroke-width':isPath?'2.5':'1.5'}));
+    svg.appendChild(txt(n.x,n.y,String(n.v),{fill:color,'font-size':'14','font-family':'JetBrains Mono','font-weight':'700'}));
+  });
+}
+
+function bstInsert() {
+  const v=parseInt(document.getElementById('bst-val').value)||0;
+  bstRoot=bstInsertNode(bstRoot,v); bstDraw();
+  setStatus('bst-status',`insert(${v}) → 불변 조건 유지하며 삽입. O(log n) 평균`);
+}
+async function bstSearch() {
+  const v=parseInt(document.getElementById('bst-val').value)||0;
+  const path=bstSearchPath(bstRoot,v,[]);
+  const found=path[path.length-1]===v;
+  for(let i=0;i<path.length;i++){bstDraw(path.slice(0,i+1),found&&i===path.length-1?v:-1);await delay(500);}
+  setStatus('bst-status',found?`search(${v}) → 발견! 경로: ${path.join(' → ')}`:`search(${v}) → 없음. 탐색 경로: ${path.join(' → ')}`);
+}
+function bstReset() { bstRoot=null;[40,20,60,10,30].forEach(v=>{bstRoot=bstInsertNode(bstRoot,v);}); bstDraw(); setStatus('bst-status','초기 BST: [40, 20, 60, 10, 30]'); }
+
+// ─── CH7: HEAP ───────────────────────────────────────────────────────────
+let heapData=[1,3,2,7,5];
+
+function heapParent(i){return Math.floor((i-1)/2);}
+function heapLeft(i){return 2*i+1;}
+function heapRight(i){return 2*i+2;}
+
+function heapSiftUp(arr,i) {
+  const path=[i];
+  while(i>0){const p=heapParent(i);if(arr[p]>arr[i]){[arr[p],arr[i]]=[arr[i],arr[p]];i=p;path.push(i);}else break;}
+  return path;
+}
+function heapSiftDown(arr,i,n) {
+  const path=[i];
+  while(true){let min=i,l=heapLeft(i),r=heapRight(i);if(l<n&&arr[l]<arr[min])min=l;if(r<n&&arr[r]<arr[min])min=r;if(min===i)break;[arr[min],arr[i]]=[arr[i],arr[min]];i=min;path.push(i);}
+  return path;
+}
+
+function heapLayout(n) {
+  const nodes=[];
+  for(let i=0;i<n;i++){
+    const depth=Math.floor(Math.log2(i+1));
+    const pos=i-((1<<depth)-1);
+    const total=1<<depth;
+    const xSpread=400/((total+1));
+    nodes.push({i,x:50+(pos+0.5)*(800/(total)),y:30+depth*65});
+  }
+  return nodes;
+}
+
+function heapDraw(highlights=[],swapping=[]) {
+  const svg=document.getElementById('heap-svg');
+  const W=svg.parentElement.clientWidth-56;
+  svg.setAttribute('viewBox',`0 0 ${W} 300`);
+  svg.innerHTML='';
+  const n=heapData.length;
+  if(!n){svg.appendChild(txt(W/2,100,'(비어있음)',{fill:C.text3,'font-size':'14','font-family':'JetBrains Mono'}));return;}
+  const scale=W/800;
+  const nodes=heapLayout(n).map(nd=>({...nd,x:nd.x*scale}));
+
+  // edges
+  nodes.forEach(nd=>{
+    if(nd.i>0){const p=nodes[heapParent(nd.i)];svg.appendChild(line(p.x,p.y,nd.x,nd.y,{stroke:C.border,'stroke-width':'2'}));}
+  });
+  // nodes
+  nodes.forEach(nd=>{
+    const isHi=highlights.includes(nd.i);
+    const isSw=swapping.includes(nd.i);
+    const color=isSw?C.hi:isHi?C.a3:nd.i===0?C.accent:C.a2;
+    const fill=isSw?C.hiLight:isHi?'rgba(34,197,94,.15)':C.s2;
+    svg.appendChild(circle(nd.x,nd.y,20,{fill,stroke:color,'stroke-width':isHi||isSw?'2.5':'1.5'}));
+    svg.appendChild(txt(nd.x,nd.y,String(heapData[nd.i]),{fill:color,'font-size':'13','font-family':'JetBrains Mono','font-weight':'700'}));
+    svg.appendChild(txt(nd.x,nd.y+32,`[${nd.i}]`,{fill:C.text3,'font-size':'10','font-family':'JetBrains Mono'}));
+  });
+
+  // array representation
+  const arrY=260, arrStartX=20, cellW=Math.min(40,(W-40)/Math.max(n,1));
+  svg.appendChild(txt(10,arrY,'arr:',{'text-anchor':'start',fill:C.text3,'font-size':'12','font-family':'JetBrains Mono'}));
+  heapData.forEach((v,i)=>{
+    const x=arrStartX+40+i*cellW;
+    const color=highlights.includes(i)||swapping.includes(i)?C.hi:C.a2;
+    svg.appendChild(rect(x,arrY-12,cellW-2,24,{fill:C.s2,stroke:color,'stroke-width':'1',rx:'3'}));
+    svg.appendChild(txt(x+cellW/2-1,arrY,String(v),{fill:color,'font-size':'12','font-family':'JetBrains Mono','font-weight':'700'}));
+  });
+}
+
+async function heapInsert() {
+  const v=parseInt(document.getElementById('heap-val').value)||0;
+  heapData.push(v);
+  const path=heapSiftUp([...heapData],heapData.length-1);
+  // re-run actual sift
+  heapSiftUp(heapData,heapData.length-1);
+  for(let i=0;i<path.length;i++){heapDraw([path[i]]);await delay(500);}
+  heapDraw(); setStatus('heap-status',`insert(${v}) → siftUp 완료. heap: [${heapData.join(',')}]. 루트(최솟값): ${heapData[0]}`);
+}
+async function heapRemove() {
+  if(!heapData.length) return;
+  const min=heapData[0];
+  heapData[0]=heapData[heapData.length-1]; heapData.pop();
+  const path=heapSiftDown([...heapData],0,heapData.length);
+  heapSiftDown(heapData,0,heapData.length);
+  for(let i=0;i<path.length;i++){heapDraw([],path.slice(i,i+2));await delay(500);}
+  heapDraw(); setStatus('heap-status',`remove() → ${min} 추출. siftDown 완료. heap: [${heapData.join(',')}]`);
+}
+function heapReset() { heapData=[1,3,2,7,5]; heapDraw(); setStatus('heap-status','초기 힙: [1, 3, 2, 7, 5]'); }
+
+// ─── CH8: GRAPH ──────────────────────────────────────────────────────────
+const GRAPH_NODES=[{id:'A',x:.5,y:.1},{id:'B',x:.2,y:.35},{id:'C',x:.78,y:.32},{id:'D',x:.1,y:.65},{id:'E',x:.42,y:.6},{id:'F',x:.72,y:.65},{id:'G',x:.3,y:.85}];
+const GRAPH_EDGES=[['A','B'],['A','C'],['B','D'],['B','E'],['C','E'],['C','F'],['D','G'],['E','G']];
+const GRAPH_ADJ={A:['B','C'],B:['A','D','E'],C:['A','E','F'],D:['B','G'],E:['B','C','G'],F:['C'],G:['D','E']};
+let graphAnimating=false;
+
+function graphDraw(visited=new Set(),current='',queue=[]) {
+  const svg=document.getElementById('graph-svg');
+  const W=svg.parentElement.clientWidth-56, H=280;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  svg.innerHTML='';
+  const pos={};
+  GRAPH_NODES.forEach(n=>{pos[n.id]={x:n.x*W,y:n.y*H*0.9+10};});
+
+  GRAPH_EDGES.forEach(([a,b])=>{
+    const p=pos[a],q=pos[b];
+    const isActive=visited.has(a)&&visited.has(b);
+    svg.appendChild(line(p.x,p.y,q.x,q.y,{stroke:isActive?C.a3:C.border,'stroke-width':isActive?'2':'1.5'}));
+  });
+  GRAPH_NODES.forEach(n=>{
+    const p=pos[n.id];
+    const isVisited=visited.has(n.id);
+    const isCurrent=n.id===current;
+    const isQueue=queue.includes(n.id);
+    const color=isCurrent?C.hi:isVisited?C.a3:isQueue?C.a2:C.text2;
+    const fill=isCurrent?C.hiLight:isVisited?'rgba(34,197,94,.15)':isQueue?'rgba(59,130,246,.15)':C.s2;
+    svg.appendChild(circle(p.x,p.y,20,{fill,stroke:color,'stroke-width':isCurrent?'3':'1.5'}));
+    svg.appendChild(txt(p.x,p.y,n.id,{fill:color,'font-size':'14','font-family':'JetBrains Mono','font-weight':'700'}));
+  });
+  const legend=[{c:C.hi,l:'현재'},{c:C.a3,l:'방문됨'},{c:C.a2,l:'큐/스택'}];
+  legend.forEach((l,i)=>{
+    svg.appendChild(circle(16,H-30+i*0,10,{fill:'none',stroke:l.c,'stroke-width':'2'}));
+    svg.appendChild(txt(16,H-30,'',{}));
+  });
+}
+
+async function graphBFS() {
+  if(graphAnimating) return; graphAnimating=true;
+  const visited=new Set(),queue=['A'],order=[];
+  graphDraw(visited,'A',queue);
+  setStatus('graph-status','BFS 시작: A');
+  await delay(500);
+  while(queue.length) {
+    const node=queue.shift(); if(visited.has(node)) continue;
+    visited.add(node); order.push(node);
+    const neighbors=(GRAPH_ADJ[node]||[]).filter(n=>!visited.has(n));
+    neighbors.forEach(n=>{if(!queue.includes(n))queue.push(n);});
+    graphDraw(visited,node,[...queue]);
+    setStatus('graph-status',`BFS: 방문 순서 [${order.join(' → ')}]  큐: [${queue.join(',')}]`);
+    await delay(700);
+  }
+  graphDraw(visited,'',[]); setStatus('graph-status',`BFS 완료: [${order.join(' → ')}]`);
+  graphAnimating=false;
+}
+async function graphDFS() {
+  if(graphAnimating) return; graphAnimating=true;
+  const visited=new Set(),stack=['A'],order=[];
+  while(stack.length) {
+    const node=stack.pop(); if(visited.has(node)) continue;
+    visited.add(node); order.push(node);
+    const neighbors=[...(GRAPH_ADJ[node]||[])].reverse().filter(n=>!visited.has(n));
+    neighbors.forEach(n=>stack.push(n));
+    graphDraw(visited,node,[...stack]);
+    setStatus('graph-status',`DFS: 방문 순서 [${order.join(' → ')}]  스택: [${stack.join(',')}]`);
+    await delay(700);
+  }
+  graphDraw(visited,'',[]); setStatus('graph-status',`DFS 완료: [${order.join(' → ')}]`);
+  graphAnimating=false;
+}
+function graphReset() { graphAnimating=false; graphDraw(new Set(),'',[]); setStatus('graph-status','BFS 또는 DFS를 선택하세요. 시작: 노드 A'); }
+
+// ─── CH9: HASH TABLE ─────────────────────────────────────────────────────
+const HT_CAP=8;
+let htBuckets=Array.from({length:HT_CAP},()=>[]);
+
+function htHash(key) {
+  let h=0;for(const c of key)h=(h*31+c.charCodeAt(0))%HT_CAP;
+  return Math.abs(h);
+}
+function htDraw(activeIdx=-1,searchKey='') {
+  const svg=document.getElementById('ht-svg');
+  const W=svg.parentElement.clientWidth-56, H=300;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  svg.innerHTML='';
+  const cellH=34, labelW=100, bucketStartX=labelW+10;
+
+  htBuckets.forEach((bucket,i)=>{
+    const y=10+i*cellH;
+    const isActive=i===activeIdx;
+    // index label
+    svg.appendChild(rect(10,y,labelW-10,cellH-2,{fill:isActive?C.hiLight:C.s2,stroke:isActive?C.hi:C.border,'stroke-width':isActive?'2':'1',rx:'4'}));
+    svg.appendChild(txt(10+labelW/2,y+cellH/2-1,`bucket[${i}]`,{fill:isActive?C.hi:C.text3,'font-size':'11','font-family':'JetBrains Mono'}));
+
+    // entries
+    bucket.forEach((entry,j)=>{
+      const x=bucketStartX+j*130;
+      const isSearch=entry.key===searchKey;
+      svg.appendChild(rect(x,y,124,cellH-2,{fill:isSearch?'rgba(34,197,94,.15)':C.s2,stroke:isSearch?C.a3:isActive&&j===bucket.length-1?C.accent:C.border,'stroke-width':'1',rx:'4'}));
+      svg.appendChild(txt(x+62,y+cellH/2-1,`"${entry.key}":${entry.val}`,{fill:isSearch?C.a3:C.text,'font-size':'11','font-family':'JetBrains Mono'}));
+      if(j<bucket.length-1){svg.appendChild(txt(x+128,y+cellH/2-1,'→',{fill:C.accent,'font-size':'11'}));}
+    });
+    if(!bucket.length){svg.appendChild(txt(bucketStartX+30,y+cellH/2-1,'[ ]',{fill:C.text3,'font-size':'11','font-family':'JetBrains Mono','text-anchor':'start'}));}
+  });
+  const loadFactor=(htBuckets.flat().length/HT_CAP).toFixed(2);
+  svg.appendChild(txt(W/2,H-8,`load factor: ${loadFactor}  (> 0.75 → resize 필요)`,{fill:parseFloat(loadFactor)>0.75?C.accent:C.text3,'font-size':'11','font-family':'JetBrains Mono'}));
+}
+function htInsert() {
+  const key=document.getElementById('ht-key').value||'key';
+  const val=parseInt(document.getElementById('ht-val').value)||0;
+  const idx=htHash(key);
+  const existing=htBuckets[idx].findIndex(e=>e.key===key);
+  if(existing>=0) htBuckets[idx][existing].val=val;
+  else htBuckets[idx].push({key,val});
+  htDraw(idx);
+  setStatus('ht-status',`insert("${key}", ${val}) → hash("${key}") % 8 = ${idx}  ${htBuckets[idx].length>1?'⚡ 충돌! 체이닝':'OK'}`);
+}
+function htSearch() {
+  const key=document.getElementById('ht-key').value||'key';
+  const idx=htHash(key);
+  const found=htBuckets[idx].find(e=>e.key===key);
+  htDraw(idx,key);
+  setStatus('ht-status',found?`search("${key}") → bucket[${idx}] 에서 발견! 값: ${found.val}`:`search("${key}") → bucket[${idx}] 탐색 → 없음`);
+}
+function htReset() { htBuckets=Array.from({length:HT_CAP},()=>[]); htDraw(); setStatus('ht-status','키를 입력하고 insert를 눌러보세요.'); }
+
+// ─── CH10: TRIE ──────────────────────────────────────────────────────────
+class TrieNodeV { constructor(){this.c={};this.end=false;} }
+class TrieV {
+  constructor(){this.root=new TrieNodeV();}
+  insert(word){let n=this.root;for(const c of word){if(!n.c[c])n.c[c]=new TrieNodeV();n=n.c[c];}n.end=true;}
+  pathTo(prefix){let n=this.root,path=[{n,c:''}];for(const c of prefix){if(!n.c[c])return null;n=n.c[c];path.push({n,c});}return{node:n,path};}
+  collect(node,prefix,res=[]){if(node.end)res.push(prefix);for(const[c,child]of Object.entries(node.c))this.collect(child,prefix+c,res);return res;}
+}
+const trieInstance=new TrieV();
+['app','apple','apply','apt','application'].forEach(w=>trieInstance.insert(w));
+
+function trieLayout(node,x,y,spread,label='',depth=0) {
+  const nodes=[{n:node,x,y,label,depth}];
+  const children=Object.entries(node.c);
+  const childSpread=Math.max(spread/(children.length||1),30);
+  children.forEach(([c,child],i)=>{
+    const cx=x+(i-(children.length-1)/2)*childSpread*Math.pow(0.8,depth);
+    nodes.push(...trieLayout(child,cx,y+55,childSpread,c,depth+1));
+  });
+  return nodes;
+}
+function trieEdges(node,x,y,spread,depth=0) {
+  const edges=[];
+  const children=Object.entries(node.c);
+  const childSpread=Math.max(spread/(children.length||1),30);
+  children.forEach(([c,child],i)=>{
+    const cx=x+(i-(children.length-1)/2)*childSpread*Math.pow(0.8,depth);
+    edges.push({x1:x,y1:y,x2:cx,y2:y+55,label:c});
+    edges.push(...trieEdges(child,cx,y+55,childSpread,depth+1));
+  });
+  return edges;
+}
+
+let trieHighlightPath=[];
+
+function trieDraw() {
+  const svg=document.getElementById('trie-svg');
+  const W=svg.parentElement.clientWidth-56, H=340;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  svg.innerHTML='';
+  const cx=W/2;
+  const nodes=trieLayout(trieInstance.root,cx,30,220);
+  const edges=trieEdges(trieInstance.root,cx,30,220);
+  const nodeMap={};
+  nodes.forEach(nd=>nodeMap[`${nd.x.toFixed(0)},${nd.y}`]=nd);
+
+  edges.forEach(e=>{
+    svg.appendChild(line(e.x1,e.y1,e.x2,e.y2,{stroke:C.border,'stroke-width':'1.5'}));
+    svg.appendChild(txt((e.x1+e.x2)/2-6,(e.y1+e.y2)/2,e.label,{fill:C.a4,'font-size':'13','font-family':'JetBrains Mono','font-weight':'700'}));
+  });
+
+  nodes.forEach(nd=>{
+    const isHi=trieHighlightPath.some(p=>Math.abs(p.x-nd.x)<3&&Math.abs(p.y-nd.y)<3);
+    svg.appendChild(circle(nd.x,nd.y,nd.depth===0?18:16,{fill:isHi?C.hiLight:C.s2,stroke:isHi?C.hi:nd.n.end?C.a3:C.a2,'stroke-width':isHi?'2.5':nd.n.end?'2':'1.5'}));
+    if(nd.depth===0) svg.appendChild(txt(nd.x,nd.y,'root',{fill:C.text3,'font-size':'9','font-family':'JetBrains Mono'}));
+    if(nd.n.end) svg.appendChild(txt(nd.x,nd.y+28,'✓',{fill:C.a3,'font-size':'12'}));
+  });
+}
+
+function trieInsert() {
+  const w=document.getElementById('trie-word').value.toLowerCase().trim();
+  if(!w) return;
+  trieHighlightPath=[];
+  trieInstance.insert(w); trieDraw();
+  setStatus('trie-status',`insert("${w}") → O(${w.length})  단어 끝 노드에 ✓ 표시`);
+}
+async function trieSearch() {
+  const prefix=document.getElementById('trie-word').value.toLowerCase().trim();
+  const result=trieInstance.pathTo(prefix);
+  if(!result){setStatus('trie-status',`autocomplete("${prefix}") → 해당 접두어 없음`);return;}
+  const nodes=trieLayout(trieInstance.root,document.getElementById('trie-svg').parentElement.clientWidth/2,30,220);
+  // animate path
+  trieHighlightPath=[];
+  const pathNodes=result.path;
+  for(let i=0;i<pathNodes.length;i++) {
+    const allNodes=trieLayout(trieInstance.root,document.getElementById('trie-svg').parentElement.clientWidth/2,30,220);
+    // find node position by traversal
+    let cur=trieInstance.root,pos=allNodes.find(n=>n.depth===0);
+    const highlights=[pos];
+    for(let j=1;j<pathNodes.length&&j<=i;j++){
+      const ch=pathNodes[j].c;
+      if(!cur.c[ch])break;
+      cur=cur.c[ch];
+      // find matching node
+      const candidates=allNodes.filter(n=>n.label===ch);
+      if(candidates.length) highlights.push(candidates[0]);
+    }
+    trieHighlightPath=highlights; trieDraw();
+    await delay(400);
+  }
+  const words=trieInstance.collect(result.node,prefix);
+  setStatus('trie-status',`autocomplete("${prefix}") → [${words.join(', ')}]  (O(${prefix.length}) 탐색)`);
+}
+function trieReset() { trieHighlightPath=[]; trieDraw(); setStatus('trie-status','초기 단어: app, apple, apply, apt, application'); }
+
+// ─── INIT ──────────────────────────────────────────────────────────────
+window.addEventListener('load', ()=>{
+  arrDraw(); llDraw(); stackDraw(); queueDraw(); dqDraw();
+  treeDrawBase([]); bstDraw(); heapDraw(); graphDraw(); htDraw(); trieDraw();
+});
+window.addEventListener('resize', ()=>{
+  arrDraw(); llDraw(); queueDraw(); dqDraw(); treeDrawBase([]); bstDraw(); heapDraw(); graphDraw(); htDraw(); trieDraw();
+});
+</script>
+</body>
+</html>
