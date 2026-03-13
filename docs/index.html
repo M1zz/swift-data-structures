@@ -248,28 +248,328 @@
     background: var(--border);
     margin: 28px 0;
   }
+
+  /* HOME PAGE */
+  .home-hero {
+    padding: 48px 0 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .home-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-family: 'JetBrains Mono';
+    color: var(--accent);
+    background: rgba(240,90,40,.12);
+    border: 1px solid rgba(240,90,40,.3);
+    border-radius: 4px;
+    padding: 3px 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .home-title {
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .home-title span { color: var(--accent); }
+  .home-desc {
+    font-size: 16px;
+    color: var(--text2);
+    line-height: 1.7;
+    max-width: 600px;
+  }
+
+  .home-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .home-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .home-card-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+  .home-card-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .home-card-desc {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+
+  .flow-section { margin-bottom: 40px; }
+  .flow-section-title {
+    font-size: 11px;
+    font-family: 'JetBrains Mono';
+    color: var(--accent);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .flow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .flow-step {
+    display: flex;
+    gap: 20px;
+    position: relative;
+  }
+  .flow-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 40px;
+    width: 2px;
+    height: calc(100% - 8px);
+    background: var(--border);
+  }
+  .flow-step-num {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    font-family: 'JetBrains Mono';
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+  .flow-step-body {
+    padding: 8px 0 32px;
+  }
+  .flow-step-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .flow-step-desc {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+  .flow-step-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-family: 'JetBrains Mono';
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    color: var(--text2);
+    margin-top: 8px;
+    margin-right: 4px;
+  }
+
+  .chapter-list-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .chapter-list-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    cursor: pointer;
+    transition: border-color .2s;
+  }
+  .chapter-list-item:hover { border-color: var(--accent); }
+  .chapter-list-num {
+    font-size: 11px;
+    font-family: 'JetBrains Mono';
+    color: var(--text3);
+    min-width: 24px;
+    padding-top: 2px;
+  }
+  .chapter-list-name {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .chapter-list-key {
+    font-size: 12px;
+    color: var(--text2);
+  }
 </style>
 </head>
 <body>
 
 <nav class="sidebar">
   <div class="sidebar-title">Swift 자료구조</div>
-  <div class="sidebar-item active" onclick="showChapter(0)"><span class="ch-num">01</span> Array & ContiguousArray</div>
-  <div class="sidebar-item" onclick="showChapter(1)"><span class="ch-num">02</span> Linked List</div>
-  <div class="sidebar-item" onclick="showChapter(2)"><span class="ch-num">03</span> Stack / Queue</div>
-  <div class="sidebar-item" onclick="showChapter(3)"><span class="ch-num">04</span> Deque</div>
-  <div class="sidebar-item" onclick="showChapter(4)"><span class="ch-num">05</span> Binary Tree</div>
-  <div class="sidebar-item" onclick="showChapter(5)"><span class="ch-num">06</span> BST</div>
-  <div class="sidebar-item" onclick="showChapter(6)"><span class="ch-num">07</span> Heap / Priority Queue</div>
-  <div class="sidebar-item" onclick="showChapter(7)"><span class="ch-num">08</span> Graph</div>
-  <div class="sidebar-item" onclick="showChapter(8)"><span class="ch-num">09</span> Hash Table</div>
-  <div class="sidebar-item" onclick="showChapter(9)"><span class="ch-num">10</span> Trie</div>
+  <div class="sidebar-item active" onclick="showChapter(0)"><span class="ch-num">—</span> 시작하기</div>
+  <div class="sidebar-item" onclick="showChapter(1)"><span class="ch-num">01</span> Array & ContiguousArray</div>
+  <div class="sidebar-item" onclick="showChapter(2)"><span class="ch-num">02</span> Linked List</div>
+  <div class="sidebar-item" onclick="showChapter(3)"><span class="ch-num">03</span> Stack / Queue</div>
+  <div class="sidebar-item" onclick="showChapter(4)"><span class="ch-num">04</span> Deque</div>
+  <div class="sidebar-item" onclick="showChapter(5)"><span class="ch-num">05</span> Binary Tree</div>
+  <div class="sidebar-item" onclick="showChapter(6)"><span class="ch-num">06</span> BST</div>
+  <div class="sidebar-item" onclick="showChapter(7)"><span class="ch-num">07</span> Heap / Priority Queue</div>
+  <div class="sidebar-item" onclick="showChapter(8)"><span class="ch-num">08</span> Graph</div>
+  <div class="sidebar-item" onclick="showChapter(9)"><span class="ch-num">09</span> Hash Table</div>
+  <div class="sidebar-item" onclick="showChapter(10)"><span class="ch-num">10</span> Trie</div>
 </nav>
 
 <main class="main">
 
+<!-- ===================== HOME ===================== -->
+<div class="chapter active" id="ch-home">
+
+  <div class="home-hero">
+    <div class="home-badge">개발자리 · Swift 교육 콘텐츠</div>
+    <h1 class="home-title">Swift로 배우는<br><span>자료구조</span></h1>
+    <p class="home-desc">
+      컴공과 필수 자료구조 10개를 Swift 코드와 인터랙티브 시각화로 학습합니다.<br>
+      버튼을 눌러 삽입·삭제·탐색이 실제로 어떻게 동작하는지 직접 확인하세요.
+    </p>
+  </div>
+
+  <div class="home-cards">
+    <div class="home-card">
+      <div class="home-card-icon">📖</div>
+      <div class="home-card-title">교안</div>
+      <div class="home-card-desc">각 챕터의 개념 설명, Swift 구현 코드, 시간복잡도 분석이 담긴 학습 문서</div>
+    </div>
+    <div class="home-card">
+      <div class="home-card-icon">🎬</div>
+      <div class="home-card-title">인터랙티브 시각화</div>
+      <div class="home-card-desc">이 페이지. 버튼 클릭으로 자료구조의 동작 원리를 애니메이션으로 확인</div>
+    </div>
+    <div class="home-card">
+      <div class="home-card-icon">⌨️</div>
+      <div class="home-card-title">Playground 실습</div>
+      <div class="home-card-desc">Swift Playgrounds 앱에서 직접 코드를 작성하고 실행하며 구현 연습</div>
+    </div>
+  </div>
+
+  <div class="flow-section">
+    <div class="flow-section-title">실습 진행 순서</div>
+    <div class="flow-steps">
+
+      <div class="flow-step">
+        <div class="flow-step-num">1</div>
+        <div class="flow-step-body">
+          <div class="flow-step-title">교안으로 개념 학습</div>
+          <div class="flow-step-desc">
+            제공된 <strong>Swift_자료구조_교안.docx</strong>를 열어 해당 챕터의 개념과 Swift 구현 코드를 읽습니다.<br>
+            Big-O 복잡도, 핵심 동작 원리, 실제 사용 사례를 파악합니다.
+          </div>
+          <span class="flow-step-tag">Swift_자료구조_교안.docx</span>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-num">2</div>
+        <div class="flow-step-body">
+          <div class="flow-step-title">시각화로 동작 확인</div>
+          <div class="flow-step-desc">
+            왼쪽 사이드바에서 챕터를 선택해 인터랙티브 시각화를 실행합니다.<br>
+            버튼을 눌러 삽입·삭제·탐색이 메모리/트리/그래프 위에서 어떻게 동작하는지 직접 관찰합니다.
+          </div>
+          <span class="flow-step-tag">이 페이지</span>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-num">3</div>
+        <div class="flow-step-body">
+          <div class="flow-step-title">Playground에서 코드 직접 작성</div>
+          <div class="flow-step-desc">
+            <strong>DataStructures.playgroundbook</strong>를 Swift Playgrounds 앱으로 열고 해당 챕터 페이지로 이동합니다.<br>
+            교안을 참고하며 핵심 메서드를 직접 구현하고 실행해봅니다.
+          </div>
+          <span class="flow-step-tag">DataStructures.playgroundbook</span>
+          <span class="flow-step-tag">Swift Playgrounds 앱 필요</span>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-num">4</div>
+        <div class="flow-step-body">
+          <div class="flow-step-title">교안으로 복습 · 다음 챕터로</div>
+          <div class="flow-step-desc">
+            구현 후 교안을 다시 읽으며 놓친 부분을 확인합니다.<br>
+            아래 챕터 목록에서 다음 챕터를 선택해 1번부터 반복합니다.
+          </div>
+          <span class="flow-step-tag">Ch01 → Ch02 → … → Ch10</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="flow-section">
+    <div class="flow-section-title">챕터 목록</div>
+    <div class="chapter-list-grid">
+      <div class="chapter-list-item" onclick="showChapter(1)">
+        <div class="chapter-list-num">01</div>
+        <div><div class="chapter-list-name">Array & ContiguousArray</div><div class="chapter-list-key">CoW · 메모리 레이아웃</div></div>
+      </div>
+      <div class="chapter-list-item" onclick="showChapter(2)">
+        <div class="chapter-list-num">02</div>
+        <div><div class="chapter-list-name">Linked List</div><div class="chapter-list-key">노드 구조 · O(1) 삽입/삭제</div></div>
+      </div>
+      <div class="chapter-list-item" onclick="showChapter(3)">
+        <div class="chapter-list-num">03</div>
+        <div><div class="chapter-list-name">Stack / Queue</div><div class="chapter-list-key">LIFO · FIFO · 이중 Stack</div></div>
+      </div>
+      <div class="chapter-list-item" onclick="showChapter(4)">
+        <div class="chapter-list-num">04</div>
+        <div><div class="chapter-list-name">Deque</div><div class="chapter-list-key">링 버퍼 · 양방향 O(1)</div></div>
+      </div>
+      <div class="chapter-list-item" onclick="showChapter(5)">
+        <div class="chapter-list-num">05</div>
+        <div><div class="chapter-list-name">Binary Tree</div><div class="chapter-list-key">전위 · 중위 · 후위 · BFS</div></div>
+      </div>
+      <div class="chapter-list-item" onclick="showChapter(6)">
+        <div class="chapter-list-num">06</div>
+        <div><div class="chapter-list-name">Binary Search Tree</div><div class="chapter-list-key">삽입 · 삭제 · 탐색</div></div>
+      </div>
+      <div class="chapter-list-item" onclick="showChapter(7)">
+        <div class="chapter-list-num">07</div>
+        <div><div class="chapter-list-name">Heap / Priority Queue</div><div class="chapter-list-key">siftUp · siftDown</div></div>
+      </div>
+      <div class="chapter-list-item" onclick="showChapter(8)">
+        <div class="chapter-list-num">08</div>
+        <div><div class="chapter-list-name">Graph</div><div class="chapter-list-key">BFS · DFS · 인접리스트</div></div>
+      </div>
+      <div class="chapter-list-item" onclick="showChapter(9)">
+        <div class="chapter-list-num">09</div>
+        <div><div class="chapter-list-name">Hash Table</div><div class="chapter-list-key">충돌 해결 · Chaining</div></div>
+      </div>
+      <div class="chapter-list-item" onclick="showChapter(10)">
+        <div class="chapter-list-num">10</div>
+        <div><div class="chapter-list-name">Trie</div><div class="chapter-list-key">자동완성 · O(m) 탐색</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 <!-- ===================== CH1: ARRAY ===================== -->
-<div class="chapter active" id="ch-0">
+<div class="chapter" id="ch-0">
   <div class="chapter-header">
     <div class="chapter-tag">Chapter 01</div>
     <h1 class="chapter-title">Array vs ContiguousArray</h1>
