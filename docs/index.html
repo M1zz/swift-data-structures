@@ -662,6 +662,39 @@
     box-shadow: none;
   }
 
+  /* PLAYGROUND BANNER */
+  .playground-banner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 24px;
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.5;
+    transition: border-color .2s;
+  }
+  .playground-banner:hover { border-color: var(--accent4); }
+  .playground-banner-icon { font-size: 24px; min-width: 32px; text-align: center; }
+  .playground-banner strong { color: var(--text); }
+  .playground-banner a {
+    color: var(--accent4);
+    text-decoration: none;
+    font-family: 'JetBrains Mono';
+    font-size: 12px;
+    font-weight: 700;
+    margin-left: auto;
+    white-space: nowrap;
+    padding: 6px 14px;
+    border: 1px solid var(--accent4);
+    border-radius: 6px;
+    transition: all .15s;
+  }
+  .playground-banner a:hover { background: var(--accent4); color: #fff; }
+
   /* CONCEPT + GUIDE */
   .info-row {
     display: grid;
@@ -1104,6 +1137,12 @@ heap.<span class="hl">removeMin</span>()</pre>
     <p class="chapter-subtitle">CoW(Copy-on-Write) 동작과 메모리 레이아웃의 차이를 시각적으로 확인합니다.</p>
   </div>
 
+  <div class="playground-banner">
+    <span class="playground-banner-icon">⌨️</span>
+    <span>시각화로 개념을 확인한 뒤, <strong>Ch01_Array</strong> Playground에서 직접 CoW와 성능 비교를 코딩해보세요.</span>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
+  </div>
+
   <div class="info-row">
     <div class="info-box">
       <div class="info-box-label concept">개념</div>
@@ -1154,6 +1193,12 @@ heap.<span class="hl">removeMin</span>()</pre>
     <p class="chapter-subtitle">노드가 포인터로 연결되는 구조. prepend/removeFirst는 O(1), 인덱스 접근은 O(n).</p>
   </div>
 
+  <div class="playground-banner">
+    <span class="playground-banner-icon">⌨️</span>
+    <span>시각화로 개념을 확인한 뒤, <strong>Ch02_LinkedList</strong> Playground에서 Node 클래스와 LinkedList를 직접 구현해보세요.</span>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
+  </div>
+
   <div class="info-row">
     <div class="info-box">
       <div class="info-box-label concept">개념</div>
@@ -1191,6 +1236,12 @@ heap.<span class="hl">removeMin</span>()</pre>
     <div class="chapter-tag">Chapter 03</div>
     <h1 class="chapter-title">Stack / Queue</h1>
     <p class="chapter-subtitle">Stack은 LIFO, Queue는 FIFO. 이중 Stack으로 Queue를 amortized O(1)로 구현합니다.</p>
+  </div>
+
+  <div class="playground-banner">
+    <span class="playground-banner-icon">⌨️</span>
+    <span>시각화로 개념을 확인한 뒤, <strong>Ch03_Stack</strong> Playground에서 Stack과 이중 Stack Queue를 직접 구현해보세요.</span>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
   </div>
 
   <div class="info-row">
@@ -1241,6 +1292,12 @@ heap.<span class="hl">removeMin</span>()</pre>
     <p class="chapter-subtitle">링 버퍼(Ring Buffer) 기반 양방향 큐. 앞/뒤 모두 O(1) 삽입/삭제.</p>
   </div>
 
+  <div class="playground-banner">
+    <span class="playground-banner-icon">⌨️</span>
+    <span>시각화로 개념을 확인한 뒤, <strong>Ch04_Deque</strong> Playground에서 링 버퍼 기반 Deque를 직접 구현해보세요.</span>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
+  </div>
+
   <div class="info-row">
     <div class="info-box">
       <div class="info-box-label concept">개념</div>
@@ -1279,6 +1336,12 @@ heap.<span class="hl">removeMin</span>()</pre>
     <div class="chapter-tag">Chapter 05</div>
     <h1 class="chapter-title">Binary Tree</h1>
     <p class="chapter-subtitle">전위/중위/후위 순회를 애니메이션으로 확인합니다. 방문 순서가 핵심입니다.</p>
+  </div>
+
+  <div class="playground-banner">
+    <span class="playground-banner-icon">⌨️</span>
+    <span>시각화로 개념을 확인한 뒤, <strong>Ch05_BinaryTree</strong> Playground에서 재귀 순회를 직접 구현해보세요.</span>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
   </div>
 
   <div class="info-row">
@@ -1322,6 +1385,12 @@ heap.<span class="hl">removeMin</span>()</pre>
     <p class="chapter-subtitle">삽입 시 불변 조건(왼쪽 < 루트 < 오른쪽)을 유지하며 트리가 자라는 과정을 봅니다.</p>
   </div>
 
+  <div class="playground-banner">
+    <span class="playground-banner-icon">⌨️</span>
+    <span>시각화로 개념을 확인한 뒤, <strong>Ch06_BST</strong> Playground에서 삽입·탐색 로직을 직접 구현해보세요.</span>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
+  </div>
+
   <div class="info-row">
     <div class="info-box">
       <div class="info-box-label concept">개념</div>
@@ -1357,6 +1426,12 @@ heap.<span class="hl">removeMin</span>()</pre>
     <div class="chapter-tag">Chapter 07</div>
     <h1 class="chapter-title">Heap / Priority Queue</h1>
     <p class="chapter-subtitle">Min-Heap: 루트가 항상 최솟값. siftUp/siftDown 과정을 시각화합니다.</p>
+  </div>
+
+  <div class="playground-banner">
+    <span class="playground-banner-icon">⌨️</span>
+    <span>시각화로 개념을 확인한 뒤, <strong>Ch07_Heap</strong> Playground에서 siftUp/siftDown을 직접 구현해보세요.</span>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
   </div>
 
   <div class="info-row">
@@ -1398,6 +1473,12 @@ heap.<span class="hl">removeMin</span>()</pre>
     <p class="chapter-subtitle">BFS와 DFS 탐색 경로를 애니메이션으로 비교합니다.</p>
   </div>
 
+  <div class="playground-banner">
+    <span class="playground-banner-icon">⌨️</span>
+    <span>시각화로 개념을 확인한 뒤, <strong>Ch08_Graph</strong> Playground에서 BFS·DFS를 직접 구현해보세요.</span>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
+  </div>
+
   <div class="info-row">
     <div class="info-box">
       <div class="info-box-label concept">개념</div>
@@ -1433,6 +1514,12 @@ heap.<span class="hl">removeMin</span>()</pre>
     <div class="chapter-tag">Chapter 09</div>
     <h1 class="chapter-title">Hash Table</h1>
     <p class="chapter-subtitle">해시 충돌과 Separate Chaining을 직접 관찰합니다.</p>
+  </div>
+
+  <div class="playground-banner">
+    <span class="playground-banner-icon">⌨️</span>
+    <span>시각화로 개념을 확인한 뒤, <strong>Ch09_HashTable</strong> Playground에서 해시 함수와 충돌 해결을 직접 구현해보세요.</span>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
   </div>
 
   <div class="info-row">
@@ -1471,6 +1558,12 @@ heap.<span class="hl">removeMin</span>()</pre>
     <div class="chapter-tag">Chapter 10</div>
     <h1 class="chapter-title">Trie</h1>
     <p class="chapter-subtitle">자동완성 탐색 경로가 트리 위에서 빛나며 강조됩니다.</p>
+  </div>
+
+  <div class="playground-banner">
+    <span class="playground-banner-icon">⌨️</span>
+    <span>시각화로 개념을 확인한 뒤, <strong>Ch10_Trie</strong> Playground에서 자동완성 로직을 직접 구현해보세요.</span>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
   </div>
 
   <div class="info-row">
