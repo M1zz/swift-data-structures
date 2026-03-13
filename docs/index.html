@@ -8,11 +8,50 @@
 <meta property="og:title" content="Swift로 배우는 자료구조 — 인터랙티브 시각화">
 <meta property="og:description" content="10개 자료구조의 동작 원리를 애니메이션으로 확인하세요.">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#0a0e1a">
+<meta name="theme-color" content="#f5f7fa">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Pretendard:wght@300;400;600;800&display=swap');
 
   :root {
+    --bg: #f5f7fa;
+    --surface: #ffffff;
+    --surface2: #f0f2f5;
+    --border: #d1d5db;
+    --accent: #e04a1c;
+    --accent2: #2563eb;
+    --accent3: #16a34a;
+    --accent4: #7c3aed;
+    --text: #1e293b;
+    --text2: #475569;
+    --text3: #94a3b8;
+    --node-r: 26px;
+
+    --code-kw: #7c3aed;
+    --code-fn: #2563eb;
+    --code-cm: #94a3b8;
+    --code-str: #16a34a;
+    --code-num: #e04a1c;
+    --code-hl: #b45309;
+    --badge-bg: rgba(224,74,28,.08);
+    --badge-border: rgba(224,74,28,.25);
+    --sidebar-active-bg: rgba(224,74,28,.06);
+    --result-bad-bg: rgba(239,68,68,.06);
+    --result-bad-border: rgba(239,68,68,.18);
+    --result-bad-text: #b91c1c;
+    --result-good-bg: rgba(22,163,74,.06);
+    --result-good-border: rgba(22,163,74,.18);
+    --result-good-text: #166534;
+    --status-bg: rgba(22,163,74,.06);
+    --kw-bg: rgba(37,99,235,.08);
+    --hi-color: #b45309;
+    --hi-light: rgba(180,83,9,.12);
+    --accent-rgba-08: rgba(224,74,28,.06);
+    --accent3-rgba-08: rgba(22,163,74,.06);
+    --accent2-rgba-12: rgba(37,99,235,.08);
+    --big-o-bad: #dc2626;
+  }
+
+  html.dark {
     --bg: #0a0e1a;
     --surface: #111827;
     --surface2: #1a2236;
@@ -24,7 +63,30 @@
     --text: #e2e8f0;
     --text2: #94a3b8;
     --text3: #475569;
-    --node-r: 26px;
+
+    --code-kw: #c084fc;
+    --code-fn: #3b82f6;
+    --code-cm: #475569;
+    --code-str: #22c55e;
+    --code-num: #f05a28;
+    --code-hl: #facc15;
+    --badge-bg: rgba(240,90,40,.12);
+    --badge-border: rgba(240,90,40,.3);
+    --sidebar-active-bg: rgba(240,90,40,.08);
+    --result-bad-bg: rgba(239,68,68,.08);
+    --result-bad-border: rgba(239,68,68,.2);
+    --result-bad-text: #fca5a5;
+    --result-good-bg: rgba(34,197,94,.08);
+    --result-good-border: rgba(34,197,94,.2);
+    --result-good-text: #86efac;
+    --status-bg: rgba(34,197,94,.08);
+    --kw-bg: rgba(59,130,246,.12);
+    --hi-color: #fbbf24;
+    --hi-light: rgba(251,191,36,.18);
+    --accent-rgba-08: rgba(240,90,40,.08);
+    --accent3-rgba-08: rgba(34,197,94,.08);
+    --accent2-rgba-12: rgba(59,130,246,.12);
+    --big-o-bad: #ef4444;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -76,7 +138,7 @@
     border-left: 3px solid transparent;
   }
   .sidebar-item:hover { color: var(--text); background: var(--surface2); }
-  .sidebar-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(240,90,40,.08); }
+  .sidebar-item.active { color: var(--accent); border-left-color: var(--accent); background: var(--sidebar-active-bg); }
   .sidebar-item .ch-num { font-size: 10px; font-family: 'JetBrains Mono'; color: var(--text3); min-width: 24px; }
 
   /* MAIN */
@@ -208,7 +270,7 @@
     min-height: 20px;
     margin-top: 8px;
     padding: 6px 10px;
-    background: rgba(34,197,94,.08);
+    background: var(--status-bg);
     border-radius: 4px;
     border-left: 3px solid var(--accent3);
   }
@@ -241,7 +303,7 @@
   .complexity-cell.header { background: var(--surface2); font-weight: 700; color: var(--text2); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
   .complexity-cell .big-o { font-family: 'JetBrains Mono'; color: var(--accent3); font-weight: 700; }
   .complexity-cell .big-o.warn { color: var(--accent); }
-  .complexity-cell .big-o.bad { color: #ef4444; }
+  .complexity-cell .big-o.bad { color: var(--big-o-bad); }
 
   .section-divider {
     height: 1px;
@@ -260,8 +322,8 @@
     font-size: 11px;
     font-family: 'JetBrains Mono';
     color: var(--accent);
-    background: rgba(240,90,40,.12);
-    border: 1px solid rgba(240,90,40,.3);
+    background: var(--badge-bg);
+    border: 1px solid var(--badge-border);
     border-radius: 4px;
     padding: 3px 10px;
     letter-spacing: .12em;
@@ -414,6 +476,192 @@
     color: var(--text2);
   }
 
+  /* MOTIVATION SECTION */
+  .motivation-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .motivation-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #ef4444, var(--accent), transparent);
+  }
+  .motivation-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+  .motivation-subtitle {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .code-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .code-block {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+  }
+  .code-block-label {
+    font-size: 10px;
+    font-family: 'JetBrains Mono';
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .code-block-label.slow { color: var(--big-o-bad); }
+  .code-block-label.fast { color: var(--accent3); }
+  .code-block pre {
+    font-family: 'JetBrains Mono';
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--text2);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .code-block pre .kw { color: var(--code-kw); }
+  .code-block pre .fn { color: var(--code-fn); }
+  .code-block pre .cm { color: var(--code-cm); }
+  .code-block pre .str { color: var(--code-str); }
+  .code-block pre .num { color: var(--code-num); }
+  .code-block pre .hl { color: var(--code-hl); font-weight: 700; }
+
+  .result-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: 'JetBrains Mono';
+    line-height: 1.6;
+  }
+  .result-banner.bad {
+    background: var(--result-bad-bg);
+    border: 1px solid var(--result-bad-border);
+    color: var(--result-bad-text);
+  }
+  .result-banner.good {
+    background: var(--result-good-bg);
+    border: 1px solid var(--result-good-border);
+    color: var(--result-good-text);
+  }
+  .result-icon { font-size: 20px; }
+
+  /* USE-CASE GRID */
+  .usecase-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .usecase-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    transition: border-color .2s;
+    cursor: pointer;
+  }
+  .usecase-card:hover { border-color: var(--accent); }
+  .usecase-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .usecase-ds {
+    font-family: 'JetBrains Mono';
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent2);
+    background: var(--accent2-rgba-12);
+    border-radius: 4px;
+    padding: 2px 8px;
+  }
+  .usecase-chapter {
+    font-size: 10px;
+    font-family: 'JetBrains Mono';
+    color: var(--text3);
+  }
+  .usecase-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .usecase-desc {
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+  .usecase-example {
+    font-family: 'JetBrains Mono';
+    font-size: 11px;
+    color: var(--accent3);
+    background: var(--accent3-rgba-08);
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin-top: 8px;
+    display: inline-block;
+  }
+
+  .section-intro {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  /* THEME TOGGLE */
+  .theme-toggle {
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+    transition: all .2s;
+  }
+  .theme-toggle:hover { color: var(--text); background: var(--surface2); }
+  .theme-toggle-icon { font-size: 16px; min-width: 24px; text-align: center; }
+
+  /* Light-mode shadow for cards */
+  :root .viz-card,
+  :root .info-box,
+  :root .motivation-card,
+  :root .usecase-card,
+  :root .home-card {
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  }
+  html.dark .viz-card,
+  html.dark .info-box,
+  html.dark .motivation-card,
+  html.dark .usecase-card,
+  html.dark .home-card {
+    box-shadow: none;
+  }
+
   /* CONCEPT + GUIDE */
   .info-row {
     display: grid;
@@ -459,7 +707,7 @@
     display: inline-block;
     font-family: 'JetBrains Mono';
     font-size: 11px;
-    background: rgba(59,130,246,.12);
+    background: var(--accent2-rgba-12);
     color: var(--accent2);
     border-radius: 3px;
     padding: 1px 6px;
@@ -481,6 +729,10 @@
   <div class="sidebar-item" onclick="showChapter(8)"><span class="ch-num">08</span> Graph</div>
   <div class="sidebar-item" onclick="showChapter(9)"><span class="ch-num">09</span> Hash Table</div>
   <div class="sidebar-item" onclick="showChapter(10)"><span class="ch-num">10</span> Trie</div>
+  <div class="theme-toggle" onclick="toggleTheme()">
+    <span class="theme-toggle-icon" id="theme-icon">🌙</span>
+    <span id="theme-label">다크 모드</span>
+  </div>
 </nav>
 
 <main class="main">
@@ -492,8 +744,8 @@
     <div class="home-badge">개발자리 · Swift 교육 콘텐츠</div>
     <h1 class="home-title">Swift로 배우는<br><span>자료구조</span></h1>
     <p class="home-desc">
-      컴공과 필수 자료구조 10개를 Swift 코드와 인터랙티브 시각화로 학습합니다.<br>
-      버튼을 눌러 삽입·삭제·탐색이 실제로 어떻게 동작하는지 직접 확인하세요.
+      "왜 이렇게 느려?" — 자료구조 하나 바꿨을 뿐인데 100배 빨라지는 경험.<br>
+      10개 핵심 자료구조의 동작 원리를 시각화로 이해하고, Playground에서 직접 구현합니다.
     </p>
   </div>
 
@@ -507,6 +759,250 @@
       <div class="home-card-icon">⌨️</div>
       <div class="home-card-title">Playground 실습</div>
       <div class="home-card-desc">Swift Playgrounds 앱에서 직접 코드를 작성하고 실행하며 구현 연습</div>
+    </div>
+    <div class="home-card">
+      <div class="home-card-icon">🛠</div>
+      <div class="home-card-title">실무 사용처</div>
+      <div class="home-card-desc">각 자료구조가 실제 iOS 앱에서 어디에 쓰이는지 구체적인 예시로 확인</div>
+    </div>
+  </div>
+
+  <!-- WHY IS IT SO SLOW? -->
+  <div class="flow-section">
+    <div class="flow-section-title">"왜 이렇게 느려?"</div>
+    <div class="motivation-card">
+      <div class="motivation-title">같은 기능인데 100배 느린 코드가 있다</div>
+      <div class="motivation-subtitle">
+        유저 10만 명의 닉네임에서 중복을 찾는 코드입니다. 왼쪽은 Array, 오른쪽은 Set을 사용했습니다.<br>
+        기능은 동일합니다. 하지만 걸리는 시간은 전혀 다릅니다.
+      </div>
+      <div class="code-compare">
+        <div class="code-block">
+          <div class="code-block-label slow">Array — O(n²)</div>
+          <pre><span class="kw">var</span> seen: [<span class="fn">String</span>] = []
+<span class="kw">var</span> duplicates: [<span class="fn">String</span>] = []
+
+<span class="kw">for</span> name <span class="kw">in</span> allUsers {
+  <span class="kw">if</span> seen.<span class="hl">contains</span>(name) { <span class="cm">// O(n) 매번!</span>
+    duplicates.append(name)
+  }
+  seen.append(name)
+}</pre>
+        </div>
+        <div class="code-block">
+          <div class="code-block-label fast">Set (HashTable) — O(n)</div>
+          <pre><span class="kw">var</span> seen: <span class="fn">Set</span>&lt;<span class="fn">String</span>&gt; = []
+<span class="kw">var</span> duplicates: [<span class="fn">String</span>] = []
+
+<span class="kw">for</span> name <span class="kw">in</span> allUsers {
+  <span class="kw">if</span> !seen.<span class="hl">insert</span>(name).inserted { <span class="cm">// O(1)!</span>
+    duplicates.append(name)
+  }
+}</pre>
+        </div>
+      </div>
+      <div class="result-banner bad" style="margin-bottom:8px">
+        <span class="result-icon">!</span>
+        <span>Array: contains()가 매번 처음부터 끝까지 훑음 → 10만 × 10만 = <strong>100억 번</strong> 비교 → 수십 초</span>
+      </div>
+      <div class="result-banner good">
+        <span class="result-icon">></span>
+        <span>Set: 해시값으로 즉시 확인 → 10만 번만 비교 → <strong>0.01초</strong></span>
+      </div>
+    </div>
+
+    <div class="motivation-card">
+      <div class="motivation-title">자료구조를 바꾸면 코드가 아니라 차원이 바뀐다</div>
+      <div class="motivation-subtitle">
+        자료구조는 "데이터를 어떤 모양으로 저장하느냐"를 결정합니다.<br>
+        모양이 달라지면 같은 연산의 속도가 <strong>O(n)</strong>에서 <strong>O(1)</strong>로, <strong>O(n²)</strong>에서 <strong>O(n log n)</strong>으로 바뀝니다.<br>
+        알고리즘을 아무리 최적화해도, 자료구조가 잘못되면 느릴 수밖에 없습니다.
+      </div>
+      <div class="code-compare">
+        <div class="code-block">
+          <div class="code-block-label slow">잘못된 선택</div>
+          <pre><span class="cm">// 정렬된 데이터에서 값 찾기</span>
+<span class="cm">// Array + 선형탐색 → O(n)</span>
+array.<span class="hl">contains</span>(target)
+
+<span class="cm">// 맨 앞에 삽입이 잦은 경우</span>
+<span class="cm">// Array → O(n) 매번 밀어야 함</span>
+array.<span class="hl">insert</span>(item, at: <span class="num">0</span>)
+
+<span class="cm">// 최솟값을 반복적으로 꺼내기</span>
+<span class="cm">// 정렬 안 된 Array → O(n) 매번</span>
+array.<span class="hl">min</span>()</pre>
+        </div>
+        <div class="code-block">
+          <div class="code-block-label fast">올바른 선택</div>
+          <pre><span class="cm">// BST로 바꾸면 → O(log n)</span>
+bst.<span class="hl">search</span>(target)
+
+<span class="cm">// LinkedList → O(1)</span>
+linkedList.<span class="hl">prepend</span>(item)
+
+
+<span class="cm">// Heap → O(log n)</span>
+heap.<span class="hl">removeMin</span>()</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHERE DO I USE THIS? -->
+  <div class="flow-section">
+    <div class="flow-section-title">자료구조를 배워서 어디다 써먹어요?</div>
+    <p class="section-intro">
+      "개념은 알겠는데 실무에서 언제 쓰지?" — 각 자료구조가 실제로 쓰이는 구체적인 장면들입니다.<br>
+      카드를 클릭하면 해당 챕터의 시각화로 이동합니다.
+    </p>
+    <div class="usecase-grid">
+
+      <div class="usecase-card" onclick="showChapter(1)">
+        <div class="usecase-card-header">
+          <span class="usecase-ds">Array</span>
+          <span class="usecase-chapter">Ch.01</span>
+        </div>
+        <div class="usecase-title">UITableView / UICollectionView 데이터 소스</div>
+        <div class="usecase-desc">
+          셀에 표시할 모델 배열, 섹션별 그룹핑.
+          인덱스로 O(1) 접근하니까 <code>cellForRowAt</code>이 빠르다.
+          JSON 응답의 리스트도 결국 Array로 디코딩된다.
+        </div>
+        <span class="usecase-example">let items: [Product] = try decoder.decode(...)</span>
+      </div>
+
+      <div class="usecase-card" onclick="showChapter(2)">
+        <div class="usecase-card-header">
+          <span class="usecase-ds">LinkedList</span>
+          <span class="usecase-chapter">Ch.02</span>
+        </div>
+        <div class="usecase-title">Undo / Redo 히스토리</div>
+        <div class="usecase-desc">
+          텍스트 에디터, 그림판 등에서 작업 이력을 연결 리스트로 관리.
+          현재 위치에서 앞뒤 삽입/삭제가 O(1)이라 히스토리 조작이 가볍다.
+          LRU 캐시 구현에도 필수.
+        </div>
+        <span class="usecase-example">cache.moveToFront(recentlyUsedNode)</span>
+      </div>
+
+      <div class="usecase-card" onclick="showChapter(3)">
+        <div class="usecase-card-header">
+          <span class="usecase-ds">Stack</span>
+          <span class="usecase-chapter">Ch.03</span>
+        </div>
+        <div class="usecase-title">UINavigationController 화면 전환</div>
+        <div class="usecase-desc">
+          push로 화면을 쌓고 pop으로 뒤로 가기. iOS 네비게이션 자체가 Stack 구조다.
+          괄호 짝 맞추기, JSON 파싱, 재귀 호출 스택도 전부 Stack.
+        </div>
+        <span class="usecase-example">navigationController.pushViewController(vc, animated: true)</span>
+      </div>
+
+      <div class="usecase-card" onclick="showChapter(3)">
+        <div class="usecase-card-header">
+          <span class="usecase-ds">Queue</span>
+          <span class="usecase-chapter">Ch.03</span>
+        </div>
+        <div class="usecase-title">네트워크 요청 / 작업 스케줄링</div>
+        <div class="usecase-desc">
+          API 요청을 순서대로 처리하는 OperationQueue.
+          이미지 다운로드 대기열, 푸시 알림 처리, 애니메이션 체이닝 모두 FIFO.
+        </div>
+        <span class="usecase-example">OperationQueue.main.addOperation { updateUI() }</span>
+      </div>
+
+      <div class="usecase-card" onclick="showChapter(4)">
+        <div class="usecase-card-header">
+          <span class="usecase-ds">Deque</span>
+          <span class="usecase-chapter">Ch.04</span>
+        </div>
+        <div class="usecase-title">채팅 메시지 버퍼 / 슬라이딩 윈도우</div>
+        <div class="usecase-desc">
+          새 메시지는 뒤에 추가, 오래된 메시지는 앞에서 제거 — 양쪽 O(1).
+          실시간 로그 뷰어, 최근 N개 이벤트 유지에 딱 맞는 구조.
+        </div>
+        <span class="usecase-example">messageBuffer.append(new); messageBuffer.removeFirst()</span>
+      </div>
+
+      <div class="usecase-card" onclick="showChapter(5)">
+        <div class="usecase-card-header">
+          <span class="usecase-ds">Binary Tree</span>
+          <span class="usecase-chapter">Ch.05</span>
+        </div>
+        <div class="usecase-title">SwiftUI View 계층 구조</div>
+        <div class="usecase-desc">
+          SwiftUI의 body는 트리 구조. VStack 안에 HStack, 그 안에 Text — 전부 트리.
+          Auto Layout 제약 해석, 파일 시스템 탐색도 트리 순회.
+        </div>
+        <span class="usecase-example">VStack { HStack { Text("Hello") Image(...) } }</span>
+      </div>
+
+      <div class="usecase-card" onclick="showChapter(6)">
+        <div class="usecase-card-header">
+          <span class="usecase-ds">BST</span>
+          <span class="usecase-chapter">Ch.06</span>
+        </div>
+        <div class="usecase-title">정렬된 데이터에서 빠른 검색</div>
+        <div class="usecase-desc">
+          가격 필터(1만원~5만원), 날짜 범위 검색, 리더보드 순위 조회.
+          10만 개 데이터에서도 O(log n) = 약 17번 비교면 끝.
+        </div>
+        <span class="usecase-example">bst.rangeSearch(low: 10_000, high: 50_000)</span>
+      </div>
+
+      <div class="usecase-card" onclick="showChapter(7)">
+        <div class="usecase-card-header">
+          <span class="usecase-ds">Heap</span>
+          <span class="usecase-chapter">Ch.07</span>
+        </div>
+        <div class="usecase-title">알림 우선순위 / 다익스트라 최단경로</div>
+        <div class="usecase-desc">
+          긴급 알림을 먼저 보여주는 우선순위 큐.
+          지도 앱의 최단 경로 계산(Dijkstra), 작업 스케줄러의 핵심 엔진.
+        </div>
+        <span class="usecase-example">priorityQueue.enqueue(task, priority: .urgent)</span>
+      </div>
+
+      <div class="usecase-card" onclick="showChapter(8)">
+        <div class="usecase-card-header">
+          <span class="usecase-ds">Graph</span>
+          <span class="usecase-chapter">Ch.08</span>
+        </div>
+        <div class="usecase-title">소셜 네트워크 / 지도 내비게이션</div>
+        <div class="usecase-desc">
+          친구 추천(BFS), 경로 탐색(DFS/Dijkstra), 팔로우 관계 분석.
+          의존성 해결(SPM 패키지 그래프), 추천 시스템도 그래프 기반.
+        </div>
+        <span class="usecase-example">graph.shortestPath(from: "서울", to: "부산")</span>
+      </div>
+
+      <div class="usecase-card" onclick="showChapter(9)">
+        <div class="usecase-card-header">
+          <span class="usecase-ds">Hash Table</span>
+          <span class="usecase-chapter">Ch.09</span>
+        </div>
+        <div class="usecase-title">Dictionary 캐싱 / 중복 제거</div>
+        <div class="usecase-desc">
+          Swift의 Dictionary, Set이 내부적으로 해시 테이블.
+          이미지 캐시(URL→UIImage), 유저 세션 관리, API 응답 메모이제이션 전부 여기.
+        </div>
+        <span class="usecase-example">imageCache[url] = downloadedImage // O(1)</span>
+      </div>
+
+      <div class="usecase-card" onclick="showChapter(10)">
+        <div class="usecase-card-header">
+          <span class="usecase-ds">Trie</span>
+          <span class="usecase-chapter">Ch.10</span>
+        </div>
+        <div class="usecase-title">검색창 자동완성 / 맞춤법 검사</div>
+        <div class="usecase-desc">
+          "sw"만 쳐도 "swift", "switch", "swiftui"를 즉시 제안.
+          사전 앱, 연락처 검색, IP 라우팅 테이블, 입력 예측 전부 Trie.
+        </div>
+        <span class="usecase-example">trie.autocomplete(prefix: "sw") // ["swift", "swiftui"]</span>
+      </div>
+
     </div>
   </div>
 
@@ -1010,11 +1506,60 @@
 </main>
 
 <script>
+// ─── THEME ───────────────────────────────────────────────────────────────
+function getThemeColors() {
+  const s = getComputedStyle(document.documentElement);
+  const v = n => s.getPropertyValue(n).trim();
+  return {
+    bg: v('--bg'), surface: v('--surface'), s2: v('--surface2'), border: v('--border'),
+    accent: v('--accent'), a2: v('--accent2'), a3: v('--accent3'), a4: v('--accent4'),
+    text: v('--text'), text2: v('--text2'), text3: v('--text3'),
+    hi: v('--hi-color'), hiLight: v('--hi-light')
+  };
+}
+let C = getThemeColors();
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.classList.toggle('dark');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  document.getElementById('theme-icon').textContent = isDark ? '☀️' : '🌙';
+  document.getElementById('theme-label').textContent = isDark ? '라이트 모드' : '다크 모드';
+  document.querySelector('meta[name="theme-color"]').content = isDark ? '#0a0e1a' : '#f5f7fa';
+  C = getThemeColors();
+  refreshCurrentChapter();
+}
+
+function refreshCurrentChapter() {
+  const active = document.querySelector('.chapter.active');
+  if (!active) return;
+  const id = active.id;
+  if (id === 'ch-0') arrDraw();
+  else if (id === 'ch-1') llDraw();
+  else if (id === 'ch-2') { stackDraw(); queueDraw(); }
+  else if (id === 'ch-3') dqDraw();
+  else if (id === 'ch-4') treeDrawBase([]);
+  else if (id === 'ch-5') bstDraw();
+  else if (id === 'ch-6') heapDraw();
+  else if (id === 'ch-7') graphDraw();
+  else if (id === 'ch-8') htDraw();
+  else if (id === 'ch-9') trieDraw();
+}
+
+// Apply saved theme on load
+(function() {
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark') {
+    document.documentElement.classList.add('dark');
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('theme-icon').textContent = '☀️';
+      document.getElementById('theme-label').textContent = '라이트 모드';
+      C = getThemeColors();
+    });
+  }
+})();
+
 // ─── UTILS ───────────────────────────────────────────────────────────────
-const C = { bg:'#0a0e1a', surface:'#111827', s2:'#1a2236', border:'#1e2d47',
-  accent:'#f05a28', a2:'#3b82f6', a3:'#22c55e', a4:'#a78bfa',
-  text:'#e2e8f0', text2:'#94a3b8', text3:'#475569',
-  hi:'#fbbf24', hiLight:'rgba(251,191,36,.18)' };
 
 function svgEl(tag, attrs={}) {
   const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
@@ -1721,6 +2266,7 @@ function trieReset() { trieHighlightPath=[]; trieDraw(); setStatus('trie-status'
 
 // ─── INIT ──────────────────────────────────────────────────────────────
 window.addEventListener('load', ()=>{
+  C = getThemeColors();
   arrDraw(); llDraw(); stackDraw(); queueDraw(); dqDraw();
   treeDrawBase([]); bstDraw(); heapDraw(); graphDraw(); htDraw(); trieDraw();
 });
