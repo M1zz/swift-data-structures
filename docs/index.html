@@ -860,16 +860,15 @@ heap.<span class="hl">removeMin</span>()</pre>
 
       <div class="usecase-card" onclick="showChapter(1)">
         <div class="usecase-card-header">
-          <span class="usecase-ds">Array</span>
+          <span class="usecase-ds">Array / ContiguousArray</span>
           <span class="usecase-chapter">Ch.01</span>
         </div>
-        <div class="usecase-title">UITableView / UICollectionView 데이터 소스</div>
+        <div class="usecase-title">데이터 소스 & 고성능 수치 연산</div>
         <div class="usecase-desc">
-          셀에 표시할 모델 배열, 섹션별 그룹핑.
-          인덱스로 O(1) 접근하니까 <code>cellForRowAt</code>이 빠르다.
-          JSON 응답의 리스트도 결국 Array로 디코딩된다.
+          <strong>Array</strong> — UITableView·CollectionView 데이터 소스, JSON 디코딩 등 일반적인 리스트 처리에 사용.
+          <strong>ContiguousArray</strong> — Obj-C 브릿징 없이 연속 메모리가 보장되므로 오디오 버퍼, 이미지 픽셀 처리, ML 입력 텐서 등 대량 수치 연산에서 Array 대비 최대 2배 빠름.
         </div>
-        <span class="usecase-example">let items: [Product] = try decoder.decode(...)</span>
+        <span class="usecase-example">let buffer: ContiguousArray&lt;Float&gt; = .init(repeating: 0, count: 44100)</span>
       </div>
 
       <div class="usecase-card" onclick="showChapter(2)">
