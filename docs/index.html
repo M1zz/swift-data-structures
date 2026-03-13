@@ -413,6 +413,57 @@
     font-size: 12px;
     color: var(--text2);
   }
+
+  /* CONCEPT + GUIDE */
+  .info-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .info-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+  }
+  .info-box-label {
+    font-size: 10px;
+    font-family: 'JetBrains Mono';
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .info-box-label.concept { color: var(--accent2); }
+  .info-box-label.guide   { color: var(--accent3); }
+  .info-box p {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+  .info-box p:last-child { margin-bottom: 0; }
+  .info-box ol {
+    padding-left: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .info-box li {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+  .info-box li strong { color: var(--text); }
+  .kw {
+    display: inline-block;
+    font-family: 'JetBrains Mono';
+    font-size: 11px;
+    background: rgba(59,130,246,.12);
+    color: var(--accent2);
+    border-radius: 3px;
+    padding: 1px 6px;
+  }
 </style>
 </head>
 <body>
@@ -558,6 +609,23 @@
     <p class="chapter-subtitle">CoW(Copy-on-Write) 동작과 메모리 레이아웃의 차이를 시각적으로 확인합니다.</p>
   </div>
 
+  <div class="info-row">
+    <div class="info-box">
+      <div class="info-box-label concept">개념</div>
+      <p>Swift의 <span class="kw">Array</span>는 값 타입이지만 내부적으로 힙 버퍼를 참조합니다. 복사를 해도 바로 메모리를 두 배로 쓰지 않고, 두 변수가 같은 버퍼를 공유합니다.</p>
+      <p>한쪽이 수정되는 순간 그때 비로소 버퍼를 복제합니다. 이를 <strong>CoW(Copy-on-Write)</strong>라고 합니다. 덕분에 불필요한 복사 비용을 줄일 수 있습니다.</p>
+      <p><span class="kw">ContiguousArray</span>는 Obj-C 브릿징이 없어 항상 연속 메모리가 보장되고 성능이 더 예측 가능합니다.</p>
+    </div>
+    <div class="info-box">
+      <div class="info-box-label guide">사용법</div>
+      <ol>
+        <li><strong>append()</strong> 를 눌러 배열 a에 원소를 추가하세요.</li>
+        <li><strong>b = a (복사)</strong> 를 누르면 b가 생깁니다. 아직 두 배열은 같은 메모리를 공유 중입니다.</li>
+        <li><strong>b.append() → CoW 발동</strong> 을 누르면 b가 수정되면서 버퍼가 실제로 복제되는 순간을 확인할 수 있습니다. 메모리 주소가 달라지는 것에 주목하세요.</li>
+      </ol>
+    </div>
+  </div>
+
   <div class="viz-card">
     <div class="viz-label">메모리 레이아웃 — CoW 시뮬레이션</div>
     <div class="controls">
@@ -590,6 +658,24 @@
     <h1 class="chapter-title">Linked List</h1>
     <p class="chapter-subtitle">노드가 포인터로 연결되는 구조. prepend/removeFirst는 O(1), 인덱스 접근은 O(n).</p>
   </div>
+
+  <div class="info-row">
+    <div class="info-box">
+      <div class="info-box-label concept">개념</div>
+      <p>각 <strong>노드</strong>가 값(value)과 다음 노드의 주소(next)를 함께 갖습니다. 배열과 달리 메모리가 연속되지 않아도 됩니다.</p>
+      <p>맨 앞(head)에 삽입·삭제는 포인터 하나만 바꾸면 되어 <strong>O(1)</strong>입니다. 반면 특정 인덱스에 접근하려면 head부터 순서대로 따라가야 하므로 <strong>O(n)</strong>입니다.</p>
+      <p>배열은 인덱스 접근이 빠르고, 연결 리스트는 앞쪽 삽입·삭제가 빠릅니다. 상황에 맞게 선택합니다.</p>
+    </div>
+    <div class="info-box">
+      <div class="info-box-label guide">사용법</div>
+      <ol>
+        <li>숫자를 입력하고 <strong>prepend()</strong> 를 누르면 맨 앞에 추가됩니다. 기존 노드들이 오른쪽으로 밀리는 게 아니라 head 포인터만 바뀌는 것에 주목하세요.</li>
+        <li><strong>append()</strong> 는 맨 뒤에 추가합니다. 끝 노드까지 순회해야 해서 리스트가 길수록 느려집니다.</li>
+        <li><strong>removeFirst()</strong> 로 head를 제거하면 다음 노드가 head가 됩니다.</li>
+      </ol>
+    </div>
+  </div>
+
   <div class="viz-card">
     <div class="viz-label">단방향 연결 리스트 — 동적 삽입/삭제</div>
     <div class="controls">
@@ -611,6 +697,23 @@
     <h1 class="chapter-title">Stack / Queue</h1>
     <p class="chapter-subtitle">Stack은 LIFO, Queue는 FIFO. 이중 Stack으로 Queue를 amortized O(1)로 구현합니다.</p>
   </div>
+
+  <div class="info-row">
+    <div class="info-box">
+      <div class="info-box-label concept">개념</div>
+      <p><strong>Stack</strong>은 책을 쌓는 것처럼 마지막에 넣은 것이 먼저 나옵니다(LIFO). 함수 호출 스택, undo/redo, 괄호 검사 등에 활용됩니다.</p>
+      <p><strong>Queue</strong>는 줄 서기처럼 먼저 넣은 것이 먼저 나옵니다(FIFO). 이 시각화는 이중 Stack으로 Queue를 구현합니다. inbox에 쌓고, dequeue 시 outbox가 비어있으면 inbox를 통째로 뒤집어 옮겨 amortized O(1)을 달성합니다.</p>
+    </div>
+    <div class="info-box">
+      <div class="info-box-label guide">사용법</div>
+      <ol>
+        <li>[Stack] 숫자를 입력하고 <strong>push()</strong> 를 여러 번 누르세요. 쌓이는 방향을 확인합니다.</li>
+        <li>[Stack] <strong>pop()</strong> 을 누르면 가장 마지막에 쌓인 것부터 나옵니다.</li>
+        <li>[Queue] <strong>enqueue()</strong> 를 여러 번 눌러 inbox에 원소를 채운 뒤 <strong>dequeue()</strong> 를 누르세요. outbox가 비어있을 때 inbox가 뒤집히는 순간을 관찰하세요.</li>
+      </ol>
+    </div>
+  </div>
+
   <div class="viz-card">
     <div class="viz-label">Stack — LIFO (Last In, First Out)</div>
     <div class="controls">
@@ -642,6 +745,24 @@
     <h1 class="chapter-title">Deque</h1>
     <p class="chapter-subtitle">링 버퍼(Ring Buffer) 기반 양방향 큐. 앞/뒤 모두 O(1) 삽입/삭제.</p>
   </div>
+
+  <div class="info-row">
+    <div class="info-box">
+      <div class="info-box-label concept">개념</div>
+      <p><strong>Deque(Double-Ended Queue)</strong>는 앞과 뒤 양방향에서 모두 O(1)로 삽입·삭제할 수 있는 자료구조입니다.</p>
+      <p><strong>링 버퍼(Ring Buffer)</strong>로 구현합니다. 고정 크기 배열을 원형으로 사용해, head와 tail 포인터가 배열 끝에 도달하면 다시 처음으로 돌아옵니다. 메모리 이동 없이 O(1)이 가능한 이유입니다.</p>
+      <p>앞/뒤로 자유롭게 넣고 빼야 하는 슬라이딩 윈도우, 양방향 탐색 등에 적합합니다.</p>
+    </div>
+    <div class="info-box">
+      <div class="info-box-label guide">사용법</div>
+      <ol>
+        <li><strong>pushFront()</strong> 와 <strong>pushBack()</strong> 을 번갈아 눌러보세요. 원형 배열의 head와 tail 포인터가 어느 방향으로 이동하는지 확인합니다.</li>
+        <li>capacity(8)가 꽉 찰 때까지 계속 추가하면 어떻게 되는지 확인하세요.</li>
+        <li><strong>popFront()</strong> 와 <strong>popBack()</strong> 으로 양쪽에서 삭제해보세요. 포인터가 반대 방향으로 이동합니다.</li>
+      </ol>
+    </div>
+  </div>
+
   <div class="viz-card">
     <div class="viz-label">Ring Buffer 시각화</div>
     <div class="controls">
@@ -664,6 +785,26 @@
     <h1 class="chapter-title">Binary Tree</h1>
     <p class="chapter-subtitle">전위/중위/후위 순회를 애니메이션으로 확인합니다. 방문 순서가 핵심입니다.</p>
   </div>
+
+  <div class="info-row">
+    <div class="info-box">
+      <div class="info-box-label concept">개념</div>
+      <p>각 노드가 최대 2개의 자식(왼쪽, 오른쪽)을 가지는 트리입니다. 트리에 저장된 모든 노드를 방문하는 방법이 4가지 있습니다.</p>
+      <p><strong>전위(Pre-order)</strong>: 루트 → 왼쪽 → 오른쪽. 트리 복사에 유용합니다.<br>
+      <strong>중위(In-order)</strong>: 왼쪽 → 루트 → 오른쪽. BST에서 사용하면 정렬된 순서로 방문됩니다.<br>
+      <strong>후위(Post-order)</strong>: 왼쪽 → 오른쪽 → 루트. 자식 먼저 처리해야 할 때 씁니다.<br>
+      <strong>레벨(BFS)</strong>: 위층부터 가까운 노드 순서로 방문합니다.</p>
+    </div>
+    <div class="info-box">
+      <div class="info-box-label guide">사용법</div>
+      <ol>
+        <li>순회 버튼을 클릭하면 노드가 방문 순서에 따라 하나씩 하이라이트됩니다. 아래 상태 바에 방문 순서가 표시됩니다.</li>
+        <li><strong>전위 / 중위 / 후위</strong> 를 각각 눌러 결과 순서를 비교해보세요. 루트(1)가 언제 방문되는지 주목하세요.</li>
+        <li><strong>레벨 순회(BFS)</strong> 는 나머지와 달리 깊이가 아닌 층(레벨) 기준으로 방문합니다.</li>
+      </ol>
+    </div>
+  </div>
+
   <div class="viz-card">
     <div class="viz-label">트리 순회 애니메이션</div>
     <div class="controls">
@@ -685,6 +826,23 @@
     <h1 class="chapter-title">Binary Search Tree</h1>
     <p class="chapter-subtitle">삽입 시 불변 조건(왼쪽 < 루트 < 오른쪽)을 유지하며 트리가 자라는 과정을 봅니다.</p>
   </div>
+
+  <div class="info-row">
+    <div class="info-box">
+      <div class="info-box-label concept">개념</div>
+      <p>이진 탐색 트리(BST)는 <strong>왼쪽 자식 &lt; 부모 &lt; 오른쪽 자식</strong> 규칙을 항상 지킵니다. 이 덕분에 탐색 시 절반씩 범위를 줄여가며 <strong>O(log n)</strong>에 찾을 수 있습니다.</p>
+      <p>단, 삽입 순서가 나쁘면 한쪽으로 치우쳐(편향 트리) 최악 O(n)이 될 수 있습니다. 이를 막기 위해 AVL 트리, 레드-블랙 트리 같은 균형 트리를 사용합니다.</p>
+    </div>
+    <div class="info-box">
+      <div class="info-box-label guide">사용법</div>
+      <ol>
+        <li>숫자를 입력하고 <strong>insert()</strong> 를 누르세요. 루트부터 크기를 비교하며 올바른 자리를 찾아 내려가는 과정을 봅니다.</li>
+        <li>큰 수만 계속 입력(예: 50, 60, 70, 80)하면 오른쪽으로만 치우친 편향 트리가 됩니다. 이때 탐색이 왜 느려지는지 생각해보세요.</li>
+        <li>숫자 입력 후 <strong>search()</strong> 를 누르면 루트에서부터 비교하며 좁혀가는 경로가 표시됩니다.</li>
+      </ol>
+    </div>
+  </div>
+
   <div class="viz-card">
     <div class="viz-label">BST 삽입 / 탐색 시뮬레이션</div>
     <div class="controls">
@@ -705,6 +863,25 @@
     <h1 class="chapter-title">Heap / Priority Queue</h1>
     <p class="chapter-subtitle">Min-Heap: 루트가 항상 최솟값. siftUp/siftDown 과정을 시각화합니다.</p>
   </div>
+
+  <div class="info-row">
+    <div class="info-box">
+      <div class="info-box-label concept">개념</div>
+      <p><strong>Heap</strong>은 완전 이진 트리로, Min-Heap은 <strong>부모가 항상 자식보다 작거나 같습니다</strong>. 루트가 항상 최솟값이므로 O(1)로 최솟값을 꺼낼 수 있습니다.</p>
+      <p><strong>삽입</strong>: 배열 끝에 추가 후 부모와 비교하며 올라갑니다(siftUp).<br>
+      <strong>삭제</strong>: 루트 제거 후 마지막 원소를 루트로 올리고 자식과 비교하며 내려갑니다(siftDown).</p>
+      <p>트리 형태이지만 배열로 저장합니다. 인덱스 i의 부모는 <span class="kw">(i-1)/2</span>, 자식은 <span class="kw">2i+1</span>, <span class="kw">2i+2</span>입니다.</p>
+    </div>
+    <div class="info-box">
+      <div class="info-box-label guide">사용법</div>
+      <ol>
+        <li>숫자를 입력하고 <strong>insert()</strong> 를 누르세요. 트리 맨 끝에 추가된 뒤, 부모보다 작으면 자리를 바꾸며 올라가는(siftUp) 과정을 봅니다.</li>
+        <li><strong>remove()</strong> 를 누르면 루트(최솟값)가 제거됩니다. 마지막 노드가 루트로 올라온 뒤 아래로 내려가며(siftDown) 힙 조건을 복구하는 과정을 관찰하세요.</li>
+        <li>아래 배열 표현에서 트리와 배열이 어떻게 대응되는지 확인하세요.</li>
+      </ol>
+    </div>
+  </div>
+
   <div class="viz-card">
     <div class="viz-label">Min-Heap 트리 ↔ 배열 표현</div>
     <div class="controls">
@@ -725,6 +902,24 @@
     <h1 class="chapter-title">Graph</h1>
     <p class="chapter-subtitle">BFS와 DFS 탐색 경로를 애니메이션으로 비교합니다.</p>
   </div>
+
+  <div class="info-row">
+    <div class="info-box">
+      <div class="info-box-label concept">개념</div>
+      <p><strong>Graph</strong>는 노드(정점, Vertex)와 노드를 잇는 간선(Edge)으로 구성됩니다. 트리와 달리 사이클이 있을 수 있고 부모-자식 관계가 없습니다.</p>
+      <p><strong>BFS(너비 우선 탐색)</strong>: 큐를 사용해 시작 노드에서 가까운 이웃부터 탐색합니다. 최단 경로 탐색에 적합합니다.<br>
+      <strong>DFS(깊이 우선 탐색)</strong>: 스택(또는 재귀)을 사용해 한 방향으로 끝까지 파고든 뒤 되돌아옵니다. 경로 탐색, 사이클 감지에 적합합니다.</p>
+    </div>
+    <div class="info-box">
+      <div class="info-box-label guide">사용법</div>
+      <ol>
+        <li><strong>BFS 탐색</strong> 을 눌러보세요. 노드 A에서 출발해 거리 1인 이웃, 거리 2인 이웃 순서로 방문합니다. 가까운 곳부터 퍼져나가는 물결 형태입니다.</li>
+        <li><strong>DFS 탐색</strong> 을 눌러보세요. 한 경로를 끝까지 파고든 뒤 막히면 돌아와 다른 경로로 이동합니다.</li>
+        <li>두 방법의 방문 순서를 비교하며 어떤 상황에 어떤 탐색이 유리한지 생각해보세요.</li>
+      </ol>
+    </div>
+  </div>
+
   <div class="viz-card">
     <div class="viz-label">그래프 BFS / DFS 탐색 시각화</div>
     <div class="controls">
@@ -744,6 +939,23 @@
     <h1 class="chapter-title">Hash Table</h1>
     <p class="chapter-subtitle">해시 충돌과 Separate Chaining을 직접 관찰합니다.</p>
   </div>
+
+  <div class="info-row">
+    <div class="info-box">
+      <div class="info-box-label concept">개념</div>
+      <p><strong>Hash Table</strong>은 키(Key)를 해시 함수로 숫자(인덱스)로 변환해 배열에 저장합니다. 평균 <strong>O(1)</strong>로 삽입·탐색·삭제가 가능합니다. Swift의 <span class="kw">Dictionary</span>가 내부적으로 이 구조입니다.</p>
+      <p>서로 다른 키가 같은 인덱스로 매핑될 때 <strong>충돌(Collision)</strong>이 발생합니다. 이 시각화는 같은 버킷에 연결 리스트로 이어 붙이는 <strong>Separate Chaining</strong>으로 충돌을 해결합니다.</p>
+    </div>
+    <div class="info-box">
+      <div class="info-box-label guide">사용법</div>
+      <ol>
+        <li>키와 값을 입력하고 <strong>insert(key, val)</strong> 을 눌러보세요. 키가 해시되어 어느 버킷에 저장되는지 확인합니다.</li>
+        <li>여러 키를 넣다 보면 같은 버킷에 두 개 이상 쌓이는 충돌이 발생합니다. 같은 버킷에 체인처럼 이어지는 것을 관찰하세요.</li>
+        <li>키를 입력하고 <strong>search(key)</strong> 를 누르면 해당 버킷을 찾아 체인을 순회하며 키를 찾는 과정을 확인합니다.</li>
+      </ol>
+    </div>
+  </div>
+
   <div class="viz-card">
     <div class="viz-label">Hash Table — 충돌 시각화</div>
     <div class="controls">
@@ -765,6 +977,23 @@
     <h1 class="chapter-title">Trie</h1>
     <p class="chapter-subtitle">자동완성 탐색 경로가 트리 위에서 빛나며 강조됩니다.</p>
   </div>
+
+  <div class="info-row">
+    <div class="info-box">
+      <div class="info-box-label concept">개념</div>
+      <p><strong>Trie(트라이)</strong>는 문자열을 문자 단위로 쪼개 트리에 저장합니다. 공통 접두어를 가진 단어들이 같은 경로를 공유하기 때문에 메모리를 절약합니다.</p>
+      <p>m글자 단어의 탐색이 <strong>O(m)</strong>으로, 단어 수와 무관합니다. 자동완성, 사전 검색, 오타 교정 등에 사용됩니다. iOS의 키보드 자동완성도 유사한 구조입니다.</p>
+    </div>
+    <div class="info-box">
+      <div class="info-box-label guide">사용법</div>
+      <ol>
+        <li>입력란에 접두어(예: <strong>ap</strong>)를 입력하고 <strong>autocomplete(prefix)</strong> 를 누르세요. 해당 경로가 빛나며 그 아래에 있는 단어들이 표시됩니다.</li>
+        <li><strong>app</strong>, <strong>apple</strong>, <strong>apply</strong>가 루트~p~p까지 경로를 공유하는 것을 확인하세요. 이것이 Trie의 핵심입니다.</li>
+        <li>새 단어(예: <strong>apt</strong>)를 입력하고 <strong>insert(word)</strong> 를 누르면 기존 경로와 분기되는 지점에 새 노드가 추가됩니다.</li>
+      </ol>
+    </div>
+  </div>
+
   <div class="viz-card">
     <div class="viz-label">Trie 자동완성 시뮬레이션</div>
     <div class="controls">
