@@ -575,6 +575,57 @@
     flex-shrink: 0;
   }
 
+  /* REAL-WORLD USE CASES */
+  .realworld-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+  }
+  .realworld-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 16px;
+    letter-spacing: .05em;
+  }
+  .realworld-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .realworld-item {
+    padding: 14px 16px;
+    border-radius: 8px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+  }
+  .realworld-item-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .realworld-item-desc {
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.5;
+  }
+  .realworld-item-code {
+    font-family: 'JetBrains Mono';
+    font-size: 11px;
+    color: var(--code-fn);
+    background: var(--surface2);
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 6px;
+  }
+  @media (max-width: 768px) {
+    .realworld-grid { grid-template-columns: 1fr; }
+  }
+
   /* HOME PAGE */
   .home-hero {
     padding: 48px 0 32px;
@@ -1546,6 +1597,32 @@ heap.<span class="hl">removeMin</span>()</pre>
     <label class="checklist-item"><input type="checkbox"><span>append()가 amortized O(1)인 이유를 설명할 수 있다</span></label>
     <label class="checklist-item"><input type="checkbox"><span>insert(at:)이 O(n)인 이유를 직관적으로 이해한다</span></label>
   </div>
+
+  <div class="realworld-section">
+    <div class="realworld-title">실무 사용처</div>
+    <div class="realworld-grid">
+      <div class="realworld-item">
+        <div class="realworld-item-title">UITableView / CollectionView 데이터 소스</div>
+        <div class="realworld-item-desc">화면에 표시할 모델 배열을 Array로 관리. diffable data source와 함께 사용하면 UI 업데이트도 자동화됩니다.</div>
+        <span class="realworld-item-code">var items: [Product] = []</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">JSON 디코딩 결과 저장</div>
+        <div class="realworld-item-desc">서버 API 응답을 Codable로 파싱한 결과를 배열에 저장. 대부분의 iOS 앱의 기본 데이터 흐름입니다.</div>
+        <span class="realworld-item-code">let users = try decoder.decode([User].self, from: data)</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">오디오 버퍼 / vDSP 수치 연산</div>
+        <div class="realworld-item-desc">ContiguousArray는 연속 메모리가 보장되어 오디오 샘플, 이미지 픽셀, ML 텐서 등 대량 수치 연산에서 Array 대비 최대 2배 빠릅니다.</div>
+        <span class="realworld-item-code">let buffer: ContiguousArray&lt;Float&gt; = .init(repeating: 0, count: 44100)</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">SwiftUI @State 배열</div>
+        <div class="realworld-item-desc">@State나 @Published로 배열을 선언하면 원소 변경 시 CoW가 발동되면서 SwiftUI가 변경을 감지해 뷰를 다시 그립니다.</div>
+        <span class="realworld-item-code">@State private var todos: [TodoItem] = []</span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ===================== CH2: LINKED LIST ===================== -->
@@ -1652,6 +1729,32 @@ heap.<span class="hl">removeMin</span>()</pre>
     <label class="checklist-item"><input type="checkbox"><span>append()가 O(n)인 이유를 이해하고, tail 포인터로 O(1)로 만드는 방법을 안다</span></label>
     <label class="checklist-item"><input type="checkbox"><span>배열과 연결 리스트 각각이 유리한 상황을 구분할 수 있다</span></label>
     <label class="checklist-item"><input type="checkbox"><span>class(참조 타입)로 Node를 만들어야 하는 이유를 안다</span></label>
+  </div>
+
+  <div class="realworld-section">
+    <div class="realworld-title">실무 사용처</div>
+    <div class="realworld-grid">
+      <div class="realworld-item">
+        <div class="realworld-item-title">LRU Cache (최근 사용 캐시)</div>
+        <div class="realworld-item-desc">이미지 캐시에서 최근 사용한 항목을 앞으로 옮기고, 용량 초과 시 맨 뒤를 제거합니다. NSCache 내부도 유사한 구조입니다.</div>
+        <span class="realworld-item-code">cache.moveToFront(recentlyUsedNode)</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">Undo / Redo 히스토리</div>
+        <div class="realworld-item-desc">텍스트 편집기에서 각 편집 액션을 노드로 저장. 이전/다음으로 이동하며 상태를 복원합니다.</div>
+        <span class="realworld-item-code">history.current = history.current?.previous</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">음악 플레이어 재생 목록</div>
+        <div class="realworld-item-desc">이전곡/다음곡 이동이 잦은 재생 목록은 이중 연결 리스트로 O(1) 전환이 가능합니다.</div>
+        <span class="realworld-item-code">player.currentTrack = player.currentTrack?.next</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">메모리 할당기 Free List</div>
+        <div class="realworld-item-desc">OS의 메모리 관리자가 사용 가능한 메모리 블록을 연결 리스트로 관리합니다. 할당/해제가 O(1)입니다.</div>
+        <span class="realworld-item-code">freeList.prepend(deallocatedBlock)</span>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1768,6 +1871,32 @@ heap.<span class="hl">removeMin</span>()</pre>
     <label class="checklist-item"><input type="checkbox"><span>이중 Stack Queue가 amortized O(1)인 이유를 설명할 수 있다</span></label>
     <label class="checklist-item"><input type="checkbox"><span>NavigationStack이 왜 Stack인지 이해한다</span></label>
   </div>
+
+  <div class="realworld-section">
+    <div class="realworld-title">실무 사용처</div>
+    <div class="realworld-grid">
+      <div class="realworld-item">
+        <div class="realworld-item-title">UINavigationController 화면 전환</div>
+        <div class="realworld-item-desc">push로 화면을 쌓고 pop으로 뒤로 갑니다. SwiftUI의 NavigationStack도 동일한 Stack 구조입니다.</div>
+        <span class="realworld-item-code">navigationController.pushViewController(vc, animated: true)</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">괄호/태그 유효성 검사</div>
+        <div class="realworld-item-desc">HTML 태그, JSON 중괄호, 수식 괄호의 짝이 맞는지 Stack으로 O(n)에 검증합니다.</div>
+        <span class="realworld-item-code">stack.push("("); if top == "(" { stack.pop() }</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">OperationQueue 작업 스케줄링</div>
+        <div class="realworld-item-desc">네트워크 요청, 이미지 다운로드를 Queue에 넣고 FIFO로 순서대로 처리합니다. GCD도 내부적으로 Queue입니다.</div>
+        <span class="realworld-item-code">OperationQueue.main.addOperation { updateUI() }</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">푸시 알림 처리 대기열</div>
+        <div class="realworld-item-desc">도착한 푸시 알림을 Queue에 쌓고, 사용자가 확인하는 순서대로(FIFO) 하나씩 처리합니다.</div>
+        <span class="realworld-item-code">notificationQueue.enqueue(notification)</span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ===================== CH4: DEQUE ===================== -->
@@ -1874,6 +2003,32 @@ heap.<span class="hl">removeMin</span>()</pre>
     <label class="checklist-item"><input type="checkbox"><span>Deque가 Stack과 Queue를 모두 대체할 수 있는 이유를 안다</span></label>
     <label class="checklist-item"><input type="checkbox"><span>head/tail 포인터가 원형으로 이동하는 원리를 설명할 수 있다</span></label>
     <label class="checklist-item"><input type="checkbox"><span>링 버퍼의 장단점을 한 문장으로 말할 수 있다</span></label>
+  </div>
+
+  <div class="realworld-section">
+    <div class="realworld-title">실무 사용처</div>
+    <div class="realworld-grid">
+      <div class="realworld-item">
+        <div class="realworld-item-title">채팅 메시지 버퍼</div>
+        <div class="realworld-item-desc">최근 N개 메시지만 유지하는 버퍼. 새 메시지는 뒤에 추가하고, 오래된 메시지는 앞에서 제거합니다.</div>
+        <span class="realworld-item-code">messageBuffer.pushBack(new); messageBuffer.popFront()</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">브라우저 앞으로/뒤로 가기</div>
+        <div class="realworld-item-desc">방문 기록의 양쪽 끝에서 페이지를 추가/제거하여 앞으로/뒤로 탐색을 구현합니다.</div>
+        <span class="realworld-item-code">backStack.pushBack(url); forwardStack.popBack()</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">슬라이딩 윈도우 최댓값</div>
+        <div class="realworld-item-desc">주식 차트에서 최근 K일간 최고가를 O(n)에 계산. Deque로 후보를 관리하며 양쪽에서 제거합니다.</div>
+        <span class="realworld-item-code">deque.popBack(); deque.pushBack(newPrice)</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">작업 스케줄러 (양방향 우선순위)</div>
+        <div class="realworld-item-desc">긴급 작업은 앞에(pushFront), 일반 작업은 뒤에(pushBack) 추가하는 우선순위 큐로 활용합니다.</div>
+        <span class="realworld-item-code">taskQueue.pushFront(urgentTask)</span>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1984,6 +2139,32 @@ heap.<span class="hl">removeMin</span>()</pre>
     <label class="checklist-item"><input type="checkbox"><span>BFS는 Queue, DFS는 Stack(또는 재귀)을 사용한다는 것을 안다</span></label>
     <label class="checklist-item"><input type="checkbox"><span>SwiftUI의 View 계층이 트리라는 것을 이해한다</span></label>
   </div>
+
+  <div class="realworld-section">
+    <div class="realworld-title">실무 사용처</div>
+    <div class="realworld-grid">
+      <div class="realworld-item">
+        <div class="realworld-item-title">SwiftUI View 계층 구조</div>
+        <div class="realworld-item-desc">VStack 안의 HStack 안의 Text... SwiftUI는 View를 트리로 구성하고 순회하며 렌더링합니다.</div>
+        <span class="realworld-item-code">VStack { HStack { Text("Hello") Image(...) } }</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">파일 시스템 탐색</div>
+        <div class="realworld-item-desc">디렉토리 구조가 트리입니다. FileManager로 하위 파일을 순회할 때 DFS/BFS를 사용합니다.</div>
+        <span class="realworld-item-code">FileManager.default.enumerator(at: rootURL)</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">JSON / XML 파싱</div>
+        <div class="realworld-item-desc">중첩된 JSON 구조는 트리입니다. 재귀적으로 순회하며 원하는 값을 추출합니다.</div>
+        <span class="realworld-item-code">func parse(_ node: JSON) { node.children.forEach(parse) }</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">수식 계산 (Expression Tree)</div>
+        <div class="realworld-item-desc">"(3+5)*2"를 트리로 변환 후 후위 순회하면 올바른 계산 순서가 됩니다. 컴파일러 내부에서 사용합니다.</div>
+        <span class="realworld-item-code">// * → [+, 2] → [3, 5]  후위: 3 5 + 2 *</span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ===================== CH6: BST ===================== -->
@@ -2088,6 +2269,32 @@ heap.<span class="hl">removeMin</span>()</pre>
     <label class="checklist-item"><input type="checkbox"><span>편향 트리가 되면 O(n)이 되는 이유를 안다</span></label>
     <label class="checklist-item"><input type="checkbox"><span>BST에서 최솟값/최댓값을 찾는 방법을 안다</span></label>
     <label class="checklist-item"><input type="checkbox"><span>중위 순회 = 정렬 순서임을 이해한다</span></label>
+  </div>
+
+  <div class="realworld-section">
+    <div class="realworld-title">실무 사용처</div>
+    <div class="realworld-grid">
+      <div class="realworld-item">
+        <div class="realworld-item-title">상품 가격 범위 검색</div>
+        <div class="realworld-item-desc">쇼핑앱에서 "1만원~5만원" 필터를 BST의 범위 검색으로 O(log n + k)에 처리합니다.</div>
+        <span class="realworld-item-code">bst.rangeSearch(low: 10_000, high: 50_000)</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">데이터베이스 인덱스 (B-Tree)</div>
+        <div class="realworld-item-desc">Core Data, SQLite의 인덱스는 BST를 확장한 B-Tree입니다. 수백만 건에서도 빠른 검색이 가능합니다.</div>
+        <span class="realworld-item-code">@NSManaged var name: String // indexed</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">자동 정렬 컬렉션</div>
+        <div class="realworld-item-desc">삽입할 때마다 자동으로 정렬이 유지됩니다. 리더보드, 타임라인 등 정렬된 데이터에 적합합니다.</div>
+        <span class="realworld-item-code">sortedScores.insert(newScore) // 자동 정렬</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">게임 랭킹 시스템</div>
+        <div class="realworld-item-desc">플레이어 점수를 BST에 저장하면 "내 순위가 몇 등인지"를 O(log n)에 계산할 수 있습니다.</div>
+        <span class="realworld-item-code">let rank = bst.countNodesGreaterThan(myScore) + 1</span>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -2197,6 +2404,32 @@ heap.<span class="hl">removeMin</span>()</pre>
     <label class="checklist-item"><input type="checkbox"><span>Heap과 BST의 차이를 설명할 수 있다</span></label>
     <label class="checklist-item"><input type="checkbox"><span>우선순위 큐의 실무 활용 사례를 2개 이상 말할 수 있다</span></label>
   </div>
+
+  <div class="realworld-section">
+    <div class="realworld-title">실무 사용처</div>
+    <div class="realworld-grid">
+      <div class="realworld-item">
+        <div class="realworld-item-title">네트워크 요청 우선순위</div>
+        <div class="realworld-item-desc">사용자가 보고 있는 화면의 이미지를 HIGH, 프리페치를 LOW로 설정해 중요한 요청을 먼저 처리합니다.</div>
+        <span class="realworld-item-code">priorityQueue.enqueue(request, priority: .high)</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">다익스트라 최단 경로</div>
+        <div class="realworld-item-desc">네비게이션 앱에서 최단 경로를 구할 때 Min-Heap으로 가장 가까운 노드를 O(log n)에 꺼냅니다.</div>
+        <span class="realworld-item-code">let nearest = minHeap.removeMin() // O(log n)</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">iOS 알림 우선순위 관리</div>
+        <div class="realworld-item-desc">결제 완료, 긴급 메시지 등 중요 알림을 먼저 표시하고, 마케팅 알림은 나중에 보여줍니다.</div>
+        <span class="realworld-item-code">notifHeap.insert(Notification(priority: .urgent))</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">타이머/스케줄러</div>
+        <div class="realworld-item-desc">여러 타이머 중 가장 빨리 만료되는 것을 Min-Heap으로 관리. RunLoop의 타이머 스케줄링과 유사합니다.</div>
+        <span class="realworld-item-code">let nextTimer = timerHeap.peek() // 가장 빠른 만료</span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ===================== CH8: GRAPH ===================== -->
@@ -2301,6 +2534,32 @@ heap.<span class="hl">removeMin</span>()</pre>
     <label class="checklist-item"><input type="checkbox"><span>인접 리스트의 구조를 코드로 표현할 수 있다</span></label>
     <label class="checklist-item"><input type="checkbox"><span>방향/무방향 그래프의 차이를 안다</span></label>
     <label class="checklist-item"><input type="checkbox"><span>BFS가 최단 경로에 적합한 이유를 설명할 수 있다</span></label>
+  </div>
+
+  <div class="realworld-section">
+    <div class="realworld-title">실무 사용처</div>
+    <div class="realworld-grid">
+      <div class="realworld-item">
+        <div class="realworld-item-title">소셜 네트워크 친구 추천</div>
+        <div class="realworld-item-desc">BFS로 2단계 이내 친구(친구의 친구)를 탐색해 "알 수도 있는 사람"을 추천합니다.</div>
+        <span class="realworld-item-code">graph.bfs(from: me, maxDepth: 2)</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">지도 네비게이션 (최단 경로)</div>
+        <div class="realworld-item-desc">교차로를 노드, 도로를 간선으로 모델링. 다익스트라/A* 알고리즘으로 최단 경로를 계산합니다.</div>
+        <span class="realworld-item-code">graph.shortestPath(from: "서울역", to: "강남역")</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">앱 의존성 분석</div>
+        <div class="realworld-item-desc">Swift Package의 의존성 관계를 그래프로 표현. 위상 정렬(DFS)로 빌드 순서를 결정합니다.</div>
+        <span class="realworld-item-code">let buildOrder = dependencyGraph.topologicalSort()</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">추천 시스템</div>
+        <div class="realworld-item-desc">"이 상품을 본 사용자가 함께 본 상품"을 그래프 탐색으로 찾습니다. 협업 필터링의 기본 구조입니다.</div>
+        <span class="realworld-item-code">graph.neighbors(of: viewedProduct)</span>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -2408,6 +2667,32 @@ heap.<span class="hl">removeMin</span>()</pre>
     <label class="checklist-item"><input type="checkbox"><span>Dictionary가 해시 테이블이라는 것을 안다</span></label>
     <label class="checklist-item"><input type="checkbox"><span>O(1) 조회가 "평균"이지 "항상"이 아닌 이유를 안다</span></label>
   </div>
+
+  <div class="realworld-section">
+    <div class="realworld-title">실무 사용처</div>
+    <div class="realworld-grid">
+      <div class="realworld-item">
+        <div class="realworld-item-title">이미지 캐시 (NSCache / Dictionary)</div>
+        <div class="realworld-item-desc">URL을 키로 다운로드한 이미지를 저장. 같은 이미지를 다시 요청하면 O(1)로 캐시에서 반환합니다.</div>
+        <span class="realworld-item-code">imageCache[url] = downloadedImage // O(1)</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">Two Sum 문제 (코딩 테스트 필수)</div>
+        <div class="realworld-item-desc">배열에서 합이 target인 두 수를 Dictionary로 O(n)에 찾습니다. 면접 단골 문제입니다.</div>
+        <span class="realworld-item-code">if let j = dict[target - nums[i]] { return [j, i] }</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">UserDefaults / Plist 저장</div>
+        <div class="realworld-item-desc">키-값 쌍으로 사용자 설정을 저장합니다. 내부적으로 Dictionary(해시 테이블)로 관리됩니다.</div>
+        <span class="realworld-item-code">UserDefaults.standard.set(true, forKey: "isDarkMode")</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">중복 제거 (Set)</div>
+        <div class="realworld-item-desc">Swift의 Set은 내부적으로 해시 테이블입니다. 배열의 중복을 O(n)에 제거할 수 있습니다.</div>
+        <span class="realworld-item-code">let unique = Array(Set(duplicatedArray))</span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ===================== CH10: TRIE ===================== -->
@@ -2512,6 +2797,32 @@ heap.<span class="hl">removeMin</span>()</pre>
     <label class="checklist-item"><input type="checkbox"><span>공통 접두어가 경로를 공유하는 원리를 설명할 수 있다</span></label>
     <label class="checklist-item"><input type="checkbox"><span>O(m)이 "단어 길이"에 비례한다는 것을 이해한다</span></label>
     <label class="checklist-item"><input type="checkbox"><span>자동완성 외에 Trie의 다른 활용(사전, IP 라우팅)을 안다</span></label>
+  </div>
+
+  <div class="realworld-section">
+    <div class="realworld-title">실무 사용처</div>
+    <div class="realworld-grid">
+      <div class="realworld-item">
+        <div class="realworld-item-title">검색창 자동완성</div>
+        <div class="realworld-item-desc">사용자가 "sw"를 입력하면 Trie에서 접두어를 타고 "swift", "swiftui" 등 후보를 즉시 반환합니다.</div>
+        <span class="realworld-item-code">trie.autocomplete(prefix: "sw") // ["swift", "swiftui"]</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">iOS 키보드 자동 교정</div>
+        <div class="realworld-item-desc">입력 중인 단어와 가장 유사한 단어를 Trie에서 찾아 교정 후보를 제안합니다.</div>
+        <span class="realworld-item-code">trie.suggest(misspelled: "swft") // "swift"</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">IP 라우팅 테이블</div>
+        <div class="realworld-item-desc">네트워크 라우터가 IP 주소의 접두어를 Trie로 매칭해 패킷을 올바른 경로로 전달합니다.</div>
+        <span class="realworld-item-code">router.longestPrefixMatch("192.168.1.100")</span>
+      </div>
+      <div class="realworld-item">
+        <div class="realworld-item-title">연락처 검색</div>
+        <div class="realworld-item-desc">전화번호부에서 이름 일부만 입력해도 일치하는 연락처를 즉시 필터링합니다. 한글 초성 검색도 Trie로 구현 가능합니다.</div>
+        <span class="realworld-item-code">contactTrie.search(prefix: "김") // ["김철수", "김영희", ...]</span>
+      </div>
+    </div>
   </div>
 </div>
 
