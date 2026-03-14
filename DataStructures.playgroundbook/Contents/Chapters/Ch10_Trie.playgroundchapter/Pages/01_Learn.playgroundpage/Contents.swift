@@ -1,3 +1,4 @@
+//: > **Tip**: Xcode 메뉴에서 **Editor → Show Rendered Markup** 을 켜면 마크업이 렌더링되어 더 읽기 쉽습니다.
 /*:
  # Ch.10 — Trie (Prefix Tree)
 
@@ -28,20 +29,18 @@
  검색 시간이 **저장된 단어 수(n)와 무관**합니다!
  오직 **검색어의 길이(m)**에만 의존합니다.
 
- | 비교 | Array.filter | Trie |
- |------|-------------|------|
- | 접두어 검색 | O(n × m) | **O(m + k)** |
- | 100만 단어, "sw" 검색 | 100만 번 비교 | 2글자만 탐색 |
+ **Array.filter vs Trie 비교**
+ - **접두어 검색**: Array.filter O(n × m) / Trie **O(m + k)**
+ - **100만 단어, "sw" 검색**: Array.filter 100만 번 비교 / Trie 2글자만 탐색
 
  ## 시간복잡도
 
- | 연산 | 복잡도 | 비고 |
- |------|--------|------|
- | insert | O(m) | m = 단어 길이 |
- | search | O(m) | 정확히 일치 |
- | startsWith | O(m) | 접두어 존재 확인 |
- | autocomplete | O(m + k) | k = 결과 단어 수 |
- | delete | O(m) | 불필요한 노드 정리 |
+ **시간복잡도**
+ - **insert**: O(m) — m = 단어 길이
+ - **search**: O(m) — 정확히 일치
+ - **startsWith**: O(m) — 접두어 존재 확인
+ - **autocomplete**: O(m + k) — k = 결과 단어 수
+ - **delete**: O(m) — 불필요한 노드 정리
 
  ## 실무에서는?
  - **자동완성**: 검색엔진, IDE 코드 자동완성

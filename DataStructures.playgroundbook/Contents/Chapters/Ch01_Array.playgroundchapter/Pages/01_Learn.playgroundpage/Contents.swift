@@ -1,3 +1,4 @@
+//: > **Tip**: Xcode 메뉴에서 **Editor → Show Rendered Markup** 을 켜면 마크업이 렌더링되어 더 읽기 쉽습니다.
 /*:
  # Ch.01 — Array vs ContiguousArray
 
@@ -11,24 +12,22 @@
 
  ## Array vs ContiguousArray
 
- | 특성 | Array | ContiguousArray |
- |------|-------|-----------------|
- | Obj-C 브릿징 | O | X |
- | 연속 메모리 보장 | △ | O |
- | 성능 | 일반적 | 수치 연산에 유리 |
+ **Array vs ContiguousArray 비교**
+ - **Obj-C 브릿징**: Array ⭕ / ContiguousArray ❌
+ - **연속 메모리 보장**: Array △ / ContiguousArray ⭕
+ - **성능**: Array 일반적 / ContiguousArray 수치 연산에 유리
 
  > `ContiguousArray`는 Obj-C 브릿징이 없어 항상 연속 메모리가 보장됩니다.
  > 오디오 버퍼, 이미지 픽셀, ML 텐서 등 대량 수치 연산에서 Array 대비 최대 2배 빠릅니다.
 
  ## 시간복잡도
 
- | 연산 | 복잡도 | 비고 |
- |------|--------|------|
- | subscript [i] | O(1) | 연속 메모리 직접 접근 |
- | append() | O(1)* | amortized, 2배 재할당 |
- | insert(at:) | O(n) | 이후 원소 전부 이동 |
- | remove(at:) | O(n) | 이후 원소 전부 이동 |
- | contains() | O(n) | 선형 탐색 |
+ **시간복잡도**
+ - **subscript [i]**: O(1) — 연속 메모리 직접 접근
+ - **append()**: O(1)* — amortized, 2배 재할당
+ - **insert(at:)**: O(n) — 이후 원소 전부 이동
+ - **remove(at:)**: O(n) — 이후 원소 전부 이동
+ - **contains()**: O(n) — 선형 탐색
 
  ## 실무에서는?
  - **UITableView/CollectionView** 데이터 소스: `[Product]` 배열

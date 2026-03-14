@@ -1,3 +1,4 @@
+//: > **Tip**: Xcode 메뉴에서 **Editor → Show Rendered Markup** 을 켜면 마크업이 렌더링되어 더 읽기 쉽습니다.
 /*:
  # Ch.06 — Binary Search Tree (BST)
 
@@ -23,12 +24,11 @@
 
  ## 시간복잡도
 
- | 연산 | 평균 | 최악 (편향) | 비고 |
- |------|------|------------|------|
- | search | O(log n) | O(n) | 이진 탐색 |
- | insert | O(log n) | O(n) | 리프까지 이동 |
- | delete | O(log n) | O(n) | 3가지 케이스 |
- | inorder | O(n) | O(n) | 정렬 결과 |
+ **시간복잡도**
+ - **search**: 평균 O(log n) / 최악 O(n) — 이진 탐색
+ - **insert**: 평균 O(log n) / 최악 O(n) — 리프까지 이동
+ - **delete**: 평균 O(log n) / 최악 O(n) — 3가지 케이스
+ - **inorder**: O(n) — 정렬 결과
 
  ## 실무에서는?
  - **가격 범위 필터**: "1만원~5만원 상품 검색" → BST 범위 탐색

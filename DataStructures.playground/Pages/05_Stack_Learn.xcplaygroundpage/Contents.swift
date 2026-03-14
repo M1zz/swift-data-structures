@@ -1,3 +1,4 @@
+//: > **Tip**: Xcode 메뉴에서 **Editor → Show Rendered Markup** 을 켜면 마크업이 렌더링되어 더 읽기 쉽습니다.
 /*:
  # Ch.03 — Stack / Queue
 
@@ -17,12 +18,11 @@
 
  ## 시간복잡도
 
- | 연산 | Stack | Queue (이중스택) |
- |------|-------|-----------------|
- | push / enqueue | O(1) | O(1) |
- | pop / dequeue | O(1) | O(1)* amortized |
- | peek / front | O(1) | O(1) |
- | isEmpty | O(1) | O(1) |
+ **시간복잡도**
+ - **push / enqueue**: Stack O(1) / Queue O(1)
+ - **pop / dequeue**: Stack O(1) / Queue O(1)* amortized
+ - **peek / front**: Stack O(1) / Queue O(1)
+ - **isEmpty**: Stack O(1) / Queue O(1)
 
  ## 실무에서는?
  - **UINavigationController**: push/pop으로 화면 전환 (Stack)

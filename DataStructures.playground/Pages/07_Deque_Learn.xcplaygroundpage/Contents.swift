@@ -1,3 +1,4 @@
+//: > **Tip**: Xcode 메뉴에서 **Editor → Show Rendered Markup** 을 켜면 마크업이 렌더링되어 더 읽기 쉽습니다.
 /*:
  # Ch.04 — Deque (Double-ended Queue)
 
@@ -18,13 +19,12 @@
 
  ## 시간복잡도
 
- | 연산 | 복잡도 | 비고 |
- |------|--------|------|
- | pushFront() | O(1)* | amortized (resize 시 O(n)) |
- | pushBack() | O(1)* | amortized |
- | popFront() | O(1) | head 이동 |
- | popBack() | O(1) | count 감소 |
- | front / back | O(1) | 직접 접근 |
+ **시간복잡도**
+ - **pushFront()**: O(1)* — amortized (resize 시 O(n))
+ - **pushBack()**: O(1)* — amortized
+ - **popFront()**: O(1) — head 이동
+ - **popBack()**: O(1) — count 감소
+ - **front / back**: O(1) — 직접 접근
 
  ## 실무에서는?
  - **채팅 메시지 버퍼**: 최근 N개 메시지만 유지 (오래된 건 앞에서 제거)

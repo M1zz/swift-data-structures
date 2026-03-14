@@ -1,3 +1,4 @@
+//: > **Tip**: Xcode 메뉴에서 **Editor → Show Rendered Markup** 을 켜면 마크업이 렌더링되어 더 읽기 쉽습니다.
 /*:
  # Ch.07 — Heap / Priority Queue
 
@@ -29,12 +30,11 @@
 
  ## 시간복잡도
 
- | 연산 | 복잡도 | 비고 |
- |------|--------|------|
- | insert | O(log n) | siftUp |
- | remove (top) | O(log n) | siftDown |
- | peek (top) | O(1) | 배열 첫 원소 |
- | heapify (배열→힙) | O(n) | bottom-up |
+ **시간복잡도**
+ - **insert**: O(log n) — siftUp
+ - **remove (top)**: O(log n) — siftDown
+ - **peek (top)**: O(1) — 배열 첫 원소
+ - **heapify (배열→힙)**: O(n) — bottom-up
 
  ## 실무에서는?
  - **우선순위 큐**: 네트워크 요청 우선순위, 작업 스케줄러

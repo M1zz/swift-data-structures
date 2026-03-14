@@ -1,3 +1,4 @@
+//: > **Tip**: Xcode 메뉴에서 **Editor → Show Rendered Markup** 을 켜면 마크업이 렌더링되어 더 읽기 쉽습니다.
 /*:
  # Ch.02 — Linked List
 
@@ -15,23 +16,21 @@
 
  ## Array vs LinkedList
 
- | 연산 | Array | LinkedList |
- |------|-------|------------|
- | 인덱스 접근 [i] | O(1) | O(n) |
- | 맨 앞 삽입 | O(n) | **O(1)** |
- | 맨 뒤 삽입 | O(1)* | O(1) (tail 유지 시) |
- | 중간 삽입 (노드 참조 시) | O(n) | **O(1)** |
- | 메모리 | 연속 블록 | 분산 (노드마다 할당) |
+ **Array vs LinkedList 비교**
+ - **인덱스 접근 [i]**: Array O(1) / LinkedList O(n)
+ - **맨 앞 삽입**: Array O(n) / LinkedList **O(1)**
+ - **맨 뒤 삽입**: Array O(1)* / LinkedList O(1) (tail 유지 시)
+ - **중간 삽입 (노드 참조 시)**: Array O(n) / LinkedList **O(1)**
+ - **메모리**: Array 연속 블록 / LinkedList 분산 (노드마다 할당)
 
  ## 시간복잡도
 
- | 연산 | 복잡도 | 비고 |
- |------|--------|------|
- | prepend() | O(1) | head 교체 |
- | append() | O(1) | tail 참조 유지 시 |
- | removeFirst() | O(1) | head 이동 |
- | node(at:) | O(n) | 순차 탐색 |
- | insert(after:) | O(1) | 노드 참조가 있으면 |
+ **시간복잡도**
+ - **prepend()**: O(1) — head 교체
+ - **append()**: O(1) — tail 참조 유지 시
+ - **removeFirst()**: O(1) — head 이동
+ - **node(at:)**: O(n) — 순차 탐색
+ - **insert(after:)**: O(1) — 노드 참조가 있으면
 
  ## 실무에서는?
  - **Undo/Redo**: 각 작업을 노드로 연결해 이전/다음 이동
