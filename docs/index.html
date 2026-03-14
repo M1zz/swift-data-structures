@@ -2911,6 +2911,7 @@ function showChapter(i) {
   const label = document.getElementById('nav-label');
   if(label) label.textContent = i===0 ? '시작하기' : `Ch.${String(i).padStart(2,'0')} ${CH_NAMES[i]}`;
   window.scrollTo({top:0,behavior:'smooth'});
+  requestAnimationFrame(() => refreshCurrentChapter());
 }
 
 function toggleDrawer() {
@@ -3632,11 +3633,10 @@ function trieReset() { trieHighlightPath=[]; trieDraw(); setStatus('trie-status'
 // ─── INIT ──────────────────────────────────────────────────────────────
 window.addEventListener('load', ()=>{
   C = getThemeColors();
-  arrDraw(); llDraw(); stackDraw(); queueDraw(); dqDraw();
-  treeDrawBase([]); bstDraw(); heapDraw(); graphDraw(); htDraw(); trieDraw();
+  refreshCurrentChapter();
 });
 window.addEventListener('resize', ()=>{
-  arrDraw(); llDraw(); queueDraw(); dqDraw(); treeDrawBase([]); bstDraw(); heapDraw(); graphDraw(); htDraw(); trieDraw();
+  refreshCurrentChapter();
 });
 </script>
 </body>
