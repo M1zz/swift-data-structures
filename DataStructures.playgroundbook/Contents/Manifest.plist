@@ -18,13 +18,19 @@
   <key>ContentIdentifier</key>
   <string>com.gaebaljari.swift-data-structures</string>
   <key>ContentVersion</key>
-  <string>1.0</string>
+  <string>2.0</string>
   <key>DeploymentTarget</key>
   <string>ios-latest</string>
   <key>Name</key>
   <string>Swift로 배우는 자료구조</string>
   <key>SwiftVersion</key>
   <string>5.9</string>
+  <key>UserAutoImportedAuxiliaryModules</key>
+  <array>
+    <string>DSHelpers</string>
+  </array>
+  <key>UserModuleMode</key>
+  <string>Full</string>
   <key>Version</key>
   <string>7.0</string>
 </dict>

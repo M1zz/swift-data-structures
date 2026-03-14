@@ -2,5 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0"><dict>
   <key>Name</key><string>Hash Table</string>
-  <key>Pages</key><array><string>Practice.playgroundpage</string></array>
+  <key>Pages</key><array>
+    <string>01_Learn.playgroundpage</string>
+    <string>02_Practice.playgroundpage</string>
+  </array>
 </dict></plist>

@@ -97,55 +97,157 @@
     color: var(--text);
     font-family: 'Pretendard', sans-serif;
     min-height: 100vh;
-    display: flex;
   }
 
-  /* SIDEBAR */
-  .sidebar {
-    width: 240px;
-    min-width: 240px;
-    background: var(--surface);
-    border-right: 1px solid var(--border);
-    padding: 24px 0;
+  /* FLOATING NAV */
+  .floating-nav {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
     display: flex;
-    flex-direction: column;
-    position: sticky;
-    top: 0;
-    height: 100vh;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 40px;
+    padding: 8px 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,.15);
+    backdrop-filter: blur(12px);
+    transition: all .3s;
+  }
+  html.dark .floating-nav { box-shadow: 0 4px 24px rgba(0,0,0,.4); }
+
+  .nav-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: transparent;
+    cursor: pointer;
+    transition: all .2s;
+    position: relative;
+  }
+  .nav-dot:hover { border-color: var(--accent); transform: scale(1.2); }
+  .nav-dot.active { border-color: var(--accent); background: var(--accent); }
+  .nav-dot.home { border-radius: 3px; width: 14px; height: 14px; font-size: 7px; color: var(--text3); display: flex; align-items: center; justify-content: center; padding-left: 1px; }
+  .nav-dot.home.active { color: #fff; }
+  .nav-dot-tooltip {
+    display: none;
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 11px;
+    font-family: 'JetBrains Mono';
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .nav-dot:hover .nav-dot-tooltip { display: block; }
+
+  .nav-divider {
+    width: 1px;
+    height: 16px;
+    background: var(--border);
+    margin: 0 4px;
+  }
+
+  .nav-label {
+    font-size: 11px;
+    font-family: 'JetBrains Mono';
+    color: var(--text2);
+    margin-left: 8px;
+    white-space: nowrap;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .nav-theme-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 6px;
+    transition: all .2s;
+  }
+  .nav-theme-btn:hover { border-color: var(--accent); }
+
+  .nav-expand-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    cursor: pointer;
+    font-size: 12px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: var(--text2);
+    transition: all .2s;
+  }
+  .nav-expand-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .nav-dots-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Chapter drawer for mobile */
+  .chapter-drawer {
+    display: none;
+    position: fixed;
+    bottom: 72px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,.15);
+    width: calc(100% - 32px);
+    max-width: 400px;
+    max-height: 60vh;
     overflow-y: auto;
   }
-
-  .sidebar-title {
-    padding: 0 20px 20px;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: .15em;
-    color: var(--accent);
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 8px;
-  }
-
-  .sidebar-item {
-    padding: 10px 20px;
+  html.dark .chapter-drawer { box-shadow: 0 4px 24px rgba(0,0,0,.4); }
+  .chapter-drawer.open { display: block; }
+  .drawer-item {
+    padding: 10px 14px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 13px;
     color: var(--text2);
     display: flex;
     align-items: center;
     gap: 10px;
-    transition: all .2s;
-    border-left: 3px solid transparent;
+    transition: all .15s;
   }
-  .sidebar-item:hover { color: var(--text); background: var(--surface2); }
-  .sidebar-item.active { color: var(--accent); border-left-color: var(--accent); background: var(--sidebar-active-bg); }
-  .sidebar-item .ch-num { font-size: 10px; font-family: 'JetBrains Mono'; color: var(--text3); min-width: 24px; }
+  .drawer-item:hover { background: var(--surface2); color: var(--text); }
+  .drawer-item.active { background: var(--sidebar-active-bg); color: var(--accent); }
+  .drawer-item .ch-num { font-size: 10px; font-family: 'JetBrains Mono'; color: var(--text3); min-width: 24px; }
 
   /* MAIN */
   .main {
-    flex: 1;
-    padding: 40px 48px;
-    max-width: 900px;
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 32px 24px 100px;
   }
 
   .chapter {
@@ -630,22 +732,6 @@
     margin-bottom: 20px;
   }
 
-  /* THEME TOGGLE */
-  .theme-toggle {
-    padding: 8px 16px;
-    cursor: pointer;
-    font-size: 13px;
-    color: var(--text2);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-top: 1px solid var(--border);
-    margin-top: auto;
-    transition: all .2s;
-  }
-  .theme-toggle:hover { color: var(--text); background: var(--surface2); }
-  .theme-toggle-icon { font-size: 16px; min-width: 24px; text-align: center; }
-
   /* Light-mode shadow for cards */
   :root .viz-card,
   :root .info-box,
@@ -745,28 +831,81 @@
     border-radius: 3px;
     padding: 1px 6px;
   }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .main { padding: 20px 16px 100px; }
+    .home-title { font-size: 28px; }
+    .home-hero { padding: 32px 0 24px; }
+    .chapter-title { font-size: 26px; }
+    .home-cards { grid-template-columns: 1fr; }
+    .info-row { grid-template-columns: 1fr; }
+    .code-compare { grid-template-columns: 1fr; }
+    .chapter-list-grid { grid-template-columns: 1fr; }
+    .usecase-grid { grid-template-columns: 1fr; }
+    .complexity-grid { grid-template-columns: 1fr 1fr 1fr; font-size: 11px; }
+    .controls { gap: 6px; }
+    .btn { padding: 6px 12px; font-size: 12px; }
+    .input-field { width: 60px; padding: 6px 8px; font-size: 12px; }
+    .flow-step-desc { font-size: 12px; }
+    .nav-label { display: none; }
+    .nav-expand-btn { display: flex; }
+    .nav-dots-wrap { display: none; }
+    .floating-nav { padding: 6px 12px; gap: 4px; }
+    .playground-banner { flex-direction: column; gap: 10px; text-align: center; }
+    .playground-banner a { margin-left: 0; }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .main { padding: 32px 32px 100px; }
+    .home-cards { grid-template-columns: 1fr 1fr; }
+    .chapter-title { font-size: 30px; }
+  }
+
+  @media (min-width: 1025px) {
+    .main { padding: 40px 48px 100px; }
+  }
 </style>
 </head>
 <body>
 
-<nav class="sidebar">
-  <div class="sidebar-title">Swift 자료구조</div>
-  <div class="sidebar-item active" onclick="showChapter(0)"><span class="ch-num">—</span> 시작하기</div>
-  <div class="sidebar-item" onclick="showChapter(1)"><span class="ch-num">01</span> Array & ContiguousArray</div>
-  <div class="sidebar-item" onclick="showChapter(2)"><span class="ch-num">02</span> Linked List</div>
-  <div class="sidebar-item" onclick="showChapter(3)"><span class="ch-num">03</span> Stack / Queue</div>
-  <div class="sidebar-item" onclick="showChapter(4)"><span class="ch-num">04</span> Deque</div>
-  <div class="sidebar-item" onclick="showChapter(5)"><span class="ch-num">05</span> Binary Tree</div>
-  <div class="sidebar-item" onclick="showChapter(6)"><span class="ch-num">06</span> BST</div>
-  <div class="sidebar-item" onclick="showChapter(7)"><span class="ch-num">07</span> Heap / Priority Queue</div>
-  <div class="sidebar-item" onclick="showChapter(8)"><span class="ch-num">08</span> Graph</div>
-  <div class="sidebar-item" onclick="showChapter(9)"><span class="ch-num">09</span> Hash Table</div>
-  <div class="sidebar-item" onclick="showChapter(10)"><span class="ch-num">10</span> Trie</div>
-  <div class="theme-toggle" onclick="toggleTheme()">
-    <span class="theme-toggle-icon" id="theme-icon">🌙</span>
-    <span id="theme-label">다크 모드</span>
+<!-- FLOATING NAV -->
+<nav class="floating-nav" id="floating-nav">
+  <div class="nav-dots-wrap" id="nav-dots">
+    <div class="nav-dot home active" onclick="showChapter(0)" title="시작하기">▶
+      <div class="nav-dot-tooltip">시작하기</div>
+    </div>
+    <div class="nav-divider"></div>
+    <div class="nav-dot" onclick="showChapter(1)"><div class="nav-dot-tooltip">01 Array</div></div>
+    <div class="nav-dot" onclick="showChapter(2)"><div class="nav-dot-tooltip">02 LinkedList</div></div>
+    <div class="nav-dot" onclick="showChapter(3)"><div class="nav-dot-tooltip">03 Stack/Queue</div></div>
+    <div class="nav-dot" onclick="showChapter(4)"><div class="nav-dot-tooltip">04 Deque</div></div>
+    <div class="nav-dot" onclick="showChapter(5)"><div class="nav-dot-tooltip">05 Tree</div></div>
+    <div class="nav-dot" onclick="showChapter(6)"><div class="nav-dot-tooltip">06 BST</div></div>
+    <div class="nav-dot" onclick="showChapter(7)"><div class="nav-dot-tooltip">07 Heap</div></div>
+    <div class="nav-dot" onclick="showChapter(8)"><div class="nav-dot-tooltip">08 Graph</div></div>
+    <div class="nav-dot" onclick="showChapter(9)"><div class="nav-dot-tooltip">09 Hash</div></div>
+    <div class="nav-dot" onclick="showChapter(10)"><div class="nav-dot-tooltip">10 Trie</div></div>
   </div>
+  <div class="nav-expand-btn" onclick="toggleDrawer()">☰</div>
+  <span class="nav-label" id="nav-label">시작하기</span>
+  <div class="nav-theme-btn" onclick="toggleTheme()" id="theme-icon" title="테마 전환">🌙</div>
 </nav>
+
+<!-- CHAPTER DRAWER (mobile) -->
+<div class="chapter-drawer" id="chapter-drawer">
+  <div class="drawer-item active" onclick="showChapter(0);toggleDrawer()"><span class="ch-num">—</span> 시작하기</div>
+  <div class="drawer-item" onclick="showChapter(1);toggleDrawer()"><span class="ch-num">01</span> Array & ContiguousArray</div>
+  <div class="drawer-item" onclick="showChapter(2);toggleDrawer()"><span class="ch-num">02</span> Linked List</div>
+  <div class="drawer-item" onclick="showChapter(3);toggleDrawer()"><span class="ch-num">03</span> Stack / Queue</div>
+  <div class="drawer-item" onclick="showChapter(4);toggleDrawer()"><span class="ch-num">04</span> Deque</div>
+  <div class="drawer-item" onclick="showChapter(5);toggleDrawer()"><span class="ch-num">05</span> Binary Tree</div>
+  <div class="drawer-item" onclick="showChapter(6);toggleDrawer()"><span class="ch-num">06</span> BST</div>
+  <div class="drawer-item" onclick="showChapter(7);toggleDrawer()"><span class="ch-num">07</span> Heap / Priority Queue</div>
+  <div class="drawer-item" onclick="showChapter(8);toggleDrawer()"><span class="ch-num">08</span> Graph</div>
+  <div class="drawer-item" onclick="showChapter(9);toggleDrawer()"><span class="ch-num">09</span> Hash Table</div>
+  <div class="drawer-item" onclick="showChapter(10);toggleDrawer()"><span class="ch-num">10</span> Trie</div>
+</div>
 
 <main class="main">
 
@@ -1140,7 +1279,7 @@ heap.<span class="hl">removeMin</span>()</pre>
   <div class="playground-banner">
     <span class="playground-banner-icon">⌨️</span>
     <span>시각화로 개념을 확인한 뒤, <strong>Ch01_Array</strong> Playground에서 직접 CoW와 성능 비교를 코딩해보세요.</span>
-    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground Book 받기</a>
   </div>
 
   <div class="info-row">
@@ -1169,7 +1308,7 @@ heap.<span class="hl">removeMin</span>()</pre>
       <button class="btn" onclick="arrReset()">초기화</button>
     </div>
     <svg class="diagram" id="arr-svg" height="220"></svg>
-    <div class="status-bar" id="arr-status">배열 a = [1, 2, 3] 에서 시작합니다.</div>
+    <div class="status-bar" id="arr-status">배열 a = [1, 2, 3] 에서 시작합니다. append → 복사 → CoW 순서로 눌러보세요.</div>
   </div>
 
   <div class="viz-card">
@@ -1196,7 +1335,7 @@ heap.<span class="hl">removeMin</span>()</pre>
   <div class="playground-banner">
     <span class="playground-banner-icon">⌨️</span>
     <span>시각화로 개념을 확인한 뒤, <strong>Ch02_LinkedList</strong> Playground에서 Node 클래스와 LinkedList를 직접 구현해보세요.</span>
-    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground Book 받기</a>
   </div>
 
   <div class="info-row">
@@ -1241,7 +1380,7 @@ heap.<span class="hl">removeMin</span>()</pre>
   <div class="playground-banner">
     <span class="playground-banner-icon">⌨️</span>
     <span>시각화로 개념을 확인한 뒤, <strong>Ch03_Stack</strong> Playground에서 Stack과 이중 Stack Queue를 직접 구현해보세요.</span>
-    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground Book 받기</a>
   </div>
 
   <div class="info-row">
@@ -1263,24 +1402,23 @@ heap.<span class="hl">removeMin</span>()</pre>
   <div class="viz-card">
     <div class="viz-label">Stack — LIFO (Last In, First Out)</div>
     <div class="controls">
-      <input class="input-field" id="stack-val" type="number" value="7" min="0" max="99">
-      <button class="btn primary" onclick="stackPush()">push()</button>
-      <button class="btn" onclick="stackPop()">pop()</button>
+      <button class="btn primary" onclick="stackPush()">push() 화면 이동</button>
+      <button class="btn" onclick="stackPop()">pop() 뒤로 가기</button>
       <button class="btn" onclick="stackReset()">초기화</button>
     </div>
     <svg class="diagram" id="stack-svg" height="240"></svg>
-    <div class="status-bar" id="stack-status">Stack이 비어있습니다. push()로 원소를 추가하세요.</div>
+    <div class="status-bar" id="stack-status">💡 UINavigationController는 Stack입니다. push로 화면을 쌓고 pop으로 뒤로 가세요!</div>
   </div>
   <div class="viz-card">
     <div class="viz-label">Queue — FIFO (이중 Stack 구현)</div>
     <div class="controls">
-      <input class="input-field" id="queue-val" type="number" value="5" min="0" max="99">
-      <button class="btn primary" onclick="queueEnqueue()">enqueue()</button>
-      <button class="btn" onclick="queueDequeue()">dequeue()</button>
+      <button class="btn primary" onclick="queueEnqueue()">enqueue() 알림 도착</button>
+      <button class="btn primary" onclick="queueBatch()">알림 5개 한번에</button>
+      <button class="btn" onclick="queueDequeue()">dequeue() 알림 처리</button>
       <button class="btn" onclick="queueReset()">초기화</button>
     </div>
     <svg class="diagram" id="queue-svg" height="140"></svg>
-    <div class="status-bar" id="queue-status">inbox: []  outbox: []</div>
+    <div class="status-bar" id="queue-status">💡 알림 시스템 시뮬레이션. 알림을 쌓고 하나씩 dequeue해보세요!</div>
   </div>
 </div>
 
@@ -1295,7 +1433,7 @@ heap.<span class="hl">removeMin</span>()</pre>
   <div class="playground-banner">
     <span class="playground-banner-icon">⌨️</span>
     <span>시각화로 개념을 확인한 뒤, <strong>Ch04_Deque</strong> Playground에서 링 버퍼 기반 Deque를 직접 구현해보세요.</span>
-    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground Book 받기</a>
   </div>
 
   <div class="info-row">
@@ -1326,7 +1464,7 @@ heap.<span class="hl">removeMin</span>()</pre>
       <button class="btn" onclick="dqReset()">초기화</button>
     </div>
     <svg class="diagram" id="dq-svg" height="260"></svg>
-    <div class="status-bar" id="dq-status">Deque 초기화됨 (capacity=8). 원소를 추가하세요.</div>
+    <div class="status-bar" id="dq-status">💡 채팅 메시지 버퍼 시뮬레이션. 양쪽 모두 O(1)로 삽입/삭제가 가능합니다.</div>
   </div>
 </div>
 
@@ -1341,7 +1479,7 @@ heap.<span class="hl">removeMin</span>()</pre>
   <div class="playground-banner">
     <span class="playground-banner-icon">⌨️</span>
     <span>시각화로 개념을 확인한 뒤, <strong>Ch05_BinaryTree</strong> Playground에서 재귀 순회를 직접 구현해보세요.</span>
-    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground Book 받기</a>
   </div>
 
   <div class="info-row">
@@ -1373,7 +1511,7 @@ heap.<span class="hl">removeMin</span>()</pre>
       <button class="btn" onclick="treeReset()">초기화</button>
     </div>
     <svg class="diagram" id="tree-svg" height="280"></svg>
-    <div class="status-bar" id="tree-status">순회 방법을 선택하세요.</div>
+    <div class="status-bar" id="tree-status">💡 순회 방법을 선택하세요. SwiftUI View 계층, 파일 시스템 탐색 등에 쓰입니다.</div>
   </div>
 </div>
 
@@ -1388,7 +1526,7 @@ heap.<span class="hl">removeMin</span>()</pre>
   <div class="playground-banner">
     <span class="playground-banner-icon">⌨️</span>
     <span>시각화로 개념을 확인한 뒤, <strong>Ch06_BST</strong> Playground에서 삽입·탐색 로직을 직접 구현해보세요.</span>
-    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground Book 받기</a>
   </div>
 
   <div class="info-row">
@@ -1416,7 +1554,7 @@ heap.<span class="hl">removeMin</span>()</pre>
       <button class="btn" onclick="bstReset()">초기화</button>
     </div>
     <svg class="diagram" id="bst-svg" height="300"></svg>
-    <div class="status-bar" id="bst-status">초기 BST: [40, 20, 60, 10, 30]</div>
+    <div class="status-bar" id="bst-status">💡 상품 가격 BST: [40, 20, 60, 10, 30]. 가격을 넣고 검색해보세요.</div>
   </div>
 </div>
 
@@ -1431,7 +1569,7 @@ heap.<span class="hl">removeMin</span>()</pre>
   <div class="playground-banner">
     <span class="playground-banner-icon">⌨️</span>
     <span>시각화로 개념을 확인한 뒤, <strong>Ch07_Heap</strong> Playground에서 siftUp/siftDown을 직접 구현해보세요.</span>
-    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground Book 받기</a>
   </div>
 
   <div class="info-row">
@@ -1455,13 +1593,14 @@ heap.<span class="hl">removeMin</span>()</pre>
   <div class="viz-card">
     <div class="viz-label">Min-Heap 트리 ↔ 배열 표현</div>
     <div class="controls">
-      <input class="input-field" id="heap-val" type="number" value="5" min="1" max="99">
-      <button class="btn primary" onclick="heapInsert()">insert()</button>
-      <button class="btn" onclick="heapRemove()">remove() 최솟값 추출</button>
+      <button class="btn primary" style="background:#dc2626;border-color:#dc2626" onclick="heapInsertPriority('HIGH')">HIGH 긴급</button>
+      <button class="btn primary" style="background:#f59e0b;border-color:#f59e0b" onclick="heapInsertPriority('MED')">MEDIUM 보통</button>
+      <button class="btn primary" style="background:#6b7280;border-color:#6b7280" onclick="heapInsertPriority('LOW')">LOW 낮음</button>
+      <button class="btn" onclick="heapRemove()">remove() 최우선 처리</button>
       <button class="btn" onclick="heapReset()">초기화</button>
     </div>
     <svg class="diagram" id="heap-svg" height="300"></svg>
-    <div class="status-bar" id="heap-status">초기 힙: [1, 3, 2, 7, 5]</div>
+    <div class="status-bar" id="heap-status">💡 우선순위 큐: LOW 3개로 시작. HIGH를 넣으면 맨 위로 올라가는 걸 확인하세요!</div>
   </div>
 </div>
 
@@ -1476,7 +1615,7 @@ heap.<span class="hl">removeMin</span>()</pre>
   <div class="playground-banner">
     <span class="playground-banner-icon">⌨️</span>
     <span>시각화로 개념을 확인한 뒤, <strong>Ch08_Graph</strong> Playground에서 BFS·DFS를 직접 구현해보세요.</span>
-    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground Book 받기</a>
   </div>
 
   <div class="info-row">
@@ -1504,7 +1643,7 @@ heap.<span class="hl">removeMin</span>()</pre>
       <button class="btn" onclick="graphReset()">초기화</button>
     </div>
     <svg class="diagram" id="graph-svg" height="280"></svg>
-    <div class="status-bar" id="graph-status">BFS 또는 DFS를 선택하세요. 시작: 노드 A</div>
+    <div class="status-bar" id="graph-status">💡 소셜 네트워크 시뮬레이션. BFS=친구추천(가까운순), DFS=경로탐색(깊이우선). 시작: A</div>
   </div>
 </div>
 
@@ -1519,7 +1658,7 @@ heap.<span class="hl">removeMin</span>()</pre>
   <div class="playground-banner">
     <span class="playground-banner-icon">⌨️</span>
     <span>시각화로 개념을 확인한 뒤, <strong>Ch09_HashTable</strong> Playground에서 해시 함수와 충돌 해결을 직접 구현해보세요.</span>
-    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground Book 받기</a>
   </div>
 
   <div class="info-row">
@@ -1548,7 +1687,7 @@ heap.<span class="hl">removeMin</span>()</pre>
       <button class="btn" onclick="htReset()">초기화</button>
     </div>
     <svg class="diagram" id="ht-svg" height="300"></svg>
-    <div class="status-bar" id="ht-status">키를 입력하고 insert를 눌러보세요.</div>
+    <div class="status-bar" id="ht-status">💡 이미지 캐시 시뮬레이션. 같은 키를 두 번 insert해서 CACHE HIT를 체험해보세요!</div>
   </div>
 </div>
 
@@ -1563,7 +1702,7 @@ heap.<span class="hl">removeMin</span>()</pre>
   <div class="playground-banner">
     <span class="playground-banner-icon">⌨️</span>
     <span>시각화로 개념을 확인한 뒤, <strong>Ch10_Trie</strong> Playground에서 자동완성 로직을 직접 구현해보세요.</span>
-    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground 받기</a>
+    <a href="https://github.com/M1zz/swift-data-structures/raw/master/DataStructures.playgroundbook.zip" download>Playground Book 받기</a>
   </div>
 
   <div class="info-row">
@@ -1591,7 +1730,7 @@ heap.<span class="hl">removeMin</span>()</pre>
       <button class="btn" onclick="trieReset()">초기화</button>
     </div>
     <svg class="diagram" id="trie-svg" height="340"></svg>
-    <div class="status-bar" id="trie-status">초기 단어: app, apple, apply, apt, application</div>
+    <div class="status-bar" id="trie-status">💡 검색창 자동완성 시뮬레이션. "ap"를 입력하고 autocomplete를 눌러보세요!</div>
   </div>
 </div>
 
@@ -1616,7 +1755,6 @@ function toggleTheme() {
   const isDark = html.classList.toggle('dark');
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
   document.getElementById('theme-icon').textContent = isDark ? '☀️' : '🌙';
-  document.getElementById('theme-label').textContent = isDark ? '라이트 모드' : '다크 모드';
   document.querySelector('meta[name="theme-color"]').content = isDark ? '#0a0e1a' : '#f5f7fa';
   C = getThemeColors();
   refreshCurrentChapter();
@@ -1645,7 +1783,6 @@ function refreshCurrentChapter() {
     document.documentElement.classList.add('dark');
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('theme-icon').textContent = '☀️';
-      document.getElementById('theme-label').textContent = '라이트 모드';
       C = getThemeColors();
     });
   }
@@ -1674,10 +1811,26 @@ function setStatus(id, msg, color='') {
   if(el) { el.textContent = msg; if(color) el.style.borderLeftColor = color; }
 }
 
+const CH_NAMES = ['시작하기','Array','LinkedList','Stack/Queue','Deque','Tree','BST','Heap','Graph','Hash','Trie'];
 function showChapter(i) {
   document.querySelectorAll('.chapter').forEach((c,j) => c.classList.toggle('active', i===j));
-  document.querySelectorAll('.sidebar-item').forEach((s,j) => s.classList.toggle('active', i===j));
+  document.querySelectorAll('.nav-dot').forEach((d,j) => d.classList.toggle('active', i===j));
+  document.querySelectorAll('.drawer-item').forEach((d,j) => d.classList.toggle('active', i===j));
+  const label = document.getElementById('nav-label');
+  if(label) label.textContent = i===0 ? '시작하기' : `Ch.${String(i).padStart(2,'0')} ${CH_NAMES[i]}`;
+  window.scrollTo({top:0,behavior:'smooth'});
 }
+
+function toggleDrawer() {
+  document.getElementById('chapter-drawer').classList.toggle('open');
+}
+document.addEventListener('click', (e) => {
+  const drawer = document.getElementById('chapter-drawer');
+  const nav = document.getElementById('floating-nav');
+  if(drawer.classList.contains('open') && !drawer.contains(e.target) && !nav.contains(e.target)) {
+    drawer.classList.remove('open');
+  }
+});
 
 // ─── CH1: ARRAY ──────────────────────────────────────────────────────────
 let arrA = [1,2,3], arrB = null, arrSharing = false;
@@ -1716,14 +1869,14 @@ function arrDraw() {
   }
 }
 
-function arrPush() { arrA.push(arrA.length+1); arrDraw(); setStatus('arr-status', `a.append(${arrA[arrA.length-1]}) → a = [${arrA.join(', ')}]`); }
-function arrCopy() { arrB = [...arrA]; arrSharing = true; arrDraw(); setStatus('arr-status', 'b = a → 아직 복사 없음! 같은 버퍼를 공유합니다.', C.a2); }
+function arrPush() { arrA.push(arrA.length+1); arrDraw(); setStatus('arr-status', `💡 a.append(${arrA[arrA.length-1]}) → 실무: JSON 배열 디코딩 후 모델 추가와 같은 동작. O(1) amortized`); }
+function arrCopy() { arrB = [...arrA]; arrSharing = true; arrDraw(); setStatus('arr-status', '💡 b = a → 아직 복사 없음! 같은 버퍼를 공유합니다. 실무: let filtered = products — 아직 메모리 1개', C.a2); }
 function arrMutate() {
   if(!arrB) { setStatus('arr-status', '먼저 b = a 복사를 해주세요.'); return; }
   arrB.push(99); arrSharing = false; arrDraw();
-  setStatus('arr-status', `b.append(99) → CoW 발동! 버퍼가 분리됩니다. a=[${arrA.join(',')}]  b=[${arrB.join(',')}]`, C.hi);
+  setStatus('arr-status', `💡 CoW 발동! 실무: filtered.append(new) 하는 순간 비로소 메모리 분리. 불변 데이터 패턴의 핵심`, C.hi);
 }
-function arrReset() { arrA=[1,2,3]; arrB=null; arrSharing=false; arrDraw(); setStatus('arr-status','배열 a = [1, 2, 3] 에서 시작합니다.'); }
+function arrReset() { arrA=[1,2,3]; arrB=null; arrSharing=false; arrDraw(); setStatus('arr-status','배열 a = [1, 2, 3] 에서 시작합니다. append → 복사 → CoW 순서로 눌러보세요.'); }
 
 // ─── CH2: LINKED LIST ────────────────────────────────────────────────────
 let llNodes = [{v:10},{v:20},{v:30}];
@@ -1764,14 +1917,14 @@ async function llPrepend() {
   if(llAnimating) return; llAnimating=true;
   const v = parseInt(document.getElementById('ll-val').value)||0;
   llNodes.unshift({v}); llDraw(0);
-  setStatus('ll-status', `prepend(${v}) → O(1) — head를 새 노드로 교체`);
+  setStatus('ll-status', `💡 prepend(${v}) → O(1). 실무: Undo 스택에 새 작업 추가 — 배열이면 O(n)이지만 LinkedList는 O(1)`);
   await delay(400); llDraw(); llAnimating=false;
 }
 async function llAppend() {
   if(llAnimating) return; llAnimating=true;
   const v = parseInt(document.getElementById('ll-val').value)||0;
   llNodes.push({v}); llDraw(llNodes.length-1);
-  setStatus('ll-status', `append(${v}) → O(1) — tail에 연결`);
+  setStatus('ll-status', `💡 append(${v}) → O(1). 실무: LRU 캐시에서 최근 사용 항목을 tail에 연결`);
   await delay(400); llDraw(); llAnimating=false;
 }
 async function llRemoveFirst() {
@@ -1779,12 +1932,13 @@ async function llRemoveFirst() {
   const v = llNodes[0].v;
   llDraw(0); await delay(300);
   llNodes.shift(); llDraw();
-  setStatus('ll-status', `removeFirst() → ${v} 반환. O(1) — head를 next로 이동`);
+  setStatus('ll-status', `💡 removeFirst() → ${v} 제거. 실무: LRU 캐시에서 가장 오래된 항목 제거 — O(1)`);
   llAnimating=false;
 }
-function llReset() { llNodes=[{v:10},{v:20},{v:30}]; llDraw(); setStatus('ll-status','초기 리스트: 10 → 20 → 30'); }
+function llReset() { llNodes=[{v:10},{v:20},{v:30}]; llDraw(); setStatus('ll-status','초기 리스트: 10 → 20 → 30. 실무에선 Undo 히스토리나 LRU 캐시로 사용됩니다.'); }
 
 // ─── CH3: STACK ──────────────────────────────────────────────────────────
+const SCREEN_NAMES = ['홈', '설정', '프로필', '알림', '채팅', '검색', '장바구니', '결제'];
 let stackData = [];
 let stackAnimating = false;
 
@@ -1801,31 +1955,34 @@ function stackDraw() {
     const y = 30 + fromBottom*38;
     const isTop = i===shown.length-1;
     svg.appendChild(rect(startX, y, W, 32, {fill:isTop?C.hiLight:C.s2, stroke:isTop?C.hi:C.accent,'stroke-width':isTop?'2':'1',rx:'4'}));
-    svg.appendChild(txt(startX+W/2, y+16, String(v), {fill:isTop?C.hi:C.text,'font-size':'15','font-family':'JetBrains Mono','font-weight':'700'}));
-    if(isTop) svg.appendChild(txt(startX+W+24, y+16, '← top', {fill:C.hi,'font-size':'12','font-family':'JetBrains Mono','text-anchor':'start'}));
+    svg.appendChild(txt(startX+W/2, y+16, v, {fill:isTop?C.hi:C.text,'font-size':'14','font-family':'JetBrains Mono','font-weight':'700'}));
+    if(isTop) svg.appendChild(txt(startX+W+24, y+16, '← 현재 화면', {fill:C.hi,'font-size':'11','font-family':'JetBrains Mono','text-anchor':'start'}));
   });
-  if(!stackData.length) svg.appendChild(txt(startX+W/2,120,'(비어있음)',{fill:C.text3,'font-size':'13','font-family':'JetBrains Mono'}));
-  svg.appendChild(txt(startX+W/2,220,`count: ${stackData.length}`,{fill:C.text3,'font-size':'12','font-family':'JetBrains Mono'}));
+  if(!stackData.length) svg.appendChild(txt(startX+W/2,120,'(네비게이션 비어있음)',{fill:C.text3,'font-size':'13','font-family':'JetBrains Mono'}));
+  svg.appendChild(txt(startX+W/2,220,`NavigationStack depth: ${stackData.length}`,{fill:C.text3,'font-size':'12','font-family':'JetBrains Mono'}));
 }
 
 async function stackPush() {
   if(stackAnimating) return; stackAnimating=true;
-  const v = parseInt(document.getElementById('stack-val').value)||0;
-  stackData.push(v); stackDraw();
-  setStatus('stack-status',`push(${v}) → O(1)  Stack: [${stackData.join(', ')}]`);
+  const screen = SCREEN_NAMES[stackData.length % SCREEN_NAMES.length];
+  stackData.push(screen); stackDraw();
+  setStatus('stack-status',`💡 push("${screen}") → 화면 이동! 실무: navigationController.push(${screen}VC). 뒤로가기 = pop()`);
   stackAnimating=false;
 }
 async function stackPop() {
   if(stackAnimating||!stackData.length) return; stackAnimating=true;
   const v = stackData.pop();
   stackDraw();
-  setStatus('stack-status',`pop() → ${v} 반환 (LIFO). Stack: [${stackData.join(', ')}]`);
+  const current = stackData.length ? stackData[stackData.length-1] : '없음';
+  setStatus('stack-status',`💡 pop() → "${v}" 닫힘 (LIFO). 현재 화면: ${current}. 실무: 뒤로가기 버튼 = pop()`);
   stackAnimating=false;
 }
-function stackReset() { stackData=[]; stackDraw(); setStatus('stack-status','Stack이 비어있습니다.'); }
+function stackReset() { stackData=[]; stackDraw(); setStatus('stack-status','💡 UINavigationController는 Stack입니다. push로 화면을 쌓고 pop으로 뒤로 가세요!'); }
 
 // ─── CH3: QUEUE ──────────────────────────────────────────────────────────
 let qInbox=[], qOutbox=[];
+let qNotifId=0;
+const NOTIF_TYPES = ['좋아요', '댓글', '팔로우', '결제완료', 'DM', '리트윗', '언급', '초대'];
 
 function queueDraw() {
   const svg = document.getElementById('queue-svg');
@@ -1836,32 +1993,39 @@ function queueDraw() {
   const drawBox = (arr, label, x0, color) => {
     svg.appendChild(txt(x0+10, 15, label, {'text-anchor':'start',fill:color,'font-size':'11','font-family':'JetBrains Mono'}));
     arr.forEach((v,i) => {
-      svg.appendChild(rect(x0+i*46, 24, 40, 32, {fill:C.s2,stroke:color,'stroke-width':'1.5',rx:'4'}));
-      svg.appendChild(txt(x0+i*46+20, 40, String(v), {fill:color,'font-size':'13','font-family':'JetBrains Mono','font-weight':'700'}));
+      const cellW = Math.min(60, (W/2-60)/Math.max(arr.length,1));
+      svg.appendChild(rect(x0+i*cellW, 24, cellW-4, 32, {fill:C.s2,stroke:color,'stroke-width':'1.5',rx:'4'}));
+      svg.appendChild(txt(x0+i*cellW+cellW/2-2, 40, v, {fill:color,'font-size':'10','font-family':'JetBrains Mono','font-weight':'700'}));
     });
     if(!arr.length) svg.appendChild(txt(x0+30,40,'[]',{fill:C.text3,'font-size':'13','font-family':'JetBrains Mono'}));
   };
 
   const half = Math.floor(W/2)-20;
-  drawBox(qInbox, 'inbox (enqueue →)', 10, C.accent);
+  drawBox(qInbox, 'inbox (알림 도착 →)', 10, C.accent);
   svg.appendChild(txt(half+20, 60, '⚡', {fill:C.hi,'font-size':'18'}));
-  drawBox([...qOutbox].reverse(), 'outbox (← dequeue)', half+40, C.a2);
+  drawBox([...qOutbox].reverse(), 'outbox (← 처리)', half+40, C.a2);
   svg.appendChild(txt(W/2, 105, 'dequeue: outbox가 비면 inbox를 reverse → outbox (O(n) 단 한번)', {fill:C.text2,'font-size':'11','font-family':'JetBrains Mono'}));
 }
 
 function queueEnqueue() {
-  const v=parseInt(document.getElementById('queue-val').value)||0;
-  qInbox.push(v); queueDraw();
-  setStatus('queue-status',`enqueue(${v}) → inbox에 추가. inbox:[${qInbox}]  outbox:[${qOutbox}]`);
+  const notif = NOTIF_TYPES[qNotifId++ % NOTIF_TYPES.length];
+  qInbox.push(notif); queueDraw();
+  setStatus('queue-status',`💡 알림 "${notif}" 도착! 실무: OperationQueue에 작업 추가 — 먼저 온 것이 먼저 처리됨 (FIFO)`);
+}
+function queueBatch() {
+  for(let i=0;i<5;i++) { qInbox.push(NOTIF_TYPES[qNotifId++ % NOTIF_TYPES.length]); }
+  queueDraw();
+  setStatus('queue-status',`💡 알림 5개 한번에 도착! 대기열: ${qInbox.length+qOutbox.length}개. dequeue로 하나씩 처리해보세요.`);
 }
 function queueDequeue() {
-  if(!qInbox.length&&!qOutbox.length) { setStatus('queue-status','Queue가 비어있습니다.'); return; }
+  if(!qInbox.length&&!qOutbox.length) { setStatus('queue-status','모든 알림을 처리했습니다! 새 알림을 추가해보세요.'); return; }
   if(!qOutbox.length) { qOutbox=[...qInbox].reverse(); qInbox=[]; }
   const v=qOutbox.pop();
+  const remaining = qInbox.length + qOutbox.length;
   queueDraw();
-  setStatus('queue-status',`dequeue() → ${v} 반환. inbox:[${qInbox}]  outbox:[${qOutbox}]`);
+  setStatus('queue-status',`💡 "${v}" 알림 처리 완료! 남은 알림: ${remaining}개. 먼저 도착한 알림부터 처리됩니다 (FIFO)`);
 }
-function queueReset() { qInbox=[]; qOutbox=[]; queueDraw(); setStatus('queue-status','inbox: []  outbox: []'); }
+function queueReset() { qInbox=[]; qOutbox=[]; qNotifId=0; queueDraw(); setStatus('queue-status','💡 알림 시스템 시뮬레이션. 알림을 쌓고 하나씩 dequeue해보세요!'); }
 
 // ─── CH4: DEQUE ──────────────────────────────────────────────────────────
 const DQ_CAP=8;
@@ -1905,26 +2069,26 @@ function dqPushFront() {
   if(dqCount>=DQ_CAP){setStatus('dq-status','⚠️ 꽉 찼습니다 — resize 필요',C.accent);return;}
   const v=parseInt(document.getElementById('dq-val').value)||0;
   dqHead=(dqHead-1+DQ_CAP)%DQ_CAP; dqBuf[dqHead]=v; dqCount++;
-  dqDraw(); setStatus('dq-status',`pushFront(${v}) → head를 왼쪽으로 이동 (순환). O(1)`);
+  dqDraw(); setStatus('dq-status',`💡 pushFront(${v}) → O(1). 실무: 채팅방에서 이전 메시지 로드 — 앞쪽에 삽입`);
 }
 function dqPushBack() {
   if(dqCount>=DQ_CAP){setStatus('dq-status','⚠️ 꽉 찼습니다 — resize 필요',C.accent);return;}
   const v=parseInt(document.getElementById('dq-val').value)||0;
   dqBuf[dqIdx(dqCount)]=v; dqCount++;
-  dqDraw(); setStatus('dq-status',`pushBack(${v}) → tail을 오른쪽으로 이동. O(1)`);
+  dqDraw(); setStatus('dq-status',`💡 pushBack(${v}) → O(1). 실무: 새 메시지 도착 — 뒤쪽에 추가`);
 }
 function dqPopFront() {
   if(!dqCount){setStatus('dq-status','Deque가 비어있습니다.');return;}
   const v=dqBuf[dqHead]; dqBuf[dqHead]=null;
   dqHead=(dqHead+1)%DQ_CAP; dqCount--;
-  dqDraw(); setStatus('dq-status',`popFront() → ${v} 반환. head를 오른쪽으로. O(1)`);
+  dqDraw(); setStatus('dq-status',`💡 popFront() → ${v} 제거. 실무: 최대 N개 유지 — 가장 오래된 메시지 삭제. O(1)`);
 }
 function dqPopBack() {
   if(!dqCount){setStatus('dq-status','Deque가 비어있습니다.');return;}
   const ti=dqIdx(dqCount-1); const v=dqBuf[ti]; dqBuf[ti]=null; dqCount--;
-  dqDraw(); setStatus('dq-status',`popBack() → ${v} 반환. tail을 왼쪽으로. O(1)`);
+  dqDraw(); setStatus('dq-status',`💡 popBack() → ${v} 제거. 실무: 방금 보낸 메시지 삭제/취소 — 뒤에서 제거. O(1)`);
 }
-function dqReset() { dqBuf=new Array(DQ_CAP).fill(null);dqHead=3;dqCount=0;dqDraw();setStatus('dq-status','Deque 초기화됨 (capacity=8).'); }
+function dqReset() { dqBuf=new Array(DQ_CAP).fill(null);dqHead=3;dqCount=0;dqDraw();setStatus('dq-status','💡 채팅 메시지 버퍼 시뮬레이션. 양쪽 모두 O(1)로 삽입/삭제가 가능합니다.'); }
 
 // ─── CH5: BINARY TREE ────────────────────────────────────────────────────
 const TREE_DATA = {v:1,l:{v:2,l:{v:4},r:{v:5}},r:{v:3,r:{v:6}}};
@@ -1977,17 +2141,19 @@ function levelorder(node) {
 async function treeTraverse(type) {
   if(treeAnimating) return; treeAnimating=true;
   const labels={pre:'전위 (Root→L→R)',in:'중위 (L→Root→R)',post:'후위 (L→R→Root)',level:'레벨 (BFS)'};
+  const usecases={pre:'실무: 트리 복제, 직렬화 (JSON 변환)',in:'실무: BST에서 정렬된 순서 출력',post:'실무: 메모리 해제, 디렉토리 삭제 (자식 먼저)',level:'실무: BFS로 최단 경로, View 계층 레이아웃 계산'};
   const orders={pre:preorder(TREE_DATA),in:inorder(TREE_DATA),post:postorder(TREE_DATA),level:levelorder(TREE_DATA)};
   const order=orders[type];
   treeDrawBase([]);
   for(let i=0;i<order.length;i++) {
     treeDrawBase(order.slice(0,i+1));
-    setStatus('tree-status',`${labels[type]}: [${order.slice(0,i+1).join(' → ')}]`);
+    setStatus('tree-status',`${labels[type]}: [${order.slice(0,i+1).join(' → ')}] (${i+1}/${order.length})`);
     await delay(600);
   }
+  setStatus('tree-status',`💡 ${labels[type]} 완료: [${order.join(' → ')}]. ${usecases[type]}`);
   treeAnimating=false;
 }
-function treeReset() { treeAnimating=false; treeDrawBase([]); setStatus('tree-status','순회 방법을 선택하세요.'); }
+function treeReset() { treeAnimating=false; treeDrawBase([]); setStatus('tree-status','💡 순회 방법을 선택하세요. SwiftUI View 계층, 파일 시스템 탐색 등에 쓰입니다.'); }
 
 // ─── CH6: BST ────────────────────────────────────────────────────────────
 class BSTNode { constructor(v){this.v=v;this.l=null;this.r=null;} }
@@ -2039,19 +2205,23 @@ function bstDraw(highlights=[],found=-1) {
 function bstInsert() {
   const v=parseInt(document.getElementById('bst-val').value)||0;
   bstRoot=bstInsertNode(bstRoot,v); bstDraw();
-  setStatus('bst-status',`insert(${v}) → 불변 조건 유지하며 삽입. O(log n) 평균`);
+  setStatus('bst-status',`💡 insert(${v}) → 왼<루트<오른쪽 유지. 실무: 상품 가격 ${v}원 등록 — O(log n)`);
 }
 async function bstSearch() {
   const v=parseInt(document.getElementById('bst-val').value)||0;
   const path=bstSearchPath(bstRoot,v,[]);
   const found=path[path.length-1]===v;
   for(let i=0;i<path.length;i++){bstDraw(path.slice(0,i+1),found&&i===path.length-1?v:-1);await delay(500);}
-  setStatus('bst-status',found?`search(${v}) → 발견! 경로: ${path.join(' → ')}`:`search(${v}) → 없음. 탐색 경로: ${path.join(' → ')}`);
+  setStatus('bst-status',found?`💡 search(${v}) → ${path.length}번만에 발견! 실무: "${v}원 이하 상품 필터" — Array면 O(n), BST는 O(log n)`:`💡 search(${v}) → 없음 (${path.length}번 비교). 실무: 가격 범위 검색에서 빠르게 "해당 가격 없음" 판단`);
 }
-function bstReset() { bstRoot=null;[40,20,60,10,30].forEach(v=>{bstRoot=bstInsertNode(bstRoot,v);}); bstDraw(); setStatus('bst-status','초기 BST: [40, 20, 60, 10, 30]'); }
+function bstReset() { bstRoot=null;[40,20,60,10,30].forEach(v=>{bstRoot=bstInsertNode(bstRoot,v);}); bstDraw(); setStatus('bst-status','💡 상품 가격 BST: [40, 20, 60, 10, 30]. 가격을 넣고 검색해보세요.'); }
 
 // ─── CH7: HEAP ───────────────────────────────────────────────────────────
-let heapData=[1,3,2,7,5];
+const PRIORITY_MAP = {HIGH:1, MED:5, LOW:9};
+const PRIORITY_LABELS = {1:'HIGH',2:'HIGH',3:'MED',4:'MED',5:'MED',6:'LOW',7:'LOW',8:'LOW',9:'LOW'};
+function getPriorityLabel(v) { return v<=2?'HIGH':v<=5?'MED':'LOW'; }
+function getPriorityColor(v) { return v<=2?'#dc2626':v<=5?'#f59e0b':'#6b7280'; }
+let heapData=[5,7,9];
 
 function heapParent(i){return Math.floor((i-1)/2);}
 function heapLeft(i){return 2*i+1;}
@@ -2098,43 +2268,49 @@ function heapDraw(highlights=[],swapping=[]) {
   nodes.forEach(nd=>{
     const isHi=highlights.includes(nd.i);
     const isSw=swapping.includes(nd.i);
-    const color=isSw?C.hi:isHi?C.a3:nd.i===0?C.accent:C.a2;
+    const pColor=getPriorityColor(heapData[nd.i]);
+    const color=isSw?C.hi:isHi?C.a3:pColor;
     const fill=isSw?C.hiLight:isHi?'rgba(34,197,94,.15)':C.s2;
-    svg.appendChild(circle(nd.x,nd.y,20,{fill,stroke:color,'stroke-width':isHi||isSw?'2.5':'1.5'}));
-    svg.appendChild(txt(nd.x,nd.y,String(heapData[nd.i]),{fill:color,'font-size':'13','font-family':'JetBrains Mono','font-weight':'700'}));
-    svg.appendChild(txt(nd.x,nd.y+32,`[${nd.i}]`,{fill:C.text3,'font-size':'10','font-family':'JetBrains Mono'}));
+    svg.appendChild(circle(nd.x,nd.y,22,{fill,stroke:color,'stroke-width':isHi||isSw?'2.5':'2'}));
+    svg.appendChild(txt(nd.x,nd.y-4,getPriorityLabel(heapData[nd.i]),{fill:color,'font-size':'10','font-family':'JetBrains Mono','font-weight':'700'}));
+    svg.appendChild(txt(nd.x,nd.y+10,String(heapData[nd.i]),{fill:C.text3,'font-size':'9','font-family':'JetBrains Mono'}));
   });
 
   // array representation
-  const arrY=260, arrStartX=20, cellW=Math.min(40,(W-40)/Math.max(n,1));
+  const arrY=260, arrStartX=20, cellW=Math.min(56,(W-40)/Math.max(n,1));
   svg.appendChild(txt(10,arrY,'arr:',{'text-anchor':'start',fill:C.text3,'font-size':'12','font-family':'JetBrains Mono'}));
   heapData.forEach((v,i)=>{
     const x=arrStartX+40+i*cellW;
-    const color=highlights.includes(i)||swapping.includes(i)?C.hi:C.a2;
+    const pColor=getPriorityColor(v);
+    const color=highlights.includes(i)||swapping.includes(i)?C.hi:pColor;
     svg.appendChild(rect(x,arrY-12,cellW-2,24,{fill:C.s2,stroke:color,'stroke-width':'1',rx:'3'}));
-    svg.appendChild(txt(x+cellW/2-1,arrY,String(v),{fill:color,'font-size':'12','font-family':'JetBrains Mono','font-weight':'700'}));
+    svg.appendChild(txt(x+cellW/2-1,arrY,getPriorityLabel(v),{fill:color,'font-size':'10','font-family':'JetBrains Mono','font-weight':'700'}));
   });
 }
 
-async function heapInsert() {
-  const v=parseInt(document.getElementById('heap-val').value)||0;
+async function heapInsertPriority(level) {
+  const base = PRIORITY_MAP[level];
+  const v = base + Math.floor(Math.random()*2); // slight variation
   heapData.push(v);
   const path=heapSiftUp([...heapData],heapData.length-1);
-  // re-run actual sift
   heapSiftUp(heapData,heapData.length-1);
   for(let i=0;i<path.length;i++){heapDraw([path[i]]);await delay(500);}
-  heapDraw(); setStatus('heap-status',`insert(${v}) → siftUp 완료. heap: [${heapData.join(',')}]. 루트(최솟값): ${heapData[0]}`);
+  const moved = path.length > 1 ? `siftUp ${path.length-1}단계 이동!` : '제자리에 삽입.';
+  heapDraw(); setStatus('heap-status',`💡 ${level} 우선순위 작업 추가 → ${moved} 루트(최우선): ${getPriorityLabel(heapData[0])}. 높은 우선순위가 항상 맨 위!`);
 }
+async function heapInsert() { heapInsertPriority('MED'); }
 async function heapRemove() {
   if(!heapData.length) return;
   const min=heapData[0];
+  const label=getPriorityLabel(min);
   heapData[0]=heapData[heapData.length-1]; heapData.pop();
   const path=heapSiftDown([...heapData],0,heapData.length);
   heapSiftDown(heapData,0,heapData.length);
   for(let i=0;i<path.length;i++){heapDraw([],path.slice(i,i+2));await delay(500);}
-  heapDraw(); setStatus('heap-status',`remove() → ${min} 추출. siftDown 완료. heap: [${heapData.join(',')}]`);
+  const nextLabel = heapData.length ? getPriorityLabel(heapData[0]) : '없음';
+  heapDraw(); setStatus('heap-status',`💡 ${label} 작업 처리 완료! 실무: 긴급 알림 먼저 표시. 다음 최우선: ${nextLabel}. O(log n)`);
 }
-function heapReset() { heapData=[1,3,2,7,5]; heapDraw(); setStatus('heap-status','초기 힙: [1, 3, 2, 7, 5]'); }
+function heapReset() { heapData=[5,7,9]; heapDraw(); setStatus('heap-status','💡 우선순위 큐: LOW 3개로 시작. HIGH를 넣으면 맨 위로 올라가는 걸 확인하세요!'); }
 
 // ─── CH8: GRAPH ──────────────────────────────────────────────────────────
 const GRAPH_NODES=[{id:'A',x:.5,y:.1},{id:'B',x:.2,y:.35},{id:'C',x:.78,y:.32},{id:'D',x:.1,y:.65},{id:'E',x:.42,y:.6},{id:'F',x:.72,y:.65},{id:'G',x:.3,y:.85}];
@@ -2176,7 +2352,7 @@ async function graphBFS() {
   if(graphAnimating) return; graphAnimating=true;
   const visited=new Set(),queue=['A'],order=[];
   graphDraw(visited,'A',queue);
-  setStatus('graph-status','BFS 시작: A');
+  setStatus('graph-status','💡 BFS 시작 — "A의 친구 → 친구의 친구" 순서로 탐색 (가까운 사람부터)');
   await delay(500);
   while(queue.length) {
     const node=queue.shift(); if(visited.has(node)) continue;
@@ -2184,10 +2360,11 @@ async function graphBFS() {
     const neighbors=(GRAPH_ADJ[node]||[]).filter(n=>!visited.has(n));
     neighbors.forEach(n=>{if(!queue.includes(n))queue.push(n);});
     graphDraw(visited,node,[...queue]);
-    setStatus('graph-status',`BFS: 방문 순서 [${order.join(' → ')}]  큐: [${queue.join(',')}]`);
+    const depth = order.length<=1?'직접 친구':order.length<=3?'1촌 친구':'2촌 이상';
+    setStatus('graph-status',`BFS: ${node} 방문 (${depth}) → [${order.join(' → ')}]  대기: [${queue.join(',')}]`);
     await delay(700);
   }
-  graphDraw(visited,'',[]); setStatus('graph-status',`BFS 완료: [${order.join(' → ')}]`);
+  graphDraw(visited,'',[]); setStatus('graph-status',`💡 BFS 완료: [${order.join(' → ')}]. 실무: 친구 추천 — 가까운 관계부터 탐색. 최단 경로 보장!`);
   graphAnimating=false;
 }
 async function graphDFS() {
@@ -2199,13 +2376,13 @@ async function graphDFS() {
     const neighbors=[...(GRAPH_ADJ[node]||[])].reverse().filter(n=>!visited.has(n));
     neighbors.forEach(n=>stack.push(n));
     graphDraw(visited,node,[...stack]);
-    setStatus('graph-status',`DFS: 방문 순서 [${order.join(' → ')}]  스택: [${stack.join(',')}]`);
+    setStatus('graph-status',`DFS: ${node} 방문 — 한 방향을 끝까지 파고듦 → [${order.join(' → ')}]`);
     await delay(700);
   }
-  graphDraw(visited,'',[]); setStatus('graph-status',`DFS 완료: [${order.join(' → ')}]`);
+  graphDraw(visited,'',[]); setStatus('graph-status',`💡 DFS 완료: [${order.join(' → ')}]. 실무: 미로 탈출, 의존성 해결(SPM), 사이클 탐지에 사용`);
   graphAnimating=false;
 }
-function graphReset() { graphAnimating=false; graphDraw(new Set(),'',[]); setStatus('graph-status','BFS 또는 DFS를 선택하세요. 시작: 노드 A'); }
+function graphReset() { graphAnimating=false; graphDraw(new Set(),'',[]); setStatus('graph-status','💡 소셜 네트워크 시뮬레이션. BFS=친구추천(가까운순), DFS=경로탐색(깊이우선). 시작: A'); }
 
 // ─── CH9: HASH TABLE ─────────────────────────────────────────────────────
 const HT_CAP=8;
@@ -2247,19 +2424,25 @@ function htInsert() {
   const val=parseInt(document.getElementById('ht-val').value)||0;
   const idx=htHash(key);
   const existing=htBuckets[idx].findIndex(e=>e.key===key);
-  if(existing>=0) htBuckets[idx][existing].val=val;
-  else htBuckets[idx].push({key,val});
-  htDraw(idx);
-  setStatus('ht-status',`insert("${key}", ${val}) → hash("${key}") % 8 = ${idx}  ${htBuckets[idx].length>1?'⚡ 충돌! 체이닝':'OK'}`);
+  if(existing>=0) {
+    htBuckets[idx][existing].val=val;
+    htDraw(idx,key);
+    setStatus('ht-status',`⚡ CACHE HIT! "${key}"는 이미 bucket[${idx}]에 존재 → 값만 ${val}로 갱신. O(1). 실무: 이미지 캐시에서 같은 URL 재요청 시 즉시 반환`);
+  } else {
+    htBuckets[idx].push({key,val});
+    htDraw(idx);
+    const collision = htBuckets[idx].length>1;
+    setStatus('ht-status',`💡 insert("${key}", ${val}) → hash % 8 = ${idx}. ${collision?'⚡ 충돌! 체이닝으로 연결':'O(1) 삽입 완료'}. 실무: imageCache[url] = image`);
+  }
 }
 function htSearch() {
   const key=document.getElementById('ht-key').value||'key';
   const idx=htHash(key);
   const found=htBuckets[idx].find(e=>e.key===key);
   htDraw(idx,key);
-  setStatus('ht-status',found?`search("${key}") → bucket[${idx}] 에서 발견! 값: ${found.val}`:`search("${key}") → bucket[${idx}] 탐색 → 없음`);
+  setStatus('ht-status',found?`💡 CACHE HIT! "${key}" → bucket[${idx}]에서 발견! 값: ${found.val}. O(1) — Array의 O(n) 탐색과 비교해보세요`:`💡 CACHE MISS. "${key}" → bucket[${idx}] 탐색 → 없음. 실무: 캐시 미스 시 네트워크 요청 필요`);
 }
-function htReset() { htBuckets=Array.from({length:HT_CAP},()=>[]); htDraw(); setStatus('ht-status','키를 입력하고 insert를 눌러보세요.'); }
+function htReset() { htBuckets=Array.from({length:HT_CAP},()=>[]); htDraw(); setStatus('ht-status','💡 이미지 캐시 시뮬레이션. 같은 키를 두 번 insert해서 CACHE HIT를 체험해보세요!'); }
 
 // ─── CH10: TRIE ──────────────────────────────────────────────────────────
 class TrieNodeV { constructor(){this.c={};this.end=false;} }
@@ -2325,36 +2508,34 @@ function trieInsert() {
   if(!w) return;
   trieHighlightPath=[];
   trieInstance.insert(w); trieDraw();
-  setStatus('trie-status',`insert("${w}") → O(${w.length})  단어 끝 노드에 ✓ 표시`);
+  setStatus('trie-status',`💡 insert("${w}") → O(${w.length}). 실무: 검색 사전에 "${w}" 등록. 글자 수만큼만 노드를 따라가면 끝!`);
 }
 async function trieSearch() {
   const prefix=document.getElementById('trie-word').value.toLowerCase().trim();
   const result=trieInstance.pathTo(prefix);
-  if(!result){setStatus('trie-status',`autocomplete("${prefix}") → 해당 접두어 없음`);return;}
+  if(!result){setStatus('trie-status',`💡 "${prefix}" 입력 중... 자동완성 결과 없음. 새 단어를 insert해보세요.`);return;}
   const nodes=trieLayout(trieInstance.root,document.getElementById('trie-svg').parentElement.clientWidth/2,30,220);
-  // animate path
   trieHighlightPath=[];
   const pathNodes=result.path;
   for(let i=0;i<pathNodes.length;i++) {
     const allNodes=trieLayout(trieInstance.root,document.getElementById('trie-svg').parentElement.clientWidth/2,30,220);
-    // find node position by traversal
     let cur=trieInstance.root,pos=allNodes.find(n=>n.depth===0);
     const highlights=[pos];
     for(let j=1;j<pathNodes.length&&j<=i;j++){
       const ch=pathNodes[j].c;
       if(!cur.c[ch])break;
       cur=cur.c[ch];
-      // find matching node
       const candidates=allNodes.filter(n=>n.label===ch);
       if(candidates.length) highlights.push(candidates[0]);
     }
     trieHighlightPath=highlights; trieDraw();
+    setStatus('trie-status',`검색창: "${prefix.slice(0,i+1)}" 입력 중...`);
     await delay(400);
   }
   const words=trieInstance.collect(result.node,prefix);
-  setStatus('trie-status',`autocomplete("${prefix}") → [${words.join(', ')}]  (O(${prefix.length}) 탐색)`);
+  setStatus('trie-status',`💡 "${prefix}" → 자동완성: [${words.join(', ')}]. ${prefix.length}글자만 탐색 — O(${prefix.length}). 10만 단어여도 동일!`);
 }
-function trieReset() { trieHighlightPath=[]; trieDraw(); setStatus('trie-status','초기 단어: app, apple, apply, apt, application'); }
+function trieReset() { trieHighlightPath=[]; trieDraw(); setStatus('trie-status','💡 검색창 자동완성 시뮬레이션. "ap"를 입력하고 autocomplete를 눌러보세요!'); }
 
 // ─── INIT ──────────────────────────────────────────────────────────────
 window.addEventListener('load', ()=>{
