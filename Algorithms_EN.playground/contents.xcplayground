@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='ios' buildActiveScheme='true' importAppTypes='true'>
+    <pages>
+        <page name='01_Sorting_Learn'/>
+        <page name='02_Sorting_Practice'/>
+        <page name='03_BinarySearch_Learn'/>
+        <page name='04_BinarySearch_Practice'/>
+        <page name='05_DP_Learn'/>
+        <page name='06_DP_Practice'/>
+        <page name='07_Greedy_Learn'/>
+        <page name='08_Greedy_Practice'/>
+        <page name='09_Backtracking_Learn'/>
+        <page name='10_Backtracking_Practice'/>
+        <page name='11_ShortestPath_Learn'/>
+        <page name='12_ShortestPath_Practice'/>
+    </pages>
+</playground>

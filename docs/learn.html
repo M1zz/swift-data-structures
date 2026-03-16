@@ -133,6 +133,14 @@ code{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1p
 .dl-btn.alg{background:var(--accent2);color:#fff;}
 .dl-btn-group{display:flex;gap:8px;flex-wrap:wrap;}
 
+/* LANG TOGGLE */
+.lang-btn-wrap{padding:8px 16px 4px;display:flex;gap:6px;}
+.lang-btn{flex:1;padding:5px 0;border-radius:7px;border:1px solid var(--border);background:var(--surface2);color:var(--text3);font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;cursor:pointer;transition:all .15s;}
+.lang-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+[data-en]{display:none;}
+body.en [data-ko]{display:none;}
+body.en [data-en]{display:revert;}
+
 @media(max-width:768px){
   .sidebar{transform:translateX(-100%);transition:transform .25s;}
   .sidebar.open{transform:none;}
@@ -147,16 +155,20 @@ code{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1p
 
 <nav class="sidebar" id="sidebar">
   <div class="sidebar-logo">
-    <div class="sidebar-logo-title">자료구조 &amp; 알고리즘</div>
-    <div class="sidebar-logo-sub">개발자리 · 완전 학습 커리큘럼</div>
+    <div class="sidebar-logo-title"><span data-ko>자료구조 &amp; 알고리즘</span><span data-en>Data Structures &amp; Algorithms</span></div>
+    <div class="sidebar-logo-sub"><span data-ko>개발자리 · 완전 학습 커리큘럼</span><span data-en>Gaebaljari · Complete Curriculum</span></div>
+  </div>
+  <div class="lang-btn-wrap">
+    <button class="lang-btn active" id="btn-ko" onclick="setLang('ko')">한국어</button>
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')">English</button>
   </div>
   <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
-  <div class="progress-label" id="prog-label">0 / 20 완료</div>
+  <div class="progress-label" id="prog-label"><span data-ko>0 / 20 완료</span><span data-en>0 / 20 done</span></div>
 
-  <div class="sidebar-part">시작</div>
-  <div class="sidebar-item active" onclick="show('home')"><span class="si-num">홈</span><span class="si-name">커리큘럼 개요</span><span class="si-check">✓</span></div>
+  <div class="sidebar-part"><span data-ko>시작</span><span data-en>START</span></div>
+  <div class="sidebar-item active" onclick="show('home')"><span class="si-num"><span data-ko>홈</span><span data-en>Home</span></span><span class="si-name"><span data-ko>커리큘럼 개요</span><span data-en>Curriculum Overview</span></span><span class="si-check">✓</span></div>
 
-  <div class="sidebar-part">Part 1 · 기본 자료구조</div>
+  <div class="sidebar-part"><span data-ko>Part 1 · <span data-ko>기본 자료구조</span><span data-en>Basic DS</span></span><span data-en>Part 1 · Basic Data Structures</span></div>
   <div class="sidebar-item" id="nav-ds1" onclick="show('ds1')"><span class="si-num">Ch 01</span><span class="si-name">Array</span><span class="si-check">✓</span></div>
   <div class="sidebar-item" id="nav-ds2" onclick="show('ds2')"><span class="si-num">Ch 02</span><span class="si-name">Linked List</span><span class="si-check">✓</span></div>
   <div class="sidebar-item" id="nav-ds3" onclick="show('ds3')"><span class="si-num">Ch 03</span><span class="si-name">Stack / Queue</span><span class="si-check">✓</span></div>
@@ -168,19 +180,19 @@ code{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1p
   <div class="sidebar-item" id="nav-ds9" onclick="show('ds9')"><span class="si-num">Ch 09</span><span class="si-name">Hash Table</span><span class="si-check">✓</span></div>
   <div class="sidebar-item" id="nav-ds10" onclick="show('ds10')"><span class="si-num">Ch 10</span><span class="si-name">Trie</span><span class="si-check">✓</span></div>
 
-  <div class="sidebar-part">Part 2 · 심화 자료구조</div>
+  <div class="sidebar-part"><span data-ko>Part 2 · <span data-ko>심화 자료구조</span><span data-en>Advanced DS</span></span><span data-en>Part 2 · Advanced Data Structures</span></div>
   <div class="sidebar-item" id="nav-adv1" onclick="show('adv1')"><span class="si-num" style="color:var(--accent4);background:rgba(124,58,237,.08);border-color:rgba(124,58,237,.2);">Ch 11</span><span class="si-name">AVL Tree</span><span class="si-check">✓</span></div>
   <div class="sidebar-item" id="nav-adv2" onclick="show('adv2')"><span class="si-num" style="color:var(--accent4);background:rgba(124,58,237,.08);border-color:rgba(124,58,237,.2);">Ch 12</span><span class="si-name">Red-Black Tree</span><span class="si-check">✓</span></div>
   <div class="sidebar-item" id="nav-adv3" onclick="show('adv3')"><span class="si-num" style="color:var(--accent4);background:rgba(124,58,237,.08);border-color:rgba(124,58,237,.2);">Ch 13</span><span class="si-name">Segment Tree</span><span class="si-check">✓</span></div>
   <div class="sidebar-item" id="nav-adv4" onclick="show('adv4')"><span class="si-num" style="color:var(--accent4);background:rgba(124,58,237,.08);border-color:rgba(124,58,237,.2);">Ch 14</span><span class="si-name">Union-Find</span><span class="si-check">✓</span></div>
 
-  <div class="sidebar-part">Part 3 · 알고리즘</div>
+  <div class="sidebar-part"><span data-ko>Part 3 · 알고리즘</span><span data-en>Part 3 · Algorithms</span></div>
   <div class="sidebar-item" id="nav-alg1" onclick="show('alg1')"><span class="si-num" style="color:var(--accent2);background:rgba(37,99,235,.08);border-color:rgba(37,99,235,.2);">A 01</span><span class="si-name">Sorting</span><span class="si-check">✓</span></div>
   <div class="sidebar-item" id="nav-alg2" onclick="show('alg2')"><span class="si-num" style="color:var(--accent2);background:rgba(37,99,235,.08);border-color:rgba(37,99,235,.2);">A 02</span><span class="si-name">Binary Search</span><span class="si-check">✓</span></div>
   <div class="sidebar-item" id="nav-alg3" onclick="show('alg3')"><span class="si-num" style="color:var(--accent2);background:rgba(37,99,235,.08);border-color:rgba(37,99,235,.2);">A 03</span><span class="si-name">Dynamic Programming</span><span class="si-check">✓</span></div>
   <div class="sidebar-item" id="nav-alg4" onclick="show('alg4')"><span class="si-num" style="color:var(--accent2);background:rgba(37,99,235,.08);border-color:rgba(37,99,235,.2);">A 04</span><span class="si-name">Greedy</span><span class="si-check">✓</span></div>
   <div class="sidebar-item" id="nav-alg5" onclick="show('alg5')"><span class="si-num" style="color:var(--accent2);background:rgba(37,99,235,.08);border-color:rgba(37,99,235,.2);">A 05</span><span class="si-name">Backtracking</span><span class="si-check">✓</span></div>
-  <div class="sidebar-item" id="nav-alg6" onclick="show('alg6')"><span class="si-num" style="color:var(--accent2);background:rgba(37,99,235,.08);border-color:rgba(37,99,235,.2);">A 06</span><span class="si-name">최단 경로</span><span class="si-check">✓</span></div>
+  <div class="sidebar-item" id="nav-alg6" onclick="show('alg6')"><span class="si-num" style="color:var(--accent2);background:rgba(37,99,235,.08);border-color:rgba(37,99,235,.2);">A 06</span><span class="si-name"><span data-ko>최단 경로</span><span data-en>Shortest Path</span></span><span class="si-check">✓</span></div>
 </nav>
 
 <main class="main">
@@ -188,9 +200,9 @@ code{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1p
 <!-- HOME -->
 <div class="chapter active" id="home">
   <div class="home-hero">
-    <div class="home-badge">Swift · 자료구조 · 알고리즘</div>
-    <div class="home-title">완전 학습<br><span>커리큘럼</span></div>
-    <div class="home-sub">기본 자료구조 10개 · 심화 4개 · 알고리즘 6개<br>체크리스트로 진도를 추적하세요</div>
+    <div class="home-badge">Swift · <span data-ko>자료구조 · 알고리즘</span><span data-en>Data Structures · Algorithms</span></div>
+    <div class="home-title"><span data-ko>완전 학습<br><span>커리큘럼</span></span><span data-en>Complete<br><span>Curriculum</span></span></div>
+    <div class="home-sub"><span data-ko>기본 자료구조 10개 · 심화 4개 · 알고리즘 6개<br>체크리스트로 진도를 추적하세요</span><span data-en>10 Basic · 4 Advanced · 6 Algorithms<br>Track your progress with checklists</span></div>
     <div class="total-progress">
       <div class="tp-num" id="home-done">0</div>
       <div class="tp-label">/ 20 토픽 완료 · <span id="home-pct">0</span>% 달성</div>
@@ -210,8 +222,8 @@ code{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1p
     </div>
     <div class="curr-card" style="border-color:rgba(22,163,74,.25);background:rgba(22,163,74,.03);">
       <div class="curr-card-label" style="color:var(--accent3);">Xcode Playground</div>
-      <div class="curr-card-title" style="color:var(--accent3);">직접 코딩 실습</div>
-      <div class="curr-card-count">파일 다운로드 후 Xcode에서 실행</div>
+      <div class="curr-card-title" style="color:var(--accent3);"><span data-ko>직접 코딩 실습</span><span data-en>Hands-on Coding</span></div>
+      <div class="curr-card-count"><span data-ko>파일 다운로드 후 Xcode에서 실행</span><span data-en>Download &amp; open in Xcode</span></div>
     </div>
   </div>
 
@@ -220,13 +232,15 @@ code{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1p
       <div class="dl-banner-info">
         <div class="dl-banner-icon">📦</div>
         <div>
-          <div class="dl-banner-title">Xcode Playground 다운로드</div>
-          <div class="dl-banner-sub">각 파일을 Xcode에서 열어 직접 코드를 실행하며 학습하세요</div>
+          <div class="dl-banner-title"><span data-ko>Xcode Playground 다운로드</span><span data-en>Download Xcode Playground</span></div>
+          <div class="dl-banner-sub"><span data-ko>각 파일을 Xcode에서 열어 직접 코드를 실행하며 학습하세요</span><span data-en>Open each file in Xcode and run code to learn hands-on</span></div>
         </div>
       </div>
       <div class="dl-btn-group">
-        <a class="dl-btn ds" href="DataStructures.playground.zip" download>⬇ 자료구조</a>
-        <a class="dl-btn alg" href="Algorithms.playground.zip" download>⬇ 알고리즘</a>
+        <a class="dl-btn ds" href="DataStructures.playground.zip" download data-ko>⬇ 자료구조 KO</a>
+        <a class="dl-btn ds" href="DataStructures_EN.playground.zip" download data-en>⬇ DS English</a>
+        <a class="dl-btn alg" href="Algorithms.playground.zip" download data-ko>⬇ 알고리즘 KO</a>
+        <a class="dl-btn alg" href="Algorithms_EN.playground.zip" download data-en>⬇ Algorithms EN</a>
       </div>
     </div>
   </div>
@@ -234,31 +248,38 @@ code{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1p
 
 <!-- DS1: Array -->
 <div class="chapter" id="ds1">
-  <div class="ch-tag">Chapter 01 · 기본 자료구조</div>
+  <div class="ch-tag">Chapter 01 · <span data-ko>기본 자료구조</span><span data-en>Basic DS</span></div>
   <div class="ch-title">Array vs ContiguousArray</div>
-  <div class="ch-sub">CoW 메커니즘과 메모리 레이아웃 — Swift 배열의 진짜 동작</div>
+  <div class="ch-sub" data-ko>CoW 메커니즘과 메모리 레이아웃 — Swift 배열의 진짜 동작</div><div class="ch-sub" data-en>CoW mechanism and memory layout — how Swift arrays really work</div>
 
   <div class="dl-banner">
     <div class="dl-banner-info">
       <div class="dl-banner-icon">🗂</div>
       <div>
         <div class="dl-banner-title">DataStructures.playground</div>
-        <div class="dl-banner-sub">자료구조 Ch01–10 · Learn + Practice 20페이지 · Xcode에서 바로 실행</div>
+        <div class="dl-banner-sub"><span data-ko>자료구조 Ch01–10 · Learn + Practice 20페이지 · Xcode에서 바로 실행</span><span data-en>DS Ch01–10 · 20 pages Learn + Practice · Run in Xcode</span></div>
       </div>
     </div>
-    <a class="dl-btn ds" href="DataStructures.playground.zip" download>⬇ 다운로드</a>
+    <div class="dl-btn-group">
+      <a class="dl-btn ds" href="DataStructures.playground.zip" download data-ko>⬇ KO</a>
+      <a class="dl-btn ds" href="DataStructures_EN.playground.zip" download data-en>⬇ EN</a>
+    </div>
   </div>
 
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p><strong>Array</strong>는 Swift 표준 배열로 <strong>Copy-on-Write(CoW)</strong>를 사용합니다. 복사가 일어나도 실제 메모리 복사는 쓰기 시점에만 발생해 불필요한 복사를 방지합니다. 요소가 클래스 타입이면 NSArray 브리징이 가능하지만 그만큼 오버헤드가 있습니다.</p>
       <p><strong>ContiguousArray</strong>는 항상 연속 메모리를 보장합니다. 클래스/프로토콜 타입 요소를 다룰 때 Array보다 빠르며 브리징 오버헤드가 없습니다. 구조체(Int, Double 등) 원소에서는 Array와 성능이 동일합니다.</p>
     </div>
+    <div class="concept-box" data-en>
+      <p><strong>Array</strong> is Swift's standard array type using <strong>Copy-on-Write (CoW)</strong>. Even after copying, the actual memory copy only happens on the first write, avoiding unnecessary duplication. If elements are class types, NSArray bridging is possible but adds overhead.</p>
+      <p><strong>ContiguousArray</strong> always guarantees contiguous memory. It's faster than Array for class/protocol element types and has no bridging overhead. For struct types (Int, Double, etc.) performance is identical to Array.</p>
+    </div>
   </div>
 
   <div class="section">
-    <div class="sec-label code">Swift 코드</div>
+    <div class="sec-label code">Swift CODE</div>
     <pre class="code-block"><span class="cm">// CoW 동작 확인</span>
 <span class="kw">var</span> a = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]
 <span class="kw">var</span> b = a              <span class="cm">// 복사 X — 같은 버퍼 공유</span>
@@ -276,7 +297,7 @@ a.<span class="fn">withUnsafeBufferPointer</span> { ptr <span class="kw">in</spa
   </div>
 
   <div class="section">
-    <div class="sec-label complexity">시간 복잡도</div>
+    <div class="sec-label complexity"><span data-ko>시간 복잡도</span><span data-en>COMPLEXITY</span></div>
     <table class="cx-table">
       <tr><th>연산</th><th>복잡도</th><th>비고</th></tr>
       <tr><td>subscript [i]</td><td class="g">O(1)</td><td>연속 메모리 직접 접근</td></tr>
@@ -288,47 +309,58 @@ a.<span class="fn">withUnsafeBufferPointer</span> { ptr <span class="kw">in</spa
   </div>
 
   <div class="section">
-    <div class="sec-label keypoint">핵심 포인트</div>
-    <ul class="keypoint-list">
+    <div class="sec-label keypoint"><span data-ko>핵심 포인트</span><span data-en>KEY POINTS</span></div>
+    <ul class="keypoint-list" data-ko>
       <li>구조체 원소라면 <code>Array</code>와 <code>ContiguousArray</code> 성능 동일</li>
       <li>클래스 원소 + 성능 민감 → <code>ContiguousArray</code> 선택</li>
       <li><code>reserveCapacity(_:)</code>로 재할당 횟수 최소화</li>
       <li>함수 인수로 전달 시 CoW: 읽기만 하면 복사 없음</li>
     </ul>
+    <ul class="keypoint-list" data-en>
+      <li>For struct elements, <code>Array</code> and <code>ContiguousArray</code> have identical performance</li>
+      <li>Class elements + performance-sensitive → choose <code>ContiguousArray</code></li>
+      <li>Use <code>reserveCapacity(_:)</code> to minimize reallocation count</li>
+      <li>When passed as function argument with CoW: no copy if only reading</li>
+    </ul>
   </div>
 
   <div class="section">
-    <div class="sec-label think">생각해볼 것</div>
-    <div class="think-box">함수에 배열을 인수로 전달하면 CoW는 언제 발동될까요? 단순 읽기와 쓰기 시점에 각각 무슨 일이 일어나는지 추적해보세요. <code>isKnownUniquelyReferenced</code>와 어떤 관계가 있나요?</div>
+    <div class="sec-label think"><span data-ko>생각해볼 것</span><span data-en>THINK</span></div>
+    <div class="think-box" data-ko>함수에 배열을 인수로 전달하면 CoW는 언제 발동될까요? 단순 읽기와 쓰기 시점에 각각 무슨 일이 일어나는지 추적해보세요. <code>isKnownUniquelyReferenced</code>와 어떤 관계가 있나요?</div>
+    <div class="think-box" data-en>Have you tracked exactly when CoW triggers? What happens during a simple read vs a write? How does <code>isKnownUniquelyReferenced</code> relate to this?</div>
   </div>
 
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-ds1">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">CoW 동작을 print로 직접 확인했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Array vs ContiguousArray 성능 차이를 클래스 원소로 측정했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">insert/remove의 O(n) 이유를 그림으로 설명할 수 있다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">reserveCapacity 사용 전후 성능을 비교했다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>CoW 동작을 print로 직접 확인했다</span><span data-en>Confirmed CoW behavior with print statements</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Array vs ContiguousArray 성능 차이를 클래스 원소로 측정했다</span><span data-en>Measured Array vs ContiguousArray performance with class-type elements</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>insert/remove의 O(n) 이유를 그림으로 설명할 수 있다</span><span data-en>Can explain why insert/remove is O(n) with a diagram</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>reserveCapacity 사용 전후 성능을 비교했다</span><span data-en>Compared performance before and after using reserveCapacity</span></span></div>
     </div>
   </div>
 </div>
 
 <!-- DS2: Linked List -->
 <div class="chapter" id="ds2">
-  <div class="ch-tag">Chapter 02 · 기본 자료구조</div>
+  <div class="ch-tag">Chapter 02 · <span data-ko>기본 자료구조</span><span data-en>Basic DS</span></div>
   <div class="ch-title">Linked List</div>
-  <div class="ch-sub">노드를 포인터로 연결 — O(1) 삽입/삭제의 비밀</div>
+  <div class="ch-sub" data-ko>노드를 포인터로 연결 — O(1) 삽입/삭제의 비밀</div><div class="ch-sub" data-en>Connecting nodes with pointers — the secret of O(1) insert/delete</div>
 
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p><strong>Linked List</strong>는 <code>Node</code> 객체들이 <strong>next 포인터</strong>로 연결된 선형 자료구조입니다. Array와 달리 메모리가 연속하지 않아도 되므로 노드 위치를 알고 있을 때 삽입/삭제가 <strong>O(1)</strong>입니다.</p>
       <p><strong>단방향(Singly)</strong>: next 포인터만 보유. tail 삭제 O(n). <strong>양방향(Doubly)</strong>: prev/next 모두 보유. tail 삭제 O(1)이나 메모리 2배, retain cycle 주의.</p>
+    </div>
+    <div class="concept-box" data-en>
+      <p>A <strong>Linked List</strong> is a linear data structure where <code>Node</code> objects are connected via <strong>next pointers</strong>. Unlike an Array, memory doesn't need to be contiguous, so insertion/deletion is <strong>O(1)</strong> when the node reference is known.</p>
+      <p><strong>Singly</strong>: only next pointer. Tail deletion is O(n). <strong>Doubly</strong>: has both prev and next. Tail deletion is O(1), but uses 2x memory — beware of retain cycles.</p>
     </div>
   </div>
 
   <div class="section">
-    <div class="sec-label code">Swift 코드</div>
+    <div class="sec-label code">Swift CODE</div>
     <pre class="code-block"><span class="kw">class</span> <span class="tp">Node</span>&lt;T&gt; {
     <span class="kw">var</span> value: T
     <span class="kw">var</span> next: <span class="tp">Node</span>&lt;T&gt;?
@@ -353,7 +385,7 @@ a.<span class="fn">withUnsafeBufferPointer</span> { ptr <span class="kw">in</spa
   </div>
 
   <div class="section">
-    <div class="sec-label complexity">시간 복잡도</div>
+    <div class="sec-label complexity"><span data-ko>시간 복잡도</span><span data-en>COMPLEXITY</span></div>
     <table class="cx-table">
       <tr><th>연산</th><th>단방향</th><th>양방향</th></tr>
       <tr><td>head 삽입/삭제</td><td class="g">O(1)</td><td class="g">O(1)</td></tr>
@@ -365,37 +397,42 @@ a.<span class="fn">withUnsafeBufferPointer</span> { ptr <span class="kw">in</spa
   </div>
 
   <div class="section">
-    <div class="sec-label think">생각해볼 것</div>
-    <div class="think-box">Swift 표준 라이브러리에 LinkedList가 없는 이유는? Array의 CoW와 비교했을 때 실제 앱에서 LinkedList가 유리한 케이스를 생각해보세요.</div>
+    <div class="sec-label think"><span data-ko>생각해볼 것</span><span data-en>THINK</span></div>
+    <div class="think-box" data-ko>Swift 표준 라이브러리에 LinkedList가 없는 이유는? Array의 CoW와 비교했을 때 실제 앱에서 LinkedList가 유리한 케이스를 생각해보세요.</div>
+    <div class="think-box" data-en>Why doesn't Swift's standard library include a LinkedList? Compared to Array's CoW, when would a LinkedList actually be faster in a real app?</div>
   </div>
 
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-ds2">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">head/tail을 직접 관리하는 LinkedList를 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">삽입과 삭제 시 포인터 변경 순서를 이해했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">역순 출력, 중간값 찾기 알고리즘을 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">단방향 vs 양방향 트레이드오프를 설명할 수 있다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>head/tail을 직접 관리하는 LinkedList를 구현했다</span><span data-en>Implemented a LinkedList that manually manages head and tail</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>삽입과 삭제 시 포인터 변경 순서를 이해했다</span><span data-en>Understood the order of pointer changes during insert and delete</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>역순 출력, 중간값 찾기 알고리즘을 구현했다</span><span data-en>Implemented reverse print and find-middle algorithms</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>단방향 vs 양방향 트레이드오프를 설명할 수 있다</span><span data-en>Can explain the trade-offs between singly and doubly linked lists</span></span></div>
     </div>
   </div>
 </div>
 
 <!-- DS3: Stack/Queue -->
 <div class="chapter" id="ds3">
-  <div class="ch-tag">Chapter 03 · 기본 자료구조</div>
+  <div class="ch-tag">Chapter 03 · <span data-ko>기본 자료구조</span><span data-en>Basic DS</span></div>
   <div class="ch-title">Stack / Queue</div>
-  <div class="ch-sub">LIFO와 FIFO — 알고리즘의 기본 빌딩 블록</div>
+  <div class="ch-sub" data-ko>LIFO와 FIFO — 알고리즘의 기본 빌딩 블록</div><div class="ch-sub" data-en>LIFO and FIFO — the fundamental building blocks of algorithms</div>
 
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p><strong>Stack(LIFO)</strong>: <code>push</code>로 쌓고 <code>pop</code>으로 꺼냅니다. 함수 호출 스택, Undo, 괄호 검증에 사용됩니다.</p>
       <p><strong>Queue(FIFO)</strong>: <code>enqueue</code>로 넣고 <code>dequeue</code>로 꺼냅니다. BFS, 작업 스케줄링, iOS 메시지 큐에 사용됩니다. Array 기반 Queue는 dequeue가 O(n)이므로 두 Stack으로 O(1) amortized Queue를 만들 수 있습니다.</p>
+    </div>
+    <div class="concept-box" data-en>
+      <p><strong>Stack (LIFO)</strong>: push to add, pop to remove. Used for function call stacks, Undo, and bracket validation.</p>
+      <p><strong>Queue (FIFO)</strong>: enqueue to add, dequeue to remove. Used for BFS, task scheduling, and iOS message queues. Array-based Queue has O(n) dequeue, so use two Stacks for O(1) amortized Queue.</p>
     </div>
   </div>
 
   <div class="section">
-    <div class="sec-label code">Swift 코드</div>
+    <div class="sec-label code">Swift CODE</div>
     <pre class="code-block"><span class="cm">// Stack</span>
 <span class="kw">struct</span> <span class="tp">Stack</span>&lt;T&gt; {
     <span class="kw">private var</span> storage: [T] = []
@@ -416,7 +453,7 @@ a.<span class="fn">withUnsafeBufferPointer</span> { ptr <span class="kw">in</spa
   </div>
 
   <div class="section">
-    <div class="sec-label complexity">시간 복잡도</div>
+    <div class="sec-label complexity"><span data-ko>시간 복잡도</span><span data-en>COMPLEXITY</span></div>
     <table class="cx-table">
       <tr><th>연산</th><th>Stack</th><th>Queue(두 Stack)</th><th>Queue(Array)</th></tr>
       <tr><td>push/enqueue</td><td class="g">O(1)</td><td class="g">O(1)</td><td class="g">O(1) amortized</td></tr>
@@ -426,31 +463,35 @@ a.<span class="fn">withUnsafeBufferPointer</span> { ptr <span class="kw">in</spa
   </div>
 
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-ds3">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Stack으로 괄호 유효성 검사를 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">두 Stack으로 O(1) amortized Queue를 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">BFS에서 Queue가 왜 필요한지 설명할 수 있다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Stack으로 괄호 유효성 검사를 구현했다</span><span data-en>Implemented bracket validation using a Stack</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>두 Stack으로 O(1) amortized Queue를 구현했다</span><span data-en>Implemented an O(1) amortized Queue using two Stacks</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>BFS에서 Queue가 왜 필요한지 설명할 수 있다</span><span data-en>Can explain why Queue is necessary in BFS</span></span></div>
     </div>
   </div>
 </div>
 
 <!-- DS4: Deque -->
 <div class="chapter" id="ds4">
-  <div class="ch-tag">Chapter 04 · 기본 자료구조</div>
+  <div class="ch-tag">Chapter 04 · <span data-ko>기본 자료구조</span><span data-en>Basic DS</span></div>
   <div class="ch-title">Deque</div>
-  <div class="ch-sub">링 버퍼로 양쪽 모두 O(1) — Double-Ended Queue</div>
+  <div class="ch-sub" data-ko>링 버퍼로 양쪽 모두 O(1) — Double-Ended Queue</div><div class="ch-sub" data-en>Ring buffer for O(1) on both ends — Double-Ended Queue</div>
 
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p><strong>Deque(덱)</strong>은 앞뒤 양쪽에서 O(1) 삽입/삭제가 가능한 자료구조입니다. Stack과 Queue를 모두 대체할 수 있습니다.</p>
       <p><strong>링 버퍼(Circular Buffer)</strong>로 구현 시 고정 크기 배열에서 head/tail 인덱스만 이동합니다. Swift의 <code>Collections</code> 패키지 <code>Deque</code>가 이 방식이며 가장 효율적입니다.</p>
+    </div>
+    <div class="concept-box" data-en>
+      <p>A <strong>Deque (Double-Ended Queue)</strong> allows O(1) insertion/deletion at both front and back. It can replace both Stack and Queue.</p>
+      <p>Implemented as a <strong>Ring Buffer</strong>: only head/tail indices move in a fixed-size array. Swift's <code>Collections</code> package <code>Deque</code> uses this approach and is the most efficient.</p>
     </div>
   </div>
 
   <div class="section">
-    <div class="sec-label code">Swift 코드</div>
+    <div class="sec-label code">Swift CODE</div>
     <pre class="code-block"><span class="cm">// 링 버퍼 기반 Deque (단순화 버전)</span>
 <span class="kw">struct</span> <span class="tp">Deque</span>&lt;T&gt; {
     <span class="kw">private var</span> buf: [T?]
@@ -480,29 +521,33 @@ a.<span class="fn">withUnsafeBufferPointer</span> { ptr <span class="kw">in</spa
   </div>
 
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-ds4">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">링 버퍼의 head/tail 인덱스 계산 (나머지 연산)을 이해했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">슬라이딩 윈도우 최대값 문제를 Deque로 풀었다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Swift Collections 패키지의 Deque를 실제로 써봤다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>링 버퍼의 head/tail 인덱스 계산 (나머지 연산)을 이해했다</span><span data-en>Understood the head/tail index calculation (modulo arithmetic) in a ring buffer</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>슬라이딩 윈도우 최대값 문제를 Deque로 풀었다</span><span data-en>Solved a sliding window maximum problem using Deque</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Swift Collections 패키지의 Deque를 실제로 써봤다</span><span data-en>Used the Swift Collections package Deque in practice</span></span></div>
     </div>
   </div>
 </div>
 
 <!-- DS5: Binary Tree -->
 <div class="chapter" id="ds5">
-  <div class="ch-tag">Chapter 05 · 기본 자료구조</div>
+  <div class="ch-tag">Chapter 05 · <span data-ko>기본 자료구조</span><span data-en>Basic DS</span></div>
   <div class="ch-title">Binary Tree</div>
-  <div class="ch-sub">전위 · 중위 · 후위 · 레벨 순회 — 트리의 모든 것</div>
+  <div class="ch-sub" data-ko>전위 · 중위 · 후위 · 레벨 순회 — 트리의 모든 것</div><div class="ch-sub" data-en>Pre · In · Post · Level-order traversal — everything about trees</div>
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p>각 노드가 최대 2개의 자식(left, right)을 갖는 계층적 자료구조. 재귀 구조라 재귀 알고리즘과 찰떡입니다.</p>
       <p><strong>전위(Pre-order)</strong> 루트→좌→우 | <strong>중위(In-order)</strong> 좌→루트→우 | <strong>후위(Post-order)</strong> 좌→우→루트 | <strong>BFS</strong> 층별 탐색</p>
     </div>
+    <div class="concept-box" data-en>
+      <p>A hierarchical structure where each node has at most 2 children (left, right). The recursive structure pairs perfectly with recursive algorithms.</p>
+      <p><strong>Pre-order</strong> root→left→right | <strong>In-order</strong> left→root→right | <strong>Post-order</strong> left→right→root | <strong>BFS</strong> level-by-level</p>
+    </div>
   </div>
   <div class="section">
-    <div class="sec-label code">Swift 코드</div>
+    <div class="sec-label code">Swift CODE</div>
     <pre class="code-block"><span class="kw">class</span> <span class="tp">TreeNode</span>&lt;T&gt; {
     <span class="kw">var</span> val: T; <span class="kw">var</span> left, right: <span class="tp">TreeNode</span>&lt;T&gt;?
     <span class="fn">init</span>(<span class="hl">_</span> v: T) { val = v }
@@ -525,29 +570,33 @@ a.<span class="fn">withUnsafeBufferPointer</span> { ptr <span class="kw">in</spa
 }</pre>
   </div>
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-ds5">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">4가지 순회를 재귀로 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">중위 순회를 Stack 기반 반복문으로 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">트리의 높이와 노드 수를 재귀로 구했다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>4가지 순회를 재귀로 구현했다</span><span data-en>Implemented all 4 traversals recursively</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>중위 순회를 Stack 기반 반복문으로 구현했다</span><span data-en>Implemented in-order traversal using an iterative Stack</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>트리의 높이와 노드 수를 재귀로 구했다</span><span data-en>Found tree height and node count recursively</span></span></div>
     </div>
   </div>
 </div>
 
 <!-- DS6: BST -->
 <div class="chapter" id="ds6">
-  <div class="ch-tag">Chapter 06 · 기본 자료구조</div>
+  <div class="ch-tag">Chapter 06 · <span data-ko>기본 자료구조</span><span data-en>Basic DS</span></div>
   <div class="ch-title">Binary Search Tree</div>
-  <div class="ch-sub">삽입 · 탐색 · 삭제(3케이스) — 정렬된 트리의 힘</div>
+  <div class="ch-sub" data-ko>삽입 · 탐색 · 삭제(3케이스) — 정렬된 트리의 힘</div><div class="ch-sub" data-en>Insert · Search · Delete (3 cases) — the power of sorted trees</div>
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p>모든 노드가 <code>왼쪽 &lt; 현재 &lt; 오른쪽</code> 규칙을 만족하는 이진 트리. 탐색이 절반씩 줄어 평균 O(log n)입니다.</p>
       <p><strong>삭제 3케이스</strong>: ① 자식 없음 → 그냥 삭제 ② 자식 1개 → 자식으로 대체 ③ 자식 2개 → 오른쪽 서브트리 최솟값(Successor)으로 대체.</p>
     </div>
+    <div class="concept-box" data-en>
+      <p>A binary tree where every node satisfies <code>left child &lt; current &lt; right child</code>. This property halves the search space, giving average O(log n).</p>
+      <p><strong>Delete 3 cases</strong>: ① No children → just delete ② One child → replace with child ③ Two children → replace with in-order successor (min of right subtree).</p>
+    </div>
   </div>
   <div class="section">
-    <div class="sec-label code">Swift 코드</div>
+    <div class="sec-label code">Swift CODE</div>
     <pre class="code-block"><span class="kw">func</span> <span class="fn">insert</span>(<span class="hl">_</span> node: <span class="tp">TreeNode</span>&lt;<span class="tp">Int</span>&gt;?, <span class="hl">_</span> val: <span class="tp">Int</span>) -> <span class="tp">TreeNode</span>&lt;<span class="tp">Int</span>&gt; {
     <span class="kw">guard let</span> node <span class="kw">else</span> { <span class="kw">return</span> <span class="tp">TreeNode</span>(val) }
     <span class="kw">if</span> val < node.val { node.left  = <span class="fn">insert</span>(node.left,  val) }
@@ -574,36 +623,40 @@ a.<span class="fn">withUnsafeBufferPointer</span> { ptr <span class="kw">in</spa
 }</pre>
   </div>
   <div class="section">
-    <div class="sec-label complexity">시간 복잡도</div>
+    <div class="sec-label complexity"><span data-ko>시간 복잡도</span><span data-en>COMPLEXITY</span></div>
     <table class="cx-table">
       <tr><th>연산</th><th>평균 (균형)</th><th>최악 (편향)</th></tr>
       <tr><td>탐색 / 삽입 / 삭제</td><td class="g">O(log n)</td><td class="b">O(n)</td></tr>
     </table>
   </div>
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-ds6">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">삭제 3케이스를 구현하고 각각 테스트했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">중위 순회로 정렬된 배열이 나오는 것을 확인했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">정렬된 배열 삽입 시 편향 트리가 되는 것을 실험했다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>삭제 3케이스를 구현하고 각각 테스트했다</span><span data-en>Implemented all 3 deletion cases and tested each</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>중위 순회로 정렬된 배열이 나오는 것을 확인했다</span><span data-en>Confirmed that in-order traversal produces a sorted array</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>정렬된 배열 삽입 시 편향 트리가 되는 것을 실험했다</span><span data-en>Experimented with creating a skewed tree from a sorted input</span></span></div>
     </div>
   </div>
 </div>
 
 <!-- DS7: Heap -->
 <div class="chapter" id="ds7">
-  <div class="ch-tag">Chapter 07 · 기본 자료구조</div>
+  <div class="ch-tag">Chapter 07 · <span data-ko>기본 자료구조</span><span data-en>Basic DS</span></div>
   <div class="ch-title">Heap / Priority Queue</div>
-  <div class="ch-sub">siftUp · siftDown — 최대/최솟값을 항상 O(1)에</div>
+  <div class="ch-sub" data-ko>siftUp · siftDown — 최대/최솟값을 항상 O(1)에</div><div class="ch-sub" data-en>siftUp · siftDown — always O(1) access to max/min</div>
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p>완전 이진 트리를 배열에 저장. 인덱스 <code>i</code>의 부모: <code>(i-1)/2</code>, 좌자식: <code>2i+1</code>, 우자식: <code>2i+2</code>.</p>
       <p><strong>Max Heap</strong>: 부모 ≥ 자식. <strong>Min Heap</strong>: 부모 ≤ 자식. Priority Queue = Heap. iOS <code>OperationQueue.qualityOfService</code>, Dijkstra 핵심.</p>
     </div>
+    <div class="concept-box" data-en>
+      <p>A complete binary tree stored as an array. Index <code>i</code>: parent at <code>(i-1)/2</code>, left child at <code>2i+1</code>, right child at <code>2i+2</code>.</p>
+      <p><strong>Max Heap</strong>: parent ≥ children. <strong>Min Heap</strong>: parent ≤ children. Priority Queue = Heap. Used in iOS <code>OperationQueue.qualityOfService</code> and Dijkstra's algorithm.</p>
+    </div>
   </div>
   <div class="section">
-    <div class="sec-label code">Swift 코드</div>
+    <div class="sec-label code">Swift CODE</div>
     <pre class="code-block"><span class="kw">struct</span> <span class="tp">MinHeap</span> {
     <span class="kw">var</span> data: [<span class="tp">Int</span>] = []
 
@@ -634,7 +687,7 @@ a.<span class="fn">withUnsafeBufferPointer</span> { ptr <span class="kw">in</spa
 }</pre>
   </div>
   <div class="section">
-    <div class="sec-label complexity">시간 복잡도</div>
+    <div class="sec-label complexity"><span data-ko>시간 복잡도</span><span data-en>COMPLEXITY</span></div>
     <table class="cx-table">
       <tr><th>연산</th><th>복잡도</th></tr>
       <tr><td>peek (최솟값)</td><td class="g">O(1)</td></tr>
@@ -644,29 +697,33 @@ a.<span class="fn">withUnsafeBufferPointer</span> { ptr <span class="kw">in</spa
     </table>
   </div>
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-ds7">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">siftUp과 siftDown을 직접 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Priority Queue로 K번째 최대값 문제를 풀었다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Heap Sort의 O(n log n), O(1) 공간 원리를 이해했다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>siftUp과 siftDown을 직접 구현했다</span><span data-en>Implemented siftUp and siftDown</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Priority Queue로 K번째 최대값 문제를 풀었다</span><span data-en>Found the K-th largest element using a Priority Queue</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Heap Sort의 O(n log n), O(1) 공간 원리를 이해했다</span><span data-en>Understood Heap Sort's O(n log n) time, O(1) space</span></span></div>
     </div>
   </div>
 </div>
 
 <!-- DS8: Graph -->
 <div class="chapter" id="ds8">
-  <div class="ch-tag">Chapter 08 · 기본 자료구조</div>
+  <div class="ch-tag">Chapter 08 · <span data-ko>기본 자료구조</span><span data-en>Basic DS</span></div>
   <div class="ch-title">Graph</div>
-  <div class="ch-sub">인접행렬 vs 인접리스트 · BFS · DFS — 관계를 모델링</div>
+  <div class="ch-sub" data-ko>인접행렬 vs 인접리스트 · BFS · DFS — 관계를 모델링</div><div class="ch-sub" data-en>Adjacency matrix vs list · BFS · DFS — modeling relationships</div>
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p>정점(Vertex)과 간선(Edge)으로 구성. 방향/무방향, 가중치 유무로 다양한 종류가 있습니다.</p>
       <p><strong>인접행렬</strong>: O(1) 간선 확인, O(V²) 공간 — 밀집 그래프. <strong>인접리스트</strong>: O(V+E) 공간 — 희소 그래프. <strong>BFS</strong>: 최단 경로(가중치 없음). <strong>DFS</strong>: 사이클 감지, 위상정렬.</p>
     </div>
+    <div class="concept-box" data-en>
+      <p>Composed of vertices and edges. Comes in directed/undirected and weighted/unweighted varieties.</p>
+      <p><strong>Adjacency matrix</strong>: O(1) edge check, O(V²) space — for dense graphs. <strong>Adjacency list</strong>: O(V+E) space — for sparse graphs. <strong>BFS</strong>: shortest path (unweighted). <strong>DFS</strong>: cycle detection, topological sort.</p>
+    </div>
   </div>
   <div class="section">
-    <div class="sec-label code">Swift 코드</div>
+    <div class="sec-label code">Swift CODE</div>
     <pre class="code-block"><span class="cm">// 인접 리스트 그래프</span>
 <span class="kw">var</span> graph = [[<span class="tp">Int</span>]](repeating: [], count: n)
 graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="num">1</span>)  <span class="cm">// 0 → 1</span>
@@ -691,29 +748,33 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 }</pre>
   </div>
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-ds8">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">BFS로 최단 경로(홉 수)를 구했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">DFS로 사이클 감지를 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">두 표현 방식의 트레이드오프를 설명할 수 있다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>BFS로 최단 경로(홉 수)를 구했다</span><span data-en>Found shortest path (hop count) with BFS</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>DFS로 사이클 감지를 구현했다</span><span data-en>Implemented cycle detection with DFS</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>두 표현 방식의 트레이드오프를 설명할 수 있다</span><span data-en>Can explain the trade-offs between the two representations</span></span></div>
     </div>
   </div>
 </div>
 
 <!-- DS9: Hash Table -->
 <div class="chapter" id="ds9">
-  <div class="ch-tag">Chapter 09 · 기본 자료구조</div>
+  <div class="ch-tag">Chapter 09 · <span data-ko>기본 자료구조</span><span data-en>Basic DS</span></div>
   <div class="ch-title">Hash Table</div>
-  <div class="ch-sub">충돌 해결 · Swift Dictionary 내부 — O(1) 탐색의 비밀</div>
+  <div class="ch-sub" data-ko>충돌 해결 · Swift Dictionary 내부 — O(1) 탐색의 비밀</div><div class="ch-sub" data-en>Collision resolution · Inside Swift Dictionary — the secret of O(1) lookup</div>
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p>키를 해시 함수로 인덱스로 변환해 O(1) 삽입/탐색/삭제. <strong>충돌 해결</strong>: ① Chaining(LinkedList 연결) ② Open Addressing(빈 슬롯 탐색). Swift Dictionary는 Open Addressing + Robin Hood Hashing.</p>
       <p><strong>Load Factor</strong>가 0.75를 넘으면 버킷을 2배로 늘리고 Rehashing합니다.</p>
     </div>
+    <div class="concept-box" data-en>
+      <p>Converts keys to indices via a hash function for O(1) insert/lookup/delete. <strong>Collision resolution</strong>: ① Chaining (LinkedList) ② Open Addressing (probe for empty slot). Swift Dictionary uses Open Addressing + Robin Hood Hashing.</p>
+      <p>When the <strong>Load Factor</strong> exceeds 0.75, buckets double and rehashing occurs.</p>
+    </div>
   </div>
   <div class="section">
-    <div class="sec-label code">Swift 코드</div>
+    <div class="sec-label code">Swift CODE</div>
     <pre class="code-block"><span class="cm">// Swift의 Hashable 프로토콜</span>
 <span class="kw">struct</span> <span class="tp">Point</span>: <span class="tp">Hashable</span> {
     <span class="kw">let</span> x, y: <span class="tp">Int</span>
@@ -733,29 +794,33 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 }</pre>
   </div>
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-ds9">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Chaining 방식의 Hash Table을 직접 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">커스텀 타입에 Hashable을 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Two Sum을 Hash Table로 O(n) 풀이했다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Chaining 방식의 Hash Table을 직접 구현했다</span><span data-en>Implemented a Chaining-based Hash Table</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>커스텀 타입에 Hashable을 구현했다</span><span data-en>Implemented Hashable for a custom type</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Two Sum을 Hash Table로 O(n) 풀이했다</span><span data-en>Solved Two Sum in O(n) using a Hash Table</span></span></div>
     </div>
   </div>
 </div>
 
 <!-- DS10: Trie -->
 <div class="chapter" id="ds10">
-  <div class="ch-tag">Chapter 10 · 기본 자료구조</div>
+  <div class="ch-tag">Chapter 10 · <span data-ko>기본 자료구조</span><span data-en>Basic DS</span></div>
   <div class="ch-title">Trie</div>
-  <div class="ch-sub">자동완성 DFS · O(m) 탐색 — 문자열 특화 트리</div>
+  <div class="ch-sub" data-ko>자동완성 DFS · O(m) 탐색 — 문자열 특화 트리</div><div class="ch-sub" data-en>Autocomplete DFS · O(m) search — the string-specialized tree</div>
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p>문자열을 글자 단위로 트리에 저장. 검색 길이 <code>m</code>이면 <strong>O(m)</strong>으로 탐색. 해시 충돌 없이 정확합니다.</p>
       <p>각 노드: <code>[Character: TrieNode]</code> 자식 딕셔너리 + <code>isEnd</code> 플래그. 자동완성은 prefix까지 내려간 뒤 DFS로 모든 단어 수집.</p>
     </div>
+    <div class="concept-box" data-en>
+      <p>Stores strings character by character in a tree. Search length <code>m</code> → <strong>O(m)</strong> lookup. No hash collisions — always exact.</p>
+      <p>Each node: <code>[Character: TrieNode]</code> children dict + <code>isEnd</code> flag. Autocomplete: navigate to prefix, then DFS to collect all words.</p>
+    </div>
   </div>
   <div class="section">
-    <div class="sec-label code">Swift 코드</div>
+    <div class="sec-label code">Swift CODE</div>
     <pre class="code-block"><span class="kw">class</span> <span class="tp">TrieNode</span> {
     <span class="kw">var</span> children: [<span class="tp">Character</span>: <span class="tp">TrieNode</span>] = [:]
     <span class="kw">var</span> isEnd = <span class="kw">false</span>
@@ -788,41 +853,48 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 }</pre>
   </div>
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-ds10">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">insert / search / startsWith를 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">자동완성 함수를 DFS로 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Trie vs Hash Table 탐색 성능 차이를 이해했다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>insert / search / startsWith를 구현했다</span><span data-en>Implemented insert / search / startsWith</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>자동완성 함수를 DFS로 구현했다</span><span data-en>Implemented autocomplete using DFS</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Trie vs Hash Table 탐색 성능 차이를 이해했다</span><span data-en>Understood the performance difference between Trie and Hash Table lookup</span></span></div>
     </div>
   </div>
 </div>
 
 <!-- ADV1: AVL Tree -->
 <div class="chapter" id="adv1">
-  <div class="ch-tag adv">Chapter 11 · 심화 자료구조</div>
+  <div class="ch-tag adv">Chapter 11 · <span data-ko>심화 자료구조</span><span data-en>Advanced DS</span></div>
   <div class="ch-title">AVL Tree</div>
-  <div class="ch-sub">높이 균형 보장 — 4가지 회전으로 O(log n) 유지</div>
+  <div class="ch-sub" data-ko>높이 균형 보장 — 4가지 회전으로 O(log n) 유지</div><div class="ch-sub" data-en>Height balance guaranteed — O(log n) via 4 rotations</div>
 
   <div class="dl-banner">
     <div class="dl-banner-info">
       <div class="dl-banner-icon">🗂</div>
       <div>
         <div class="dl-banner-title">DataStructures.playground</div>
-        <div class="dl-banner-sub">자료구조 Ch01–10 포함 · 심화 챕터는 웹 페이지에서 학습하세요</div>
+        <div class="dl-banner-sub"><span data-ko>자료구조 Ch01–10 포함 · 심화 챕터는 웹 페이지에서 학습하세요</span><span data-en>Includes DS Ch01–10 · Study advanced chapters on this page</span></div>
       </div>
     </div>
-    <a class="dl-btn ds" href="DataStructures.playground.zip" download>⬇ 다운로드</a>
+    <div class="dl-btn-group">
+      <a class="dl-btn ds" href="DataStructures.playground.zip" download data-ko>⬇ KO</a>
+      <a class="dl-btn ds" href="DataStructures_EN.playground.zip" download data-en>⬇ EN</a>
+    </div>
   </div>
 
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p>모든 노드에서 좌/우 서브트리 높이 차이(Balance Factor)가 최대 1인 자기 균형 BST. BF = height(left) - height(right), BF가 ±2가 되면 회전으로 복원합니다.</p>
       <p><strong>4가지 회전</strong>: LL(우회전) | RR(좌회전) | LR(좌회전→우회전) | RL(우회전→좌회전)</p>
     </div>
+    <div class="concept-box" data-en>
+      <p>A self-balancing BST where the height difference (Balance Factor) between left and right subtrees is at most 1 at every node. BF = height(left) - height(right). When BF reaches ±2, rotations restore balance.</p>
+      <p><strong>4 rotation cases</strong>: LL (right rotation) | RR (left rotation) | LR (left then right) | RL (right then left)</p>
+    </div>
   </div>
   <div class="section">
-    <div class="sec-label code">Swift 코드</div>
+    <div class="sec-label code">Swift CODE</div>
     <pre class="code-block"><span class="kw">class</span> <span class="tp">AVLNode</span> {
     <span class="kw">var</span> val: <span class="tp">Int</span>, height = <span class="num">1</span>
     <span class="kw">var</span> left, right: <span class="tp">AVLNode</span>?
@@ -854,7 +926,7 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 }</pre>
   </div>
   <div class="section">
-    <div class="sec-label complexity">시간 복잡도</div>
+    <div class="sec-label complexity"><span data-ko>시간 복잡도</span><span data-en>COMPLEXITY</span></div>
     <table class="cx-table">
       <tr><th>연산</th><th>평균</th><th>최악</th></tr>
       <tr><td>탐색 / 삽입 / 삭제</td><td class="g">O(log n)</td><td class="g">O(log n)</td></tr>
@@ -862,34 +934,40 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
     </table>
   </div>
   <div class="section">
-    <div class="sec-label think">생각해볼 것</div>
-    <div class="think-box">AVL은 삽입/삭제마다 회전이 잦습니다. 읽기:쓰기 비율이 어떨 때 AVL이 Red-Black Tree보다 유리할까요?</div>
+    <div class="sec-label think"><span data-ko>생각해볼 것</span><span data-en>THINK</span></div>
+    <div class="think-box" data-ko>AVL은 삽입/삭제마다 회전이 잦습니다. 읽기:쓰기 비율이 어떨 때 AVL이 Red-Black Tree보다 유리할까요?</div>
+    <div class="think-box" data-en>AVL Tree requires more rotations on insert/delete than Red-Black Tree. When is AVL Tree faster: read-heavy or write-heavy workloads?</div>
   </div>
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-adv1">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Balance Factor 계산과 4가지 회전을 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">삽입 후 균형 복원 과정을 단계별로 추적했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">일반 BST와 AVL Tree의 높이를 같은 입력으로 비교했다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Balance Factor 계산과 4가지 회전을 구현했다</span><span data-en>Implemented Balance Factor calculation and all 4 rotations</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>삽입 후 균형 복원 과정을 단계별로 추적했다</span><span data-en>Traced the balance restoration process step by step after insertion</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>일반 BST와 AVL Tree의 높이를 같은 입력으로 비교했다</span><span data-en>Compared heights of regular BST and AVL Tree with the same input</span></span></div>
     </div>
   </div>
 </div>
 
 <!-- ADV2: Red-Black Tree -->
 <div class="chapter" id="adv2">
-  <div class="ch-tag adv">Chapter 12 · 심화 자료구조</div>
+  <div class="ch-tag adv">Chapter 12 · <span data-ko>심화 자료구조</span><span data-en>Advanced DS</span></div>
   <div class="ch-title">Red-Black Tree</div>
-  <div class="ch-sub">5가지 규칙으로 느슨한 균형 — Swift OrderedSet 내부</div>
+  <div class="ch-sub" data-ko>5가지 규칙으로 느슨한 균형 — Swift OrderedSet 내부</div><div class="ch-sub" data-en>Loose balance via 5 rules — inside Swift OrderedSet</div>
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p>각 노드가 Red/Black 색상을 가지며 5가지 규칙으로 높이를 O(log n)으로 보장하는 균형 BST.</p>
       <p><strong>5가지 규칙</strong>: ① 모든 노드 Red/Black ② 루트는 Black ③ 모든 NIL(리프)은 Black ④ Red 노드의 두 자식은 Black ⑤ 임의 노드→리프 경로의 Black 수 동일(Black-height)</p>
       <p>Swift <code>OrderedSet</code>, C++ <code>std::map</code>, Java <code>TreeMap</code>이 Red-Black Tree로 구현됩니다.</p>
     </div>
+    <div class="concept-box" data-en>
+      <p>A self-balancing BST where each node is colored Red or Black, and 5 rules guarantee O(log n) height.</p>
+      <p><strong>5 Rules</strong>: ① Every node is Red or Black ② Root is Black ③ All NIL leaves are Black ④ Red node's children are both Black ⑤ All paths from any node to its leaves have the same number of Black nodes (Black-height)</p>
+      <p>Swift <code>OrderedSet</code>, C++ <code>std::map</code>, Java <code>TreeMap</code> are all built on Red-Black Trees.</p>
+    </div>
   </div>
   <div class="section">
-    <div class="sec-label complexity">AVL vs Red-Black 비교</div>
+    <div class="sec-label complexity"><span data-ko>AVL vs Red-Black 비교</span><span data-en>AVL vs Red-Black Comparison</span></div>
     <table class="cx-table">
       <tr><th>항목</th><th>AVL Tree</th><th>Red-Black Tree</th></tr>
       <tr><td>균형 엄격도</td><td>엄격 (BF ≤ 1)</td><td>느슨 (Black-height)</td></tr>
@@ -900,28 +978,31 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
     </table>
   </div>
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-adv2">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">5가지 규칙을 외우고 각각의 의미를 설명할 수 있다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">삽입 후 Recoloring과 Rotation 과정을 이해했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">AVL vs RB Tree 트레이드오프를 면접에서 설명할 수 있다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>5가지 규칙을 외우고 각각의 의미를 설명할 수 있다</span><span data-en>Memorized the 5 rules and can explain each</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>삽입 후 Recoloring과 Rotation 과정을 이해했다</span><span data-en>Understood the Recoloring and Rotation process after insertion</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>AVL vs RB Tree 트레이드오프를 면접에서 설명할 수 있다</span><span data-en>Can explain AVL vs RB Tree trade-offs in an interview</span></span></div>
     </div>
   </div>
 </div>
 
 <!-- ADV3: Segment Tree -->
 <div class="chapter" id="adv3">
-  <div class="ch-tag adv">Chapter 13 · 심화 자료구조</div>
+  <div class="ch-tag adv">Chapter 13 · <span data-ko>심화 자료구조</span><span data-en>Advanced DS</span></div>
   <div class="ch-title">Segment Tree</div>
-  <div class="ch-sub">구간 쿼리 O(log n) — 합계 · 최솟값 · 최댓값 즉시 조회</div>
+  <div class="ch-sub" data-ko>구간 쿼리 O(log n) — 합계 · 최솟값 · 최댓값 즉시 조회</div><div class="ch-sub" data-en>Range queries in O(log n) — instant sum · min · max</div>
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p>배열의 구간(range) 쿼리를 빠르게 처리. 배열 크기 n에 대해 <strong>2n 크기 배열</strong>로 표현 (Heap과 유사한 인덱스 구조). 리프가 원소, 내부 노드가 구간 집계값.</p>
+    </div>
+    <div class="concept-box" data-en>
+      <p>Handles range queries efficiently. Using <strong>an array of size 2n</strong> for an input of size n (similar index structure to Heap). Leaves store elements, internal nodes store aggregated range values.</p>
     </div>
   </div>
   <div class="section">
-    <div class="sec-label code">Swift 코드</div>
+    <div class="sec-label code">Swift CODE</div>
     <pre class="code-block"><span class="kw">struct</span> <span class="tp">SegTree</span> {
     <span class="kw">let</span> n: <span class="tp">Int</span>
     <span class="kw">var</span> tree: [<span class="tp">Int</span>]
@@ -947,7 +1028,7 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 }</pre>
   </div>
   <div class="section">
-    <div class="sec-label complexity">시간 복잡도</div>
+    <div class="sec-label complexity"><span data-ko>시간 복잡도</span><span data-en>COMPLEXITY</span></div>
     <table class="cx-table">
       <tr><th>연산</th><th>Naive Array</th><th>Segment Tree</th></tr>
       <tr><td>구간 합/최솟값</td><td class="b">O(n)</td><td class="g">O(log n)</td></tr>
@@ -956,29 +1037,33 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
     </table>
   </div>
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-adv3">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">구간 합 쿼리를 O(log n)으로 처리하는 세그먼트 트리를 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">점 업데이트 후 부모 노드를 갱신하는 로직을 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">구간 최솟값(RMQ) 문제를 풀었다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>구간 합 쿼리를 O(log n)으로 처리하는 세그먼트 트리를 구현했다</span><span data-en>Implemented a Segment Tree that handles range sum queries in O(log n)</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>점 업데이트 후 부모 노드를 갱신하는 로직을 구현했다</span><span data-en>Implemented point update logic that refreshes parent nodes</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>구간 최솟값(RMQ) 문제를 풀었다</span><span data-en>Solved a Range Minimum Query (RMQ) problem</span></span></div>
     </div>
   </div>
 </div>
 
 <!-- ADV4: Union-Find -->
 <div class="chapter" id="adv4">
-  <div class="ch-tag adv">Chapter 14 · 심화 자료구조</div>
+  <div class="ch-tag adv">Chapter 14 · <span data-ko>심화 자료구조</span><span data-en>Advanced DS</span></div>
   <div class="ch-title">Union-Find</div>
-  <div class="ch-sub">연결 여부를 거의 O(1)에 — Kruskal MST의 핵심</div>
+  <div class="ch-sub" data-ko>연결 여부를 거의 O(1)에 — Kruskal MST의 핵심</div><div class="ch-sub" data-en>Near-O(1) connectivity check — the core of Kruskal MST</div>
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p><code>find(x)</code>: x가 속한 집합의 대표(root) 반환. <code>union(x,y)</code>: x와 y의 집합을 합침.</p>
       <p><strong>Path Compression</strong>: find 시 경유 노드를 root에 직접 연결. <strong>Union by Rank</strong>: 낮은 트리를 높은 트리 아래 붙임. 두 최적화 합치면 <strong>O(α(n)) ≈ O(1)</strong>.</p>
     </div>
+    <div class="concept-box" data-en>
+      <p><code>find(x)</code>: returns the representative (root) of the set x belongs to. <code>union(x,y)</code>: merges the sets of x and y.</p>
+      <p><strong>Path Compression</strong>: during find, connect traversed nodes directly to root. <strong>Union by Rank</strong>: attach shorter tree under taller tree. Together: <strong>O(α(n)) ≈ O(1)</strong>.</p>
+    </div>
   </div>
   <div class="section">
-    <div class="sec-label code">Swift 코드</div>
+    <div class="sec-label code">Swift CODE</div>
     <pre class="code-block"><span class="kw">struct</span> <span class="tp">UnionFind</span> {
     <span class="kw">var</span> parent, rank: [<span class="tp">Int</span>]
 
@@ -1001,11 +1086,11 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 }</pre>
   </div>
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-adv4">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Path Compression + Union by Rank를 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Kruskal 알고리즘에서 Union-Find를 활용했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">섬의 개수, 친구 그룹 문제를 풀었다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Path Compression + Union by Rank를 구현했다</span><span data-en>Implemented find with Path Compression and union with Union by Rank</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Kruskal 알고리즘에서 Union-Find를 활용했다</span><span data-en>Used Union-Find within Kruskal's algorithm</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>섬의 개수, 친구 그룹 문제를 풀었다</span><span data-en>Solved the number of islands / friend groups problem</span></span></div>
     </div>
   </div>
 </div>
@@ -1014,29 +1099,37 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 <div class="chapter" id="alg1">
   <div class="ch-tag alg">Algorithm 01</div>
   <div class="ch-title">Sorting</div>
-  <div class="ch-sub">Quick · Merge · Heap — 각각의 장단점과 선택 기준</div>
+  <div class="ch-sub" data-ko>Quick · Merge · Heap — 각각의 장단점과 선택 기준</div><div class="ch-sub" data-en>Quick · Merge · Heap — trade-offs and when to choose each</div>
 
   <div class="dl-banner">
     <div class="dl-banner-info">
       <div class="dl-banner-icon">⚗️</div>
       <div>
         <div class="dl-banner-title">Algorithms.playground</div>
-        <div class="dl-banner-sub">알고리즘 A01–A06 · Learn + Practice 12페이지 · Xcode에서 바로 실행</div>
+        <div class="dl-banner-sub"><span data-ko>알고리즘 A01–A06 · Learn + Practice 12페이지 · Xcode에서 바로 실행</span><span data-en>Algorithms A01–A06 · 12 pages Learn + Practice · Run in Xcode</span></div>
       </div>
     </div>
-    <a class="dl-btn alg" href="Algorithms.playground.zip" download>⬇ 다운로드</a>
+    <div class="dl-btn-group">
+      <a class="dl-btn alg" href="Algorithms.playground.zip" download data-ko>⬇ KO</a>
+      <a class="dl-btn alg" href="Algorithms_EN.playground.zip" download data-en>⬇ Algorithms EN</a>
+    </div>
   </div>
 
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p><strong>Quick Sort</strong>: pivot 기준 분할 정복. 평균 O(n log n), 최악 O(n²). 캐시 친화적이라 실제로 가장 빠름. Swift <code>sort()</code>는 IntroSort(Quick+Heap+Insertion 혼합).</p>
       <p><strong>Merge Sort</strong>: 항상 O(n log n), 안정 정렬(Stable). 추가 O(n) 메모리. 연결 리스트 정렬 최적.</p>
       <p><strong>Heap Sort</strong>: 항상 O(n log n), 추가 메모리 O(1). 캐시 미스로 실제론 Merge Sort보다 느릴 수 있음.</p>
     </div>
+    <div class="concept-box" data-en>
+      <p><strong>Quick Sort</strong>: pivot-based divide and conquer. Average O(n log n), worst O(n²). Cache-friendly so usually fastest in practice. Swift's <code>sort()</code> is IntroSort (Quick + Heap + Insertion hybrid).</p>
+      <p><strong>Merge Sort</strong>: always O(n log n), stable sort. Requires O(n) extra memory. Ideal for sorting linked lists.</p>
+      <p><strong>Heap Sort</strong>: always O(n log n), O(1) extra space. Cache misses make it slower than Merge Sort in practice.</p>
+    </div>
   </div>
   <div class="section">
-    <div class="sec-label code">Swift 코드</div>
+    <div class="sec-label code">Swift CODE</div>
     <pre class="code-block"><span class="cm">// Quick Sort</span>
 <span class="kw">func</span> <span class="fn">quickSort</span>(<span class="hl">_</span> arr: <span class="kw">inout</span> [<span class="tp">Int</span>], <span class="hl">_</span> lo: <span class="tp">Int</span>, <span class="hl">_</span> hi: <span class="tp">Int</span>) {
     <span class="kw">guard</span> lo < hi <span class="kw">else</span> { <span class="kw">return</span> }
@@ -1066,7 +1159,7 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 }</pre>
   </div>
   <div class="section">
-    <div class="sec-label complexity">비교표</div>
+    <div class="sec-label complexity"><span data-ko>비교표</span><span data-en>COMPARISON</span></div>
     <table class="cx-table">
       <tr><th>알고리즘</th><th>평균</th><th>최악</th><th>공간</th><th>안정</th></tr>
       <tr><td>Quick Sort</td><td class="g">O(n log n)</td><td class="b">O(n²)</td><td class="g">O(log n)</td><td>✗</td></tr>
@@ -1076,12 +1169,12 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
     </table>
   </div>
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-alg1">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Quick Sort pivot 전략 3가지를 알고 있다 (first/random/median-of-3)</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Merge Sort를 구현하고 안정 정렬인지 확인했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">정렬된 배열에서 Quick Sort 최악 케이스를 실험했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">면접 "어떤 정렬을?" 질문에 이유와 함께 답할 수 있다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Quick Sort pivot 전략 3가지를 알고 있다 (first/random/median-of-3)</span><span data-en>Know 3 pivot strategies for Quick Sort (first / random / median-of-3)</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Merge Sort를 구현하고 안정 정렬인지 확인했다</span><span data-en>Implemented Merge Sort and verified it is a stable sort</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>정렬된 배열에서 Quick Sort 최악 케이스를 실험했다</span><span data-en>Experimented with Quick Sort worst-case on already-sorted input</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>면접 "어떤 정렬을?" 질문에 이유와 함께 답할 수 있다</span><span data-en>Can answer "which sort would you use and why?" in an interview</span></span></div>
     </div>
   </div>
 </div>
@@ -1090,16 +1183,20 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 <div class="chapter" id="alg2">
   <div class="ch-tag alg">Algorithm 02</div>
   <div class="ch-title">Binary Search</div>
-  <div class="ch-sub">이분 탐색 · Lower/Upper Bound · Parametric Search</div>
+  <div class="ch-sub" data-ko>이분 탐색 · Lower/Upper Bound · Parametric Search</div><div class="ch-sub" data-en>Binary search · Lower/Upper Bound · Parametric Search</div>
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p>정렬된 배열에서 중간값과 비교하며 탐색 범위를 절반씩 줄임. 핵심은 <code>left/right/mid</code> 인덱스 관리와 종료 조건.</p>
       <p><strong>Lower Bound</strong>: target 이상의 첫 번째 인덱스. <strong>Upper Bound</strong>: target 초과의 첫 번째 인덱스. <strong>Parametric Search</strong>: "조건을 만족하는 최솟값" 문제.</p>
     </div>
+    <div class="concept-box" data-en>
+      <p>Halve the search range each step by comparing with the middle element of a sorted array. The key is managing <code>lo/hi/mid</code> indices and termination conditions correctly.</p>
+      <p><strong>Lower Bound</strong>: first index ≥ target. <strong>Upper Bound</strong>: first index > target. <strong>Parametric Search</strong>: find min/max value satisfying a monotone condition.</p>
+    </div>
   </div>
   <div class="section">
-    <div class="sec-label code">Swift 코드</div>
+    <div class="sec-label code">Swift CODE</div>
     <pre class="code-block"><span class="cm">// 기본 Binary Search</span>
 <span class="kw">func</span> <span class="fn">binarySearch</span>(<span class="hl">_</span> arr: [<span class="tp">Int</span>], <span class="hl">_</span> target: <span class="tp">Int</span>) -> <span class="tp">Int</span>? {
     <span class="kw">var</span> lo = <span class="num">0</span>, hi = arr.count - <span class="num">1</span>
@@ -1133,12 +1230,12 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 }</pre>
   </div>
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-alg2">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">off-by-one 없는 Binary Search를 암기했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Lower Bound / Upper Bound를 직접 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Parametric Search 문제("최소 몇 일?")를 풀었다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">회전된 정렬 배열에서 탐색 문제를 풀었다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>off-by-one 없는 Binary Search를 암기했다</span><span data-en>Memorized a correct Binary Search without off-by-one errors</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Lower Bound / Upper Bound를 직접 구현했다</span><span data-en>Implemented Lower Bound and Upper Bound directly</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Parametric Search 문제("최소 몇 일?")를 풀었다</span><span data-en>Solved a Parametric Search problem ("minimum days?")</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>회전된 정렬 배열에서 탐색 문제를 풀었다</span><span data-en>Solved the rotated sorted array search problem</span></span></div>
     </div>
   </div>
 </div>
@@ -1147,16 +1244,20 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 <div class="chapter" id="alg3">
   <div class="ch-tag alg">Algorithm 03</div>
   <div class="ch-title">Dynamic Programming</div>
-  <div class="ch-sub">중복 부분 문제 + 최적 부분 구조 — 지수를 다항으로</div>
+  <div class="ch-sub" data-ko>중복 부분 문제 + 최적 부분 구조 — 지수를 다항으로</div><div class="ch-sub" data-en>Overlapping subproblems + optimal substructure — exponential to polynomial</div>
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p>DP 적용 조건: <strong>① 최적 부분 구조</strong>(큰 문제 최적해 = 작은 문제 최적해 조합) <strong>② 중복 부분 문제</strong>(같은 하위 문제 반복).</p>
       <p><strong>Top-down (Memoization)</strong>: 재귀 + 캐시 딕셔너리. <strong>Bottom-up (Tabulation)</strong>: 작은 문제부터 테이블 채우기 — 공간 최적화 쉬움.</p>
     </div>
+    <div class="concept-box" data-en>
+      <p>DP conditions: <strong>① Optimal substructure</strong> (optimal solution for big problem = combination of optimal subproblem solutions). <strong>② Overlapping subproblems</strong> (same subproblems solved repeatedly).</p>
+      <p><strong>Top-down (Memoization)</strong>: recursion + cache dict. <strong>Bottom-up (Tabulation)</strong>: fill table from smallest subproblem — easier to optimize space.</p>
+    </div>
   </div>
   <div class="section">
-    <div class="sec-label code">Swift 코드</div>
+    <div class="sec-label code">Swift CODE</div>
     <pre class="code-block"><span class="cm">// LCS (Longest Common Subsequence)</span>
 <span class="kw">func</span> <span class="fn">lcs</span>(<span class="hl">_</span> a: [<span class="tp">Character</span>], <span class="hl">_</span> b: [<span class="tp">Character</span>]) -> <span class="tp">Int</span> {
     <span class="kw">let</span> m = a.count, n = b.count
@@ -1189,12 +1290,12 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 }</pre>
   </div>
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-alg3">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">피보나치를 재귀→Memoization→Tabulation 3가지로 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">LCS를 2D 테이블로 풀었다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">LIS를 O(n²)과 O(n log n) 두 가지로 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">0-1 배낭 문제를 1D DP로 풀었다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>피보나치를 재귀→Memoization→Tabulation 3가지로 구현했다</span><span data-en>Implemented Fibonacci 3 ways: recursion → Memoization → Tabulation</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>LCS를 2D 테이블로 풀었다</span><span data-en>Solved LCS using a 2D table</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>LIS를 O(n²)과 O(n log n) 두 가지로 구현했다</span><span data-en>Implemented LIS both O(n²) and O(n log n)</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>0-1 배낭 문제를 1D DP로 풀었다</span><span data-en>Solved 0-1 Knapsack using 1D DP</span></span></div>
     </div>
   </div>
 </div>
@@ -1203,16 +1304,20 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 <div class="chapter" id="alg4">
   <div class="ch-tag alg">Algorithm 04</div>
   <div class="ch-title">Greedy</div>
-  <div class="ch-sub">지금 최선이 전체 최선 — 증명이 핵심</div>
+  <div class="ch-sub" data-ko>지금 최선이 전체 최선 — 증명이 핵심</div><div class="ch-sub" data-en>Local best = global best — proof is everything</div>
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p>매 단계에서 지역적으로 최선인 선택. 전역 최적 보장 조건: <strong>Greedy Choice Property</strong> + <strong>최적 부분 구조</strong>.</p>
       <p><strong>반례 주의</strong>: 동전 [1,5,6,9]원으로 11원을 거슬러야 할 때 Greedy(9+1+1=3개)는 최적이 아닙니다(5+6=2개). 증명 없이 사용하면 위험합니다.</p>
     </div>
+    <div class="concept-box" data-en>
+      <p>Make the locally optimal choice at each step. For global optimality, <strong>Greedy Choice Property</strong> and <strong>Optimal Substructure</strong> must hold — always prove it first.</p>
+      <p><strong>When Greedy fails</strong>: Coins [1,5,6,9] to make 11: Greedy picks 9+1+1 = 3 coins, but optimal is 5+6 = 2 coins. Greedy only works when large denominations are multiples of smaller ones.</p>
+    </div>
   </div>
   <div class="section">
-    <div class="sec-label code">Swift 코드</div>
+    <div class="sec-label code">Swift CODE</div>
     <pre class="code-block"><span class="cm">// Activity Selection (종료 시간 순 정렬)</span>
 <span class="kw">func</span> <span class="fn">activitySelection</span>(<span class="hl">_</span> intervals: [(start: <span class="tp">Int</span>, end: <span class="tp">Int</span>)]) -> <span class="tp">Int</span> {
     <span class="kw">let</span> sorted = intervals.<span class="fn">sorted</span> { $0.end < $1.end }
@@ -1236,11 +1341,11 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 }</pre>
   </div>
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-alg4">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Activity Selection을 구현하고 Greedy가 최적임을 증명했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Greedy가 틀리는 반례를 직접 찾아봤다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Huffman Coding 원리를 이해하고 트리를 그려봤다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Activity Selection을 구현하고 Greedy가 최적임을 증명했다</span><span data-en>Implemented Activity Selection and proved Greedy is optimal</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Greedy가 틀리는 반례를 직접 찾아봤다</span><span data-en>Found a counterexample where Greedy fails</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Huffman Coding 원리를 이해하고 트리를 그려봤다</span><span data-en>Understood the Huffman Coding algorithm and drew the tree</span></span></div>
     </div>
   </div>
 </div>
@@ -1249,16 +1354,20 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 <div class="chapter" id="alg5">
   <div class="ch-tag alg">Algorithm 05</div>
   <div class="ch-title">Backtracking</div>
-  <div class="ch-sub">가지치기로 완전 탐색 최적화 — N-Queens · 순열 · 스도쿠</div>
+  <div class="ch-sub" data-ko>가지치기로 완전 탐색 최적화 — N-Queens · 순열 · 스도쿠</div><div class="ch-sub" data-en>Optimizing brute-force via pruning — N-Queens · permutations · Sudoku</div>
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p>가능한 모든 경우를 탐색하되 해가 될 수 없는 경우를 조기에 포기(Pruning)하는 전략. DFS 기반.</p>
       <p><strong>패턴</strong>: 선택 → 제약 확인 → 재귀 → 선택 취소(Undo). 상태를 선택 전으로 되돌리는 것이 핵심입니다.</p>
     </div>
+    <div class="concept-box" data-en>
+      <p>Explore all possibilities but abandon ("backtrack") paths that cannot lead to a solution early — called <strong>Pruning</strong>. Based on DFS.</p>
+      <p><strong>Pattern</strong>: Choose → Constrain → Recurse → Unchoose (Undo). Restoring state before the choice is the key.</p>
+    </div>
   </div>
   <div class="section">
-    <div class="sec-label code">Swift 코드</div>
+    <div class="sec-label code">Swift CODE</div>
     <pre class="code-block"><span class="cm">// N-Queens</span>
 <span class="kw">func</span> <span class="fn">solveNQueens</span>(<span class="hl">_</span> n: <span class="tp">Int</span>) -> <span class="tp">Int</span> {
     <span class="kw">var</span> cols = <span class="tp">Set</span>&lt;<span class="tp">Int</span>&gt;(), diag1 = <span class="tp">Set</span>&lt;<span class="tp">Int</span>&gt;(), diag2 = <span class="tp">Set</span>&lt;<span class="tp">Int</span>&gt;(), count = <span class="num">0</span>
@@ -1285,11 +1394,11 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 }</pre>
   </div>
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-alg5">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">N-Queens를 완전히 구현하고 단계별로 추적했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">순열/조합/중복순열/중복조합 4가지를 모두 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">스도쿠 풀이를 Backtracking으로 구현했다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>N-Queens를 완전히 구현하고 단계별로 추적했다</span><span data-en>Fully implemented N-Queens and traced step by step</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>순열/조합/중복순열/중복조합 4가지를 모두 구현했다</span><span data-en>Implemented all 4 types: permutations / combinations / with-repetition combinations / with-repetition permutations</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>스도쿠 풀이를 Backtracking으로 구현했다</span><span data-en>Implemented Sudoku solver using Backtracking</span></span></div>
     </div>
   </div>
 </div>
@@ -1298,17 +1407,22 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 <div class="chapter" id="alg6">
   <div class="ch-tag alg">Algorithm 06</div>
   <div class="ch-title">최단 경로</div>
-  <div class="ch-sub">Dijkstra · Bellman-Ford · Floyd-Warshall</div>
+  <div class="ch-sub" data-ko>Dijkstra · Bellman-Ford · Floyd-Warshall</div><div class="ch-sub" data-en>Dijkstra · Bellman-Ford · Floyd-Warshall</div>
   <div class="section">
-    <div class="sec-label concept">개념</div>
-    <div class="concept-box">
+    <div class="sec-label concept"><span data-ko>개념</span><span data-en>CONCEPT</span></div>
+    <div class="concept-box" data-ko>
       <p><strong>Dijkstra</strong>: 음수 가중치 없는 그래프, 단일 출발점. Min Heap 사용 O((V+E) log V). 내비게이션, 라우팅 프로토콜에 사용.</p>
       <p><strong>Bellman-Ford</strong>: 음수 가중치 허용, 음수 사이클 감지. O(VE). V-1번 모든 간선 Relax.</p>
       <p><strong>Floyd-Warshall</strong>: 모든 쌍(All-pairs) 최단 경로. O(V³). 소규모 밀집 그래프 적합.</p>
     </div>
+    <div class="concept-box" data-en>
+      <p><strong>Dijkstra</strong>: No negative weights, single source. Min Heap, O((V+E) log V). Used in navigation and routing protocols.</p>
+      <p><strong>Bellman-Ford</strong>: Allows negative weights, detects negative cycles. O(VE). Relax all edges V-1 times.</p>
+      <p><strong>Floyd-Warshall</strong>: All-pairs shortest path. O(V³). Works with negative weights. Good for small dense graphs.</p>
+    </div>
   </div>
   <div class="section">
-    <div class="sec-label code">Swift 코드</div>
+    <div class="sec-label code">Swift CODE</div>
     <pre class="code-block"><span class="cm">// Dijkstra (Min Heap)</span>
 <span class="kw">func</span> <span class="fn">dijkstra</span>(<span class="hl">_</span> graph: [[(to: <span class="tp">Int</span>, w: <span class="tp">Int</span>)]], start: <span class="tp">Int</span>) -> [<span class="tp">Int</span>] {
     <span class="kw">var</span> dist = [<span class="tp">Int</span>](<span class="fn">repeating</span>: <span class="tp">Int</span>.max, count: graph.count)
@@ -1338,7 +1452,7 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 }</pre>
   </div>
   <div class="section">
-    <div class="sec-label complexity">비교표</div>
+    <div class="sec-label complexity"><span data-ko>비교표</span><span data-en>COMPARISON</span></div>
     <table class="cx-table">
       <tr><th>알고리즘</th><th>시간</th><th>음수 가중치</th><th>음수 사이클</th><th>용도</th></tr>
       <tr><td>Dijkstra</td><td class="g">O((V+E) log V)</td><td>✗</td><td>✗</td><td>단일 출발</td></tr>
@@ -1347,12 +1461,12 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
     </table>
   </div>
   <div class="section">
-    <div class="sec-label checklist">완료 체크리스트</div>
+    <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-alg6">
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">MinHeap 기반 Dijkstra를 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Bellman-Ford로 음수 사이클을 감지했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">Floyd-Warshall 점화식을 이해하고 구현했다</span></div>
-      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text">문제 보고 세 알고리즘 중 어떤 것을 쓸지 판단할 수 있다</span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>MinHeap 기반 Dijkstra를 구현했다</span><span data-en>Implemented Dijkstra with a MinHeap</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Bellman-Ford로 음수 사이클을 감지했다</span><span data-en>Detected a negative cycle using Bellman-Ford</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Floyd-Warshall 점화식을 이해하고 구현했다</span><span data-en>Understood and implemented Floyd-Warshall recurrence</span></span></div>
+      <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>문제 보고 세 알고리즘 중 어떤 것을 쓸지 판단할 수 있다</span><span data-en>Can decide which algorithm to use given a problem statement</span></span></div>
     </div>
   </div>
 </div>
@@ -1446,7 +1560,11 @@ function updateProgress() {
   });
   const pct = Math.round(done / CHAPTERS.length * 100);
   document.getElementById('prog-fill').style.width = pct + '%';
-  document.getElementById('prog-label').textContent = done + ' / ' + CHAPTERS.length + ' 완료';
+  const progLabel = document.getElementById('prog-label');
+  const koSpan = progLabel.querySelector('[data-ko]');
+  const enSpan = progLabel.querySelector('[data-en]');
+  if (koSpan) koSpan.textContent = done + ' / ' + CHAPTERS.length + ' 완료';
+  if (enSpan) enSpan.textContent = done + ' / ' + CHAPTERS.length + ' done';
   const hd = document.getElementById('home-done');
   const hp = document.getElementById('home-pct');
   const hb = document.getElementById('home-bar');
@@ -1470,6 +1588,21 @@ window.addEventListener('load', () => {
   updateProgress();
   const slug = location.hash.slice(1) || 'home';
   show(SLUG_TO_ID[slug] || 'home', false);
+});
+
+// LANG TOGGLE
+function setLang(lang) {
+  document.body.classList.toggle('en', lang === 'en');
+  document.getElementById('btn-ko').classList.toggle('active', lang === 'ko');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  // update progress label
+  const done = document.querySelectorAll('.sidebar-item.done').length;
+  document.getElementById('prog-label').querySelector(lang === 'ko' ? '[data-ko]' : '[data-en]').style.display = '';
+  localStorage.setItem('learn-lang', lang);
+}
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem('learn-lang') || 'ko';
+  if (saved === 'en') setLang('en');
 });
 </script>
 </body>
