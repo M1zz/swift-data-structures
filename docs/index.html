@@ -3039,7 +3039,9 @@ function setStatus(id, msg, color='') {
 }
 
 const CH_NAMES = ['시작하기','Array','LinkedList','Stack/Queue','Deque','Tree','BST','Heap','Graph','Hash','Trie'];
-function showChapter(i) {
+const CH_SLUGS = ['home','array','linked-list','stack-queue','deque','binary-tree','bst','heap','graph','hash-table','trie'];
+
+function showChapter(i, pushState = true) {
   document.querySelectorAll('.chapter').forEach((c,j) => c.classList.toggle('active', i===j));
   document.querySelectorAll('.nav-dot').forEach((d,j) => d.classList.toggle('active', i===j));
   document.querySelectorAll('.drawer-item').forEach((d,j) => d.classList.toggle('active', i===j));
@@ -3049,7 +3051,22 @@ function showChapter(i) {
   requestAnimationFrame(() => refreshCurrentChapter());
   const chId = CHID_BY_INDEX[i];
   if (chId) loadUtterances(chId);
+  if (pushState) {
+    const slug = CH_SLUGS[i] || 'home';
+    history.pushState({chapter: i}, '', slug === 'home' ? '#' : `#${slug}`);
+  }
 }
+
+function getChapterFromHash() {
+  const hash = location.hash.replace('#', '').trim();
+  if (!hash) return 0;
+  const idx = CH_SLUGS.indexOf(hash);
+  return idx >= 0 ? idx : 0;
+}
+
+window.addEventListener('hashchange', () => {
+  showChapter(getChapterFromHash(), false);
+});
 
 function toggleDrawer() {
   document.getElementById('chapter-drawer').classList.toggle('open');
@@ -3810,7 +3827,12 @@ function loadUtterances(chId) {
 // ─── INIT ──────────────────────────────────────────────────────────────
 window.addEventListener('load', ()=>{
   C = getThemeColors();
-  refreshCurrentChapter();
+  const initial = getChapterFromHash();
+  if (initial !== 0) {
+    showChapter(initial, false);
+  } else {
+    refreshCurrentChapter();
+  }
 });
 window.addEventListener('resize', ()=>{
   refreshCurrentChapter();
