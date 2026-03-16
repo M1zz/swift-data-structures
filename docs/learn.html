@@ -121,6 +121,18 @@ code{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1p
 .fab-mentor-btn{display:block;width:100%;padding:10px;background:var(--accent2);color:#fff;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;text-align:center;}
 .fab-mentor-btn:hover{opacity:.85;}
 
+/* DOWNLOAD BANNER */
+.dl-banner{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 22px;margin-bottom:32px;}
+.dl-banner-info{display:flex;align-items:center;gap:14px;}
+.dl-banner-icon{font-size:28px;line-height:1;}
+.dl-banner-title{font-size:14px;font-weight:700;margin-bottom:3px;}
+.dl-banner-sub{font-size:12px;color:var(--text2);}
+.dl-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;transition:opacity .15s;}
+.dl-btn:hover{opacity:.85;}
+.dl-btn.ds{background:var(--accent);color:#fff;}
+.dl-btn.alg{background:var(--accent2);color:#fff;}
+.dl-btn-group{display:flex;gap:8px;flex-wrap:wrap;}
+
 @media(max-width:768px){
   .sidebar{transform:translateX(-100%);transition:transform .25s;}
   .sidebar.open{transform:none;}
@@ -187,19 +199,35 @@ code{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1p
   </div>
   <div class="curriculum-grid">
     <div class="curr-card" onclick="show('ds1')">
-      <div class="curr-card-label">Part 1</div>
-      <div class="curr-card-title">기본 자료구조</div>
-      <div class="curr-card-count">Array → Trie · 10개 챕터</div>
-    </div>
-    <div class="curr-card" onclick="show('adv1')">
-      <div class="curr-card-label">Part 2</div>
-      <div class="curr-card-title">심화 자료구조</div>
-      <div class="curr-card-count">AVL · RB Tree · Segment · UF</div>
+      <div class="curr-card-label">Part 1 + 2</div>
+      <div class="curr-card-title">자료구조</div>
+      <div class="curr-card-count">Array → Union-Find · 14개 챕터</div>
     </div>
     <div class="curr-card" onclick="show('alg1')">
       <div class="curr-card-label">Part 3</div>
       <div class="curr-card-title">알고리즘</div>
       <div class="curr-card-count">Sorting → 최단경로 · 6개 챕터</div>
+    </div>
+    <div class="curr-card" style="border-color:rgba(22,163,74,.25);background:rgba(22,163,74,.03);">
+      <div class="curr-card-label" style="color:var(--accent3);">Xcode Playground</div>
+      <div class="curr-card-title" style="color:var(--accent3);">직접 코딩 실습</div>
+      <div class="curr-card-count">파일 다운로드 후 Xcode에서 실행</div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;">
+    <div class="dl-banner">
+      <div class="dl-banner-info">
+        <div class="dl-banner-icon">📦</div>
+        <div>
+          <div class="dl-banner-title">Xcode Playground 다운로드</div>
+          <div class="dl-banner-sub">각 파일을 Xcode에서 열어 직접 코드를 실행하며 학습하세요</div>
+        </div>
+      </div>
+      <div class="dl-btn-group">
+        <a class="dl-btn ds" href="DataStructures.playground.zip" download>⬇ 자료구조</a>
+        <a class="dl-btn alg" href="Algorithms.playground.zip" download>⬇ 알고리즘</a>
+      </div>
     </div>
   </div>
 </div>
@@ -209,6 +237,17 @@ code{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1p
   <div class="ch-tag">Chapter 01 · 기본 자료구조</div>
   <div class="ch-title">Array vs ContiguousArray</div>
   <div class="ch-sub">CoW 메커니즘과 메모리 레이아웃 — Swift 배열의 진짜 동작</div>
+
+  <div class="dl-banner">
+    <div class="dl-banner-info">
+      <div class="dl-banner-icon">🗂</div>
+      <div>
+        <div class="dl-banner-title">DataStructures.playground</div>
+        <div class="dl-banner-sub">자료구조 Ch01–10 · Learn + Practice 20페이지 · Xcode에서 바로 실행</div>
+      </div>
+    </div>
+    <a class="dl-btn ds" href="DataStructures.playground.zip" download>⬇ 다운로드</a>
+  </div>
 
   <div class="section">
     <div class="sec-label concept">개념</div>
@@ -763,6 +802,18 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
   <div class="ch-tag adv">Chapter 11 · 심화 자료구조</div>
   <div class="ch-title">AVL Tree</div>
   <div class="ch-sub">높이 균형 보장 — 4가지 회전으로 O(log n) 유지</div>
+
+  <div class="dl-banner">
+    <div class="dl-banner-info">
+      <div class="dl-banner-icon">🗂</div>
+      <div>
+        <div class="dl-banner-title">DataStructures.playground</div>
+        <div class="dl-banner-sub">자료구조 Ch01–10 포함 · 심화 챕터는 웹 페이지에서 학습하세요</div>
+      </div>
+    </div>
+    <a class="dl-btn ds" href="DataStructures.playground.zip" download>⬇ 다운로드</a>
+  </div>
+
   <div class="section">
     <div class="sec-label concept">개념</div>
     <div class="concept-box">
@@ -964,6 +1015,18 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
   <div class="ch-tag alg">Algorithm 01</div>
   <div class="ch-title">Sorting</div>
   <div class="ch-sub">Quick · Merge · Heap — 각각의 장단점과 선택 기준</div>
+
+  <div class="dl-banner">
+    <div class="dl-banner-info">
+      <div class="dl-banner-icon">⚗️</div>
+      <div>
+        <div class="dl-banner-title">Algorithms.playground</div>
+        <div class="dl-banner-sub">알고리즘 A01–A06 · Learn + Practice 12페이지 · Xcode에서 바로 실행</div>
+      </div>
+    </div>
+    <a class="dl-btn alg" href="Algorithms.playground.zip" download>⬇ 다운로드</a>
+  </div>
+
   <div class="section">
     <div class="sec-label concept">개념</div>
     <div class="concept-box">
