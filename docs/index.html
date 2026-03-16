@@ -718,6 +718,31 @@
     margin-top: 4px;
     font-family: 'JetBrains Mono';
   }
+  .donate-fab-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 14px 0;
+  }
+  .donate-fab-mentor-btn {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    background: var(--accent2);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    transition: opacity .15s;
+  }
+  .donate-fab-mentor-btn:hover { opacity: .85; }
+  .donate-fab-mentor-desc {
+    font-size: 10px;
+    color: var(--text3);
+    margin-top: 6px;
+    line-height: 1.4;
+  }
 
   /* HOME PAGE */
   .home-hero {
@@ -4556,6 +4581,9 @@ function toggleLang() {
     <img class="donate-fab-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
     <div class="donate-fab-name">이현호</div>
     <div class="donate-fab-badge">💬 카카오페이</div>
+    <hr class="donate-fab-divider">
+    <a class="donate-fab-mentor-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">🎓 1:1 멘토링 신청</a>
+    <div class="donate-fab-mentor-desc">코드 리뷰 · 커리어 상담 · 취업 준비<br>인프런에서 바로 신청하세요</div>
   </div>
   <button class="donate-fab-btn" onclick="toggleDonatePopup()" title="후원하기">☕</button>
 </div>

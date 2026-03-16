@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Swift로 배우는 자료구조 — 완성 가이드 | 개발자리</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+KR:wght@300;400;600;800&display=swap');
+
+  :root {
+    --accent: #e04a1c;
+    --accent2: #2563eb;
+    --accent3: #16a34a;
+    --accent4: #7c3aed;
+    --text: #1e293b;
+    --text2: #475569;
+    --text3: #94a3b8;
+    --border: #d1d5db;
+    --bg: #f5f7fa;
+    --surface: #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    color: var(--text);
+    background: var(--surface);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* ── COVER PAGE ── */
+  .cover {
+    page-break-after: always;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 40px;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #fff;
+    text-align: center;
+    position: relative;
+  }
+  .cover-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(224,74,28,.15);
+    border: 1px solid rgba(224,74,28,.3);
+    border-radius: 20px;
+    padding: 4px 14px;
+    margin-bottom: 32px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .cover-title {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .cover-title span { color: var(--accent); }
+  .cover-subtitle {
+    font-size: 18px;
+    color: rgba(255,255,255,.6);
+    margin-bottom: 60px;
+    font-weight: 300;
+  }
+  .cover-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    max-width: 500px;
+    margin-bottom: 60px;
+  }
+  .cover-chip {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 8px;
+    padding: 8px 4px;
+    font-size: 10px;
+    color: rgba(255,255,255,.7);
+    font-family: 'JetBrains Mono', monospace;
+    text-align: center;
+  }
+  .cover-author {
+    font-size: 13px;
+    color: rgba(255,255,255,.4);
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: auto;
+  }
+  .cover-author a { color: rgba(255,255,255,.6); text-decoration: none; }
+  .cover-mentor {
+    margin-top: 24px;
+    padding: 16px 32px;
+    background: rgba(37,99,235,.25);
+    border: 1px solid rgba(37,99,235,.4);
+    border-radius: 12px;
+    font-size: 13px;
+    color: rgba(255,255,255,.8);
+  }
+  .cover-mentor a { color: #93c5fd; text-decoration: none; font-weight: 700; }
+
+  /* ── TOC ── */
+  .toc-page {
+    page-break-after: always;
+    padding: 60px 60px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .toc-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .toc-title {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 40px;
+    letter-spacing: -.01em;
+  }
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .toc-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(224,74,28,.08);
+    border: 1px solid rgba(224,74,28,.2);
+    border-radius: 6px;
+    padding: 3px 8px;
+    white-space: nowrap;
+    min-width: 44px;
+    text-align: center;
+  }
+  .toc-name { font-weight: 600; font-size: 15px; }
+  .toc-key {
+    font-size: 12px;
+    color: var(--text2);
+    margin-left: auto;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── CHAPTER PAGES ── */
+  .chapter-page {
+    page-break-before: always;
+    padding: 60px 60px 40px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .ch-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    background: rgba(224,74,28,.08);
+    border: 1px solid rgba(224,74,28,.2);
+    border-radius: 6px;
+    padding: 3px 10px;
+    display: inline-block;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+  .ch-title {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    margin-bottom: 6px;
+  }
+  .ch-subtitle {
+    font-size: 15px;
+    color: var(--text2);
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 10px;
+    margin-top: 28px;
+  }
+  .section-label.concept { color: var(--accent2); }
+  .section-label.guide { color: var(--accent3); }
+  .section-label.complexity { color: var(--accent4); }
+  .section-label.think { color: var(--accent); }
+  .section-label.checklist { color: #0891b2; }
+
+  .info-box {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+  .info-box p, .info-box li { font-size: 13.5px; color: var(--text); margin-bottom: 6px; }
+  .info-box ol, .info-box ul { padding-left: 18px; }
+
+  .complexity-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+  .complexity-table th {
+    background: var(--bg);
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 700;
+    border: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+  }
+  .complexity-table td {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .complexity-table tr:nth-child(even) td { background: var(--bg); }
+  .good { color: var(--accent3); font-weight: 700; }
+  .bad { color: #dc2626; font-weight: 700; }
+  .ok { color: #b45309; font-weight: 700; }
+
+  .think-box {
+    background: rgba(224,74,28,.04);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    font-size: 13.5px;
+    color: var(--text2);
+  }
+
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .checklist-box {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 12px;
+    color: var(--accent4);
+  }
+
+  /* ── BACK COVER ── */
+  .back-cover {
+    page-break-before: always;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    text-align: center;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #fff;
+  }
+  .back-cover-title { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+  .back-cover-sub { font-size: 14px; color: rgba(255,255,255,.55); margin-bottom: 40px; }
+  .back-cta {
+    display: inline-block;
+    padding: 14px 36px;
+    background: var(--accent2);
+    color: #fff;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    margin-bottom: 16px;
+  }
+  .back-links { font-size: 12px; color: rgba(255,255,255,.4); }
+  .back-links a { color: rgba(255,255,255,.6); text-decoration: none; }
+
+  /* ── PRINT RULES ── */
+  @media print {
+    .cover, .back-cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .info-box, .think-box, .complexity-table th, .complexity-table tr:nth-child(even) td {
+      -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    }
+    body { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ COVER ══════════════ -->
+<div class="cover">
+  <div class="cover-badge">Swift · Data Structures · Interactive Guide</div>
+  <div class="cover-title">Swift로 배우는<br><span>자료구조</span> 완성 가이드</div>
+  <div class="cover-subtitle">컴공 필수 자료구조 10개 — 개념 · 복잡도 · 실전 체크리스트</div>
+  <div class="cover-grid">
+    <div class="cover-chip">Array</div>
+    <div class="cover-chip">LinkedList</div>
+    <div class="cover-chip">Stack/Queue</div>
+    <div class="cover-chip">Deque</div>
+    <div class="cover-chip">Binary Tree</div>
+    <div class="cover-chip">BST</div>
+    <div class="cover-chip">Heap</div>
+    <div class="cover-chip">Graph</div>
+    <div class="cover-chip">Hash Table</div>
+    <div class="cover-chip">Trie</div>
+  </div>
+  <div class="cover-mentor">
+    막히는 부분이 있으신가요? 1:1 멘토링으로 빠르게 해결하세요<br>
+    <a href="https://inf.run/4VzFE">🎓 inf.run/4VzFE — 인프런 멘토링 신청</a>
+  </div>
+  <div class="cover-author" style="margin-top:40px;">
+    개발자리 (이현호) · <a href="https://m1zz.github.io/swift-data-structures/">m1zz.github.io/swift-data-structures</a>
+  </div>
+</div>
+
+<!-- ══════════════ TOC ══════════════ -->
+<div class="toc-page">
+  <div class="toc-label">Contents</div>
+  <div class="toc-title">목차</div>
+  <div class="toc-item"><span class="toc-num">Ch 01</span><span class="toc-name">Array vs ContiguousArray</span><span class="toc-key">CoW · 메모리 레이아웃</span></div>
+  <div class="toc-item"><span class="toc-num">Ch 02</span><span class="toc-name">Linked List</span><span class="toc-key">노드 구조 · O(1) 삽입/삭제</span></div>
+  <div class="toc-item"><span class="toc-num">Ch 03</span><span class="toc-name">Stack / Queue</span><span class="toc-key">LIFO · FIFO · 프로토콜 추상화</span></div>
+  <div class="toc-item"><span class="toc-num">Ch 04</span><span class="toc-name">Deque</span><span class="toc-key">링 버퍼 · 양방향 O(1)</span></div>
+  <div class="toc-item"><span class="toc-num">Ch 05</span><span class="toc-name">Binary Tree</span><span class="toc-key">전위 · 중위 · 후위 · 레벨 순회</span></div>
+  <div class="toc-item"><span class="toc-num">Ch 06</span><span class="toc-name">Binary Search Tree</span><span class="toc-key">삽입 · 삭제(3케이스) · 탐색</span></div>
+  <div class="toc-item"><span class="toc-num">Ch 07</span><span class="toc-name">Heap / Priority Queue</span><span class="toc-key">siftUp · siftDown · iOS RunLoop</span></div>
+  <div class="toc-item"><span class="toc-num">Ch 08</span><span class="toc-name">Graph</span><span class="toc-key">인접행렬 vs 인접리스트 · BFS/DFS</span></div>
+  <div class="toc-item"><span class="toc-num">Ch 09</span><span class="toc-name">Hash Table</span><span class="toc-key">충돌 해결 · Swift Dictionary 내부</span></div>
+  <div class="toc-item"><span class="toc-num">Ch 10</span><span class="toc-name">Trie</span><span class="toc-key">자동완성 DFS · O(m) 탐색</span></div>
+</div>
+
+<!-- ══════════════ Ch 01 ══════════════ -->
+<div class="chapter-page">
+  <div class="ch-tag">Chapter 01</div>
+  <div class="ch-title">Array vs ContiguousArray</div>
+  <div class="ch-subtitle">Swift의 두 가지 배열 타입, 그 차이를 메모리 수준에서 이해한다</div>
+
+  <div class="section-label concept">개념</div>
+  <div class="info-box">
+    <p><strong>Array</strong>는 Swift 표준 배열입니다. 내부적으로 <code>Copy-on-Write(CoW)</code> 를 사용하여 불필요한 복사를 줄입니다. 요소가 클래스 타입이면 <strong>NSArray 브리징</strong>이 가능하지만 그만큼 오버헤드가 있습니다.</p>
+    <p style="margin-top:8px;"><strong>ContiguousArray</strong>는 항상 메모리에 연속 배치됩니다. 클래스/프로토콜 타입 요소를 다룰 때 Array보다 빠르며, 브리징 오버헤드가 없습니다. 구조체(Int, Double 등)에서는 Array와 성능이 동일합니다.</p>
+  </div>
+
+  <div class="section-label guide">핵심 포인트</div>
+  <div class="info-box">
+    <ol>
+      <li>구조체 원소라면 <code>Array</code>와 <code>ContiguousArray</code> 성능 동일</li>
+      <li>클래스 원소 + 성능 민감 → <code>ContiguousArray</code> 선택</li>
+      <li>CoW 동작: 복사 후 쓰기 시점에 실제 메모리 복사 발생</li>
+      <li><code>reserveCapacity(_:)</code>로 재할당 횟수 최소화 가능</li>
+    </ol>
+  </div>
+
+  <div class="section-label complexity">시간 복잡도</div>
+  <table class="complexity-table">
+    <tr><th>연산</th><th>Array</th><th>설명</th></tr>
+    <tr><td>인덱스 접근</td><td class="good">O(1)</td><td>연속 메모리</td></tr>
+    <tr><td>append</td><td class="good">O(1) amortized</td><td>capacity 2배 확장</td></tr>
+    <tr><td>insert(at:)</td><td class="bad">O(n)</td><td>요소 이동 필요</td></tr>
+    <tr><td>remove(at:)</td><td class="bad">O(n)</td><td>요소 이동 필요</td></tr>
+    <tr><td>contains</td><td class="bad">O(n)</td><td>선형 탐색</td></tr>
+  </table>
+
+  <div class="section-label think">생각해볼 것</div>
+  <div class="think-box">
+    함수에 배열을 인수로 전달하면 CoW는 언제 발동될까요? 단순 읽기와 쓰기 시점에 각각 무슨 일이 일어나는지 추적해보세요.
+  </div>
+
+  <div class="section-label checklist">체크리스트</div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>CoW 동작 원리를 직접 코드로 확인했다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>Array와 ContiguousArray 각각으로 같은 코드를 작성해봤다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>insert / remove의 O(n) 이유를 그림으로 설명할 수 있다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>reserveCapacity가 성능에 미치는 영향을 이해했다</span></div>
+</div>
+
+<!-- ══════════════ Ch 02 ══════════════ -->
+<div class="chapter-page">
+  <div class="ch-tag">Chapter 02</div>
+  <div class="ch-title">Linked List</div>
+  <div class="ch-subtitle">노드를 포인터로 연결 — Array로 할 수 없는 것을 가능하게</div>
+
+  <div class="section-label concept">개념</div>
+  <div class="info-box">
+    <p>연결 리스트는 <code>Node</code> 객체들이 <strong>next 포인터</strong>로 연결된 선형 자료구조입니다. Array와 달리 메모리가 연속하지 않아도 되므로, 중간 삽입/삭제가 <strong>O(1)</strong>(노드 위치를 알고 있을 때)입니다.</p>
+    <p style="margin-top:8px;">단방향(<code>Singly</code>)과 양방향(<code>Doubly</code>) 두 종류가 있으며, Swift에서는 <code>class</code> Node를 사용해 참조 의미론으로 구현합니다.</p>
+  </div>
+
+  <div class="section-label guide">핵심 포인트</div>
+  <div class="info-box">
+    <ol>
+      <li>head/tail 포인터 관리가 핵심 — nilチェック 주의</li>
+      <li>삽입/삭제는 포인터 2~3개만 바꾸면 됨</li>
+      <li>인덱스 접근은 O(n) — 중간 탐색은 느림</li>
+      <li>Swift에서 weak 참조로 retain cycle 방지 (양방향)</li>
+    </ol>
+  </div>
+
+  <div class="section-label complexity">시간 복잡도</div>
+  <table class="complexity-table">
+    <tr><th>연산</th><th>단방향</th><th>양방향</th></tr>
+    <tr><td>head 삽입/삭제</td><td class="good">O(1)</td><td class="good">O(1)</td></tr>
+    <tr><td>tail 삽입</td><td class="good">O(1)*</td><td class="good">O(1)</td></tr>
+    <tr><td>tail 삭제</td><td class="bad">O(n)</td><td class="good">O(1)</td></tr>
+    <tr><td>중간 삽입/삭제</td><td class="good">O(1)**</td><td class="good">O(1)**</td></tr>
+    <tr><td>인덱스 접근</td><td class="bad">O(n)</td><td class="bad">O(n)</td></tr>
+  </table>
+  <p style="font-size:11px;color:var(--text3);margin-bottom:16px;">* tail 포인터 보유 시 / ** 해당 노드 참조를 이미 알고 있을 때</p>
+
+  <div class="section-label think">생각해볼 것</div>
+  <div class="think-box">
+    왜 Swift의 표준 라이브러리는 LinkedList를 제공하지 않을까요? Array의 CoW와 비교했을 때 실제 앱에서 LinkedList가 유리한 케이스는 무엇일까요?
+  </div>
+
+  <div class="section-label checklist">체크리스트</div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>head/tail을 직접 관리하는 LinkedList를 구현했다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>삽입과 삭제 시 포인터 변경 순서를 이해했다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>단방향 vs 양방향 트레이드오프를 설명할 수 있다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>역순 출력, 중간값 찾기 등 기본 문제를 풀어봤다</span></div>
+</div>
+
+<!-- ══════════════ Ch 03 ══════════════ -->
+<div class="chapter-page">
+  <div class="ch-tag">Chapter 03</div>
+  <div class="ch-title">Stack / Queue</div>
+  <div class="ch-subtitle">LIFO와 FIFO — 알고리즘의 기본 빌딩 블록</div>
+
+  <div class="section-label concept">개념</div>
+  <div class="info-box">
+    <p><strong>Stack(스택)</strong>은 후입선출(LIFO) 구조입니다. <code>push</code>로 쌓고 <code>pop</code>으로 꺼냅니다. 함수 호출 스택, 되돌리기(Undo), 괄호 검증에 사용됩니다.</p>
+    <p style="margin-top:8px;"><strong>Queue(큐)</strong>는 선입선출(FIFO) 구조입니다. <code>enqueue</code>로 넣고 <code>dequeue</code>로 꺼냅니다. BFS, 작업 스케줄링, iOS 메시지 처리에 사용됩니다.</p>
+    <p style="margin-top:8px;">Swift에서는 <code>protocol</code>로 추상화하면 Array/LinkedList 등 다양한 내부 구현을 교체할 수 있습니다.</p>
+  </div>
+
+  <div class="section-label complexity">시간 복잡도</div>
+  <table class="complexity-table">
+    <tr><th>연산</th><th>Stack</th><th>Queue (Array)</th><th>Queue (LinkedList)</th></tr>
+    <tr><td>push / enqueue</td><td class="good">O(1)</td><td class="good">O(1) amortized</td><td class="good">O(1)</td></tr>
+    <tr><td>pop / dequeue</td><td class="good">O(1)</td><td class="bad">O(n)</td><td class="good">O(1)</td></tr>
+    <tr><td>peek</td><td class="good">O(1)</td><td class="good">O(1)</td><td class="good">O(1)</td></tr>
+  </table>
+
+  <div class="section-label think">생각해볼 것</div>
+  <div class="think-box">
+    Array 기반 Queue에서 dequeue가 O(n)인 이유는 무엇인가요? 두 개의 Stack으로 O(1) amortized Queue를 만들 수 있습니다 — 어떻게?
+  </div>
+
+  <div class="section-label checklist">체크리스트</div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>Stack으로 괄호 유효성 검사를 구현했다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>두 Stack으로 Queue를 구현해봤다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>BFS에서 Queue가 왜 필요한지 설명할 수 있다</span></div>
+</div>
+
+<!-- ══════════════ Ch 04 ══════════════ -->
+<div class="chapter-page">
+  <div class="ch-tag">Chapter 04</div>
+  <div class="ch-title">Deque</div>
+  <div class="ch-subtitle">양쪽 모두 O(1) — 링 버퍼로 구현하는 Double-Ended Queue</div>
+
+  <div class="section-label concept">개념</div>
+  <div class="info-box">
+    <p><strong>Deque(덱)</strong>은 앞(front)과 뒤(back) 양쪽에서 O(1)으로 삽입/삭제가 가능한 자료구조입니다. Stack과 Queue를 모두 대체할 수 있습니다.</p>
+    <p style="margin-top:8px;"><strong>링 버퍼(Circular Buffer)</strong>로 구현하면 고정 크기 배열에서 head/tail 인덱스만 이동하여 메모리 재할당 없이 O(1) 연산을 달성합니다. Swift의 <code>Collections</code> 패키지 <code>Deque</code>가 이 방식입니다.</p>
+  </div>
+
+  <div class="section-label complexity">시간 복잡도</div>
+  <table class="complexity-table">
+    <tr><th>연산</th><th>링 버퍼 Deque</th></tr>
+    <tr><td>prepend / append</td><td class="good">O(1) amortized</td></tr>
+    <tr><td>removeFirst / removeLast</td><td class="good">O(1)</td></tr>
+    <tr><td>인덱스 접근</td><td class="good">O(1)</td></tr>
+  </table>
+
+  <div class="section-label think">생각해볼 것</div>
+  <div class="think-box">
+    링 버퍼가 꽉 찼을 때 어떻게 동작해야 할까요? 고정 크기(오래된 것 버리기) vs 동적 확장 중 어떤 전략이 언제 적합한가요?
+  </div>
+
+  <div class="section-label checklist">체크리스트</div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>링 버퍼 구조의 head/tail 인덱스 계산을 이해했다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>Deque로 슬라이딩 윈도우 최대값 문제를 풀었다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>Swift Collections 패키지의 Deque를 실제로 써봤다</span></div>
+</div>
+
+<!-- ══════════════ Ch 05 ══════════════ -->
+<div class="chapter-page">
+  <div class="ch-tag">Chapter 05</div>
+  <div class="ch-title">Binary Tree</div>
+  <div class="ch-subtitle">전위 · 중위 · 후위 · 레벨 순회 — 트리의 모든 것</div>
+
+  <div class="section-label concept">개념</div>
+  <div class="info-box">
+    <p><strong>이진 트리</strong>는 각 노드가 최대 2개의 자식(left, right)을 가지는 계층적 자료구조입니다. 재귀적 구조이기 때문에 재귀 알고리즘과 찰떡궁합입니다.</p>
+    <p style="margin-top:8px;">순회(Traversal) 4가지: <strong>전위(Pre-order)</strong> 루트→좌→우, <strong>중위(In-order)</strong> 좌→루트→우, <strong>후위(Post-order)</strong> 좌→우→루트, <strong>레벨 순서(BFS)</strong> 층별 탐색.</p>
+  </div>
+
+  <div class="section-label guide">순회별 활용</div>
+  <div class="info-box">
+    <ol>
+      <li><strong>전위</strong> — 트리 복사, 직렬화</li>
+      <li><strong>중위</strong> — BST에서 정렬된 순서 출력</li>
+      <li><strong>후위</strong> — 하위 폴더 크기 계산, 메모리 해제</li>
+      <li><strong>레벨 BFS</strong> — 최단 경로, 층별 출력</li>
+    </ol>
+  </div>
+
+  <div class="section-label think">생각해볼 것</div>
+  <div class="think-box">
+    재귀 없이 스택을 사용하여 전위/중위 순회를 구현할 수 있나요? 두 가지 방법의 공간 복잡도를 비교해보세요.
+  </div>
+
+  <div class="section-label checklist">체크리스트</div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>4가지 순회를 재귀로 구현했다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>중위 순회를 Stack 기반 반복문으로 구현했다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>트리의 높이와 노드 수를 재귀로 구했다</span></div>
+</div>
+
+<!-- ══════════════ Ch 06 ══════════════ -->
+<div class="chapter-page">
+  <div class="ch-tag">Chapter 06</div>
+  <div class="ch-title">Binary Search Tree</div>
+  <div class="ch-subtitle">삽입 · 탐색 · 삭제(3케이스) — 정렬된 트리의 힘</div>
+
+  <div class="section-label concept">개념</div>
+  <div class="info-box">
+    <p><strong>BST</strong>는 모든 노드가 <code>왼쪽 자식 &lt; 현재 노드 &lt; 오른쪽 자식</code> 규칙을 만족하는 이진 트리입니다. 이 성질 덕분에 탐색이 절반씩 줄어들어 평균 O(log n)입니다.</p>
+    <p style="margin-top:8px;"><strong>삭제 3케이스</strong>: ① 자식 없음 — 그냥 삭제, ② 자식 1개 — 자식으로 대체, ③ 자식 2개 — 오른쪽 서브트리의 최솟값(Successor)으로 대체.</p>
+  </div>
+
+  <div class="section-label complexity">시간 복잡도</div>
+  <table class="complexity-table">
+    <tr><th>연산</th><th>평균 (균형)</th><th>최악 (편향)</th></tr>
+    <tr><td>탐색</td><td class="good">O(log n)</td><td class="bad">O(n)</td></tr>
+    <tr><td>삽입</td><td class="good">O(log n)</td><td class="bad">O(n)</td></tr>
+    <tr><td>삭제</td><td class="good">O(log n)</td><td class="bad">O(n)</td></tr>
+  </table>
+
+  <div class="section-label think">생각해볼 것</div>
+  <div class="think-box">
+    정렬된 배열을 순서대로 삽입하면 BST는 어떤 모양이 될까요? 이를 방지하기 위해 AVL Tree와 Red-Black Tree는 어떤 전략을 쓰나요?
+  </div>
+
+  <div class="section-label checklist">체크리스트</div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>삭제 3케이스를 구현하고 각각 테스트했다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>중위 순회로 정렬된 배열이 나오는 것을 확인했다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>편향 트리가 되는 케이스를 실험해봤다</span></div>
+</div>
+
+<!-- ══════════════ Ch 07 ══════════════ -->
+<div class="chapter-page">
+  <div class="ch-tag">Chapter 07</div>
+  <div class="ch-title">Heap / Priority Queue</div>
+  <div class="ch-subtitle">siftUp · siftDown — 가장 크거나 작은 것을 항상 O(1)에</div>
+
+  <div class="section-label concept">개념</div>
+  <div class="info-box">
+    <p><strong>Heap</strong>은 완전 이진 트리를 배열에 저장하는 자료구조입니다. <strong>Max Heap</strong>은 부모가 자식보다 항상 크거나 같고, <strong>Min Heap</strong>은 그 반대입니다.</p>
+    <p style="margin-top:8px;">인덱스 <code>i</code>의 부모: <code>(i-1)/2</code>, 왼쪽 자식: <code>2*i+1</code>, 오른쪽 자식: <code>2*i+2</code>.</p>
+    <p style="margin-top:8px;"><strong>Priority Queue</strong>는 Heap으로 구현됩니다. iOS의 <code>OperationQueue.qualityOfService</code>, Dijkstra 알고리즘에서 핵심 역할.</p>
+  </div>
+
+  <div class="section-label complexity">시간 복잡도</div>
+  <table class="complexity-table">
+    <tr><th>연산</th><th>복잡도</th></tr>
+    <tr><td>최대/최소값 조회 (peek)</td><td class="good">O(1)</td></tr>
+    <tr><td>삽입 (siftUp)</td><td class="ok">O(log n)</td></tr>
+    <tr><td>삭제 (siftDown)</td><td class="ok">O(log n)</td></tr>
+    <tr><td>Heapify (배열→힙)</td><td class="ok">O(n)</td></tr>
+  </table>
+
+  <div class="section-label think">생각해볼 것</div>
+  <div class="think-box">
+    Heap Sort는 어떻게 O(n log n)을 달성하면서도 추가 메모리를 O(1)만 사용하나요? QuickSort와 비교했을 때 언제 Heap Sort가 더 나을까요?
+  </div>
+
+  <div class="section-label checklist">체크리스트</div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>siftUp과 siftDown을 직접 구현했다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>Priority Queue로 K번째 최대값 문제를 풀었다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>Swift의 Heap Sort 구현을 이해했다</span></div>
+</div>
+
+<!-- ══════════════ Ch 08 ══════════════ -->
+<div class="chapter-page">
+  <div class="ch-tag">Chapter 08</div>
+  <div class="ch-title">Graph</div>
+  <div class="ch-subtitle">인접행렬 vs 인접리스트 · BFS · DFS — 관계를 모델링하다</div>
+
+  <div class="section-label concept">개념</div>
+  <div class="info-box">
+    <p><strong>그래프</strong>는 정점(Vertex)과 간선(Edge)으로 구성됩니다. 방향/무방향, 가중치 유무로 다양한 종류가 있습니다.</p>
+    <p style="margin-top:8px;"><strong>인접행렬</strong>: O(1) 간선 확인, O(V²) 공간 — 밀집 그래프에 유리. <strong>인접리스트</strong>: O(degree) 간선 확인, O(V+E) 공간 — 희소 그래프에 유리.</p>
+    <p style="margin-top:8px;"><strong>BFS</strong>는 Queue 사용, 최단 경로(가중치 없는). <strong>DFS</strong>는 Stack/재귀 사용, 사이클 감지·위상정렬.</p>
+  </div>
+
+  <div class="section-label complexity">시간 복잡도</div>
+  <table class="complexity-table">
+    <tr><th>표현 방식</th><th>공간</th><th>간선 확인</th><th>인접 목록</th></tr>
+    <tr><td>인접행렬</td><td class="bad">O(V²)</td><td class="good">O(1)</td><td class="bad">O(V)</td></tr>
+    <tr><td>인접리스트</td><td class="good">O(V+E)</td><td class="ok">O(degree)</td><td class="good">O(degree)</td></tr>
+  </table>
+
+  <div class="section-label checklist">체크리스트</div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>BFS로 최단 경로(홉 수)를 구했다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>DFS로 사이클 감지를 구현했다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>두 표현 방식의 트레이드오프를 설명할 수 있다</span></div>
+</div>
+
+<!-- ══════════════ Ch 09 ══════════════ -->
+<div class="chapter-page">
+  <div class="ch-tag">Chapter 09</div>
+  <div class="ch-title">Hash Table</div>
+  <div class="ch-subtitle">충돌 해결 · Swift Dictionary 내부 — O(1) 탐색의 비밀</div>
+
+  <div class="section-label concept">개념</div>
+  <div class="info-box">
+    <p><strong>Hash Table</strong>은 키를 해시 함수로 인덱스로 변환하여 O(1) 삽입/탐색/삭제를 달성합니다.</p>
+    <p style="margin-top:8px;"><strong>충돌 해결</strong>: ① <strong>Chaining</strong> — 같은 버킷에 LinkedList 연결 (최악 O(n)). ② <strong>Open Addressing</strong> — 빈 슬롯을 찾아 이동 (캐시 친화적). Swift Dictionary는 Open Addressing + Robin Hood Hashing을 사용합니다.</p>
+    <p style="margin-top:8px;"><strong>Load Factor</strong>가 임계값(보통 0.75)을 넘으면 버킷을 2배로 늘리고 Rehashing합니다.</p>
+  </div>
+
+  <div class="section-label complexity">시간 복잡도</div>
+  <table class="complexity-table">
+    <tr><th>연산</th><th>평균</th><th>최악</th></tr>
+    <tr><td>탐색 / 삽입 / 삭제</td><td class="good">O(1)</td><td class="bad">O(n)</td></tr>
+  </table>
+
+  <div class="section-label think">생각해볼 것</div>
+  <div class="think-box">
+    좋은 해시 함수의 조건은 무엇인가요? Swift의 <code>Hashable</code> 프로토콜이 <code>hash(into:)</code>를 요구하는 이유는?
+  </div>
+
+  <div class="section-label checklist">체크리스트</div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>Chaining 방식의 Hash Table을 직접 구현했다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>Swift Hashable을 커스텀 타입에 구현했다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>Two Sum 문제를 Hash Table로 O(n) 풀이했다</span></div>
+</div>
+
+<!-- ══════════════ Ch 10 ══════════════ -->
+<div class="chapter-page">
+  <div class="ch-tag">Chapter 10</div>
+  <div class="ch-title">Trie</div>
+  <div class="ch-subtitle">자동완성 DFS · O(m) 탐색 — 문자열 특화 트리</div>
+
+  <div class="section-label concept">개념</div>
+  <div class="info-box">
+    <p><strong>Trie(트라이)</strong>는 문자열을 글자 단위로 트리에 저장하는 자료구조입니다. 검색 길이가 <code>m</code>이면 <strong>O(m)</strong>으로 탐색 가능 — 해시 충돌 없이 정확합니다.</p>
+    <p style="margin-top:8px;">각 노드는 자식 딕셔너리(<code>[Character: TrieNode]</code>)와 <code>isEndOfWord</code> 플래그를 가집니다. 자동완성은 prefix까지 내려간 뒤 DFS로 모든 단어를 수집합니다.</p>
+    <p style="margin-top:8px;">실제 사용처: iOS 키보드 자동완성, 검색 엔진 prefix 인덱싱, IP 라우팅 테이블.</p>
+  </div>
+
+  <div class="section-label complexity">시간 복잡도</div>
+  <table class="complexity-table">
+    <tr><th>연산</th><th>복잡도</th><th>비고</th></tr>
+    <tr><td>삽입</td><td class="good">O(m)</td><td>m = 문자열 길이</td></tr>
+    <tr><td>탐색</td><td class="good">O(m)</td><td>정확히 m 노드만 방문</td></tr>
+    <tr><td>자동완성</td><td class="ok">O(m + k)</td><td>k = 결과 수</td></tr>
+    <tr><td>공간</td><td class="bad">O(알파벳 × 노드 수)</td><td>영문 최대 26배</td></tr>
+  </table>
+
+  <div class="section-label think">생각해볼 것</div>
+  <div class="think-box">
+    Trie의 메모리 사용량을 줄이기 위한 <strong>Compressed Trie(Radix Tree)</strong>는 어떻게 동작하나요? 공통 prefix를 하나의 노드로 합치면 무엇이 달라지나요?
+  </div>
+
+  <div class="section-label checklist">체크리스트</div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>insert / search / startsWith를 구현했다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>자동완성 함수를 DFS로 구현했다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>Trie vs Hash Table 탐색 성능 차이를 이해했다</span></div>
+  <div class="checklist-item"><div class="checklist-box"></div><span>단어 사전 검색 문제를 Trie로 풀었다</span></div>
+</div>
+
+<!-- ══════════════ BACK COVER ══════════════ -->
+<div class="back-cover">
+  <div class="back-cover-title">더 깊이 배우고 싶다면</div>
+  <div class="back-cover-sub">코드 리뷰부터 커리어 상담까지 — 1:1 멘토링으로 빠르게 성장하세요</div>
+  <a class="back-cta" href="https://inf.run/4VzFE">🎓 인프런 1:1 멘토링 신청하기</a>
+  <div style="margin-top:20px;"></div>
+  <div class="back-links">
+    인터랙티브 시각화 →
+    <a href="https://m1zz.github.io/swift-data-structures/">m1zz.github.io/swift-data-structures</a>
+  </div>
+  <div class="back-links" style="margin-top:8px;">
+    YouTube → <a href="https://youtube.com/@개발자리">youtube.com/@개발자리</a>
+  </div>
+  <div style="margin-top:40px;font-size:11px;color:rgba(255,255,255,.25);">
+    © 개발자리 (이현호) · Apple Developer Academy @ POSTECH
+  </div>
+</div>
+
+</body>
+</html>
