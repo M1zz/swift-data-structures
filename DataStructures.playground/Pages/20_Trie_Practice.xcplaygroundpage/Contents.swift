@@ -140,4 +140,8 @@ measureTime("Array filter('word1')") {
  1. **단어 수 세기**: 특정 접두어로 시작하는 단어가 몇 개인지 O(m)에 구하는 `countPrefix()` 구현
  2. **와일드카드 검색**: `search("ap.le")` — `.`은 아무 문자와 매칭
  3. **사전순 정렬**: Trie에 저장된 모든 단어를 사전순으로 출력
+
+ ---
+ ## 🎉 자료구조 10개 완료!
+ 다음 단계: **Algorithms.playground** 를 열어 정렬, 이진 탐색, DP, Greedy, Backtracking, 최단 경로를 학습하세요.
 */
