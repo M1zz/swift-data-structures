@@ -626,25 +626,13 @@
     .realworld-grid { grid-template-columns: 1fr; }
   }
 
-  /* CHAPTER FOOTER: COMMENTS + DONATION */
+  /* CHAPTER FOOTER: COMMENTS */
   .chapter-footer {
     margin-top: 48px;
     border-top: 1px solid var(--border);
-    padding-top: 40px;
+    padding-top: 32px;
+    padding-bottom: 48px;
   }
-
-  .chapter-footer-grid {
-    display: grid;
-    grid-template-columns: 1fr 280px;
-    gap: 32px;
-    align-items: start;
-  }
-
-  @media (max-width: 700px) {
-    .chapter-footer-grid { grid-template-columns: 1fr; }
-  }
-
-  /* Comments — utterances */
   .section-heading {
     font-size: 11px;
     font-family: 'JetBrains Mono';
@@ -662,45 +650,72 @@
     padding: 12px 0;
   }
 
-  /* Donation */
-  .donation-section {
+  /* FLOATING DONATION BUTTON */
+  .donate-fab {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+  }
+  .donate-fab-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.18);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .donate-fab-btn:hover { transform: scale(1.08); box-shadow: 0 6px 20px rgba(0,0,0,.25); }
+  .donate-fab-popup {
+    display: none;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
+    border-radius: 16px;
+    padding: 20px;
     text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,.15);
+    width: 220px;
   }
-  .donation-title {
+  .donate-fab-popup.open { display: block; }
+  .donate-fab-popup-title {
     font-size: 13px;
     font-weight: 700;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
+    color: var(--text);
   }
-  .donation-desc {
-    font-size: 12px;
+  .donate-fab-popup-desc {
+    font-size: 11px;
     color: var(--text2);
-    line-height: 1.6;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
+    line-height: 1.5;
   }
-  .donation-qr {
-    width: 160px;
-    height: 160px;
+  .donate-fab-qr {
+    width: 150px;
+    height: 150px;
     border-radius: 8px;
-    margin: 0 auto 12px;
-    display: block;
     border: 1px solid var(--border);
+    display: block;
+    margin: 0 auto 10px;
   }
-  .donation-name {
+  .donate-fab-name {
     font-size: 13px;
     font-family: 'JetBrains Mono';
     color: var(--text2);
   }
-  .donation-kakao-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
+  .donate-fab-badge {
     font-size: 11px;
     color: var(--text3);
-    margin-top: 6px;
+    margin-top: 4px;
     font-family: 'JetBrains Mono';
   }
 
@@ -1699,19 +1714,8 @@ heap.<span class="hl">removeMin</span>()</pre>
         <div class="realworld-item-desc">@State나 @Published로 배열을 선언하면 원소 변경 시 CoW가 발동되면서 SwiftUI가 변경을 감지해 뷰를 다시 그립니다.</div>
         <span class="realworld-item-code">@State private var todos: [TodoItem] = []</span>
   <div class="chapter-footer">
-    <div class="chapter-footer-grid">
-      <div class="comments-section">
-        <div class="section-heading">코멘트</div>
-        <div class="utterances-wrap" id="utterances-ch0"></div>
-      </div>
-      <div class="donation-section">
-        <div class="section-heading" style="text-align:left;">후원하기</div>
-        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
-        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
-        <div class="donation-name">이현호</div>
-        <div class="donation-kakao-badge">카카오페이</div>
-      </div>
-    </div>
+    <div class="section-heading">코멘트</div>
+    <div class="utterances-wrap" id="utterances-ch0"></div>
   </div>
 </div>
 
@@ -1844,19 +1848,8 @@ heap.<span class="hl">removeMin</span>()</pre>
         <div class="realworld-item-desc">OS의 메모리 관리자가 사용 가능한 메모리 블록을 연결 리스트로 관리합니다. 할당/해제가 O(1)입니다.</div>
         <span class="realworld-item-code">freeList.prepend(deallocatedBlock)</span>
   <div class="chapter-footer">
-    <div class="chapter-footer-grid">
-      <div class="comments-section">
-        <div class="section-heading">코멘트</div>
-        <div class="utterances-wrap" id="utterances-ch1"></div>
-      </div>
-      <div class="donation-section">
-        <div class="section-heading" style="text-align:left;">후원하기</div>
-        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
-        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
-        <div class="donation-name">이현호</div>
-        <div class="donation-kakao-badge">카카오페이</div>
-      </div>
-    </div>
+    <div class="section-heading">코멘트</div>
+    <div class="utterances-wrap" id="utterances-ch1"></div>
   </div>
 </div>
 
@@ -2001,19 +1994,8 @@ heap.<span class="hl">removeMin</span>()</pre>
   </div>
 
   <div class="chapter-footer">
-    <div class="chapter-footer-grid">
-      <div class="comments-section">
-        <div class="section-heading">코멘트</div>
-        <div class="utterances-wrap" id="utterances-ch2"></div>
-      </div>
-      <div class="donation-section">
-        <div class="section-heading" style="text-align:left;">후원하기</div>
-        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
-        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
-        <div class="donation-name">이현호</div>
-        <div class="donation-kakao-badge">카카오페이</div>
-      </div>
-    </div>
+    <div class="section-heading">코멘트</div>
+    <div class="utterances-wrap" id="utterances-ch2"></div>
   </div>
 </div>
 
@@ -2150,19 +2132,8 @@ heap.<span class="hl">removeMin</span>()</pre>
   </div>
 
   <div class="chapter-footer">
-    <div class="chapter-footer-grid">
-      <div class="comments-section">
-        <div class="section-heading">코멘트</div>
-        <div class="utterances-wrap" id="utterances-ch3"></div>
-      </div>
-      <div class="donation-section">
-        <div class="section-heading" style="text-align:left;">후원하기</div>
-        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
-        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
-        <div class="donation-name">이현호</div>
-        <div class="donation-kakao-badge">카카오페이</div>
-      </div>
-    </div>
+    <div class="section-heading">코멘트</div>
+    <div class="utterances-wrap" id="utterances-ch3"></div>
   </div>
 </div>
 
@@ -2301,19 +2272,8 @@ heap.<span class="hl">removeMin</span>()</pre>
   </div>
 
   <div class="chapter-footer">
-    <div class="chapter-footer-grid">
-      <div class="comments-section">
-        <div class="section-heading">코멘트</div>
-        <div class="utterances-wrap" id="utterances-ch4"></div>
-      </div>
-      <div class="donation-section">
-        <div class="section-heading" style="text-align:left;">후원하기</div>
-        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
-        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
-        <div class="donation-name">이현호</div>
-        <div class="donation-kakao-badge">카카오페이</div>
-      </div>
-    </div>
+    <div class="section-heading">코멘트</div>
+    <div class="utterances-wrap" id="utterances-ch4"></div>
   </div>
 </div>
 
@@ -2448,19 +2408,8 @@ heap.<span class="hl">removeMin</span>()</pre>
   </div>
 
   <div class="chapter-footer">
-    <div class="chapter-footer-grid">
-      <div class="comments-section">
-        <div class="section-heading">코멘트</div>
-        <div class="utterances-wrap" id="utterances-ch5"></div>
-      </div>
-      <div class="donation-section">
-        <div class="section-heading" style="text-align:left;">후원하기</div>
-        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
-        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
-        <div class="donation-name">이현호</div>
-        <div class="donation-kakao-badge">카카오페이</div>
-      </div>
-    </div>
+    <div class="section-heading">코멘트</div>
+    <div class="utterances-wrap" id="utterances-ch5"></div>
   </div>
 </div>
 
@@ -2598,19 +2547,8 @@ heap.<span class="hl">removeMin</span>()</pre>
   </div>
 
   <div class="chapter-footer">
-    <div class="chapter-footer-grid">
-      <div class="comments-section">
-        <div class="section-heading">코멘트</div>
-        <div class="utterances-wrap" id="utterances-ch6"></div>
-      </div>
-      <div class="donation-section">
-        <div class="section-heading" style="text-align:left;">후원하기</div>
-        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
-        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
-        <div class="donation-name">이현호</div>
-        <div class="donation-kakao-badge">카카오페이</div>
-      </div>
-    </div>
+    <div class="section-heading">코멘트</div>
+    <div class="utterances-wrap" id="utterances-ch6"></div>
   </div>
 </div>
 
@@ -2745,19 +2683,8 @@ heap.<span class="hl">removeMin</span>()</pre>
   </div>
 
   <div class="chapter-footer">
-    <div class="chapter-footer-grid">
-      <div class="comments-section">
-        <div class="section-heading">코멘트</div>
-        <div class="utterances-wrap" id="utterances-ch7"></div>
-      </div>
-      <div class="donation-section">
-        <div class="section-heading" style="text-align:left;">후원하기</div>
-        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
-        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
-        <div class="donation-name">이현호</div>
-        <div class="donation-kakao-badge">카카오페이</div>
-      </div>
-    </div>
+    <div class="section-heading">코멘트</div>
+    <div class="utterances-wrap" id="utterances-ch7"></div>
   </div>
 </div>
 
@@ -2893,19 +2820,8 @@ heap.<span class="hl">removeMin</span>()</pre>
   </div>
 
   <div class="chapter-footer">
-    <div class="chapter-footer-grid">
-      <div class="comments-section">
-        <div class="section-heading">코멘트</div>
-        <div class="utterances-wrap" id="utterances-ch8"></div>
-      </div>
-      <div class="donation-section">
-        <div class="section-heading" style="text-align:left;">후원하기</div>
-        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
-        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
-        <div class="donation-name">이현호</div>
-        <div class="donation-kakao-badge">카카오페이</div>
-      </div>
-    </div>
+    <div class="section-heading">코멘트</div>
+    <div class="utterances-wrap" id="utterances-ch8"></div>
   </div>
 </div>
 
@@ -3040,19 +2956,8 @@ heap.<span class="hl">removeMin</span>()</pre>
   </div>
 
   <div class="chapter-footer">
-    <div class="chapter-footer-grid">
-      <div class="comments-section">
-        <div class="section-heading">코멘트</div>
-        <div class="utterances-wrap" id="utterances-ch9"></div>
-      </div>
-      <div class="donation-section">
-        <div class="section-heading" style="text-align:left;">후원하기</div>
-        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
-        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
-        <div class="donation-name">이현호</div>
-        <div class="donation-kakao-badge">카카오페이</div>
-      </div>
-    </div>
+    <div class="section-heading">코멘트</div>
+    <div class="utterances-wrap" id="utterances-ch9"></div>
   </div>
 </div>
 
@@ -3909,6 +3814,30 @@ window.addEventListener('load', ()=>{
 });
 window.addEventListener('resize', ()=>{
   refreshCurrentChapter();
+});
+</script>
+
+<!-- FLOATING DONATION BUTTON -->
+<div class="donate-fab" id="donate-fab">
+  <div class="donate-fab-popup" id="donate-popup">
+    <div class="donate-fab-popup-title">후원하기 ☕</div>
+    <div class="donate-fab-popup-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
+    <img class="donate-fab-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
+    <div class="donate-fab-name">이현호</div>
+    <div class="donate-fab-badge">💬 카카오페이</div>
+  </div>
+  <button class="donate-fab-btn" onclick="toggleDonatePopup()" title="후원하기">☕</button>
+</div>
+
+<script>
+function toggleDonatePopup() {
+  document.getElementById('donate-popup').classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  const fab = document.getElementById('donate-fab');
+  if (!fab.contains(e.target)) {
+    document.getElementById('donate-popup').classList.remove('open');
+  }
 });
 </script>
 </body>
