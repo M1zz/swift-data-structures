@@ -1171,6 +1171,22 @@
   @media (min-width: 1025px) {
     .main { padding: 40px 48px 100px; }
   }
+
+  /* LANG TOGGLE */
+  .nav-lang-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text2);
+    font-size: 11px;
+    font-family: 'JetBrains Mono';
+    font-weight: 700;
+    letter-spacing: .05em;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .nav-lang-btn:hover { border-color: var(--accent); color: var(--accent); }
 </style>
 </head>
 <body>
@@ -1196,6 +1212,7 @@
   <div class="nav-expand-btn" onclick="toggleDrawer()">☰</div>
   <span class="nav-label" id="nav-label">시작하기</span>
   <div class="nav-theme-btn" onclick="toggleTheme()" id="theme-icon" title="테마 전환">🌙</div>
+  <button class="nav-lang-btn" id="lang-btn" onclick="toggleLang()">EN</button>
 </nav>
 
 <!-- CHAPTER DRAWER (mobile) -->
@@ -3835,6 +3852,7 @@ function loadUtterances(chId) {
 // ─── INIT ──────────────────────────────────────────────────────────────
 window.addEventListener('load', ()=>{
   C = getThemeColors();
+  if (localStorage.getItem('lang') === 'en') applyLang('en');
   const initial = getChapterFromHash();
   if (initial !== 0) {
     showChapter(initial, false);
@@ -3845,6 +3863,689 @@ window.addEventListener('load', ()=>{
 window.addEventListener('resize', ()=>{
   refreshCurrentChapter();
 });
+
+// ─── i18n ──────────────────────────────────────────────────────────────
+let currentLang = localStorage.getItem('lang') || 'ko';
+
+const T = {
+  ko: {
+    /* nav */
+    'nav.home': '시작하기',
+    'btn.reset': '초기화',
+    /* section labels */
+    'label.concept': '개념',
+    'label.guide': '사용법',
+    'label.preq': '시작 전 질문',
+    'label.think': '생각해보기',
+    'label.practice': '실전 문제',
+    'label.checklist': '완료 체크리스트',
+    'label.realworld': '실무 사용처',
+    'label.required': '필수',
+    'label.challenge': '도전',
+    'label.comments': '코멘트',
+    'label.hint': '검색 →',
+    /* home */
+    'home.badge': '개발자리 · Swift 교육 콘텐츠',
+    'home.title': 'Swift로 배우는<br><span>자료구조</span>',
+    'home.desc': '"왜 이렇게 느려?" — 자료구조 하나 바꿨을 뿐인데 100배 빨라지는 경험.<br>10개 핵심 자료구조의 동작 원리를 시각화로 이해하고, Playground에서 직접 구현합니다.',
+    'home.card1.title': '인터랙티브 시각화',
+    'home.card1.desc': '이 페이지. 버튼 클릭으로 자료구조의 동작 원리를 애니메이션으로 확인',
+    'home.card2.title': 'Playground 실습',
+    'home.card2.desc': 'Swift Playgrounds 앱에서 직접 코드를 작성하고 실행하며 구현 연습',
+    'home.card3.title': '실무 사용처',
+    'home.card3.desc': '각 자료구조가 실제 iOS 앱에서 어디에 쓰이는지 구체적인 예시로 확인',
+    'home.flow.title': '실습 진행 순서',
+    'home.flow1': '시각화로 동작 확인',
+    'home.flow2': 'Playground에서 코드 직접 작성',
+    'home.flow3': '다음 챕터로 반복',
+    'home.chaplist': '챕터 목록',
+    /* chapters */
+    'ch0.title': 'Array vs ContiguousArray',
+    'ch0.subtitle': 'CoW(Copy-on-Write) 동작과 메모리 레이아웃의 차이를 시각적으로 확인합니다.',
+    'ch1.title': 'Linked List',
+    'ch1.subtitle': '노드가 포인터로 연결되는 구조. prepend/removeFirst는 O(1), 인덱스 접근은 O(n).',
+    'ch2.title': 'Stack / Queue',
+    'ch2.subtitle': 'Stack은 LIFO, Queue는 FIFO. 이중 Stack으로 Queue를 amortized O(1)로 구현합니다.',
+    'ch3.title': 'Deque',
+    'ch3.subtitle': '링 버퍼(Ring Buffer) 기반 양방향 큐. 앞/뒤 모두 O(1) 삽입/삭제.',
+    'ch4.title': 'Binary Tree',
+    'ch4.subtitle': '전위/중위/후위 순회를 애니메이션으로 확인합니다. 방문 순서가 핵심입니다.',
+    'ch5.title': 'Binary Search Tree',
+    'ch5.subtitle': '삽입 시 불변 조건(왼쪽 < 루트 < 오른쪽)을 유지하며 트리가 자라는 과정을 봅니다.',
+    'ch6.title': 'Heap / Priority Queue',
+    'ch6.subtitle': 'Min-Heap: 루트가 항상 최솟값. siftUp/siftDown 과정을 시각화합니다.',
+    'ch7.title': 'Graph',
+    'ch7.subtitle': 'BFS와 DFS 탐색 경로를 애니메이션으로 비교합니다.',
+    'ch8.title': 'Hash Table',
+    'ch8.subtitle': '해시 충돌과 Separate Chaining을 직접 관찰합니다.',
+    'ch9.title': 'Trie',
+    'ch9.subtitle': '자동완성 탐색 경로가 트리 위에서 빛나며 강조됩니다.',
+  },
+  en: {
+    /* nav */
+    'nav.home': 'Home',
+    'btn.reset': 'Reset',
+    /* section labels */
+    'label.concept': 'Concept',
+    'label.guide': 'Usage',
+    'label.preq': 'Before You Start',
+    'label.think': 'Think About It',
+    'label.practice': 'Practice',
+    'label.checklist': 'Completion Checklist',
+    'label.realworld': 'Real-world Usage',
+    'label.required': 'Required',
+    'label.challenge': 'Challenge',
+    'label.comments': 'Comments',
+    'label.hint': 'Search →',
+    /* home */
+    'home.badge': 'DevRei · Swift Educational Content',
+    'home.title': 'Data Structures<br><span>with Swift</span>',
+    'home.desc': '"Why is this so slow?" — The experience of 100× speedup by changing just one data structure.<br>Understand the internals of 10 core data structures through interactive visualizations and implement them in Playground.',
+    'home.card1.title': 'Interactive Visualization',
+    'home.card1.desc': 'This page. Confirm data structure behavior with animations by clicking buttons.',
+    'home.card2.title': 'Playground Practice',
+    'home.card2.desc': 'Write and run code directly in the Swift Playgrounds app.',
+    'home.card3.title': 'Real-world Usage',
+    'home.card3.desc': 'See where each data structure is used in real iOS apps with concrete examples.',
+    'home.flow.title': 'Learning Flow',
+    'home.flow1': 'Confirm behavior with visualization',
+    'home.flow2': 'Write code in Playground',
+    'home.flow3': 'Repeat with next chapter',
+    'home.chaplist': 'Chapter List',
+    /* chapters */
+    'ch0.title': 'Array vs ContiguousArray',
+    'ch0.subtitle': 'Visually confirm CoW (Copy-on-Write) behavior and memory layout differences.',
+    'ch1.title': 'Linked List',
+    'ch1.subtitle': 'Nodes connected by pointers. prepend/removeFirst is O(1), index access is O(n).',
+    'ch2.title': 'Stack / Queue',
+    'ch2.subtitle': 'Stack is LIFO, Queue is FIFO. Implement Queue with amortized O(1) using two Stacks.',
+    'ch3.title': 'Deque',
+    'ch3.subtitle': 'Ring Buffer-based double-ended queue. O(1) insert/delete on both ends.',
+    'ch4.title': 'Binary Tree',
+    'ch4.subtitle': 'Visualize pre/in/post-order traversals with animation. Visit order is the key.',
+    'ch5.title': 'Binary Search Tree',
+    'ch5.subtitle': 'Watch the tree grow while maintaining the invariant (left < root < right).',
+    'ch6.title': 'Heap / Priority Queue',
+    'ch6.subtitle': 'Min-Heap: root is always the minimum. Visualize siftUp/siftDown.',
+    'ch7.title': 'Graph',
+    'ch7.subtitle': 'Compare BFS and DFS traversal paths with animation.',
+    'ch8.title': 'Hash Table',
+    'ch8.subtitle': 'Directly observe hash collisions and Separate Chaining.',
+    'ch9.title': 'Trie',
+    'ch9.subtitle': 'Autocomplete search paths light up and highlight on the tree.',
+  }
+};
+
+// Chapter-specific section content
+const CH_CONTENT = {
+  en: {
+    0: {
+      preq: [
+        ['What happens to memory when you copy a Swift Array?', 'Swift Array Copy-on-Write mechanism'],
+        ['When does Array vs ContiguousArray show a performance difference?', 'Swift ContiguousArray vs Array performance'],
+        ['Why is append() said to be O(1)?', 'amortized time complexity array append'],
+      ],
+      playground: 'After confirming the concept visually, try coding CoW and performance comparisons in the Ch01_Array Playground.',
+      concept: [
+        `Swift's <span class="kw">Array</span> is a value type but internally references a heap buffer. Copying it doesn't double memory immediately — two variables share the same buffer.`,
+        `The moment one side is mutated, the buffer is duplicated. This is called <strong>CoW (Copy-on-Write)</strong>. It avoids unnecessary copy costs.`,
+        `<span class="kw">ContiguousArray</span> has no Obj-C bridging, guaranteeing contiguous memory and more predictable performance.`,
+      ],
+      guide: [
+        'Press <strong>append()</strong> to add an element to array a.',
+        'Press <strong>b = a (copy)</strong> to create b. Both arrays still share the same memory.',
+        'Press <strong>b.append() → CoW triggered</strong> to see the buffer actually duplicated when b is mutated. Notice the memory address changes.',
+      ],
+      vizLabel: 'Memory Layout — CoW Simulation',
+      complexity: [
+        ['subscript [i]', 'O(1)', 'Direct contiguous memory access'],
+        ['append()', 'O(1)*', 'Amortized, 2× reallocation'],
+        ['insert(at:)', 'O(n)', 'All subsequent elements shift'],
+        ['remove(at:)', 'O(n)', 'All subsequent elements shift'],
+        ['contains()', 'O(n)', 'Linear search'],
+      ],
+      think: [
+        'If you copy with var b = a and never mutate b, is memory usage 1× or 2×?',
+        'When append() triggers reallocation past capacity, where does the old data go?',
+        'Even when ContiguousArray is advantageous, how much % performance difference does using plain Array make?',
+      ],
+      required: [
+        'Add 100,000 Ints to both Array and ContiguousArray and measure the time',
+        'Write code that directly observes array capacity doubling',
+      ],
+      challenge: ['Create a benchmark comparing insert(at: 0) vs append() performance over 10,000 iterations'],
+      checklist: [
+        'Can explain the conditions that trigger Copy-on-Write',
+        'Can describe the difference between Array and ContiguousArray in one sentence',
+        'Can explain why append() is amortized O(1)',
+        'Intuitively understands why insert(at:) is O(n)',
+      ],
+      realworld: [
+        ['UITableView / CollectionView Data Source', 'Manage model arrays with Array. Using diffable data source automates UI updates too.', 'var items: [Product] = []'],
+        ['JSON Decoding Results', 'Store Codable-parsed server API responses in arrays. The basic data flow of most iOS apps.', 'let users = try decoder.decode([User].self, from: data)'],
+        ['Audio Buffer / vDSP Numerical Computation', 'ContiguousArray guarantees contiguous memory — up to 2× faster for audio samples, image pixels, ML tensors vs Array.', 'let buffer: ContiguousArray<Float> = .init(repeating: 0, count: 44100)'],
+        ['SwiftUI @State Array', 'Declaring an array with @State or @Published triggers CoW on mutation, letting SwiftUI detect changes and re-render.', '@State private var todos: [TodoItem] = []'],
+      ],
+    },
+    1: {
+      preq: [
+        ['Why is Array\'s insert(at: 0) slow? What data structure solves this?', 'Swift LinkedList vs Array insert performance'],
+        ['What is a Node and what role does a pointer play?', 'linked list node pointer concept'],
+        ['Why does the class vs struct distinction matter for linked list implementation in Swift?', 'Swift class reference type linked list'],
+      ],
+      playground: 'After confirming the concept visually, implement the Node class and LinkedList in the Ch02_LinkedList Playground.',
+      concept: [
+        'Each <strong>node</strong> holds a value and the address of the next node (next). Unlike arrays, memory need not be contiguous.',
+        'Inserting/deleting at the front (head) only changes one pointer — <strong>O(1)</strong>. Accessing a specific index requires traversal from head — <strong>O(n)</strong>.',
+        'Arrays have fast index access; linked lists have fast front insert/delete. Choose based on your use case.',
+      ],
+      guide: [
+        'Enter a number and press <strong>prepend()</strong> to add at front. Notice the head pointer changes, elements don\'t shift right.',
+        '<strong>append()</strong> adds at the back. It gets slower as the list grows because it must traverse to the end.',
+        'Press <strong>removeFirst()</strong> to remove the head — the next node becomes the new head.',
+      ],
+      vizLabel: 'Singly Linked List — Dynamic Insert/Delete',
+      think: [
+        'In a singly linked list, how do you go back to the "previous node"?',
+        'Deletion in the middle is O(1), but finding the node takes O(n) — isn\'t the real complexity O(n)?',
+        'Swift\'s Array is already fast enough — are there practical situations where you must implement a linked list?',
+      ],
+      required: [
+        'Create a Node class and LinkedList struct with prepend, append, removeFirst',
+        'Write a printAll() method that traverses the list and prints all values',
+      ],
+      challenge: ['Implement the "Runner technique" to find the middle node in a single traversal'],
+      checklist: [
+        'Can explain why prepend() is O(1) in terms of pointer movement',
+        'Understands why append() is O(n) and how a tail pointer makes it O(1)',
+        'Can distinguish situations where Array vs LinkedList is better',
+        'Knows why Node must be a class (reference type)',
+      ],
+      realworld: [
+        ['LRU Cache', 'Move recently used items to the front of an image cache; evict from the back when full. NSCache uses a similar structure internally.', 'class LRUCache<Key: Hashable, Value>'],
+        ['Undo / Redo History', 'Store each edit action as a node in a text editor. Navigate prev/next to restore state.', 'undoStack.push(action)'],
+        ['Music Player Playlist', 'A playlist with frequent prev/next navigation suits a doubly linked list for O(1) transitions.', 'playlist.next() // O(1)'],
+        ['Memory Allocator Free List', 'The OS memory manager maintains available memory blocks as a linked list. Allocation/deallocation is O(1).', 'freeList.allocate(size)'],
+      ],
+    },
+    2: {
+      preq: [
+        ['What data structure does iOS use internally for "go back"?', 'UINavigationController stack push pop'],
+        ['Why is it inefficient to implement a Queue using Array\'s removeFirst()?', 'Swift Queue implementation Array removeFirst O(n)'],
+        ['How can you build a Queue from two Stacks?', 'implement queue using two stacks'],
+      ],
+      playground: 'After confirming the concept visually, implement Stack and two-Stack Queue in the Ch03_Stack Playground.',
+      concept: [
+        '<strong>Stack</strong> is LIFO (Last In, First Out). The last item pushed is the first popped — just like a stack of plates.',
+        '<strong>Queue</strong> is FIFO (First In, First Out). Items are processed in arrival order — like a line at a register.',
+        'Implementing Queue with Array\'s removeFirst() is O(n). Using two Stacks achieves <strong>amortized O(1)</strong>.',
+      ],
+      guide: [
+        '[Stack] Enter a number and press push() several times. Observe the stacking direction.',
+        '[Stack] Press pop() — items come out last-in-first-out.',
+        '[Queue] Press enqueue() to fill the inbox, then press dequeue(). Watch the inbox flip to outbox when outbox is empty.',
+      ],
+      vizLabel: 'Stack — LIFO & Queue — FIFO (Two-Stack)',
+      think: [
+        'When implementing Stack with Array, is push/pop always O(1)? What happens when capacity is exceeded?',
+        'The inbox→outbox flip in two-Stack Queue is O(n). Why is it still called amortized O(1)?',
+        'Recursive function calls are also Stack-structured — what problem occurs with too-deep recursion?',
+      ],
+      required: [
+        'Implement an Array-based Stack and a function that checks if brackets in a string are balanced',
+        'Implement a Queue using two Stacks (enqueue, dequeue)',
+      ],
+      challenge: ['Implement undo/redo functionality using two Stacks'],
+      checklist: [
+        'Can explain the difference between LIFO and FIFO with real-life examples',
+        'Can implement bracket validation using Stack',
+        'Can explain why two-Stack Queue is amortized O(1)',
+        'Understands why NavigationStack is called a Stack',
+      ],
+      realworld: [
+        ['UINavigationController Screen Transitions', 'Push screens onto the stack, pop to go back. SwiftUI\'s NavigationStack uses the same structure.', 'navigationController.pushViewController(vc, animated: true)'],
+        ['Bracket / Tag Validation', 'Validate HTML tags, JSON braces, and math brackets in O(n) using a Stack.', 'func isValid(_ s: String) -> Bool'],
+        ['OperationQueue Task Scheduling', 'Queue network requests and image downloads; process them FIFO. GCD also uses queues internally.', 'OperationQueue.main.addOperation(task)'],
+        ['Push Notification Queue', 'Queue incoming notifications and process them one by one in arrival order (FIFO).', 'notificationQueue.enqueue(notification)'],
+      ],
+    },
+    3: {
+      preq: [
+        ['When do you need insert/delete on both ends? Stack handles one end, Queue the other.', 'Double-ended queue deque use cases'],
+        ['What is a Ring Buffer and why is it suitable for implementing a Deque?', 'circular buffer ring buffer implementation'],
+        ['What role does Deque play in the sliding window algorithm?', 'sliding window deque algorithm'],
+      ],
+      playground: 'After confirming the concept visually, implement a Ring Buffer-based Deque in the Ch04_Deque Playground.',
+      concept: [
+        '<strong>Deque (Double-Ended Queue)</strong> allows O(1) insert and delete at both front and back.',
+        'A <strong>Ring Buffer</strong> uses a fixed-size circular array with head/tail pointers that wrap around. No shifting needed.',
+        'Deque can replace both Stack and Queue. It is used in sliding window algorithms and recent-history buffers.',
+      ],
+      guide: [
+        'Alternate between pushFront() and pushBack(). Observe which direction head/tail pointers move.',
+        'Keep adding until capacity (8) is full — see what happens.',
+        'Try popFront() and popBack() to delete from both sides. Pointers move in opposite directions.',
+      ],
+      vizLabel: 'Ring Buffer Visualization',
+      think: [
+        'When the ring buffer is full and you add more, how should the overflow be handled?',
+        'A plain array Deque has O(n) front insert — how does ring buffer achieve O(1)?',
+        'What is the difference between Swift Collections\' Deque and a hand-rolled ring buffer Deque?',
+      ],
+      required: [
+        'Implement a ring buffer-based Deque (pushFront, pushBack, popFront, popBack)',
+        'Implement a "recent searches" store that retains at most 5 items using Deque',
+      ],
+      challenge: ['Implement a function that finds the maximum value in a sliding window of size k in O(n) using Deque'],
+      checklist: [
+        'Knows why Deque can replace both Stack and Queue',
+        'Can explain how head/tail pointers move circularly',
+        'Can describe the pros and cons of ring buffer in one sentence',
+      ],
+      realworld: [
+        ['Chat Message Buffer', 'Keep only the last N messages. Add new messages at back, remove old ones from front.', 'messageBuffer.pushBack(msg)'],
+        ['Browser Forward/Back Navigation', 'Add/remove pages from both ends of history to implement forward/back navigation.', 'history.pushBack(page)'],
+        ['Sliding Window Maximum', 'Compute the max stock price over the last K days in O(n). Manage candidates with Deque, removing from both ends.', 'windowMax(prices, k: 5)'],
+        ['Bidirectional Priority Scheduler', 'Add urgent tasks at front (pushFront) and normal tasks at back (pushBack) as a priority queue.', 'scheduler.pushFront(urgentTask)'],
+      ],
+    },
+    4: {
+      preq: [
+        ['Where is tree structure used? Any uses beyond file systems and SwiftUI View hierarchy?', 'binary tree real world applications iOS'],
+        ['Why does the difference between pre/in/post-order traversal matter in practice?', 'tree traversal preorder inorder postorder use cases'],
+        ['When should you choose BFS vs DFS?', 'BFS vs DFS when to use'],
+      ],
+      playground: 'After confirming the concept visually, implement recursive traversals in the Ch05_BinaryTree Playground.',
+      concept: [
+        'A <strong>binary tree</strong> is a tree where each node has at most two children (left, right).',
+        '<strong>Pre-order</strong> (root→left→right): serialize a tree. <strong>In-order</strong> (left→root→right): yields sorted output for BST. <strong>Post-order</strong> (left→right→root): needed when children must be processed first (e.g., delete directory).',
+        '<strong>Level-order (BFS)</strong>: visits by depth level using a Queue.',
+      ],
+      guide: [
+        'Click a traversal button — nodes highlight one by one in visit order. The status bar shows the sequence.',
+        'Compare Pre / In / Post each time. Note when the root (1) is visited.',
+        'Level-order (BFS) visits by layer, not depth — unlike the others.',
+      ],
+      vizLabel: 'Tree Traversal Animation',
+      think: [
+        'Why does in-order traversal on a BST yield a sorted sequence?',
+        'Post-order "processes children first" — when is this needed in practice? (Hint: directory deletion)',
+        'How does tree height affect performance?',
+      ],
+      required: [
+        'Create a TreeNode class and implement pre/in/post-order traversal recursively',
+        'Implement BFS (level-order traversal) using a Queue',
+      ],
+      challenge: ['Implement a function to find tree height and a function to mirror (flip) the tree'],
+      checklist: [
+        'Can describe the visit order of all 4 traversal methods without a diagram',
+        'Understands why recursion is natural for tree traversal',
+        'Knows BFS uses Queue and DFS uses Stack (or recursion)',
+        'Understands that SwiftUI\'s View hierarchy is a tree',
+      ],
+      realworld: [
+        ['SwiftUI View Hierarchy', 'VStack inside HStack inside Text... SwiftUI builds Views as a tree and traverses it to render.', 'body: some View { VStack { ... } }'],
+        ['File System Traversal', 'Directory structure is a tree. DFS/BFS is used when iterating subdirectories with FileManager.', 'FileManager.default.enumerator(at: url)'],
+        ['JSON / XML Parsing', 'Nested JSON is a tree. Traverse recursively to extract desired values.', 'func parse(_ node: JSONNode) -> Value'],
+        ['Expression Tree', '"(3+5)*2" converted to a tree — post-order traversal gives correct evaluation order. Used inside compilers.', 'eval(expressionTree)'],
+      ],
+    },
+    5: {
+      preq: [
+        ['Binary search in a sorted array is O(log n) — but what about insertion? How does BST solve this?', 'binary search tree insert search O(log n)'],
+        ['Why does performance degrade when a BST is skewed to one side?', 'BST worst case skewed tree'],
+        ['How do balanced trees (AVL, Red-Black) prevent skewing?', 'balanced BST AVL tree rotation'],
+      ],
+      playground: 'After confirming the concept visually, implement insert and search logic in the Ch06_BST Playground.',
+      concept: [
+        'A <strong>BST (Binary Search Tree)</strong> maintains the invariant: left child < parent < right child.',
+        'Insert: compare from root and go left/right — O(log n) for balanced trees.',
+        'If you keep inserting only large (or small) values, the tree becomes skewed and degrades to O(n).',
+      ],
+      guide: [
+        'Enter a number and press insert(). Watch it find the correct position by comparing from root downward.',
+        'Keep inserting only large numbers (e.g., 50, 60, 70, 80) to create a right-skewed tree. Think about why search slows down.',
+        'Enter a number and press search() to see the comparison path highlighted from root.',
+      ],
+      vizLabel: 'BST Insert / Search Simulation',
+      think: [
+        'If you insert [1,2,3,4,5] in order into a BST, what shape does it form? What is the search time?',
+        'When deleting a node with two children, why is the successor used?',
+        'What tree structure does Swift\'s SortedSet use internally?',
+      ],
+      required: [
+        'Implement insert() and contains() for a BST',
+        'Verify that in-order traversal of a BST produces a sorted array',
+      ],
+      challenge: ['Implement delete() for a BST (leaf, one child, two children cases)'],
+      checklist: [
+        'Can explain the "left < parent < right" rule',
+        'Knows why a skewed tree degrades to O(n)',
+        'Knows how to find min/max in a BST',
+        'Understands that in-order traversal = sorted order',
+      ],
+      realworld: [
+        ['Product Price Range Search', 'Handle "₩10,000–₩50,000" filters in a shopping app using BST range search in O(log n + k).', 'bst.range(min: 10000, max: 50000)'],
+        ['Database Index (B-Tree)', 'Core Data and SQLite indexes use B-Tree, an extension of BST. Fast search even with millions of records.', 'CREATE INDEX ON products(price)'],
+        ['Auto-sorted Collection', 'Maintains sorted order on every insert. Suitable for leaderboards, timelines, and sorted data.', 'sortedSet.insert(score)'],
+        ['Game Ranking System', 'Store player scores in a BST to compute "what rank am I?" in O(log n).', 'ranking.rank(of: playerScore)'],
+      ],
+    },
+    6: {
+      preq: [
+        ['Finding the minimum in an array is O(n). What data structure retrieves it in O(1)?', 'min heap priority queue O(1) minimum'],
+        ['Heap is a tree — why store it as an array?', 'heap array representation parent child index'],
+        ['How does iOS handle priority-based task management (e.g., network request priority)?', 'priority queue iOS task scheduling'],
+      ],
+      playground: 'After confirming the concept visually, implement siftUp/siftDown in the Ch07_Heap Playground.',
+      concept: [
+        'A <strong>Min-Heap</strong> is a complete binary tree where every parent ≤ its children. The root is always the minimum.',
+        'Stored as an array: parent of index i is at (i−1)/2; children are at 2i+1 and 2i+2.',
+        '<strong>insert</strong>: add to end → siftUp O(log n). <strong>removeMin</strong>: swap root with last → siftDown O(log n).',
+      ],
+      guide: [
+        'Enter a number and press insert(). It\'s added at the end, then siftUp swaps it upward if smaller than its parent.',
+        'Press remove() to extract the minimum (root). The last node moves to root, then siftDown restores the heap property.',
+        'Observe how the tree and array representation correspond below.',
+      ],
+      vizLabel: 'Min-Heap Tree ↔ Array Representation',
+      think: [
+        'Is the second-smallest value in a Min-Heap always in the root\'s children?',
+        'Why is siftUp/siftDown O(log n)? (Hint: tree height)',
+        'To convert to a Max-Heap, do you just flip the comparison operator?',
+      ],
+      required: [
+        'Implement an array-based MinHeap (insert, removeMin, siftUp, siftDown)',
+        'Find the Kth smallest element in an array using a Heap',
+      ],
+      challenge: ['Implement a MedianFinder using two Heaps that computes a real-time median from a data stream'],
+      checklist: [
+        'Knows the array index formula for parent and children in a complete binary tree',
+        'Can draw the siftUp/siftDown process',
+        'Can explain the difference between Heap and BST',
+        'Can name at least 2 real-world uses of Priority Queue',
+      ],
+      realworld: [
+        ['Network Request Priority', 'Set images on screen as HIGH and prefetch as LOW so important requests are handled first.', 'requestQueue.insert(Request(priority: .high))'],
+        ['Dijkstra Shortest Path', 'Navigation apps use Min-Heap to extract the closest node in O(log n) when computing shortest paths.', 'minHeap.extractMin() // next node'],
+        ['iOS Notification Priority', 'Show payment confirmations and urgent messages first; defer marketing notifications.', 'notificationQueue.insert(notification)'],
+        ['Timer / Scheduler', 'Manage multiple timers with Min-Heap to always handle the next-expiring one first. Similar to RunLoop timer scheduling.', 'scheduler.nextTimer() // O(1)'],
+      ],
+    },
+    7: {
+      preq: [
+        ['How does a "friend recommendation" work in a social network?', 'graph BFS friend recommendation algorithm'],
+        ['How many ways are there to represent a graph in code?', 'adjacency list vs adjacency matrix'],
+        ['What graph algorithm does a navigation app use for shortest path?', 'Dijkstra shortest path algorithm'],
+      ],
+      playground: 'After confirming the concept visually, implement BFS and DFS in the Ch08_Graph Playground.',
+      concept: [
+        'A <strong>graph</strong> is a structure of nodes (vertices) and edges (connections). Unlike trees, it can have cycles.',
+        '<strong>BFS (Breadth-First Search)</strong>: uses a Queue; visits all neighbors at distance 1, then distance 2... Finds shortest paths (unweighted).',
+        '<strong>DFS (Depth-First Search)</strong>: uses a Stack (or recursion); goes as deep as possible before backtracking. Used for cycle detection, topological sort.',
+      ],
+      guide: [
+        'Press BFS Traversal. Starting from node A, it visits distance-1 neighbors first, then distance-2. It spreads like ripples.',
+        'Press DFS Traversal. It dives deep along one path, backtracks when stuck, then tries another path.',
+        'Compare visit order of both methods. Think about which is better for which scenario.',
+      ],
+      vizLabel: 'Graph BFS / DFS Traversal Visualization',
+      think: [
+        'What condition must hold for BFS to guarantee shortest paths? (Hint: edge weights)',
+        'How does DFS detect cycles?',
+        'Which is more memory-efficient — adjacency list or adjacency matrix? (Sparse vs dense)',
+      ],
+      required: [
+        'Implement a graph using an adjacency list, then implement BFS and DFS',
+        'Use BFS to check whether a path exists between two nodes',
+      ],
+      challenge: ['Implement a function that finds the shortest path and its length in an unweighted graph'],
+      checklist: [
+        'Knows BFS uses Queue and DFS uses Stack (recursion)',
+        'Can represent an adjacency list in code',
+        'Knows the difference between directed and undirected graphs',
+        'Can explain why BFS is suited for shortest paths',
+      ],
+      realworld: [
+        ['Social Network Friend Recommendations', 'Use BFS to find friends-of-friends (within 2 hops) and suggest "People You May Know".', 'bfs(from: user, maxDepth: 2)'],
+        ['Map Navigation (Shortest Path)', 'Model intersections as nodes and roads as edges. Compute shortest path with Dijkstra / A*.', 'graph.shortestPath(from: A, to: B)'],
+        ['App Dependency Analysis', 'Represent Swift Package dependencies as a graph. Use topological sort (DFS) to determine build order.', 'dependencyGraph.topologicalSort()'],
+        ['Recommendation System', 'Find "products co-viewed by users who saw this product" via graph traversal. The basis of collaborative filtering.', 'graph.neighbors(of: product, depth: 2)'],
+      ],
+    },
+    8: {
+      preq: [
+        ['How does Swift\'s Dictionary look up values in O(1)?', 'hash table dictionary O(1) lookup mechanism'],
+        ['When two different keys map to the same slot (collision), how is it handled?', 'hash collision resolution chaining open addressing'],
+        ['Why is the Hashable protocol needed?', 'Swift Hashable protocol dictionary key'],
+      ],
+      playground: 'After confirming the concept visually, implement a hash function and collision resolution in the Ch09_HashTable Playground.',
+      concept: [
+        'A <strong>hash function</strong> maps a key to an index (bucket). The ideal function distributes keys uniformly.',
+        '<strong>Collision</strong>: two keys hash to the same bucket. <strong>Separate Chaining</strong> stores colliding items as a linked list in the bucket.',
+        'Average O(1) lookup, insert, delete. Degrades to O(n) if too many collisions. Keep load factor low.',
+      ],
+      guide: [
+        'Enter a key and value, then press insert(key, val). See which bucket the key hashes into.',
+        'Add multiple keys — eventually two will collide in the same bucket, chaining together.',
+        'Enter a key and press search(key) to watch it find the bucket and traverse the chain.',
+      ],
+      vizLabel: 'Hash Table — Collision Visualization',
+      think: [
+        'If the hash function maps all keys to the same bucket, what happens to performance?',
+        'Why does a high load factor degrade performance? When should rehashing occur?',
+        'What is needed to use a struct as a Dictionary key?',
+      ],
+      required: [
+        'Implement a simple HashTable (hash function, insert, search, Separate Chaining)',
+        'Use Dictionary to find pairs summing to target in O(n) (Two Sum)',
+      ],
+      challenge: ['Implement a function that finds the first non-duplicate character in a string using Dictionary'],
+      checklist: [
+        'Can explain the role of a hash function in one sentence',
+        'Understands why collisions occur and how Chaining resolves them',
+        'Knows that Dictionary is a hash table',
+        'Understands why O(1) lookup is "average", not "always"',
+      ],
+      realworld: [
+        ['Image Cache (NSCache / Dictionary)', 'Store downloaded images keyed by URL. Same-URL requests return from cache in O(1).', 'cache[url] = image'],
+        ['Two Sum (Coding Interview Staple)', 'Find two numbers summing to target in O(n) using Dictionary. A classic interview question.', 'func twoSum(_ nums: [Int], _ target: Int) -> [Int]'],
+        ['UserDefaults / Plist Storage', 'Store user preferences as key-value pairs. Internally managed as a Dictionary (hash table).', 'UserDefaults.standard.set(value, forKey: key)'],
+        ['Duplicate Removal (Set)', 'Swift\'s Set is internally a hash table. Remove duplicates from an array in O(n).', 'let unique = Set(array)'],
+      ],
+    },
+    9: {
+      preq: [
+        ['How do you find all words starting with "app" among 100,000 words?', 'trie autocomplete prefix search algorithm'],
+        ['Why is Trie search O(m) regardless of the number of words?', 'trie time complexity word length'],
+        ['What data structure might iOS\'s keyboard autocomplete use internally?', 'iOS keyboard autocomplete data structure'],
+      ],
+      playground: 'After confirming the concept visually, implement the autocomplete logic in the Ch10_Trie Playground.',
+      concept: [
+        'A <strong>Trie (Prefix Tree)</strong> is a tree where each node stores one character. Shared prefixes share paths.',
+        'Insert/search a word of length m: traverse m nodes — <strong>O(m)</strong>, independent of the total number of words.',
+        'The end-of-word node (✓) marks a complete word. Autocomplete = collect all words below a prefix node.',
+      ],
+      guide: [
+        'Enter a prefix (e.g., "ap") and press autocomplete(prefix). The path lights up and all words below are shown.',
+        'Notice that app, apple, apply share the path root→a→p→p. This is the core of Trie.',
+        'Enter a new word (e.g., "apt") and press insert(word) — a new node branches off at the divergence point.',
+      ],
+      vizLabel: 'Trie Autocomplete Simulation',
+      think: [
+        'When deleting "apple" from a Trie while keeping "app", how do you handle it?',
+        'Autocomplete can be implemented with HashMap too — why is Trie better?',
+        'How can Trie memory usage be reduced? (Hint: compressed Trie)',
+      ],
+      required: [
+        'Implement TrieNode and Trie (insert, search, startsWith)',
+        'Load a word list into a Trie and return autocomplete results for a given prefix',
+      ],
+      challenge: ['Implement word deletion without damaging other words\' paths'],
+      checklist: [
+        'Knows each Trie node stores one character',
+        'Can explain how shared prefixes share paths',
+        'Understands that O(m) is proportional to "word length"',
+        'Knows other uses of Trie besides autocomplete (dictionary, IP routing)',
+      ],
+      realworld: [
+        ['Search Autocomplete', 'When a user types "sw", Trie traverses the prefix and immediately returns candidates like "swift", "swiftui".', 'trie.autocomplete("sw")'],
+        ['iOS Keyboard Autocorrect', 'Find the word most similar to what\'s being typed and suggest correction candidates.', 'trie.search(prefix: currentInput)'],
+        ['IP Routing Table', 'Network routers match IP address prefixes using Trie to route packets correctly.', 'routingTable.match(ipAddress)'],
+        ['Contact Search', 'Filter matching contacts instantly from partial name input. Initial consonant (초성) search also implementable with Trie.', 'trie.autocomplete(searchText)'],
+      ],
+    },
+  }
+};
+
+function applyLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  const langBtn = document.getElementById('lang-btn');
+  if (langBtn) langBtn.textContent = lang === 'ko' ? 'EN' : 'KO';
+
+  const t = T[lang];
+
+  // --- Global section labels ---
+  document.querySelectorAll('.info-box-label.concept').forEach(el => el.textContent = t['label.concept']);
+  document.querySelectorAll('.info-box-label.guide').forEach(el => el.textContent = t['label.guide']);
+  document.querySelectorAll('.pre-questions-title').forEach(el => el.textContent = t['label.preq']);
+  document.querySelectorAll('.think-about-title').forEach(el => el.textContent = t['label.think']);
+  document.querySelectorAll('.practice-problems-title').forEach(el => el.textContent = t['label.practice']);
+  document.querySelectorAll('.completion-title').forEach(el => el.textContent = t['label.checklist']);
+  document.querySelectorAll('.realworld-title').forEach(el => el.textContent = t['label.realworld']);
+  document.querySelectorAll('.practice-label.required').forEach(el => el.textContent = t['label.required']);
+  document.querySelectorAll('.practice-label.challenge').forEach(el => el.textContent = t['label.challenge']);
+  document.querySelectorAll('.section-heading').forEach(el => el.textContent = t['label.comments']);
+
+  // Nav
+  const homeLabel = document.getElementById('nav-label');
+  if (homeLabel && homeLabel.textContent.match(/시작하기|Home/)) homeLabel.textContent = t['nav.home'];
+
+  // --- Chapter titles & subtitles ---
+  ['ch-0','ch-1','ch-2','ch-3','ch-4','ch-5','ch-6','ch-7','ch-8','ch-9'].forEach((id, i) => {
+    const ch = document.getElementById(id);
+    if (!ch) return;
+    const key = `ch${i}`;
+    const titleEl = ch.querySelector('.chapter-title');
+    const subtitleEl = ch.querySelector('.chapter-subtitle');
+    if (titleEl) titleEl.textContent = t[`${key}.title`];
+    if (subtitleEl) subtitleEl.textContent = t[`${key}.subtitle`];
+  });
+
+  // --- Chapter-specific content ---
+  if (lang === 'en' && CH_CONTENT.en) {
+    applyChapterContent(CH_CONTENT.en);
+  } else if (lang === 'ko') {
+    location.reload(); // Simplest way to restore all Korean content
+  }
+}
+
+function applyChapterContent(data) {
+  const chIds = ['ch-0','ch-1','ch-2','ch-3','ch-4','ch-5','ch-6','ch-7','ch-8','ch-9'];
+  chIds.forEach((id, i) => {
+    const ch = document.getElementById(id);
+    const d = data[i];
+    if (!ch || !d) return;
+
+    // Pre-questions
+    ch.querySelectorAll('.pre-question-item').forEach((item, qi) => {
+      if (!d.preq || !d.preq[qi]) return;
+      const p = item.querySelector('p');
+      const a = item.querySelector('a, .pre-question-hint');
+      if (p) p.textContent = d.preq[qi][0];
+      if (a) a.textContent = 'Search → ' + d.preq[qi][1];
+    });
+
+    // Playground banner
+    if (d.playground) {
+      const banner = ch.querySelector('.playground-banner p, .playground-banner span:not(a)');
+      if (banner) banner.textContent = d.playground;
+    }
+
+    // Concept box paragraphs
+    if (d.concept) {
+      const conceptBox = ch.querySelector('.info-box:first-child');
+      if (conceptBox) {
+        const ps = conceptBox.querySelectorAll('p');
+        ps.forEach((p, pi) => { if (d.concept[pi]) p.innerHTML = d.concept[pi]; });
+      }
+    }
+
+    // Guide steps
+    if (d.guide) {
+      const guideBox = ch.querySelector('.info-box:last-child ol, .info-box:last-child ul');
+      if (guideBox) {
+        const lis = guideBox.querySelectorAll('li');
+        lis.forEach((li, li_i) => { if (d.guide[li_i]) li.innerHTML = d.guide[li_i]; });
+      }
+    }
+
+    // Viz label
+    if (d.vizLabel) {
+      const vl = ch.querySelector('.viz-label');
+      if (vl) vl.textContent = d.vizLabel;
+    }
+
+    // Complexity table
+    if (d.complexity) {
+      const rows = ch.querySelectorAll('.complexity-grid .complexity-cell:not(.header)');
+      let ci = 0;
+      for (let ri = 0; ri < d.complexity.length; ri++) {
+        const row = d.complexity[ri];
+        if (rows[ci]) rows[ci].textContent = row[0]; ci++;
+        if (rows[ci]) { /* keep big-o span, update only text */ ci++; }
+        if (rows[ci]) rows[ci].textContent = row[2]; ci++;
+      }
+    }
+
+    // Think about
+    if (d.think) {
+      ch.querySelectorAll('.think-about-item p').forEach((p, pi) => {
+        if (d.think[pi]) p.textContent = d.think[pi];
+      });
+    }
+
+    // Practice required
+    if (d.required) {
+      ch.querySelectorAll('.practice-required .practice-item').forEach((el, pi) => {
+        if (d.required[pi]) el.textContent = d.required[pi];
+      });
+    }
+
+    // Practice challenge
+    if (d.challenge) {
+      ch.querySelectorAll('.practice-challenge .practice-item').forEach((el, pi) => {
+        if (d.challenge[pi]) el.textContent = d.challenge[pi];
+      });
+    }
+
+    // Checklist
+    if (d.checklist) {
+      ch.querySelectorAll('.checklist-item span').forEach((el, pi) => {
+        if (d.checklist[pi]) el.textContent = d.checklist[pi];
+      });
+    }
+
+    // Real-world items
+    if (d.realworld) {
+      ch.querySelectorAll('.realworld-item').forEach((item, ri) => {
+        if (!d.realworld[ri]) return;
+        const titleEl = item.querySelector('.realworld-item-title');
+        const descEl = item.querySelector('.realworld-item-desc');
+        const codeEl = item.querySelector('.realworld-item-code');
+        if (titleEl) titleEl.textContent = d.realworld[ri][0];
+        if (descEl) descEl.textContent = d.realworld[ri][1];
+        if (codeEl) codeEl.textContent = d.realworld[ri][2];
+      });
+    }
+  });
+}
+
+function toggleLang() {
+  applyLang(currentLang === 'ko' ? 'en' : 'ko');
+}
+
 </script>
 
 <!-- FLOATING DONATION BUTTON -->
