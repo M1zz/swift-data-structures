@@ -624,6 +624,82 @@
   }
   @media (max-width: 768px) {
     .realworld-grid { grid-template-columns: 1fr; }
+  /* CHAPTER FOOTER: COMMENTS + DONATION */
+  .chapter-footer {
+    margin-top: 48px;
+    border-top: 1px solid var(--border);
+    padding-top: 40px;
+  }
+
+  .chapter-footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 32px;
+    align-items: start;
+  }
+
+  @media (max-width: 700px) {
+    .chapter-footer-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Comments — utterances */
+  .section-heading {
+    font-size: 11px;
+    font-family: 'JetBrains Mono';
+    color: var(--accent);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .utterances-wrap { min-height: 80px; }
+  .utterances-wrap .utterances { max-width: 100% !important; }
+  .comments-loading {
+    font-size: 12px;
+    color: var(--text3);
+    font-family: 'JetBrains Mono';
+    padding: 12px 0;
+  }
+
+  /* Donation */
+  .donation-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+  }
+  .donation-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .donation-desc {
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .donation-qr {
+    width: 160px;
+    height: 160px;
+    border-radius: 8px;
+    margin: 0 auto 12px;
+    display: block;
+    border: 1px solid var(--border);
+  }
+  .donation-name {
+    font-size: 13px;
+    font-family: 'JetBrains Mono';
+    color: var(--text2);
+  }
+  .donation-kakao-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 6px;
+    font-family: 'JetBrains Mono';
   }
 
   /* HOME PAGE */
@@ -1620,6 +1696,18 @@ heap.<span class="hl">removeMin</span>()</pre>
         <div class="realworld-item-title">SwiftUI @State 배열</div>
         <div class="realworld-item-desc">@State나 @Published로 배열을 선언하면 원소 변경 시 CoW가 발동되면서 SwiftUI가 변경을 감지해 뷰를 다시 그립니다.</div>
         <span class="realworld-item-code">@State private var todos: [TodoItem] = []</span>
+  <div class="chapter-footer">
+    <div class="chapter-footer-grid">
+      <div class="comments-section">
+        <div class="section-heading">코멘트</div>
+        <div class="utterances-wrap" id="utterances-ch0"></div>
+      </div>
+      <div class="donation-section">
+        <div class="section-heading" style="text-align:left;">후원하기</div>
+        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
+        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
+        <div class="donation-name">이현호</div>
+        <div class="donation-kakao-badge">카카오페이</div>
       </div>
     </div>
   </div>
@@ -1753,6 +1841,18 @@ heap.<span class="hl">removeMin</span>()</pre>
         <div class="realworld-item-title">메모리 할당기 Free List</div>
         <div class="realworld-item-desc">OS의 메모리 관리자가 사용 가능한 메모리 블록을 연결 리스트로 관리합니다. 할당/해제가 O(1)입니다.</div>
         <span class="realworld-item-code">freeList.prepend(deallocatedBlock)</span>
+  <div class="chapter-footer">
+    <div class="chapter-footer-grid">
+      <div class="comments-section">
+        <div class="section-heading">코멘트</div>
+        <div class="utterances-wrap" id="utterances-ch1"></div>
+      </div>
+      <div class="donation-section">
+        <div class="section-heading" style="text-align:left;">후원하기</div>
+        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
+        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
+        <div class="donation-name">이현호</div>
+        <div class="donation-kakao-badge">카카오페이</div>
       </div>
     </div>
   </div>
@@ -1897,6 +1997,22 @@ heap.<span class="hl">removeMin</span>()</pre>
       </div>
     </div>
   </div>
+
+  <div class="chapter-footer">
+    <div class="chapter-footer-grid">
+      <div class="comments-section">
+        <div class="section-heading">코멘트</div>
+        <div class="utterances-wrap" id="utterances-ch2"></div>
+      </div>
+      <div class="donation-section">
+        <div class="section-heading" style="text-align:left;">후원하기</div>
+        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
+        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
+        <div class="donation-name">이현호</div>
+        <div class="donation-kakao-badge">카카오페이</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ===================== CH4: DEQUE ===================== -->
@@ -2027,6 +2143,22 @@ heap.<span class="hl">removeMin</span>()</pre>
         <div class="realworld-item-title">작업 스케줄러 (양방향 우선순위)</div>
         <div class="realworld-item-desc">긴급 작업은 앞에(pushFront), 일반 작업은 뒤에(pushBack) 추가하는 우선순위 큐로 활용합니다.</div>
         <span class="realworld-item-code">taskQueue.pushFront(urgentTask)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="chapter-footer">
+    <div class="chapter-footer-grid">
+      <div class="comments-section">
+        <div class="section-heading">코멘트</div>
+        <div class="utterances-wrap" id="utterances-ch3"></div>
+      </div>
+      <div class="donation-section">
+        <div class="section-heading" style="text-align:left;">후원하기</div>
+        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
+        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
+        <div class="donation-name">이현호</div>
+        <div class="donation-kakao-badge">카카오페이</div>
       </div>
     </div>
   </div>
@@ -2165,6 +2297,22 @@ heap.<span class="hl">removeMin</span>()</pre>
       </div>
     </div>
   </div>
+
+  <div class="chapter-footer">
+    <div class="chapter-footer-grid">
+      <div class="comments-section">
+        <div class="section-heading">코멘트</div>
+        <div class="utterances-wrap" id="utterances-ch4"></div>
+      </div>
+      <div class="donation-section">
+        <div class="section-heading" style="text-align:left;">후원하기</div>
+        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
+        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
+        <div class="donation-name">이현호</div>
+        <div class="donation-kakao-badge">카카오페이</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ===================== CH6: BST ===================== -->
@@ -2293,6 +2441,22 @@ heap.<span class="hl">removeMin</span>()</pre>
         <div class="realworld-item-title">게임 랭킹 시스템</div>
         <div class="realworld-item-desc">플레이어 점수를 BST에 저장하면 "내 순위가 몇 등인지"를 O(log n)에 계산할 수 있습니다.</div>
         <span class="realworld-item-code">let rank = bst.countNodesGreaterThan(myScore) + 1</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="chapter-footer">
+    <div class="chapter-footer-grid">
+      <div class="comments-section">
+        <div class="section-heading">코멘트</div>
+        <div class="utterances-wrap" id="utterances-ch5"></div>
+      </div>
+      <div class="donation-section">
+        <div class="section-heading" style="text-align:left;">후원하기</div>
+        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
+        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
+        <div class="donation-name">이현호</div>
+        <div class="donation-kakao-badge">카카오페이</div>
       </div>
     </div>
   </div>
@@ -2430,6 +2594,22 @@ heap.<span class="hl">removeMin</span>()</pre>
       </div>
     </div>
   </div>
+
+  <div class="chapter-footer">
+    <div class="chapter-footer-grid">
+      <div class="comments-section">
+        <div class="section-heading">코멘트</div>
+        <div class="utterances-wrap" id="utterances-ch6"></div>
+      </div>
+      <div class="donation-section">
+        <div class="section-heading" style="text-align:left;">후원하기</div>
+        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
+        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
+        <div class="donation-name">이현호</div>
+        <div class="donation-kakao-badge">카카오페이</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ===================== CH8: GRAPH ===================== -->
@@ -2558,6 +2738,22 @@ heap.<span class="hl">removeMin</span>()</pre>
         <div class="realworld-item-title">추천 시스템</div>
         <div class="realworld-item-desc">"이 상품을 본 사용자가 함께 본 상품"을 그래프 탐색으로 찾습니다. 협업 필터링의 기본 구조입니다.</div>
         <span class="realworld-item-code">graph.neighbors(of: viewedProduct)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="chapter-footer">
+    <div class="chapter-footer-grid">
+      <div class="comments-section">
+        <div class="section-heading">코멘트</div>
+        <div class="utterances-wrap" id="utterances-ch7"></div>
+      </div>
+      <div class="donation-section">
+        <div class="section-heading" style="text-align:left;">후원하기</div>
+        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
+        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
+        <div class="donation-name">이현호</div>
+        <div class="donation-kakao-badge">카카오페이</div>
       </div>
     </div>
   </div>
@@ -2693,6 +2889,22 @@ heap.<span class="hl">removeMin</span>()</pre>
       </div>
     </div>
   </div>
+
+  <div class="chapter-footer">
+    <div class="chapter-footer-grid">
+      <div class="comments-section">
+        <div class="section-heading">코멘트</div>
+        <div class="utterances-wrap" id="utterances-ch8"></div>
+      </div>
+      <div class="donation-section">
+        <div class="section-heading" style="text-align:left;">후원하기</div>
+        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
+        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
+        <div class="donation-name">이현호</div>
+        <div class="donation-kakao-badge">카카오페이</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ===================== CH10: TRIE ===================== -->
@@ -2824,6 +3036,22 @@ heap.<span class="hl">removeMin</span>()</pre>
       </div>
     </div>
   </div>
+
+  <div class="chapter-footer">
+    <div class="chapter-footer-grid">
+      <div class="comments-section">
+        <div class="section-heading">코멘트</div>
+        <div class="utterances-wrap" id="utterances-ch9"></div>
+      </div>
+      <div class="donation-section">
+        <div class="section-heading" style="text-align:left;">후원하기</div>
+        <div class="donation-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
+        <img class="donation-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
+        <div class="donation-name">이현호</div>
+        <div class="donation-kakao-badge">카카오페이</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 </main>
@@ -2912,6 +3140,8 @@ function showChapter(i) {
   if(label) label.textContent = i===0 ? '시작하기' : `Ch.${String(i).padStart(2,'0')} ${CH_NAMES[i]}`;
   window.scrollTo({top:0,behavior:'smooth'});
   requestAnimationFrame(() => refreshCurrentChapter());
+  const chId = CHID_BY_INDEX[i];
+  if (chId) loadUtterances(chId);
 }
 
 function toggleDrawer() {
@@ -3629,6 +3859,46 @@ async function trieSearch() {
   setStatus('trie-status',`💡 "${prefix}" → 자동완성: [${words.join(', ')}]. ${prefix.length}글자만 탐색 — O(${prefix.length}). 10만 단어여도 동일!`);
 }
 function trieReset() { trieHighlightPath=[]; trieDraw(); setStatus('trie-status','💡 검색창 자동완성 시뮬레이션. "ap"를 입력하고 autocomplete를 눌러보세요!'); }
+
+// ─── COMMENTS — utterances (GitHub Issues) ─────────────────────────────
+const UTTERANCES_REPO = 'm1zz/swift-data-structures';
+const UTTERANCES_THEME = 'github-dark';
+
+const CH_LABELS = {
+  ch0: 'Ch01 · Array vs ContiguousArray',
+  ch1: 'Ch02 · Linked List',
+  ch2: 'Ch03 · Stack / Queue',
+  ch3: 'Ch04 · Deque',
+  ch4: 'Ch05 · Binary Tree',
+  ch5: 'Ch06 · Binary Search Tree',
+  ch6: 'Ch07 · Heap / Priority Queue',
+  ch7: 'Ch08 · Graph',
+  ch8: 'Ch09 · Hash Table',
+  ch9: 'Ch10 · Trie',
+};
+
+// index 0 = home, 1 = ch0, 2 = ch1, ...
+const CHID_BY_INDEX = [null,'ch0','ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8','ch9'];
+
+const utterancesLoaded = new Set();
+
+function loadUtterances(chId) {
+  if (utterancesLoaded.has(chId)) return;
+  const container = document.getElementById('utterances-' + chId);
+  if (!container) return;
+  container.innerHTML = '<div class="comments-loading">GitHub 로그인 후 댓글을 남길 수 있습니다...</div>';
+  const s = document.createElement('script');
+  s.src = 'https://utteranc.es/client.js';
+  s.setAttribute('repo', UTTERANCES_REPO);
+  s.setAttribute('issue-term', CH_LABELS[chId] || chId);
+  s.setAttribute('label', 'comment');
+  s.setAttribute('theme', UTTERANCES_THEME);
+  s.setAttribute('crossorigin', 'anonymous');
+  s.async = true;
+  s.onload = () => { container.querySelector('.comments-loading')?.remove(); };
+  container.appendChild(s);
+  utterancesLoaded.add(chId);
+}
 
 // ─── INIT ──────────────────────────────────────────────────────────────
 window.addEventListener('load', ()=>{
