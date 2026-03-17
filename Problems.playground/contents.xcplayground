@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version="5.0" target-platform="macos" swift-version="5.9">
+  <pages>
+    <page name="00_HowToUse"/>
+    <page name="01_Array"/>
+    <page name="02_LinkedList"/>
+    <page name="03_StackQueue"/>
+    <page name="04_Deque"/>
+    <page name="05_BinaryTree"/>
+    <page name="06_BST"/>
+    <page name="07_Heap"/>
+    <page name="08_Graph"/>
+    <page name="09_HashTable"/>
+    <page name="10_Trie"/>
+    <page name="11_Sorting"/>
+    <page name="12_BinarySearch"/>
+    <page name="13_DP"/>
+    <page name="14_Greedy"/>
+    <page name="15_Backtracking"/>
+    <page name="16_ShortestPath"/>
+  </pages>
+</playground>
