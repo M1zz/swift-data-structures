@@ -1,11 +1,13 @@
-//: [← Back to Concepts](@previous)
+//: [← 개념으로 돌아가기](@previous)
 /*:
  # A5 실습 — Backtracking
 */
 import Foundation
 
-// ── Exercise 1: 스도쿠 풀기 ──
-// 0은 빈 칸입니다. Backtracking으로 스도쿠를 완성하세요.
+// ── 실습 1: 스도쿠 풀기 ──
+// 0은 빈 칸입니다. Backtracking으로 스도쿠를 완성합니다.
+// 전략: 빈 칸을 순서대로 찾아 1~9를 시도 → 유효하면 채우고 재귀
+//        더 이상 채울 수 없으면 되돌린 뒤(Undo) 다음 숫자 시도
 func solveSudoku(_ board: inout [[Int]]) -> Bool {
     for r in 0..<9 { for c in 0..<9 {
         guard board[r][c] == 0 else { continue }
@@ -13,18 +15,19 @@ func solveSudoku(_ board: inout [[Int]]) -> Bool {
             guard isValid(board, r, c, num) else { continue }
             board[r][c] = num
             if solveSudoku(&board) { return true }
-            board[r][c] = 0  // Undo
+            board[r][c] = 0  // Undo: 이 숫자로는 해결 불가 → 되돌리기
         }
-        return false  // 어떤 숫자도 불가 → Backtrack
+        return false  // 1~9 모두 실패 → 상위 호출에서 Backtrack
     }}
-    return true
+    return true  // 빈 칸 없음 → 완성
 }
 
+// 같은 행/열/3×3 박스에 num이 이미 있으면 false
 func isValid(_ board: [[Int]], _ row: Int, _ col: Int, _ num: Int) -> Bool {
-    // 같은 행/열/3x3 박스에 num이 있으면 false
     for i in 0..<9 {
-        if board[row][i] == num { return false }
-        if board[i][col] == num { return false }
+        if board[row][i] == num { return false }  // 같은 행
+        if board[i][col] == num { return false }  // 같은 열
+        // 3×3 박스 내 위치 계산: (row/3)*3 행 블록, (col/3)*3 열 블록의 i번째 셀
         let br = 3*(row/3) + i/3, bc = 3*(col/3) + i%3
         if board[br][bc] == num { return false }
     }
@@ -43,34 +46,37 @@ var sudoku = [
     [0,0,0,0,8,0,0,7,9],
 ]
 if solveSudoku(&sudoku) {
-    print("Sudoku solution:")
+    print("스도쿠 풀이:")
     sudoku.forEach { print($0) }
 }
 
-// ── Exercise 2: 부분집합 합 (Subset Sum) ──
-// 배열에서 합이 target이 되는 모든 부분집합을 구하세요 (중복 원소 없음, 조합 순서 무관)
+// ── 실습 2: 부분집합 합 (Subset Sum / Combination Sum) ──
+// 배열에서 합이 target이 되는 모든 부분집합을 구합니다.
+// 같은 원소를 여러 번 사용할 수 있고, 중복 조합은 제거합니다.
+// 핵심 가지치기(Pruning):
+//   - 정렬 후 remain < sorted[i] 이면 이후 원소도 모두 크므로 break
+//   - 이 단순한 조건만으로 탐색 공간을 크게 줄일 수 있습니다.
 func combinationSum(_ candidates: [Int], _ target: Int) -> [[Int]] {
-    // TODO: implement. 같은 원소를 여러 번 사용 가능합니다.
     var result: [[Int]] = [], cur: [Int] = []
     let sorted = candidates.sorted()
     func bt(_ start: Int, _ remain: Int) {
         if remain == 0 { result.append(cur); return }
         for i in start..<sorted.count {
-            // TODO: Pruning 조건 추가 (remain < sorted[i] → break)
+            if remain < sorted[i] { break }  // Pruning: 이후 원소는 모두 크므로 불필요
             cur.append(sorted[i])
-            bt(i, remain - sorted[i])
-            cur.removeLast()
+            bt(i, remain - sorted[i])  // 같은 인덱스 i 재사용 가능 (중복 허용)
+            cur.removeLast()           // Undo: 현재 원소 제거 후 다음 후보 시도
         }
     }
     bt(0, target)
     return result
 }
 
-print("\nCombination sum target=7, candidates=[2,3,6,7]:")
+print("\n조합 합 target=7, candidates=[2,3,6,7]:")
 print(combinationSum([2,3,6,7], 7))  // [[2,2,3],[7]]
 
 /*:
- ## Challenges
+ ## 도전 과제
  1. **팰린드롬 분할**: 문자열을 팰린드롬으로만 분할하는 모든 방법
  2. **전화번호 조합**: 숫자 키패드에서 문자 조합 (LeetCode #17)
  3. **Rat in a Maze**: 격자에서 출구까지 모든 경로 찾기
