@@ -236,7 +236,22 @@ body.en [data-en]{display:revert;}
     </div>
   </div>
 
-  <div style="margin-top:24px;">
+  <!-- COMING SOON PRODUCT BANNER -->
+  <div style="margin-top:24px;padding:24px 28px;background:linear-gradient(135deg,rgba(224,74,28,.08) 0%,rgba(124,58,237,.08) 100%);border:1px solid rgba(224,74,28,.2);border-radius:16px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div style="font-size:32px;">🧩</div>
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span style="font-size:15px;font-weight:800;"><span data-ko>실전 문제집 + 해설집</span><span data-en>Practice Set + Solution Guide</span></span>
+          <span style="font-size:10px;font-family:'JetBrains Mono',monospace;background:rgba(224,74,28,.12);color:var(--accent);border:1px solid rgba(224,74,28,.25);border-radius:20px;padding:2px 10px;letter-spacing:.06em;">COMING SOON</span>
+        </div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.6;"><span data-ko>16챕터 80문제 · 단계별 해설 · Swift 코딩 테스트 완전 정복</span><span data-en>16 chapters · 80 problems · step-by-step solutions</span></div>
+      </div>
+    </div>
+    <button onclick="alert('곧 출시 예정입니다!\n뉴스레터를 구독하시면 출시 알림을 받을 수 있어요 🎉')" style="flex-shrink:0;padding:10px 22px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;"><span data-ko>🔔 출시 알림 받기</span><span data-en>🔔 Notify Me</span></button>
+  </div>
+
+  <div style="margin-top:16px;">
     <div class="dl-banner">
       <div class="dl-banner-info">
         <div class="dl-banner-icon">📦</div>
@@ -540,6 +555,17 @@ a.<span class="fn">withUnsafeBufferPointer</span> { ptr <span class="kw">in</spa
   </div>
 
   <div class="section">
+    <div class="sec-label complexity"><span data-ko>복잡도</span><span data-en>COMPLEXITY</span></div>
+    <h3 class="ch-h3" data-ko>복잡도</h3><h3 class="ch-h3" data-en>Complexity</h3>
+<div class="cx-wrap"><table class="cx-table"><thead><tr><th>연산</th><th>시간</th><th>비고</th></tr></thead><tbody>
+<tr><td>pushFront / pushBack</td><td>O(1)</td><td>링 버퍼 기반</td></tr>
+<tr><td>popFront / popBack</td><td>O(1)</td><td>링 버퍼 기반</td></tr>
+<tr><td>peekFront / peekBack</td><td>O(1)</td><td></td></tr>
+<tr><td>isEmpty</td><td>O(1)</td><td></td></tr>
+<tr><td>공간</td><td>O(n)</td><td>용량 초과 시 2배 확장</td></tr>
+</tbody></table></div>
+  </div>
+  <div class="section">
     <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-ds4">
       <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>링 버퍼의 head/tail 인덱스 계산 (나머지 연산)을 이해했다</span><span data-en>Understood the head/tail index calculation (modulo arithmetic) in a ring buffer</span></span></div>
@@ -587,6 +613,17 @@ a.<span class="fn">withUnsafeBufferPointer</span> { ptr <span class="kw">in</spa
     }
     <span class="kw">return</span> result
 }</pre>
+  </div>
+  <div class="section">
+    <div class="sec-label complexity"><span data-ko>복잡도</span><span data-en>COMPLEXITY</span></div>
+    <h3 class="ch-h3" data-ko>복잡도</h3><h3 class="ch-h3" data-en>Complexity</h3>
+<div class="cx-wrap"><table class="cx-table"><thead><tr><th>연산</th><th>평균 (균형)</th><th>최악 (편향)</th></tr></thead><tbody>
+<tr><td>탐색 (Search)</td><td>O(log n)</td><td>O(n)</td></tr>
+<tr><td>삽입 (Insert)</td><td>O(log n)</td><td>O(n)</td></tr>
+<tr><td>삭제 (Delete)</td><td>O(log n)</td><td>O(n)</td></tr>
+<tr><td>순회 (Traversal)</td><td>O(n)</td><td>O(n)</td></tr>
+<tr><td>공간</td><td>O(n)</td><td>O(n)</td></tr>
+</tbody></table></div>
   </div>
   <div class="section">
     <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
@@ -767,6 +804,16 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 }</pre>
   </div>
   <div class="section">
+    <div class="sec-label complexity"><span data-ko>복잡도</span><span data-en>COMPLEXITY</span></div>
+    <h3 class="ch-h3" data-ko>복잡도</h3><h3 class="ch-h3" data-en>Complexity</h3>
+<div class="cx-wrap"><table class="cx-table"><thead><tr><th>연산</th><th>인접 리스트</th><th>인접 행렬</th></tr></thead><tbody>
+<tr><td>간선 추가</td><td>O(1)</td><td>O(1)</td></tr>
+<tr><td>간선 탐색</td><td>O(degree)</td><td>O(1)</td></tr>
+<tr><td>BFS / DFS</td><td>O(V + E)</td><td>O(V²)</td></tr>
+<tr><td>공간</td><td>O(V + E)</td><td>O(V²)</td></tr>
+</tbody></table></div>
+  </div>
+  <div class="section">
     <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-ds8">
       <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>BFS로 최단 경로(홉 수)를 구했다</span><span data-en>Found shortest path (hop count) with BFS</span></span></div>
@@ -870,6 +917,17 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
         <span class="kw">for</span> (ch, child) <span class="kw">in</span> node.children { <span class="fn">dfs</span>(child, current + <span class="tp">String</span>(ch), &amp;out) }
     }
 }</pre>
+  </div>
+  <div class="section">
+    <div class="sec-label complexity"><span data-ko>복잡도</span><span data-en>COMPLEXITY</span></div>
+    <h3 class="ch-h3" data-ko>복잡도</h3><h3 class="ch-h3" data-en>Complexity</h3>
+<div class="cx-wrap"><table class="cx-table"><thead><tr><th>연산</th><th>시간</th><th>비고</th></tr></thead><tbody>
+<tr><td>insert</td><td>O(m)</td><td>m = 단어 길이</td></tr>
+<tr><td>search</td><td>O(m)</td><td></td></tr>
+<tr><td>startsWith</td><td>O(m)</td><td></td></tr>
+<tr><td>autocomplete</td><td>O(m + k)</td><td>k = 결과 수</td></tr>
+<tr><td>공간</td><td>O(ALPHA × m × n)</td><td>n = 단어 수</td></tr>
+</tbody></table></div>
   </div>
   <div class="section">
     <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
@@ -1105,6 +1163,16 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 }</pre>
   </div>
   <div class="section">
+    <div class="sec-label complexity"><span data-ko>복잡도</span><span data-en>COMPLEXITY</span></div>
+    <h3 class="ch-h3" data-ko>복잡도</h3><h3 class="ch-h3" data-en>Complexity</h3>
+<div class="cx-wrap"><table class="cx-table"><thead><tr><th>연산</th><th>시간</th><th>비고</th></tr></thead><tbody>
+<tr><td>find</td><td>O(α(n)) ≈ O(1)</td><td>경로 압축 적용 시</td></tr>
+<tr><td>union</td><td>O(α(n)) ≈ O(1)</td><td>랭크 기반 합치기</td></tr>
+<tr><td>connected?</td><td>O(α(n)) ≈ O(1)</td><td></td></tr>
+<tr><td>공간</td><td>O(n)</td><td>parent + rank 배열</td></tr>
+</tbody></table></div>
+  </div>
+  <div class="section">
     <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-adv4">
       <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Path Compression + Union by Rank를 구현했다</span><span data-en>Implemented find with Path Compression and union with Union by Rank</span></span></div>
@@ -1188,6 +1256,46 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
     </table>
   </div>
   <div class="section">
+    <div class="sec-label sim"><span data-ko>시뮬레이션</span><span data-en>SIMULATION</span></div>
+    <h3 class="ch-h3" data-ko>시뮬레이션</h3><h3 class="ch-h3" data-en>Simulation</h3>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
+  <div style="display:flex;gap:8px;align-items:flex-end;height:120px;margin-bottom:16px;" id="sort-bars"></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+    <button onclick="sortStep()" style="padding:7px 16px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">▶ 다음 단계</button>
+    <button onclick="sortReset()" style="padding:7px 16px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:13px;">↺ 리셋</button>
+    <span id="sort-info" style="font-size:12px;color:var(--text2);font-family:'JetBrains Mono',monospace;"></span>
+  </div>
+</div>
+<script>
+(function(){
+  var _arr=[64,34,25,12,22,11,90], _i=0, _j=0, _done=false;
+  function draw(hi,hj){
+    var c=document.getElementById('sort-bars'); if(!c)return;
+    var mx=Math.max.apply(null,_arr);
+    c.innerHTML=_arr.map(function(v,idx){
+      var col=idx===hi?'var(--accent)':idx===hj?'#f59e0b':'var(--accent2)';
+      return '<div style="flex:1;background:'+col+';border-radius:6px 6px 0 0;height:'+Math.round(v/mx*100)+'%;display:flex;align-items:flex-start;justify-content:center;padding-top:4px;"><span style="font-size:10px;font-family:monospace;color:#fff;font-weight:700;">'+v+'</span></div>';
+    }).join('');
+  }
+  window.sortStep=function(){
+    if(_done){document.getElementById('sort-info').textContent='✅ 정렬 완료!';return;}
+    var n=_arr.length;
+    if(_j<n-_i-1){
+      document.getElementById('sort-info').textContent='비교: arr['+_j+']='+_arr[_j]+' vs arr['+(_j+1)+']='+_arr[_j+1];
+      if(_arr[_j]>_arr[_j+1]){var t=_arr[_j];_arr[_j]=_arr[_j+1];_arr[_j+1]=t;document.getElementById('sort-info').textContent+=' → 교환!';}
+      draw(_j,_j+1); _j++;
+    } else {
+      _j=0; _i++;
+      if(_i>=n-1){_done=true;draw(-1,-1);document.getElementById('sort-info').textContent='✅ 정렬 완료!';}
+      else{document.getElementById('sort-info').textContent='패스 '+_i+' 완료. 다음 패스 시작';}
+    }
+  };
+  window.sortReset=function(){_arr=[64,34,25,12,22,11,90];_i=0;_j=0;_done=false;draw(-1,-1);document.getElementById('sort-info').textContent='';};
+  draw(-1,-1);
+})();
+</script>
+  </div>
+  <div class="section">
     <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-alg1">
       <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>Quick Sort pivot 전략 3가지를 알고 있다 (first/random/median-of-3)</span><span data-en>Know 3 pivot strategies for Quick Sort (first / random / median-of-3)</span></span></div>
@@ -1247,6 +1355,47 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
     }
     <span class="kw">return</span> lo
 }</pre>
+  </div>
+  <div class="section">
+    <div class="sec-label sim"><span data-ko>시뮬레이션</span><span data-en>SIMULATION</span></div>
+    <h3 class="ch-h3" data-ko>시뮬레이션</h3><h3 class="ch-h3" data-en>Simulation</h3>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
+  <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;" id="bs-cells"></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px;">
+    <span style="font-size:13px;color:var(--text2);">target:</span>
+    <input id="bs-target" type="number" value="37" style="width:60px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;background:var(--surface2);color:var(--text);font-size:13px;">
+    <button onclick="bsStep()" style="padding:7px 16px;background:var(--accent2);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">▶ 다음 단계</button>
+    <button onclick="bsReset()" style="padding:7px 14px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:13px;">↺ 리셋</button>
+  </div>
+  <div id="bs-info" style="font-size:12px;color:var(--text2);font-family:'JetBrains Mono',monospace;min-height:20px;"></div>
+</div>
+<script>
+(function(){
+  var _data=[2,5,8,12,16,23,37,44,51,62,78,90];
+  var _lo=0,_hi=_data.length-1,_done=false,_target=37;
+  function draw(lo,hi,mid){
+    var c=document.getElementById('bs-cells');if(!c)return;
+    c.innerHTML=_data.map(function(v,i){
+      var bg=i===mid?'var(--accent)':(i>=lo&&i<=hi?'var(--accent2)':'var(--surface2)');
+      var col=i===mid||((i>=lo&&i<=hi))? '#fff':'var(--text3)';
+      return '<div style="min-width:32px;padding:6px 4px;background:'+bg+';color:'+col+';border-radius:6px;text-align:center;font-size:12px;font-family:monospace;font-weight:600;border:1px solid var(--border);">'+v+'</div>';
+    }).join('');
+  }
+  window.bsStep=function(){
+    _target=parseInt(document.getElementById('bs-target').value)||37;
+    var info=document.getElementById('bs-info');
+    if(_done){info.textContent='새로 탐색하려면 리셋하세요';return;}
+    if(_lo>_hi){info.textContent='❌ '+_target+' 없음 (범위 소진)';_done=true;draw(-1,-1,-1);return;}
+    var mid=Math.floor((_lo+_hi)/2);
+    draw(_lo,_hi,mid);
+    if(_data[mid]===_target){info.textContent='✅ 찾음! index='+mid+', value='+_data[mid];_done=true;}
+    else if(_data[mid]<_target){info.textContent='mid='+mid+'('+_data[mid]+') < '+_target+' → 오른쪽 탐색';_lo=mid+1;}
+    else{info.textContent='mid='+mid+'('+_data[mid]+') > '+_target+' → 왼쪽 탐색';_hi=mid-1;}
+  };
+  window.bsReset=function(){_lo=0;_hi=_data.length-1;_done=false;draw(_lo,_hi,-1);document.getElementById('bs-info').textContent='';};
+  draw(_lo,_hi,-1);
+})();
+</script>
   </div>
   <div class="section">
     <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
@@ -1309,6 +1458,45 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
 }</pre>
   </div>
   <div class="section">
+    <div class="sec-label sim"><span data-ko>시뮬레이션</span><span data-en>SIMULATION</span></div>
+    <h3 class="ch-h3" data-ko>시뮬레이션</h3><h3 class="ch-h3" data-en>Simulation</h3>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
+  <div style="font-size:12px;color:var(--text2);margin-bottom:10px;">동전: [1, 3, 5] · target amount: <strong id="dp-amount">7</strong></div>
+  <div style="overflow-x:auto;margin-bottom:14px;"><div id="dp-table" style="display:flex;gap:6px;flex-wrap:nowrap;"></div></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+    <button onclick="dpStep()" style="padding:7px 16px;background:var(--accent4);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">▶ 다음 단계</button>
+    <button onclick="dpReset()" style="padding:7px 14px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:13px;">↺ 리셋</button>
+    <span id="dp-info" style="font-size:12px;color:var(--text2);font-family:'JetBrains Mono',monospace;"></span>
+  </div>
+</div>
+<script>
+(function(){
+  var coins=[1,3,5],amt=7,dp,cur;
+  function init(){dp=Array(amt+1).fill(amt+1);dp[0]=0;cur=1;}
+  function draw(highlight){
+    var c=document.getElementById('dp-table');if(!c)return;
+    c.innerHTML=dp.map(function(v,i){
+      var bg=i===highlight?'var(--accent4)':(v<=amt?'var(--accent2)':'var(--surface2)');
+      var col=i===highlight||(v<=amt)?'#fff':'var(--text3)';
+      var disp=v>amt?'∞':v;
+      return '<div style="text-align:center;"><div style="font-size:10px;color:var(--text3);margin-bottom:2px;">'+i+'</div><div style="min-width:36px;padding:8px 4px;background:'+bg+';color:'+col+';border-radius:8px;font-size:13px;font-family:monospace;font-weight:700;border:1px solid var(--border);">'+disp+'</div></div>';
+    }).join('');
+  }
+  window.dpStep=function(){
+    var info=document.getElementById('dp-info');
+    if(cur>amt){info.textContent='✅ 완료! dp['+amt+']='+dp[amt]+'개';draw(-1);return;}
+    for(var k=0;k<coins.length;k++){
+      if(coins[k]<=cur&&dp[cur-coins[k]]+1<dp[cur]){dp[cur]=dp[cur-coins[k]]+1;}
+    }
+    info.textContent='dp['+cur+'] = '+(dp[cur]>amt?'∞':dp[cur]);
+    draw(cur); cur++;
+  };
+  window.dpReset=function(){init();draw(-1);document.getElementById('dp-info').textContent='';};
+  init();draw(-1);
+})();
+</script>
+  </div>
+  <div class="section">
     <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
     <div class="checklist-wrap" id="cl-alg3">
       <div class="checklist-row" onclick="toggle(this)"><div class="cl-box"></div><span class="cl-text"><span data-ko>피보나치를 재귀→Memoization→Tabulation 3가지로 구현했다</span><span data-en>Implemented Fibonacci 3 ways: recursion → Memoization → Tabulation</span></span></div>
@@ -1358,6 +1546,49 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
     }
     <span class="kw">return</span> total
 }</pre>
+  </div>
+  <div class="section">
+    <div class="sec-label sim"><span data-ko>시뮬레이션</span><span data-en>SIMULATION</span></div>
+    <h3 class="ch-h3" data-ko>시뮬레이션</h3><h3 class="ch-h3" data-en>Simulation</h3>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
+  <div style="font-size:12px;color:var(--text2);margin-bottom:12px;">회의실 배정 — 끝 시간 기준 Greedy 선택</div>
+  <div id="greedy-vis" style="position:relative;height:160px;background:var(--surface2);border-radius:8px;overflow:hidden;margin-bottom:14px;"></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+    <button onclick="greedyStep()" style="padding:7px 16px;background:var(--accent3);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">▶ 다음 선택</button>
+    <button onclick="greedyReset()" style="padding:7px 14px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:13px;">↺ 리셋</button>
+    <span id="greedy-info" style="font-size:12px;color:var(--text2);font-family:'JetBrains Mono',monospace;"></span>
+  </div>
+</div>
+<script>
+(function(){
+  var acts=[{s:1,e:4,n:'A'},{s:3,e:5,n:'B'},{s:0,e:6,n:'C'},{s:5,e:7,n:'D'},{s:3,e:9,n:'E'},{s:6,e:10,n:'F'},{s:8,e:11,n:'G'},{s:8,e:12,n:'H'},{s:2,e:14,n:'I'}];
+  var sorted,chosen,lastEnd,idx;
+  function init(){sorted=[...acts].sort(function(a,b){return a.e-b.e;});chosen=[];lastEnd=-1;idx=0;}
+  function draw(){
+    var c=document.getElementById('greedy-vis');if(!c)return;
+    var total=14,h=160,rowH=16,gap=2;
+    c.innerHTML=sorted.map(function(a,i){
+      var isChosen=chosen.indexOf(a)>=0;
+      var isCur=i===idx;
+      var left=(a.s/total*100)+'%';
+      var width=((a.e-a.s)/total*100)+'%';
+      var top=(i*(rowH+gap)+4)+'px';
+      var bg=isChosen?'var(--accent3)':isCur?'var(--accent)':'rgba(100,116,139,.25)';
+      return '<div style="position:absolute;left:'+left+';width:'+width+';top:'+top+';height:'+rowH+'px;background:'+bg+';border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:700;transition:background .3s;">'+a.n+'</div>';
+    }).join('');
+  }
+  window.greedyStep=function(){
+    var info=document.getElementById('greedy-info');
+    if(idx>=sorted.length){info.textContent='✅ 완료! 선택된 회의: '+chosen.map(function(a){return a.n;}).join(', ');return;}
+    var a=sorted[idx];
+    if(a.s>=lastEnd){chosen.push(a);lastEnd=a.e;info.textContent='✅ '+a.n+' 선택 ('+a.s+'~'+a.e+')';}
+    else{info.textContent='❌ '+a.n+' 건너뜀 (겹침: lastEnd='+lastEnd+')';}
+    idx++;draw();
+  };
+  window.greedyReset=function(){init();draw();document.getElementById('greedy-info').textContent='';};
+  init();draw();
+})();
+</script>
   </div>
   <div class="section">
     <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
@@ -1411,6 +1642,70 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
     }
     <span class="fn">bt</span>(<span class="num">1</span>); <span class="kw">return</span> result
 }</pre>
+  </div>
+  <div class="section">
+    <div class="sec-label sim"><span data-ko>시뮬레이션</span><span data-en>SIMULATION</span></div>
+    <h3 class="ch-h3" data-ko>시뮬레이션</h3><h3 class="ch-h3" data-en>Simulation</h3>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
+  <div style="font-size:12px;color:var(--text2);margin-bottom:12px;">4-Queens — 행마다 퀸을 놓고 충돌하면 Backtrack</div>
+  <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;">
+    <div id="queens-board" style="display:grid;grid-template-columns:repeat(4,48px);gap:2px;"></div>
+    <div>
+      <div id="queens-log" style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--text2);max-height:120px;overflow-y:auto;line-height:1.8;width:200px;"></div>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:14px;">
+    <button onclick="queensStep()" style="padding:7px 16px;background:#7c3aed;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">▶ 다음 단계</button>
+    <button onclick="queensReset()" style="padding:7px 14px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:13px;">↺ 리셋</button>
+    <span id="queens-info" style="font-size:12px;color:var(--text2);font-family:'JetBrains Mono',monospace;"></span>
+  </div>
+</div>
+<script>
+(function(){
+  var N=4,board,steps,stepIdx;
+  function isSafe(b,row,col){
+    for(var i=0;i<row;i++){
+      if(b[i]===col||Math.abs(b[i]-col)===row-i)return false;
+    }
+    return true;
+  }
+  function solve(b,row,log){
+    if(row===N){log.push({board:[...b],msg:'✅ 해 발견! '+JSON.stringify(b)});return;}
+    for(var col=0;col<N;col++){
+      if(isSafe(b,row,col)){
+        b[row]=col;log.push({board:[...b],msg:'행'+row+' 열'+col+' 배치'});
+        solve(b,row+1,log);
+        if(log[log.length-1].msg.startsWith('✅'))return;
+        b[row]=-1;log.push({board:[...b],msg:'행'+row+' 백트랙'});
+      }
+    }
+  }
+  function init(){board=Array(N).fill(-1);steps=[];stepIdx=0;solve([...board],0,steps);}
+  function draw(b,highlight){
+    var c=document.getElementById('queens-board');if(!c)return;
+    var cells='';
+    for(var r=0;r<N;r++){for(var col=0;col<N;col++){
+      var isQ=b[r]===col&&b[r]>=0;
+      var bg=(r+col)%2===0?'#e2e8f0':'#94a3b8';
+      var style='width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-size:22px;background:'+bg+';border-radius:4px;';
+      cells+='<div style="'+style+'">'+(isQ?'♛':'')+'</div>';
+    }}
+    c.innerHTML=cells;
+  }
+  window.queensStep=function(){
+    var info=document.getElementById('queens-info');
+    var log=document.getElementById('queens-log');
+    if(stepIdx>=steps.length){info.textContent='완료';return;}
+    var s=steps[stepIdx++];
+    draw(s.board,-1);
+    info.textContent=s.msg;
+    log.innerHTML+='<div>'+s.msg+'</div>';
+    log.scrollTop=log.scrollHeight;
+  };
+  window.queensReset=function(){init();draw(Array(N).fill(-1),-1);document.getElementById('queens-info').textContent='';document.getElementById('queens-log').innerHTML='';stepIdx=0;};
+  init();draw(Array(N).fill(-1),-1);
+})();
+</script>
   </div>
   <div class="section">
     <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
@@ -1478,6 +1773,72 @@ graph[<span class="num">0</span>].<span class="fn">append</span>(<span class="nu
       <tr><td>Bellman-Ford</td><td class="ok">O(VE)</td><td>✓</td><td>감지 ✓</td><td>단일 출발</td></tr>
       <tr><td>Floyd-Warshall</td><td class="b">O(V³)</td><td>✓</td><td>감지 ✓</td><td>모든 쌍</td></tr>
     </table>
+  </div>
+  <div class="section">
+    <div class="sec-label sim"><span data-ko>시뮬레이션</span><span data-en>SIMULATION</span></div>
+    <h3 class="ch-h3" data-ko>시뮬레이션</h3><h3 class="ch-h3" data-en>Simulation</h3>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
+  <div style="font-size:12px;color:var(--text2);margin-bottom:12px;">Dijkstra — 노드 0에서 출발, 최단 거리 탐색</div>
+  <svg id="dijk-svg" width="100%" viewBox="0 0 320 180" style="max-width:360px;display:block;margin-bottom:14px;"></svg>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+    <button onclick="dijkStep()" style="padding:7px 16px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">▶ 다음 단계</button>
+    <button onclick="dijkReset()" style="padding:7px 14px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:13px;">↺ 리셋</button>
+    <span id="dijk-info" style="font-size:12px;color:var(--text2);font-family:'JetBrains Mono',monospace;"></span>
+  </div>
+</div>
+<script>
+(function(){
+  var nodes=[{x:40,y:90,l:'0'},{x:130,y:30,l:'1'},{x:130,y:150,l:'2'},{x:230,y:30,l:'3'},{x:230,y:150,l:'4'},{x:290,y:90,l:'5'}];
+  var edges=[[0,1,4],[0,2,2],[1,2,1],[1,3,5],[2,4,8],[3,4,2],[3,5,6],[4,5,3]];
+  var dist,visited,heap,steps,stepIdx;
+  function init(){
+    var n=nodes.length;
+    dist=Array(n).fill(Infinity);dist[0]=0;
+    visited=Array(n).fill(false);
+    heap=[[0,0]];steps=[];stepIdx=0;
+    while(heap.length){
+      heap.sort(function(a,b){return a[0]-b[0];});
+      var top=heap.shift(),d=top[0],u=top[1];
+      if(visited[u])continue;
+      visited[u]=true;
+      steps.push({visited:[...visited],dist:[...dist],cur:u});
+      edges.forEach(function(e){
+        var a=e[0],b=e[1],w=e[2];
+        var nb=-1;
+        if(a===u)nb=b; else if(b===u)nb=a;
+        if(nb>=0&&!visited[nb]&&d+w<dist[nb]){dist[nb]=d+w;heap.push([dist[nb],nb]);}
+      });
+    }
+    dist=Array(nodes.length).fill(Infinity);dist[0]=0;
+    visited=Array(nodes.length).fill(false);
+    stepIdx=0;
+  }
+  function draw(vis,di,cur){
+    var svg=document.getElementById('dijk-svg');if(!svg)return;
+    var edgeSvg=edges.map(function(e){
+      var a=nodes[e[0]],b=nodes[e[1]];
+      return '<line x1="'+a.x+'" y1="'+a.y+'" x2="'+b.x+'" y2="'+b.y+'" stroke="var(--border)" stroke-width="2"/><text x="'+(a.x+b.x)/2+'" y="'+(a.y+b.y)/2-4+'" fill="var(--text3)" font-size="10" text-anchor="middle">'+e[2]+'</text>';
+    }).join('');
+    var nodeSvg=nodes.map(function(n,i){
+      var fill=i===cur?'var(--accent)':vis[i]?'var(--accent3)':'var(--surface2)';
+      var stroke=i===cur?'var(--accent)':'var(--border)';
+      var tc=i===cur||vis[i]?'#fff':'var(--text)';
+      var dv=di[i]===Infinity?'∞':di[i];
+      return '<circle cx="'+n.x+'" cy="'+n.y+'" r="20" fill="'+fill+'" stroke="'+stroke+'" stroke-width="2"/><text x="'+n.x+'" y="'+(n.y+4)+'" fill="'+tc+'" font-size="12" font-weight="700" text-anchor="middle">'+n.l+'</text><text x="'+n.x+'" y="'+(n.y-26)+'" fill="var(--accent)" font-size="11" font-weight="700" text-anchor="middle">'+dv+'</text>';
+    }).join('');
+    svg.innerHTML=edgeSvg+nodeSvg;
+  }
+  window.dijkStep=function(){
+    var info=document.getElementById('dijk-info');
+    if(stepIdx>=steps.length){info.textContent='✅ 모든 노드 처리 완료';return;}
+    var s=steps[stepIdx++];
+    draw(s.visited,s.dist,s.cur);
+    info.textContent='노드 '+s.cur+' 확정 dist='+s.dist[s.cur];
+  };
+  window.dijkReset=function(){init();draw(Array(nodes.length).fill(false),Array(nodes.length).fill(Infinity).map(function(v,i){return i===0?0:v;}),-1);document.getElementById('dijk-info').textContent='';};
+  init();draw(Array(nodes.length).fill(false),Array(nodes.length).fill(Infinity).map(function(v,i){return i===0?0:v;}),-1);
+})();
+</script>
   </div>
   <div class="section">
     <div class="sec-label checklist"><span data-ko>완료 체크리스트</span><span data-en>CHECKLIST</span></div>
