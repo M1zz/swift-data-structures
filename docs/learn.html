@@ -26,6 +26,11 @@ body{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif;
 .progress-bar{height:3px;background:var(--surface2);margin:0 16px 12px;border-radius:99px;overflow:hidden;}
 .progress-fill{height:100%;background:var(--accent);border-radius:99px;transition:width .4s;}
 .progress-label{font-size:10px;color:var(--text3);padding:0 16px 8px;font-family:'JetBrains Mono',monospace;}
+.part-tabs{display:flex;gap:6px;padding:0 12px 10px;}
+.part-tab{flex:1;padding:7px 4px;border:1px solid var(--border);border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;text-align:center;background:var(--surface2);color:var(--text2);transition:all .15s;}
+.part-tab:hover{border-color:var(--accent);color:var(--accent);}
+.part-tab.ds{}.part-tab.alg{}.part-tab.ds.on{background:rgba(224,74,28,.1);border-color:rgba(224,74,28,.4);color:var(--accent);}
+.part-tab.alg.on{background:rgba(37,99,235,.1);border-color:rgba(37,99,235,.4);color:var(--accent2);}
 .sidebar-part{font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;padding:10px 20px 4px;}
 .sidebar-item{display:flex;align-items:center;gap:10px;padding:7px 16px;cursor:pointer;border-radius:8px;margin:1px 8px;transition:background .12s;}
 .sidebar-item:hover{background:var(--surface2);}
@@ -173,6 +178,11 @@ body.en [data-en]{display:revert;}
   </div>
   <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
   <div class="progress-label" id="prog-label"><span data-ko>0 / 20 완료</span><span data-en>0 / 20 done</span></div>
+
+  <div class="part-tabs">
+    <button class="part-tab ds" onclick="jumpPart('ds')"><span data-ko>📦 자료구조</span><span data-en>📦 DS</span></button>
+    <button class="part-tab alg" onclick="jumpPart('alg')"><span data-ko>⚙️ 알고리즘</span><span data-en>⚙️ Alg</span></button>
+  </div>
 
   <div class="sidebar-part"><span data-ko>시작</span><span data-en>START</span></div>
   <div class="sidebar-item active" onclick="show('home')"><span class="si-num"><span data-ko>홈</span><span data-en>Home</span></span><span class="si-name"><span data-ko>커리큘럼 개요</span><span data-en>Curriculum Overview</span></span><span class="si-check">✓</span></div>
@@ -1954,6 +1964,18 @@ function updateProgress() {
 }
 
 // FAB
+function jumpPart(part) {
+  // 탭 활성화
+  document.querySelectorAll('.part-tab').forEach(function(t){ t.classList.remove('on'); });
+  document.querySelector('.part-tab.'+part).classList.add('on');
+  // 해당 파트 첫 챕터로 이동
+  var target = part === 'ds' ? 'ds1' : 'alg1';
+  show(target);
+  // 사이드바에서 해당 섹션 헤더가 보이도록 스크롤
+  var navEl = document.getElementById('nav-' + target);
+  if (navEl) navEl.scrollIntoView({ block: 'center', behavior: 'smooth' });
+}
+
 function toggleFab() {
   document.getElementById('fab-popup').classList.toggle('open');
 }
