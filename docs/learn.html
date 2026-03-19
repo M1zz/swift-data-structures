@@ -186,6 +186,7 @@ body.en [data-en]{display:revert;}
 
   <div class="sidebar-part"><span data-ko>시작</span><span data-en>START</span></div>
   <div class="sidebar-item active" onclick="show('home')"><span class="si-num"><span data-ko>홈</span><span data-en>Home</span></span><span class="si-name"><span data-ko>커리큘럼 개요</span><span data-en>Curriculum Overview</span></span><span class="si-check">✓</span></div>
+  <div class="sidebar-item" id="nav-blog" onclick="show('blog')"><span class="si-num" style="color:var(--accent3);background:rgba(22,163,74,.08);border-color:rgba(22,163,74,.2);">✍️</span><span class="si-name"><span data-ko>기술 블로그 시작하기</span><span data-en>Start a Tech Blog</span></span><span class="si-check">✓</span></div>
 
   <div class="sidebar-part"><span data-ko>Part 1 · <span data-ko>기본 자료구조</span><span data-en>Basic DS</span></span><span data-en>Part 1 · Basic Data Structures</span></div>
   <div class="sidebar-item" id="nav-ds1" onclick="show('ds1')"><span class="si-num">Ch 01</span><span class="si-name">Array</span><span class="si-check">✓</span></div>
@@ -289,6 +290,141 @@ body.en [data-en]{display:revert;}
     <div style="margin-top:12px;font-size:11px;color:rgba(255,255,255,.25);"><span data-ko>Substack · 언제든지 구독 취소 가능</span><span data-en>Substack · Unsubscribe anytime</span></div>
   </div>
 
+</div>
+
+<!-- BLOG GUIDE -->
+<div class="chapter" id="blog">
+  <div class="ch-tag" style="color:var(--accent3);background:rgba(22,163,74,.08);border-color:rgba(22,163,74,.2);" data-ko>들어가기 전에</div>
+  <div class="ch-tag" style="color:var(--accent3);background:rgba(22,163,74,.08);border-color:rgba(22,163,74,.2);" data-en>Before You Start</div>
+  <h2 class="ch-title"><span data-ko>기술 블로그, 왜 시작해야 할까?</span><span data-en>Why Start a Tech Blog?</span></h2>
+  <div class="ch-sub" data-ko>공부한 내용을 기록으로 남기는 것은 단순한 메모가 아닙니다. 커리어를 바꾸는 가장 조용하고 강력한 행동입니다.</div>
+  <div class="ch-sub" data-en>Writing down what you learn isn't just note-taking — it's the quietest, most powerful career move you can make.</div>
+
+  <h3 class="ch-h3" data-ko>왜 블로그를 써야 할까?</h3>
+  <h3 class="ch-h3" data-en>Why Write a Blog?</h3>
+  <div class="concept-box">
+    <div data-ko>
+      <p style="margin-bottom:12px;">자료구조를 배우고, 알고리즘을 익히고, 코드를 짰습니다. 그런데 3개월 뒤에 기억이 날까요?</p>
+      <p style="margin-bottom:12px;"><strong>기억은 휘발됩니다.</strong> 글은 남습니다. 내가 오늘 이해한 것을 글로 남기면, 나는 그것을 <em>두 번</em> 배운 것입니다 — 한 번은 공부할 때, 한 번은 글을 쓸 때.</p>
+      <p>그리고 그 글은 미래의 누군가에게 도움이 됩니다. 그 누군가가 취업 담당자일 수도 있고, 협업할 개발자일 수도 있고, 6개월 뒤의 나 자신일 수도 있습니다.</p>
+    </div>
+    <div data-en>
+      <p style="margin-bottom:12px;">You studied data structures, learned algorithms, wrote code. Will you remember it in 3 months?</p>
+      <p style="margin-bottom:12px;"><strong>Memory fades. Writing persists.</strong> When you document what you understand today, you've learned it <em>twice</em> — once while studying, once while writing.</p>
+      <p>And that post helps someone else: a recruiter, a future teammate, or yourself six months from now.</p>
+    </div>
+  </div>
+
+  <h3 class="ch-h3" data-ko>기록하면 뭐가 달라질까?</h3>
+  <h3 class="ch-h3" data-en>What Actually Changes?</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;">
+      <div style="font-size:20px;margin-bottom:8px;">🧠</div>
+      <div style="font-weight:700;margin-bottom:6px;" data-ko>학습 효율 2배</div>
+      <div style="font-weight:700;margin-bottom:6px;" data-en>2× Learning Efficiency</div>
+      <div style="font-size:13px;color:var(--text2);" data-ko>글로 설명할 수 없으면 아직 모르는 것입니다. 쓰면서 빈틈이 보입니다.</div>
+      <div style="font-size:13px;color:var(--text2);" data-en>If you can't explain it in writing, you don't fully understand it yet. Writing reveals the gaps.</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;">
+      <div style="font-size:20px;margin-bottom:8px;">💼</div>
+      <div style="font-weight:700;margin-bottom:6px;" data-ko>살아있는 포트폴리오</div>
+      <div style="font-weight:700;margin-bottom:6px;" data-en>Living Portfolio</div>
+      <div style="font-size:13px;color:var(--text2);" data-ko>이력서에 "공부했습니다"보다 블로그 링크 하나가 훨씬 강력합니다.</div>
+      <div style="font-size:13px;color:var(--text2);" data-en>A blog link beats "I studied X" on a résumé every single time.</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;">
+      <div style="font-size:20px;margin-bottom:8px;">🔍</div>
+      <div style="font-weight:700;margin-bottom:6px;" data-ko>나만의 검색 엔진</div>
+      <div style="font-weight:700;margin-bottom:6px;" data-en>Your Personal Search Engine</div>
+      <div style="font-size:13px;color:var(--text2);" data-ko>6개월 뒤 같은 문제를 만났을 때, 내 블로그가 가장 빠른 답입니다.</div>
+      <div style="font-size:13px;color:var(--text2);" data-en>Six months later, when you hit the same problem, your own post is the fastest answer.</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;">
+      <div style="font-size:20px;margin-bottom:8px;">🌐</div>
+      <div style="font-weight:700;margin-bottom:6px;" data-ko>개발자 브랜딩</div>
+      <div style="font-weight:700;margin-bottom:6px;" data-en>Developer Branding</div>
+      <div style="font-size:13px;color:var(--text2);" data-ko>꾸준히 쌓인 글은 "이 사람 어떤 개발자야?"에 대한 가장 정직한 답입니다.</div>
+      <div style="font-size:13px;color:var(--text2);" data-en>Consistent writing is the most honest answer to "what kind of developer are you?"</div>
+    </div>
+  </div>
+
+  <h3 class="ch-h3" data-ko>어떻게 시작할까? — 플랫폼 선택</h3>
+  <h3 class="ch-h3" data-en>How to Start — Choosing a Platform</h3>
+  <div class="think-box" data-ko>💡 완벽한 플랫폼은 없습니다. <strong>지금 당장 쓸 수 있는 곳</strong>이 최고의 플랫폼입니다. 첫 글을 쓰는 게 먼저입니다.</div>
+  <div class="think-box" data-en>💡 There's no perfect platform. <strong>The best platform is the one you'll actually write on today.</strong> Getting that first post out is what matters.</div>
+
+  <!-- 플랫폼 비교 테이블 -->
+  <div class="cx-wrap">
+    <table class="cx-table">
+      <thead>
+        <tr>
+          <th data-ko>플랫폼</th><th data-en>Platform</th>
+          <th data-ko>추천 대상</th><th data-en>Best For</th>
+          <th data-ko>장점</th><th data-en>Pros</th>
+          <th data-ko>단점</th><th data-en>Cons</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Velog</strong></td>
+          <td data-ko>국내 개발자 입문</td><td data-en>Korean dev beginners</td>
+          <td data-ko>마크다운 지원 · 개발자 커뮤니티 · 무료</td><td data-en>Markdown · dev community · free</td>
+          <td data-ko>영어권 노출 없음</td><td data-en>Limited global reach</td>
+        </tr>
+        <tr>
+          <td><strong>Tistory</strong></td>
+          <td data-ko>SEO 중요한 분</td><td data-en>SEO-focused writers</td>
+          <td data-ko>Google SEO 강함 · 광고 수익화 가능</td><td data-en>Strong Google SEO · ad monetization</td>
+          <td data-ko>UI 커스터마이징 학습 필요</td><td data-en>UI customization learning curve</td>
+        </tr>
+        <tr>
+          <td><strong>GitHub Pages</strong></td>
+          <td data-ko>개발 경험 쌓고 싶은 분</td><td data-en>Devs wanting hands-on exp</td>
+          <td data-ko>완전 커스터마이징 · 포트폴리오 그 자체</td><td data-en>Full customization · portfolio itself</td>
+          <td data-ko>초기 세팅 시간 필요</td><td data-en>Initial setup time needed</td>
+        </tr>
+        <tr>
+          <td><strong>Substack</strong></td>
+          <td data-ko>뉴스레터 + 수익화</td><td data-en>Newsletter + monetization</td>
+          <td data-ko>구독자 관리 · 유료 구독 모델 · 간단한 시작</td><td data-en>Subscriber mgmt · paid subs · easy start</td>
+          <td data-ko>기술 블로그보다 뉴스레터 성격 강함</td><td data-en>More newsletter than dev blog</td>
+        </tr>
+        <tr>
+          <td><strong>Medium</strong></td>
+          <td data-ko>영어권 독자 목표</td><td data-en>Targeting global readers</td>
+          <td data-ko>영어권 유입 · Partner Program 수익</td><td data-en>Global reach · Partner Program revenue</td>
+          <td data-ko>페이월로 독자 이탈 가능</td><td data-en>Paywall can reduce readership</td>
+        </tr>
+        <tr>
+          <td><strong>Notion</strong></td>
+          <td data-ko>가장 빠른 시작</td><td data-en>Fastest to start</td>
+          <td data-ko>이미 익숙한 도구 · 즉시 시작 가능</td><td data-en>Familiar tool · instant start</td>
+          <td data-ko>SEO 거의 없음</td><td data-en>Almost no SEO</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="ch-h3" data-ko>추천 시작 순서</h3>
+  <h3 class="ch-h3" data-en>Recommended Steps</h3>
+  <div class="keypoint-list">
+    <ul class="kp-ul">
+      <li data-ko><strong>Step 1.</strong> 플랫폼 고민 3분 이상 하지 말기 — Velog나 Tistory로 오늘 바로 시작</li>
+      <li data-en><strong>Step 1.</strong> Don't spend more than 3 minutes choosing — start on Velog or Tistory today</li>
+      <li data-ko><strong>Step 2.</strong> 첫 글 주제: "내가 오늘 배운 것 하나" — Array가 뭔지 정리하는 글도 훌륭한 첫 포스팅</li>
+      <li data-en><strong>Step 2.</strong> First post topic: "One thing I learned today" — even an Array intro is a great first post</li>
+      <li data-ko><strong>Step 3.</strong> 이 커리큘럼을 공부하면서 챕터마다 글 하나씩 — 20챕터 = 20개의 포트폴리오</li>
+      <li data-en><strong>Step 3.</strong> Write one post per chapter as you go — 20 chapters = 20 portfolio pieces</li>
+      <li data-ko><strong>Step 4.</strong> 완벽하게 쓰지 않아도 됩니다. 일단 발행 먼저, 수정은 나중에</li>
+      <li data-en><strong>Step 4.</strong> It doesn't have to be perfect — publish first, refine later</li>
+    </ul>
+  </div>
+
+  <div class="checklist-wrap" id="cl-blog">
+    <div class="checklist-row" id="clr-blog-1" onclick="toggle('blog','1')"><span class="cl-box">✓</span><span class="cl-text" data-ko>블로그 플랫폼을 하나 골랐다</span><span class="cl-text" data-en>I've chosen a blogging platform</span></div>
+    <div class="checklist-row" id="clr-blog-2" onclick="toggle('blog','2')"><span class="cl-box">✓</span><span class="cl-text" data-ko>계정을 만들고 첫 글을 발행했다</span><span class="cl-text" data-en>I've created an account and published my first post</span></div>
+    <div class="checklist-row" id="clr-blog-3" onclick="toggle('blog','3')"><span class="cl-box">✓</span><span class="cl-text" data-ko>이 커리큘럼을 공부하며 글로 기록하기로 결심했다</span><span class="cl-text" data-en>I've committed to documenting my learning as I go</span></div>
+  </div>
 </div>
 
 <!-- DS1: Array -->
