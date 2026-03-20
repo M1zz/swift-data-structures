@@ -2129,6 +2129,181 @@ window.addEventListener('load', () => {
   show(SLUG_TO_ID[slug] || 'home', false);
 });
 
+// ── GA4 Enhanced Tracking ──
+(function() {
+  if (typeof gtag !== 'function') return;
+
+  const CHAPTER_NAMES = {
+    home:'홈', blog:'기술블로그',
+    ds1:'Array', ds2:'LinkedList', ds3:'Stack/Queue', ds4:'Deque', ds5:'BinaryTree',
+    ds6:'BST', ds7:'Heap', ds8:'Graph', ds9:'HashTable', ds10:'Trie',
+    adv1:'AVL Tree', adv2:'Red-Black Tree', adv3:'Segment Tree', adv4:'Union-Find',
+    alg1:'Sorting', alg2:'BinarySearch', alg3:'DP', alg4:'Greedy',
+    alg5:'Backtracking', alg6:'ShortestPath'
+  };
+  function getPart(id) {
+    if (id==='home') return 'home';
+    if (id==='blog') return 'guide';
+    if (id.startsWith('ds')) return 'data_structures';
+    if (id.startsWith('adv')) return 'advanced_ds';
+    if (id.startsWith('alg')) return 'algorithms';
+    return 'other';
+  }
+
+  // 1. 챕터 체류 시간 측정용 상태
+  let _cur = 'home', _t0 = Date.now();
+
+  // 2. show() 래핑 — 챕터 진입/이탈 추적
+  const _origShow = window.show;
+  window.show = function(id, push) {
+    const elapsed = Math.round((Date.now() - _t0) / 1000);
+    if (elapsed > 2) {
+      gtag('event', 'chapter_exit', {
+        chapter_id: _cur,
+        chapter_name: CHAPTER_NAMES[_cur] || _cur,
+        time_spent_sec: elapsed
+      });
+    }
+    _cur = id; _t0 = Date.now();
+    gtag('event', 'chapter_view', {
+      chapter_id: id,
+      chapter_name: CHAPTER_NAMES[id] || id,
+      part: getPart(id)
+    });
+    // SPA 가상 페이지뷰
+    gtag('event', 'page_view', {
+      page_title: (CHAPTER_NAMES[id] || id) + ' — Swift DS&A',
+      page_location: location.origin + location.pathname + (id !== 'home' ? '#' + id : '')
+    });
+    return _origShow(id, push);
+  };
+
+  // 3. toggle() 래핑 — 체크리스트 + 챕터 완료 추적
+  const _origToggle = window.toggle;
+  window.toggle = function(row) {
+    _origToggle(row);
+    const wrap = row.closest('.checklist-wrap');
+    const chId = wrap ? wrap.id.replace('cl-', '') : _cur;
+    const rows = wrap ? [...wrap.querySelectorAll('.checklist-row')] : [];
+    const idx = rows.indexOf(row) + 1;
+    const checked = row.classList.contains('checked');
+    const allDone = rows.length > 0 && rows.every(r => r.classList.contains('checked'));
+    gtag('event', 'checklist_toggle', {
+      chapter_id: chId,
+      chapter_name: CHAPTER_NAMES[chId] || chId,
+      item_index: idx,
+      checked
+    });
+    if (allDone) {
+      gtag('event', 'chapter_completed', {
+        chapter_id: chId,
+        chapter_name: CHAPTER_NAMES[chId] || chId,
+        part: getPart(chId)
+      });
+    }
+  };
+
+  // 4. setLang() 래핑 — 언어 변경 추적
+  const _origSetLang = window.setLang;
+  window.setLang = function(lang) {
+    gtag('event', 'language_change', { language: lang, source_chapter: _cur });
+    return (_origSetLang || function(){})(lang);
+  };
+
+  // 5. jumpPart() 래핑 — DS/ALG 퀵점프 탭 추적
+  const _origJumpPart = window.jumpPart;
+  window.jumpPart = function(part) {
+    gtag('event', 'part_jump', { part, source_chapter: _cur });
+    return _origJumpPart(part);
+  };
+
+  // 6. toggleFab() 래핑 — FAB 팝업 오픈 추적
+  const _origToggleFab = window.toggleFab;
+  window.toggleFab = function() {
+    gtag('event', 'fab_open', { source_chapter: _cur });
+    return _origToggleFab();
+  };
+
+  // 7. 클릭 이벤트 위임 — 다운로드 / 멘토링 / 유료상품 / 시뮬레이션 / 아웃바운드
+  document.addEventListener('click', e => {
+    // 다운로드 버튼
+    const dlBtn = e.target.closest('.dl-btn');
+    if (dlBtn) {
+      gtag('event', 'file_download', {
+        file_name: dlBtn.getAttribute('href') || '',
+        link_text: dlBtn.textContent.trim(),
+        source_chapter: _cur
+      });
+    }
+    // 아웃바운드 링크
+    const a = e.target.closest('a[href]');
+    if (a) {
+      const href = a.href || '';
+      if (href.includes('inf.run')) {
+        gtag('event', 'mentor_click', { source_chapter: _cur });
+      } else if (href.includes('substack.com')) {
+        gtag('event', 'substack_click', { source_chapter: _cur });
+      } else if (href.startsWith('http') && !href.includes('m1zz.github.io') && !href.includes('localhost')) {
+        gtag('event', 'outbound_link', {
+          link_url: href,
+          link_text: a.textContent.trim().slice(0, 50),
+          source_chapter: _cur
+        });
+      }
+    }
+    // 버튼 클릭 분류
+    const btn = e.target.closest('button');
+    if (btn) {
+      const txt = btn.textContent.trim();
+      if (txt.includes('▶') || txt.includes('다음')) {
+        gtag('event', 'simulation_step', {
+          chapter_id: _cur,
+          chapter_name: CHAPTER_NAMES[_cur] || _cur
+        });
+      }
+      if (txt.includes('출시 알림') || txt.includes('Notify Me')) {
+        gtag('event', 'coming_soon_click', { source_chapter: _cur });
+      }
+    }
+  });
+
+  // 8. 스크롤 깊이 추적 (25 / 50 / 75 / 100%)
+  const _scrolled = new Set();
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    if (docH <= 0) return;
+    const pct = Math.round(scrollTop / docH * 100);
+    [25, 50, 75, 100].forEach(m => {
+      const key = _cur + ':' + m;
+      if (pct >= m && !_scrolled.has(key)) {
+        _scrolled.add(key);
+        gtag('event', 'scroll_depth', {
+          chapter_id: _cur,
+          chapter_name: CHAPTER_NAMES[_cur] || _cur,
+          percent: m
+        });
+      }
+    });
+  }, { passive: true });
+
+  // 9. 페이지 이탈 — 마지막 챕터 체류 시간 전송
+  window.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+      const elapsed = Math.round((Date.now() - _t0) / 1000);
+      if (elapsed > 2) {
+        gtag('event', 'chapter_exit_final', {
+          chapter_id: _cur,
+          chapter_name: CHAPTER_NAMES[_cur] || _cur,
+          time_spent_sec: elapsed
+        });
+      }
+    }
+  });
+
+})();
+// ── /GA4 Enhanced Tracking ──
+
 // LANG TOGGLE
 function setLang(lang) {
   document.body.classList.toggle('en', lang === 'en');
