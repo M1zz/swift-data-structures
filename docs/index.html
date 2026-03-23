@@ -714,19 +714,19 @@
 
   /* ─── NEWSLETTER ─── */
   .newsletter-section {
-    background: linear-gradient(135deg, #1A1D2A, #2A2D40);
+    background: var(--surface2);
+    border: 1px solid var(--border);
     border-radius: 14px;
     padding: 28px;
     text-align: center;
-    color: #fff;
     margin-bottom: 32px;
   }
   .newsletter-icon { font-size: 24px; margin-bottom: 10px; }
-  .newsletter-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-  .newsletter-desc { font-size: 11px; color: #9BA3C0; margin-bottom: 16px; }
+  .newsletter-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+  .newsletter-desc { font-size: 11px; color: var(--text2); margin-bottom: 16px; }
   .newsletter-section iframe {
-    border: 1px solid #3A3D50;
-    background: #2A2D40;
+    border: 1px solid var(--border);
+    background: var(--surface);
     border-radius: 10px;
   }
 
@@ -849,31 +849,6 @@
     color: var(--text3);
     margin-top: 4px;
     font-family: 'JetBrains Mono';
-  }
-  .donate-fab-divider {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 14px 0;
-  }
-  .donate-fab-mentor-btn {
-    display: block;
-    width: 100%;
-    padding: 10px 0;
-    background: var(--accent2);
-    color: #fff;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 700;
-    text-decoration: none;
-    text-align: center;
-    transition: opacity .15s;
-  }
-  .donate-fab-mentor-btn:hover { opacity: .85; }
-  .donate-fab-mentor-desc {
-    font-size: 10px;
-    color: var(--text3);
-    margin-top: 6px;
-    line-height: 1.4;
   }
 
   /* HOME PAGE */
@@ -3395,12 +3370,15 @@ heap.<span class="hl">removeMin</span>()</pre>
   </div>
 
   <div class="chapter-footer">
-    <div class="chapter-cta">
-      <div class="chapter-cta-text">
-        <strong>10개 자료구조를 모두 완주했습니다!</strong>
-        심화 학습 페이지에서 고급 자료구조와 알고리즘까지 이어가세요
+    <div class="chapter-cta" style="flex-direction:column;text-align:center;gap:20px;">
+      <div class="chapter-cta-text" style="text-align:center;">
+        <strong>🎉 10개 자료구조를 모두 완주했습니다!</strong>
+        이제 심화 자료구조(AVL, Red-Black Tree)와 알고리즘(정렬, DP, 그래프)까지 이어가세요
       </div>
-      <a class="chapter-cta-complete" href="learn.html">전체 커리큘럼 보기</a>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a class="chapter-cta-complete" href="learn.html">심화 학습 커리큘럼 →</a>
+        <a class="chapter-cta-btn" href="https://m1zz.github.io/cs-swiftUI/" style="background:var(--accent2);">SwiftUI 커리큘럼 →</a>
+      </div>
     </div>
     <div class="newsletter-section">
       <div class="newsletter-icon">📬</div>
@@ -4995,9 +4973,6 @@ function toggleLang() {
     <img class="donate-fab-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
     <div class="donate-fab-name">이현호</div>
     <div class="donate-fab-badge">💬 카카오페이</div>
-    <hr class="donate-fab-divider">
-    <a class="donate-fab-mentor-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">🎓 1:1 멘토링 신청</a>
-    <div class="donate-fab-mentor-desc">코드 리뷰 · 커리어 상담 · 취업 준비<br>인프런에서 바로 신청하세요</div>
   </div>
   <button class="donate-fab-btn" onclick="toggleDonatePopup()" title="후원하기">☕</button>
 </div>
@@ -5010,6 +4985,16 @@ document.addEventListener('click', function(e) {
   const fab = document.getElementById('donate-fab');
   if (!fab.contains(e.target)) {
     document.getElementById('donate-popup').classList.remove('open');
+  }
+});
+
+// ─── SHOW NEWSLETTER & MENTORING ONLY ON ch-0, ch-4, ch-9 ─────────
+document.querySelectorAll('.chapter').forEach((ch, i) => {
+  if (i !== 0 && i !== 4 && i !== 9) {
+    const nl = ch.querySelector('.newsletter-section');
+    const mt = ch.querySelector('.mentoring-section');
+    if (nl) nl.style.display = 'none';
+    if (mt) mt.style.display = 'none';
   }
 });
 </script>
