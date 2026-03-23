@@ -721,6 +721,103 @@
     text-align: center;
     margin-bottom: 32px;
   }
+
+  /* ─── PRODUCT CARDS ─── */
+  .products-section {
+    max-width: 860px;
+    margin: 0 auto 48px;
+    padding: 0 20px;
+  }
+  .products-label {
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .product-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .2s, transform .2s;
+  }
+  .product-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .product-badge {
+    display: inline-block;
+    font-size: 9px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: .06em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .product-badge.soon {
+    background: rgba(224,74,28,.1);
+    color: var(--accent);
+    border: 1px solid rgba(224,74,28,.25);
+  }
+  .product-icon { font-size: 28px; margin-bottom: 12px; }
+  .product-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .product-desc {
+    font-size: 11px;
+    color: var(--text2);
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+  .product-price {
+    font-size: 18px;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .product-price span {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text3);
+  }
+  .product-notify {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 20px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .15s;
+    text-decoration: none;
+  }
+  .product-notify:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  @media (max-width: 768px) {
+    .products-grid { grid-template-columns: 1fr; }
+  }
   .newsletter-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; color: var(--text); }
   .newsletter-desc { font-size: 11px; color: var(--text2); margin-bottom: 16px; line-height: 1.5; }
   .newsletter-btn {
@@ -1770,6 +1867,41 @@ heap.<span class="hl">removeMin</span>()</pre>
       <a href="https://youtube.com/@개발자리" target="_blank" rel="noopener" style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--text3);text-decoration:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;transition:color .15s;">YouTube</a>
       <a href="https://leeo25.substack.com" target="_blank" rel="noopener" style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--text3);text-decoration:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;transition:color .15s;">Newsletter</a>
     </div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="products-section">
+  <div class="products-label">Coming Soon</div>
+  <div class="products-grid">
+
+    <div class="product-card">
+      <div class="product-badge soon">COMING SOON</div>
+      <div class="product-icon">📝</div>
+      <div class="product-name">Swift 코딩테스트 문제집</div>
+      <div class="product-desc">자료구조별 엄선된 문제 + 풀이 해설.<br>배운 걸 바로 실전에 적용합니다.</div>
+      <div class="product-price">₩9,900</div>
+      <a class="product-notify" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">🔔 알림 신청</a>
+    </div>
+
+    <div class="product-card">
+      <div class="product-badge soon">COMING SOON</div>
+      <div class="product-icon">🗂</div>
+      <div class="product-name">자료구조 치트시트 PDF</div>
+      <div class="product-desc">10개 자료구조 핵심 요약 + 복잡도 표.<br>면접 직전 5분 복습용.</div>
+      <div class="product-price">₩4,900</div>
+      <a class="product-notify" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">🔔 알림 신청</a>
+    </div>
+
+    <div class="product-card">
+      <div class="product-badge soon">COMING SOON</div>
+      <div class="product-icon">💼</div>
+      <div class="product-name">iOS 기술면접 질문집</div>
+      <div class="product-desc">자료구조 + Swift + iOS 빈출 질문 100선.<br>모범 답안과 꼬리 질문까지.</div>
+      <div class="product-price">₩12,900</div>
+      <a class="product-notify" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">🔔 알림 신청</a>
+    </div>
+
   </div>
 </div>
 
@@ -5079,6 +5211,8 @@ document.addEventListener('click', function(e) {
   var href = link.href || '';
   if (href.includes('inf.run')) {
     gtag('event', 'mentoring_click', { chapter: getCurrentChapter() });
+  } else if (link.classList.contains('product-notify')) {
+    gtag('event', 'product_notify_click', { product: link.closest('.product-card').querySelector('.product-name').textContent });
   } else if (href.includes('substack.com')) {
     gtag('event', 'newsletter_click', { chapter: getCurrentChapter() });
   } else if (href.includes('.zip')) {
