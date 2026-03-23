@@ -714,21 +714,30 @@
 
   /* ─── NEWSLETTER ─── */
   .newsletter-section {
-    background: var(--surface2);
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 14px;
-    padding: 28px;
+    padding: 24px;
     text-align: center;
     margin-bottom: 32px;
   }
-  .newsletter-icon { font-size: 24px; margin-bottom: 10px; }
   .newsletter-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; color: var(--text); }
-  .newsletter-desc { font-size: 11px; color: var(--text2); margin-bottom: 16px; }
-  .newsletter-section iframe {
-    border: 1px solid var(--border);
-    background: var(--surface);
+  .newsletter-desc { font-size: 11px; color: var(--text2); margin-bottom: 16px; line-height: 1.5; }
+  .newsletter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 28px;
+    background: var(--accent);
+    color: #fff;
     border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: opacity .15s;
   }
+  .newsletter-btn:hover { opacity: .85; }
+  .newsletter-sub { font-size: 10px; color: var(--text3); margin-top: 10px; }
 
   /* ─── MENTORING CTA ─── */
   .mentoring-section {
@@ -1345,6 +1354,7 @@
   <span class="nav-label" id="nav-label">시작하기</span>
   <div class="nav-theme-btn" onclick="toggleTheme()" id="theme-icon" title="테마 전환">🌙</div>
   <button class="nav-lang-btn" id="lang-btn" onclick="toggleLang()">EN</button>
+  <span id="nav-progress" style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);white-space:nowrap;"></span>
 </nav>
 
 <!-- CHAPTER DRAWER (mobile) -->
@@ -1749,6 +1759,20 @@ heap.<span class="hl">removeMin</span>()</pre>
 
 </div>
 
+<!-- CREATOR -->
+<div style="max-width:480px;margin:48px auto;padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:14px;display:flex;align-items:center;gap:20px;">
+  <div style="width:56px;height:56px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;flex-shrink:0;font-weight:800;">H</div>
+  <div>
+    <div style="font-size:14px;font-weight:700;color:var(--text);">이현호</div>
+    <div style="font-size:11px;color:var(--text2);margin-bottom:8px;">iOS Developer · 개발자리 운영자</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <a href="https://github.com/M1zz" target="_blank" rel="noopener" style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--text3);text-decoration:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;transition:color .15s;">GitHub</a>
+      <a href="https://youtube.com/@개발자리" target="_blank" rel="noopener" style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--text3);text-decoration:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;transition:color .15s;">YouTube</a>
+      <a href="https://leeo25.substack.com" target="_blank" rel="noopener" style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--text3);text-decoration:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;transition:color .15s;">Newsletter</a>
+    </div>
+  </div>
+</div>
+
 <!-- ===================== CH1: ARRAY ===================== -->
 <div class="chapter" id="ch-0">
   <div class="chapter-header">
@@ -1904,10 +1928,10 @@ heap.<span class="hl">removeMin</span>()</pre>
 
     <!-- Newsletter -->
     <div class="newsletter-section">
-      <div class="newsletter-icon">📬</div>
-      <div class="newsletter-title">뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
-      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+      <div class="newsletter-title">📬 뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
+      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
+      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
     </div>
 
     <!-- Mentoring -->
@@ -2071,10 +2095,10 @@ heap.<span class="hl">removeMin</span>()</pre>
       <a class="chapter-cta-btn" href="#ch-2">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </div>
     <div class="newsletter-section">
-      <div class="newsletter-icon">📬</div>
-      <div class="newsletter-title">뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
-      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+      <div class="newsletter-title">📬 뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
+      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
+      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
     </div>
     <div class="mentoring-section">
       <div class="mentoring-icon">🎓</div>
@@ -2243,10 +2267,10 @@ heap.<span class="hl">removeMin</span>()</pre>
       <a class="chapter-cta-btn" href="#ch-3">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </div>
     <div class="newsletter-section">
-      <div class="newsletter-icon">📬</div>
-      <div class="newsletter-title">뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
-      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+      <div class="newsletter-title">📬 뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
+      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
+      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
     </div>
     <div class="mentoring-section">
       <div class="mentoring-icon">🎓</div>
@@ -2407,10 +2431,10 @@ heap.<span class="hl">removeMin</span>()</pre>
       <a class="chapter-cta-btn" href="#ch-4">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </div>
     <div class="newsletter-section">
-      <div class="newsletter-icon">📬</div>
-      <div class="newsletter-title">뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
-      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+      <div class="newsletter-title">📬 뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
+      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
+      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
     </div>
     <div class="mentoring-section">
       <div class="mentoring-icon">🎓</div>
@@ -2573,10 +2597,10 @@ heap.<span class="hl">removeMin</span>()</pre>
       <a class="chapter-cta-btn" href="#ch-5">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </div>
     <div class="newsletter-section">
-      <div class="newsletter-icon">📬</div>
-      <div class="newsletter-title">뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
-      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+      <div class="newsletter-title">📬 뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
+      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
+      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
     </div>
     <div class="mentoring-section">
       <div class="mentoring-icon">🎓</div>
@@ -2735,10 +2759,10 @@ heap.<span class="hl">removeMin</span>()</pre>
       <a class="chapter-cta-btn" href="#ch-6">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </div>
     <div class="newsletter-section">
-      <div class="newsletter-icon">📬</div>
-      <div class="newsletter-title">뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
-      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+      <div class="newsletter-title">📬 뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
+      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
+      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
     </div>
     <div class="mentoring-section">
       <div class="mentoring-icon">🎓</div>
@@ -2900,10 +2924,10 @@ heap.<span class="hl">removeMin</span>()</pre>
       <a class="chapter-cta-btn" href="#ch-7">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </div>
     <div class="newsletter-section">
-      <div class="newsletter-icon">📬</div>
-      <div class="newsletter-title">뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
-      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+      <div class="newsletter-title">📬 뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
+      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
+      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
     </div>
     <div class="mentoring-section">
       <div class="mentoring-icon">🎓</div>
@@ -3062,10 +3086,10 @@ heap.<span class="hl">removeMin</span>()</pre>
       <a class="chapter-cta-btn" href="#ch-8">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </div>
     <div class="newsletter-section">
-      <div class="newsletter-icon">📬</div>
-      <div class="newsletter-title">뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
-      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+      <div class="newsletter-title">📬 뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
+      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
+      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
     </div>
     <div class="mentoring-section">
       <div class="mentoring-icon">🎓</div>
@@ -3225,10 +3249,10 @@ heap.<span class="hl">removeMin</span>()</pre>
       <a class="chapter-cta-btn" href="#ch-9">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </div>
     <div class="newsletter-section">
-      <div class="newsletter-icon">📬</div>
-      <div class="newsletter-title">뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
-      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+      <div class="newsletter-title">📬 뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
+      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
+      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
     </div>
     <div class="mentoring-section">
       <div class="mentoring-icon">🎓</div>
@@ -3390,10 +3414,10 @@ heap.<span class="hl">removeMin</span>()</pre>
       </div>
     </div>
     <div class="newsletter-section">
-      <div class="newsletter-icon">📬</div>
-      <div class="newsletter-title">뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
-      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+      <div class="newsletter-title">📬 뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
+      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
+      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
     </div>
     <div class="mentoring-section">
       <div class="mentoring-icon">🎓</div>
@@ -3499,6 +3523,7 @@ function showChapter(i, pushState = true) {
   document.querySelectorAll('.drawer-item').forEach((d,j) => d.classList.toggle('active', i===j));
   const label = document.getElementById('nav-label');
   if(label) label.textContent = i===0 ? '시작하기' : `Ch.${String(i).padStart(2,'0')} ${CH_NAMES[i]}`;
+  localStorage.setItem('ds-last-chapter', i);
   window.scrollTo({top:0,behavior:'smooth'});
   requestAnimationFrame(() => refreshCurrentChapter());
   const chId = CHID_BY_INDEX[i];
@@ -4276,16 +4301,56 @@ function loadUtterances(chId) {
   utterancesLoaded.add(chId);
 }
 
+// ─── CHECKLIST PERSISTENCE & PROGRESS ─────────────────────────────────
+function updateNavProgress() {
+  var checks = document.querySelectorAll('.checklist-item input[type="checkbox"]:checked');
+  var total = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+  var el = document.getElementById('nav-progress');
+  if (el && total.length > 0) {
+    el.textContent = checks.length + '/' + total.length;
+  }
+}
+
+function initChecklist() {
+  var saved = JSON.parse(localStorage.getItem('ds-checklist') || '{}');
+  var items = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+  items.forEach(function(cb, i) {
+    if (saved[i]) cb.checked = true;
+    cb.addEventListener('change', function() {
+      var state = {};
+      document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(function(c, j) {
+        if (c.checked) state[j] = true;
+      });
+      localStorage.setItem('ds-checklist', JSON.stringify(state));
+      updateNavProgress();
+    });
+  });
+  updateNavProgress();
+}
+
 // ─── INIT ──────────────────────────────────────────────────────────────
 window.addEventListener('load', ()=>{
   C = getThemeColors();
   if (localStorage.getItem('lang') === 'en') applyLang('en');
-  const initial = getChapterFromHash();
-  if (initial !== 0) {
-    showChapter(initial, false);
+  const hashChapter = getChapterFromHash();
+  if (hashChapter !== 0) {
+    showChapter(hashChapter, false);
   } else {
-    refreshCurrentChapter();
+    // ─── RESTORE LAST CHAPTER ────────────────────────────────────────
+    var last = localStorage.getItem('ds-last-chapter');
+    if (last !== null) {
+      var idx = parseInt(last, 10);
+      if (!isNaN(idx) && idx >= 0 && idx <= 10) {
+        showChapter(idx, false);
+      } else {
+        refreshCurrentChapter();
+      }
+    } else {
+      refreshCurrentChapter();
+    }
   }
+  // ─── CHECKLIST PERSISTENCE & PROGRESS ──────────────────────────────
+  initChecklist();
 });
 window.addEventListener('resize', ()=>{
   refreshCurrentChapter();
@@ -5007,6 +5072,23 @@ document.querySelectorAll('.chapter').forEach((ch, i) => {
     if (mt) mt.style.display = 'none';
   }
 });
+// ─── GA4 EVENT TRACKING ────────────────────────────────────────────────
+document.addEventListener('click', function(e) {
+  var link = e.target.closest('a');
+  if (!link) return;
+  var href = link.href || '';
+  if (href.includes('inf.run')) {
+    gtag('event', 'mentoring_click', { chapter: getCurrentChapter() });
+  } else if (href.includes('substack.com')) {
+    gtag('event', 'newsletter_click', { chapter: getCurrentChapter() });
+  } else if (href.includes('.zip')) {
+    gtag('event', 'playground_download', { file: href.split('/').pop() });
+  }
+});
+function getCurrentChapter() {
+  var active = document.querySelector('.chapter:not([style*="display: none"])');
+  return active ? active.id : 'home';
+}
 </script>
 </body>
 </html>
