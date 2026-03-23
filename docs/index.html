@@ -770,6 +770,26 @@
     color: var(--accent);
     border: 1px solid rgba(224,74,28,.25);
   }
+  .product-badge.free {
+    background: rgba(22,163,74,.1);
+    color: var(--accent3);
+    border: 1px solid rgba(22,163,74,.25);
+  }
+  .product-preview {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 20px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: opacity .15s;
+    margin-bottom: 8px;
+  }
+  .product-preview:hover { opacity: .85; }
   .product-icon { font-size: 28px; margin-bottom: 12px; }
   .product-name {
     font-size: 15px;
@@ -1872,34 +1892,37 @@ heap.<span class="hl">removeMin</span>()</pre>
 
 <!-- PRODUCTS -->
 <div class="products-section">
-  <div class="products-label">Coming Soon</div>
+  <div class="products-label">학습 자료</div>
   <div class="products-grid">
 
     <div class="product-card">
-      <div class="product-badge soon">COMING SOON</div>
+      <div class="product-badge free">무료 미리보기</div>
       <div class="product-icon">📝</div>
       <div class="product-name">Swift 코딩테스트 문제집</div>
-      <div class="product-desc">자료구조별 엄선된 문제 + 풀이 해설.<br>배운 걸 바로 실전에 적용합니다.</div>
+      <div class="product-desc">자료구조별 엄선된 50문제 + Swift 풀이.<br>배운 걸 바로 실전에 적용합니다.</div>
       <div class="product-price">₩9,900</div>
-      <a class="product-notify" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">🔔 알림 신청</a>
+      <a class="product-preview" href="problems.html">미리보기 →</a>
+      <a class="product-notify" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">🔔 출시 알림</a>
     </div>
 
     <div class="product-card">
-      <div class="product-badge soon">COMING SOON</div>
+      <div class="product-badge free">무료 미리보기</div>
       <div class="product-icon">🗂</div>
       <div class="product-name">자료구조 치트시트 PDF</div>
       <div class="product-desc">10개 자료구조 핵심 요약 + 복잡도 표.<br>면접 직전 5분 복습용.</div>
       <div class="product-price">₩4,900</div>
-      <a class="product-notify" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">🔔 알림 신청</a>
+      <a class="product-preview" href="cheatsheet.html">미리보기 →</a>
+      <a class="product-notify" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">🔔 출시 알림</a>
     </div>
 
     <div class="product-card">
-      <div class="product-badge soon">COMING SOON</div>
+      <div class="product-badge free">무료 미리보기</div>
       <div class="product-icon">💼</div>
       <div class="product-name">iOS 기술면접 질문집</div>
       <div class="product-desc">자료구조 + Swift + iOS 빈출 질문 100선.<br>모범 답안과 꼬리 질문까지.</div>
       <div class="product-price">₩12,900</div>
-      <a class="product-notify" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">🔔 알림 신청</a>
+      <a class="product-preview" href="interview.html">미리보기 →</a>
+      <a class="product-notify" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">🔔 출시 알림</a>
     </div>
 
   </div>
