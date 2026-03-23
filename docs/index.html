@@ -658,6 +658,130 @@
     padding: 12px 0;
   }
 
+  /* ─── CTA: NEXT CHAPTER ─── */
+  .chapter-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .chapter-cta-text {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.5;
+  }
+  .chapter-cta-text strong {
+    display: block;
+    font-size: 15px;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .chapter-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity .15s, transform .15s;
+  }
+  .chapter-cta-btn:hover { opacity: .85; transform: translateX(3px); }
+  .chapter-cta-btn svg { width: 16px; height: 16px; }
+  .chapter-cta-complete {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    background: var(--accent3);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  /* ─── NEWSLETTER ─── */
+  .newsletter-section {
+    background: linear-gradient(135deg, #1A1D2A, #2A2D40);
+    border-radius: 14px;
+    padding: 28px;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 32px;
+  }
+  .newsletter-icon { font-size: 24px; margin-bottom: 10px; }
+  .newsletter-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .newsletter-desc { font-size: 11px; color: #9BA3C0; margin-bottom: 16px; }
+  .newsletter-section iframe {
+    border: 1px solid #3A3D50;
+    background: #2A2D40;
+    border-radius: 10px;
+  }
+
+  /* ─── MENTORING CTA ─── */
+  .mentoring-section {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .mentoring-icon { font-size: 22px; margin-bottom: 8px; }
+  .mentoring-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .mentoring-desc {
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+  .mentoring-tags {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .mentoring-tag {
+    font-size: 11px;
+    font-family: 'JetBrains Mono';
+    color: var(--accent2);
+    background: var(--accent2-rgba-12);
+    border-radius: 6px;
+    padding: 4px 10px;
+  }
+  .mentoring-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 28px;
+    background: var(--accent2);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: opacity .15s;
+  }
+  .mentoring-btn:hover { opacity: .85; }
+
   /* FLOATING DONATION BUTTON */
   .donate-fab {
     position: fixed;
@@ -1794,6 +1918,37 @@ heap.<span class="hl">removeMin</span>()</pre>
   </div>
 
   <div class="chapter-footer">
+    <!-- CTA: Next Chapter -->
+    <div class="chapter-cta">
+      <div class="chapter-cta-text">
+        <strong>다음: Chapter 02 — Linked List</strong>
+        노드와 포인터로 연결되는 구조를 알아봅니다
+      </div>
+      <a class="chapter-cta-btn" href="#ch-1">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="newsletter-section">
+      <div class="newsletter-icon">📬</div>
+      <div class="newsletter-title">뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
+      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+    </div>
+
+    <!-- Mentoring -->
+    <div class="mentoring-section">
+      <div class="mentoring-icon">🎓</div>
+      <div class="mentoring-title">1:1 멘토링</div>
+      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
+      <div class="mentoring-tags">
+        <span class="mentoring-tag">코드 리뷰</span>
+        <span class="mentoring-tag">커리어 상담</span>
+        <span class="mentoring-tag">포트폴리오</span>
+        <span class="mentoring-tag">취업 준비</span>
+      </div>
+      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
+    </div>
+
     <div class="section-heading">코멘트</div>
     <div class="utterances-wrap" id="utterances-ch0"></div>
   </div>
@@ -1932,6 +2087,31 @@ heap.<span class="hl">removeMin</span>()</pre>
   </div>
 
   <div class="chapter-footer">
+    <div class="chapter-cta">
+      <div class="chapter-cta-text">
+        <strong>다음: Chapter 03 — Stack / Queue</strong>
+        LIFO와 FIFO, 두 가지 핵심 패턴을 배웁니다
+      </div>
+      <a class="chapter-cta-btn" href="#ch-2">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="newsletter-section">
+      <div class="newsletter-icon">📬</div>
+      <div class="newsletter-title">뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
+      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class="mentoring-section">
+      <div class="mentoring-icon">🎓</div>
+      <div class="mentoring-title">1:1 멘토링</div>
+      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
+      <div class="mentoring-tags">
+        <span class="mentoring-tag">코드 리뷰</span>
+        <span class="mentoring-tag">커리어 상담</span>
+        <span class="mentoring-tag">포트폴리오</span>
+        <span class="mentoring-tag">취업 준비</span>
+      </div>
+      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
+    </div>
     <div class="section-heading">코멘트</div>
     <div class="utterances-wrap" id="utterances-ch1"></div>
   </div>
@@ -2078,6 +2258,31 @@ heap.<span class="hl">removeMin</span>()</pre>
   </div>
 
   <div class="chapter-footer">
+    <div class="chapter-cta">
+      <div class="chapter-cta-text">
+        <strong>다음: Chapter 04 — Deque</strong>
+        양쪽 끝에서 삽입/삭제가 가능한 링 버퍼를 알아봅니다
+      </div>
+      <a class="chapter-cta-btn" href="#ch-3">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="newsletter-section">
+      <div class="newsletter-icon">📬</div>
+      <div class="newsletter-title">뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
+      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class="mentoring-section">
+      <div class="mentoring-icon">🎓</div>
+      <div class="mentoring-title">1:1 멘토링</div>
+      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
+      <div class="mentoring-tags">
+        <span class="mentoring-tag">코드 리뷰</span>
+        <span class="mentoring-tag">커리어 상담</span>
+        <span class="mentoring-tag">포트폴리오</span>
+        <span class="mentoring-tag">취업 준비</span>
+      </div>
+      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
+    </div>
     <div class="section-heading">코멘트</div>
     <div class="utterances-wrap" id="utterances-ch2"></div>
   </div>
@@ -2216,6 +2421,31 @@ heap.<span class="hl">removeMin</span>()</pre>
   </div>
 
   <div class="chapter-footer">
+    <div class="chapter-cta">
+      <div class="chapter-cta-text">
+        <strong>다음: Chapter 05 — Binary Tree</strong>
+        트리 순회(전위, 중위, 후위, 레벨)를 시각적으로 이해합니다
+      </div>
+      <a class="chapter-cta-btn" href="#ch-4">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="newsletter-section">
+      <div class="newsletter-icon">📬</div>
+      <div class="newsletter-title">뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
+      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class="mentoring-section">
+      <div class="mentoring-icon">🎓</div>
+      <div class="mentoring-title">1:1 멘토링</div>
+      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
+      <div class="mentoring-tags">
+        <span class="mentoring-tag">코드 리뷰</span>
+        <span class="mentoring-tag">커리어 상담</span>
+        <span class="mentoring-tag">포트폴리오</span>
+        <span class="mentoring-tag">취업 준비</span>
+      </div>
+      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
+    </div>
     <div class="section-heading">코멘트</div>
     <div class="utterances-wrap" id="utterances-ch3"></div>
   </div>
@@ -2356,6 +2586,31 @@ heap.<span class="hl">removeMin</span>()</pre>
   </div>
 
   <div class="chapter-footer">
+    <div class="chapter-cta">
+      <div class="chapter-cta-text">
+        <strong>다음: Chapter 06 — Binary Search Tree</strong>
+        정렬된 트리에서 O(log n) 탐색의 원리를 배웁니다
+      </div>
+      <a class="chapter-cta-btn" href="#ch-5">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="newsletter-section">
+      <div class="newsletter-icon">📬</div>
+      <div class="newsletter-title">뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
+      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class="mentoring-section">
+      <div class="mentoring-icon">🎓</div>
+      <div class="mentoring-title">1:1 멘토링</div>
+      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
+      <div class="mentoring-tags">
+        <span class="mentoring-tag">코드 리뷰</span>
+        <span class="mentoring-tag">커리어 상담</span>
+        <span class="mentoring-tag">포트폴리오</span>
+        <span class="mentoring-tag">취업 준비</span>
+      </div>
+      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
+    </div>
     <div class="section-heading">코멘트</div>
     <div class="utterances-wrap" id="utterances-ch4"></div>
   </div>
@@ -2492,6 +2747,31 @@ heap.<span class="hl">removeMin</span>()</pre>
   </div>
 
   <div class="chapter-footer">
+    <div class="chapter-cta">
+      <div class="chapter-cta-text">
+        <strong>다음: Chapter 07 — Heap / Priority Queue</strong>
+        최솟값/최댓값을 O(1)에 꺼내는 구조를 알아봅니다
+      </div>
+      <a class="chapter-cta-btn" href="#ch-6">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="newsletter-section">
+      <div class="newsletter-icon">📬</div>
+      <div class="newsletter-title">뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
+      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class="mentoring-section">
+      <div class="mentoring-icon">🎓</div>
+      <div class="mentoring-title">1:1 멘토링</div>
+      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
+      <div class="mentoring-tags">
+        <span class="mentoring-tag">코드 리뷰</span>
+        <span class="mentoring-tag">커리어 상담</span>
+        <span class="mentoring-tag">포트폴리오</span>
+        <span class="mentoring-tag">취업 준비</span>
+      </div>
+      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
+    </div>
     <div class="section-heading">코멘트</div>
     <div class="utterances-wrap" id="utterances-ch5"></div>
   </div>
@@ -2631,6 +2911,31 @@ heap.<span class="hl">removeMin</span>()</pre>
   </div>
 
   <div class="chapter-footer">
+    <div class="chapter-cta">
+      <div class="chapter-cta-text">
+        <strong>다음: Chapter 08 — Graph</strong>
+        인접 행렬/리스트, BFS/DFS 탐색을 시각화합니다
+      </div>
+      <a class="chapter-cta-btn" href="#ch-7">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="newsletter-section">
+      <div class="newsletter-icon">📬</div>
+      <div class="newsletter-title">뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
+      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class="mentoring-section">
+      <div class="mentoring-icon">🎓</div>
+      <div class="mentoring-title">1:1 멘토링</div>
+      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
+      <div class="mentoring-tags">
+        <span class="mentoring-tag">코드 리뷰</span>
+        <span class="mentoring-tag">커리어 상담</span>
+        <span class="mentoring-tag">포트폴리오</span>
+        <span class="mentoring-tag">취업 준비</span>
+      </div>
+      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
+    </div>
     <div class="section-heading">코멘트</div>
     <div class="utterances-wrap" id="utterances-ch6"></div>
   </div>
@@ -2767,6 +3072,31 @@ heap.<span class="hl">removeMin</span>()</pre>
   </div>
 
   <div class="chapter-footer">
+    <div class="chapter-cta">
+      <div class="chapter-cta-text">
+        <strong>다음: Chapter 09 — Hash Table</strong>
+        O(1) 조회의 비밀, 해시 충돌 해결법을 배웁니다
+      </div>
+      <a class="chapter-cta-btn" href="#ch-8">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="newsletter-section">
+      <div class="newsletter-icon">📬</div>
+      <div class="newsletter-title">뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
+      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class="mentoring-section">
+      <div class="mentoring-icon">🎓</div>
+      <div class="mentoring-title">1:1 멘토링</div>
+      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
+      <div class="mentoring-tags">
+        <span class="mentoring-tag">코드 리뷰</span>
+        <span class="mentoring-tag">커리어 상담</span>
+        <span class="mentoring-tag">포트폴리오</span>
+        <span class="mentoring-tag">취업 준비</span>
+      </div>
+      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
+    </div>
     <div class="section-heading">코멘트</div>
     <div class="utterances-wrap" id="utterances-ch7"></div>
   </div>
@@ -2904,6 +3234,31 @@ heap.<span class="hl">removeMin</span>()</pre>
   </div>
 
   <div class="chapter-footer">
+    <div class="chapter-cta">
+      <div class="chapter-cta-text">
+        <strong>다음: Chapter 10 — Trie</strong>
+        접두어 검색과 자동완성의 핵심 자료구조를 배웁니다
+      </div>
+      <a class="chapter-cta-btn" href="#ch-9">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="newsletter-section">
+      <div class="newsletter-icon">📬</div>
+      <div class="newsletter-title">뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
+      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class="mentoring-section">
+      <div class="mentoring-icon">🎓</div>
+      <div class="mentoring-title">1:1 멘토링</div>
+      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
+      <div class="mentoring-tags">
+        <span class="mentoring-tag">코드 리뷰</span>
+        <span class="mentoring-tag">커리어 상담</span>
+        <span class="mentoring-tag">포트폴리오</span>
+        <span class="mentoring-tag">취업 준비</span>
+      </div>
+      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
+    </div>
     <div class="section-heading">코멘트</div>
     <div class="utterances-wrap" id="utterances-ch8"></div>
   </div>
@@ -3040,6 +3395,31 @@ heap.<span class="hl">removeMin</span>()</pre>
   </div>
 
   <div class="chapter-footer">
+    <div class="chapter-cta">
+      <div class="chapter-cta-text">
+        <strong>10개 자료구조를 모두 완주했습니다!</strong>
+        심화 학습 페이지에서 고급 자료구조와 알고리즘까지 이어가세요
+      </div>
+      <a class="chapter-cta-complete" href="learn.html">전체 커리큘럼 보기</a>
+    </div>
+    <div class="newsletter-section">
+      <div class="newsletter-icon">📬</div>
+      <div class="newsletter-title">뉴스레터</div>
+      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 받아보세요</div>
+      <iframe src="https://leeo25.substack.com/embed" width="100%" height="150" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class="mentoring-section">
+      <div class="mentoring-icon">🎓</div>
+      <div class="mentoring-title">1:1 멘토링</div>
+      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
+      <div class="mentoring-tags">
+        <span class="mentoring-tag">코드 리뷰</span>
+        <span class="mentoring-tag">커리어 상담</span>
+        <span class="mentoring-tag">포트폴리오</span>
+        <span class="mentoring-tag">취업 준비</span>
+      </div>
+      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
+    </div>
     <div class="section-heading">코멘트</div>
     <div class="utterances-wrap" id="utterances-ch9"></div>
   </div>

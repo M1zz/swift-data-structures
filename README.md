@@ -60,4 +60,4 @@ open index.html
 
 ---
 
-**개발자리** | [YouTube](https://youtube.com/@개발자리) | Apple Developer Academy @ POSTECH
+**개발자리** | [YouTube](https://youtube.com/@개발자리)
