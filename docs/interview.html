@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FG0Q3EQFWM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-FG0Q3EQFWM');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iOS 기술면접 질문집 · 100문제 | 개발자리</title>
+<meta name="description" content="iOS 개발자 기술면접 대비 100문제. 자료구조, Swift 언어, iOS 프레임워크 파트별 모범 답안과 꼬리 질문 수록.">
+<meta property="og:title" content="iOS 기술면접 질문집 · 100문제 | 개발자리">
+<meta property="og:description" content="자료구조 40문제, Swift 30문제, iOS 프레임워크 30문제 — 모범 답안 + 꼬리 질문">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#f5f7fa">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Pretendard:wght@300;400;600;800&display=swap');
+
+  :root {
+    --bg: #f5f7fa;
+    --surface: #ffffff;
+    --surface2: #f0f2f5;
+    --border: #d1d5db;
+    --accent: #e04a1c;
+    --accent2: #2563eb;
+    --accent3: #16a34a;
+    --accent4: #7c3aed;
+    --text: #1e293b;
+    --text2: #475569;
+    --text3: #94a3b8;
+    --code-kw: #7c3aed;
+    --code-fn: #2563eb;
+    --code-cm: #94a3b8;
+    --code-str: #16a34a;
+    --code-num: #e04a1c;
+    --badge-bg: rgba(224,74,28,.08);
+    --badge-border: rgba(224,74,28,.25);
+    --sidebar-active-bg: rgba(224,74,28,.06);
+  }
+
+  html.dark {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2236;
+    --border: #1e2d47;
+    --accent: #f05a28;
+    --accent2: #3b82f6;
+    --accent3: #22c55e;
+    --accent4: #a78bfa;
+    --text: #e2e8f0;
+    --text2: #94a3b8;
+    --text3: #475569;
+    --code-kw: #c084fc;
+    --code-fn: #3b82f6;
+    --code-cm: #475569;
+    --code-str: #22c55e;
+    --code-num: #f05a28;
+    --badge-bg: rgba(240,90,40,.12);
+    --badge-border: rgba(240,90,40,.3);
+    --sidebar-active-bg: rgba(240,90,40,.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Pretendard', sans-serif;
+    min-height: 100vh;
+    display: flex;
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 260px;
+    height: 100vh;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 24px 16px;
+    z-index: 50;
+    transition: transform .3s;
+  }
+  .sidebar-logo {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -.5px;
+    margin-bottom: 8px;
+  }
+  .sidebar-title {
+    font-size: 12px;
+    color: var(--text3);
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+  .sidebar h4 {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    margin: 18px 0 8px;
+  }
+  .sidebar a {
+    display: block;
+    padding: 7px 12px;
+    font-size: 13px;
+    color: var(--text2);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all .15s;
+    line-height: 1.4;
+  }
+  .sidebar a:hover, .sidebar a.active {
+    background: var(--sidebar-active-bg);
+    color: var(--accent);
+  }
+  .sidebar-footer {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 8px;
+  }
+  .sidebar-footer button {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface2);
+    color: var(--text2);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .sidebar-footer button:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* MAIN */
+  .main {
+    margin-left: 260px;
+    flex: 1;
+    padding: 40px 48px 80px;
+    max-width: 900px;
+  }
+  .main-header {
+    margin-bottom: 40px;
+  }
+  .main-header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -.5px;
+    margin-bottom: 8px;
+  }
+  .main-header h1 span { color: var(--accent); }
+  .main-header p {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+
+  /* PART SECTION */
+  .part-section {
+    margin-bottom: 48px;
+  }
+  .part-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+  .part-title .part-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 20px;
+    background: var(--badge-bg);
+    border: 1px solid var(--badge-border);
+    color: var(--accent);
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .part-desc {
+    font-size: 13px;
+    color: var(--text3);
+    margin-bottom: 20px;
+  }
+
+  .sub-section {
+    margin-bottom: 28px;
+  }
+  .sub-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent2);
+    margin-bottom: 12px;
+    padding-left: 4px;
+  }
+
+  /* Q-CARD */
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .q-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 2px 12px rgba(224,74,28,.08);
+  }
+  .q-num {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--badge-bg);
+    border: 1px solid var(--badge-border);
+    border-radius: 6px;
+    padding: 2px 8px;
+    margin-bottom: 8px;
+  }
+  .q-card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+  .q-card details {
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+  }
+  .q-card details summary {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent2);
+    cursor: pointer;
+    user-select: none;
+    padding: 4px 0;
+  }
+  .q-card details summary:hover {
+    color: var(--accent);
+  }
+  .q-card details[open] summary {
+    margin-bottom: 10px;
+  }
+  .q-card details p {
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--text2);
+    margin-bottom: 8px;
+  }
+  .q-card .follow-up {
+    font-size: 12.5px;
+    color: var(--accent4);
+    background: rgba(124,58,237,.06);
+    border-left: 3px solid var(--accent4);
+    padding: 8px 12px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 8px;
+  }
+  .q-card code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    background: var(--surface2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: var(--code-kw);
+  }
+
+  /* HAMBURGER */
+  .hamburger {
+    display: none;
+    position: fixed;
+    top: 16px; left: 16px;
+    z-index: 60;
+    width: 40px; height: 40px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--text);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); }
+    .hamburger { display: flex; }
+    .main { margin-left: 0; padding: 60px 20px 80px; }
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- HAMBURGER -->
+<button class="hamburger" onclick="document.querySelector('.sidebar').classList.toggle('open')" aria-label="메뉴 토글">&#9776;</button>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-logo">개발자리</div>
+  <div class="sidebar-title">iOS 기술면접 질문집 · 100문제</div>
+
+  <h4>Part 1 — 자료구조</h4>
+  <a href="#ds-array">Array</a>
+  <a href="#ds-linkedlist">LinkedList</a>
+  <a href="#ds-stack-queue">Stack / Queue</a>
+  <a href="#ds-deque">Deque</a>
+  <a href="#ds-binarytree">Binary Tree</a>
+  <a href="#ds-bst">BST</a>
+  <a href="#ds-heap">Heap</a>
+  <a href="#ds-graph">Graph</a>
+  <a href="#ds-hashtable">HashTable</a>
+  <a href="#ds-trie">Trie</a>
+
+  <h4>Part 2 — Swift 언어</h4>
+  <a href="#swift">Swift 30문제</a>
+
+  <h4>Part 3 — iOS 프레임워크</h4>
+  <a href="#ios">iOS 30문제</a>
+
+  <div class="sidebar-footer">
+    <button onclick="toggleDark()" id="darkBtn">다크 모드</button>
+    <button onclick="toggleAll()" id="toggleBtn">전체 펼치기</button>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+  <div class="main-header">
+    <h1>iOS 기술면접 질문집 · <span>100문제</span></h1>
+    <p>자료구조 40문제, Swift 언어 30문제, iOS 프레임워크 30문제.<br>각 질문에 모범 답안과 꼬리 질문이 포함되어 있습니다. 답변을 클릭해 펼쳐보세요.</p>
+  </div>
+
+  <!-- ======================== PART 1: 자료구조 ======================== -->
+  <section class="part-section" id="part1">
+    <div class="part-title"><span class="part-badge">PART 1</span> 자료구조 — 40문제</div>
+    <p class="part-desc">10개 자료구조별 4문제씩, Swift 구현 관점의 핵심 질문</p>
+
+    <!-- Array -->
+    <div class="sub-section" id="ds-array">
+      <div class="sub-title">Array</div>
+
+      <div class="q-card">
+        <span class="q-num">Q01</span>
+        <h3>Swift Array의 Copy-on-Write(CoW) 메커니즘을 설명해 주세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Swift의 Array는 값 타입(struct)이지만 내부적으로 힙에 할당된 버퍼를 공유합니다. 변수를 복사할 때 즉시 메모리를 복제하지 않고, 참조 카운트만 증가시킵니다. 실제로 한쪽에서 <code>mutating</code> 연산(append, 요소 변경 등)이 발생하면 그때 비로소 버퍼를 복사합니다. 이를 통해 불필요한 복사를 줄이면서도 값 의미론을 유지합니다. <code>isKnownUniquelyReferenced</code> 함수로 참조가 유일한지 확인하여 CoW 트리거 여부를 결정합니다.</p>
+          <p class="follow-up">꼬리 질문: CoW 때문에 예상치 못하게 성능이 저하되는 시나리오는 어떤 것이 있나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q02</span>
+        <h3><code>Array</code>와 <code>ContiguousArray</code>의 차이는 무엇인가요?</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>Array</code>는 Element가 클래스 타입이거나 <code>@objc</code> 프로토콜일 때 내부적으로 <code>NSArray</code>와 브리징될 수 있어, 요소를 간접 참조(boxing)할 가능성이 있습니다. 반면 <code>ContiguousArray</code>는 항상 연속된 메모리 블록에 요소를 저장하므로 Objective-C 브리징이 필요 없는 순수 Swift 코드에서 클래스 타입 배열의 성능이 더 좋습니다. 값 타입 Element에서는 둘의 성능 차이가 거의 없습니다. 일반적으로 Objective-C 상호운용이 필요 없다면 클래스 배열에는 <code>ContiguousArray</code>를 권장합니다.</p>
+          <p class="follow-up">꼬리 질문: <code>ArraySlice</code>와 <code>ContiguousArray</code>를 함께 사용할 때 주의할 점은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q03</span>
+        <h3>Array의 <code>append</code>가 amortized O(1)인 이유를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Array는 내부 버퍼 용량이 부족하면 기존 용량의 2배(기하급수적 성장)로 새 버퍼를 할당하고 기존 요소를 복사합니다. 개별 append는 버퍼 재할당 시 O(n)이 걸리지만, n번의 append에 걸쳐 재할당 횟수가 log(n)번뿐이므로 총 비용을 n으로 나누면 평균 O(1)이 됩니다. 이것이 상각(amortized) 분석입니다. <code>reserveCapacity(_:)</code>를 사용하면 미리 충분한 버퍼를 확보하여 재할당을 아예 방지할 수 있습니다.</p>
+          <p class="follow-up">꼬리 질문: <code>reserveCapacity</code>를 호출하면 항상 성능이 좋아지나요? 오히려 해가 되는 경우는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q04</span>
+        <h3><code>ArraySlice</code>의 메모리 특성과 주의할 점을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>ArraySlice</code>는 원본 Array의 버퍼를 공유하며 시작/끝 인덱스만 다르게 가리킵니다. 따라서 슬라이스를 생성해도 복사가 일어나지 않아 O(1)입니다. 하지만 원본 Array가 해제되어도 슬라이스가 살아 있으면 전체 버퍼가 메모리에 유지됩니다. 큰 배열에서 작은 슬라이스만 오래 보관하면 메모리 누수와 유사한 상황이 발생합니다. 이를 방지하려면 <code>Array(slice)</code>로 독립 복사본을 만들어야 합니다. 또한 슬라이스의 <code>startIndex</code>가 0이 아닐 수 있어 인덱스 사용에 주의해야 합니다.</p>
+          <p class="follow-up">꼬리 질문: Substring과 ArraySlice의 메모리 공유 방식이 유사한데, 이러한 패턴의 장단점은?</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- LinkedList -->
+    <div class="sub-section" id="ds-linkedlist">
+      <div class="sub-title">LinkedList</div>
+
+      <div class="q-card">
+        <span class="q-num">Q05</span>
+        <h3>LinkedList의 Array 대비 장단점을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>LinkedList는 중간 삽입/삭제가 O(1)이고(노드 참조가 있을 때), 크기가 동적이라 재할당이 없습니다. 반면 Array는 연속 메모리 덕분에 캐시 지역성이 우수하고 인덱스 접근이 O(1)입니다. LinkedList는 노드마다 포인터 오버헤드가 있고, 랜덤 접근이 O(n)이며, 캐시 미스가 빈번합니다. 실무에서는 대부분 Array가 유리하며, 빈번한 head/tail 삽입삭제가 핵심인 경우(예: LRU 캐시)에만 LinkedList를 고려합니다.</p>
+          <p class="follow-up">꼬리 질문: Swift 표준 라이브러리에 LinkedList가 없는 이유는 무엇일까요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q06</span>
+        <h3>LinkedList의 노드를 <code>class</code>로 구현하는 이유는 무엇인가요?</h3>
+        <details><summary>모범 답안</summary>
+          <p>LinkedList 노드는 다른 노드를 참조(pointing)해야 하므로 참조 타입인 <code>class</code>가 적합합니다. <code>struct</code>로 구현하면 값 타입이라 노드를 변수에 할당할 때마다 복사가 발생하고, 재귀적 구조(자기 자신을 프로퍼티로 갖는 것)가 불가능합니다. <code>class</code>는 힙에 할당되어 여러 곳에서 동일 노드를 참조할 수 있고, <code>next</code>/<code>prev</code> 포인터로 노드 간 연결을 자연스럽게 표현합니다. 다만 ARC 오버헤드와 순환 참조에 주의해야 합니다.</p>
+          <p class="follow-up">꼬리 질문: enum의 indirect case로 LinkedList를 구현하면 어떤 차이가 있나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q07</span>
+        <h3>Singly LinkedList와 Doubly LinkedList의 차이와 각각의 사용처를 말해주세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Singly LinkedList는 각 노드가 <code>next</code> 포인터만 갖고, Doubly LinkedList는 <code>next</code>와 <code>prev</code>를 모두 갖습니다. Singly는 메모리가 적게 들지만 역방향 순회나 이전 노드 삭제가 O(n)입니다. Doubly는 양방향 순회와 임의 노드 삭제가 O(1)이지만 포인터 하나가 추가됩니다. Singly는 스택, 해시 체이닝 등에, Doubly는 LRU 캐시, 브라우저 히스토리, <code>NSCache</code> 내부 등에 쓰입니다.</p>
+          <p class="follow-up">꼬리 질문: Doubly LinkedList에서 순환 참조를 방지하려면 어떻게 해야 하나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q08</span>
+        <h3>LinkedList에서 메모리 누수가 발생하는 원인과 해결법을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Doubly LinkedList에서 <code>prev</code>와 <code>next</code>가 모두 strong 참조이면, 두 노드가 서로를 가리켜 retain cycle이 생깁니다. ARC는 순환 참조를 자동 해제하지 못하므로 메모리 누수가 발생합니다. 해결법으로는 <code>prev</code>를 <code>weak</code>로 선언하거나, 리스트 해제 시 모든 노드의 연결을 명시적으로 끊는 <code>removeAll()</code>을 구현하는 방법이 있습니다. 또한 리스트 자체를 <code>class</code>로 감싸고 <code>deinit</code>에서 순회하며 연결을 해제하는 패턴도 자주 사용됩니다.</p>
+          <p class="follow-up">꼬리 질문: Instruments의 Leaks 도구로 이러한 순환 참조를 어떻게 탐지하나요?</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- Stack / Queue -->
+    <div class="sub-section" id="ds-stack-queue">
+      <div class="sub-title">Stack / Queue</div>
+
+      <div class="q-card">
+        <span class="q-num">Q09</span>
+        <h3>Stack과 Queue의 차이를 설명하고, 각각의 실무 활용 예시를 들어주세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Stack은 LIFO(Last In, First Out), Queue는 FIFO(First In, First Out) 구조입니다. Stack은 Navigation 뒤로가기(UINavigationController의 viewControllers), Undo/Redo, 재귀 호출 스택, 괄호 매칭 등에 사용됩니다. Queue는 네트워크 요청 대기열, GCD의 DispatchQueue, 이벤트 처리 순서 보장, BFS 탐색 등에 사용됩니다. Swift에서 Stack은 Array의 <code>append</code>/<code>popLast</code>로 간단히 구현하고, Queue는 Array의 <code>removeFirst</code>가 O(n)이므로 별도 최적화가 필요합니다.</p>
+          <p class="follow-up">꼬리 질문: Queue를 Array로 구현할 때 <code>removeFirst()</code>의 O(n) 문제를 어떻게 해결하나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q10</span>
+        <h3>Stack 2개로 Queue를 구현하는 방법을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>inStack과 outStack 두 개를 사용합니다. enqueue 시 inStack에 push하고, dequeue 시 outStack이 비어있으면 inStack의 모든 요소를 pop하여 outStack에 push(순서 뒤집기)한 뒤 outStack에서 pop합니다. outStack에 요소가 있으면 바로 pop합니다. 이렇게 하면 각 요소가 최대 2번 이동하므로 amortized O(1)의 enqueue/dequeue가 보장됩니다. 이 기법은 함수형 프로그래밍에서도 자주 등장하는 패턴입니다.</p>
+          <p class="follow-up">꼬리 질문: 이 구현에서 peek 연산의 시간 복잡도는 어떻게 되나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q11</span>
+        <h3><code>OperationQueue</code>와 <code>DispatchQueue</code>의 차이를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>DispatchQueue</code>는 GCD 기반으로 클로저 단위의 경량 작업을 처리하며, serial/concurrent 큐를 지원합니다. <code>OperationQueue</code>는 <code>Operation</code> 객체를 사용하여 작업 간 의존성(dependency) 설정, 취소(cancel), KVO 기반 상태 관찰, 최대 동시 실행 수(<code>maxConcurrentOperationCount</code>) 제어가 가능합니다. 단순 비동기 작업은 DispatchQueue, 복잡한 작업 흐름 관리가 필요하면 OperationQueue를 선택합니다. OperationQueue도 내부적으로 GCD를 사용합니다.</p>
+          <p class="follow-up">꼬리 질문: Swift Concurrency(async/await)가 등장한 후에도 OperationQueue가 필요한 경우는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q12</span>
+        <h3>Stack Overflow가 발생하는 원인과 iOS에서의 대처법을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Stack Overflow는 재귀 호출이 너무 깊어 호출 스택 메모리(iOS 기본 약 1MB)를 초과할 때 발생합니다. 주요 원인은 탈출 조건 없는 재귀, 매우 깊은 트리 순회, 상호 재귀 등입니다. 대처법으로는 재귀를 반복문으로 변환(명시적 스택 사용), 꼬리 재귀 최적화(Swift 컴파일러가 보장하지는 않음), 재귀 깊이 제한 설정 등이 있습니다. Thread의 <code>stackSize</code>를 늘리는 것은 근본 해결이 아니며, 알고리즘 자체를 반복적으로 재설계하는 것이 바람직합니다.</p>
+          <p class="follow-up">꼬리 질문: Swift 컴파일러가 꼬리 재귀 최적화를 수행하는 조건은 무엇인가요?</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- Deque -->
+    <div class="sub-section" id="ds-deque">
+      <div class="sub-title">Deque</div>
+
+      <div class="q-card">
+        <span class="q-num">Q13</span>
+        <h3>Deque를 Ring Buffer로 구현하는 이유를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Ring Buffer(원형 버퍼)는 고정 크기 배열에서 head와 tail 인덱스를 모듈로 연산으로 순환시켜, 앞뒤 삽입/삭제 모두 O(1)을 달성합니다. 일반 배열은 앞쪽 삽입/삭제 시 요소를 밀어야 하므로 O(n)이지만, Ring Buffer는 인덱스만 이동하면 됩니다. 연속된 메모리를 사용하므로 캐시 지역성도 좋습니다. Swift의 <code>swift-collections</code> 패키지의 <code>Deque</code>도 이 방식을 사용합니다.</p>
+          <p class="follow-up">꼬리 질문: Ring Buffer가 가득 찼을 때 어떻게 확장하나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q14</span>
+        <h3>Array 기반 Deque에서 발생할 수 있는 성능 문제를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>일반 Array로 Deque를 구현하면 <code>removeFirst()</code>와 <code>insert(at: 0)</code>가 모든 요소를 한 칸씩 이동시켜 O(n)입니다. n개 요소를 순차적으로 dequeue하면 O(n^2)가 됩니다. 또한 앞쪽에서 반복 삭제하면 버퍼 앞쪽에 빈 공간이 낭비됩니다. 이를 해결하려면 Ring Buffer를 사용하거나, head 오프셋을 두어 논리적으로만 제거하고 주기적으로 compaction하는 방법을 쓸 수 있습니다.</p>
+          <p class="follow-up">꼬리 질문: Swift Array의 <code>removeFirst()</code>가 내부적으로 최적화되어 있는 경우가 있나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q15</span>
+        <h3>Deque의 실무 활용 사례를 말해주세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Deque는 양쪽에서 삽입/삭제가 필요한 곳에 활용됩니다. 슬라이딩 윈도우 알고리즘에서 최대/최소값을 효율적으로 추적할 때, 작업 스케줄러에서 우선순위 높은 작업을 앞에 삽입(work stealing), BFS의 변형인 0-1 BFS, 브라우저의 앞으로/뒤로 히스토리 관리, 최근 항목 N개 유지(채팅 메시지 버퍼) 등에 사용됩니다. Apple의 <code>swift-collections</code> 패키지에서 <code>Deque</code>를 공식 제공하고 있습니다.</p>
+          <p class="follow-up">꼬리 질문: 슬라이딩 윈도우 최댓값 문제에서 Deque로 O(n) 해법을 구현하는 방법은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q16</span>
+        <h3><code>removeFirst()</code>를 O(1)로 만드는 전략을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>첫 번째 전략은 Ring Buffer로, head 인덱스를 1 증가시키기만 하면 됩니다. 두 번째는 head 오프셋 방식으로, 실제 삭제 대신 offset 변수를 두고 논리적 시작점을 이동시킵니다. offset이 배열 크기의 절반을 넘으면 앞부분을 잘라내고 offset을 리셋합니다. 세 번째는 앞서 설명한 Two-Stack 방식으로, reversed stack에서 pop하면 O(1)입니다. swift-collections의 Deque는 Ring Buffer 기반이며, 세 가지 모두 amortized O(1) 또는 worst-case O(1)을 달성합니다.</p>
+          <p class="follow-up">꼬리 질문: worst-case O(1)과 amortized O(1)의 차이가 중요한 실무 상황은?</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- Binary Tree -->
+    <div class="sub-section" id="ds-binarytree">
+      <div class="sub-title">Binary Tree</div>
+
+      <div class="q-card">
+        <span class="q-num">Q17</span>
+        <h3>이진 트리의 4가지 순회 방법과 각각의 사용처를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><strong>전위(Pre-order)</strong>: 루트→좌→우, 트리 복사/직렬화에 사용. <strong>중위(In-order)</strong>: 좌→루트→우, BST에서 정렬된 순서로 출력. <strong>후위(Post-order)</strong>: 좌→우→루트, 트리 삭제(자식 먼저 해제), 수식 트리 계산. <strong>레벨(Level-order)</strong>: BFS로 층별 순회, 트리 높이 계산, 최단 경로 탐색에 사용됩니다. 전위/중위/후위는 DFS 기반이고 재귀 또는 명시적 스택으로, 레벨 순회는 큐로 구현합니다.</p>
+          <p class="follow-up">꼬리 질문: 전위 순회와 중위 순회 결과만으로 원본 트리를 복원할 수 있는 이유는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q18</span>
+        <h3>완전 이진 트리, 포화 이진 트리, 균형 이진 트리의 차이를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><strong>완전(Complete)</strong> 이진 트리는 마지막 레벨을 제외하고 모든 레벨이 꽉 차 있고, 마지막 레벨은 왼쪽부터 채워집니다. Heap이 대표적입니다. <strong>포화(Full/Perfect)</strong> 이진 트리는 모든 레벨이 완전히 채워진 트리로, 노드 수가 2^h - 1입니다. <strong>균형(Balanced)</strong> 이진 트리는 좌우 서브트리 높이 차이가 1 이하인 트리로, AVL 트리가 대표적입니다. 균형 트리는 검색/삽입/삭제가 O(log n)을 보장합니다.</p>
+          <p class="follow-up">꼬리 질문: Red-Black 트리와 AVL 트리의 균형 유지 전략 차이는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q19</span>
+        <h3>재귀 없이 이진 트리를 순회하는 방법을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>명시적 스택을 사용하여 반복문으로 순회할 수 있습니다. 중위 순회의 경우: 현재 노드를 왼쪽 끝까지 따라가며 스택에 push하고, 더 이상 왼쪽이 없으면 pop하여 방문 후 오른쪽으로 이동합니다. 전위 순회는 스택에서 pop한 노드를 먼저 방문하고 오른쪽, 왼쪽 순으로 push합니다. Morris Traversal은 스택 없이 O(1) 공간으로 순회하는 기법으로, 쓰레드(thread)를 이용해 임시로 트리 구조를 변경합니다.</p>
+          <p class="follow-up">꼬리 질문: Morris Traversal이 트리를 임시 변경하는데, 멀티스레드 환경에서 안전한가요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q20</span>
+        <h3>SwiftUI의 View 계층이 트리 구조인 이유를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>SwiftUI는 <code>body</code> 프로퍼티가 다른 View를 포함하는 재귀적 구조로, 자연스럽게 트리를 형성합니다. 이 트리 구조 덕분에 diffing 알고리즘으로 이전/현재 트리를 비교하여 변경된 부분만 효율적으로 다시 렌더링할 수 있습니다. <code>VStack</code>, <code>HStack</code> 등 컨테이너가 부모 노드, <code>Text</code>, <code>Image</code> 등이 리프 노드가 됩니다. 이는 React의 Virtual DOM과 유사한 개념으로, 선언적 UI의 핵심 메커니즘입니다.</p>
+          <p class="follow-up">꼬리 질문: SwiftUI가 View 트리를 diffing할 때 <code>id</code>가 중요한 이유는?</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- BST -->
+    <div class="sub-section" id="ds-bst">
+      <div class="sub-title">BST (Binary Search Tree)</div>
+
+      <div class="q-card">
+        <span class="q-num">Q21</span>
+        <h3>BST의 검색이 O(log n)이 아닌 경우는 언제인가요?</h3>
+        <details><summary>모범 답안</summary>
+          <p>정렬된 데이터를 순서대로 삽입하면 BST가 한쪽으로 치우친 편향 트리(skewed tree)가 되어 사실상 LinkedList와 같아집니다. 이 경우 검색, 삽입, 삭제 모두 O(n)이 됩니다. 예를 들어 1, 2, 3, 4, 5를 순서대로 삽입하면 오른쪽으로만 연결됩니다. 이를 방지하기 위해 AVL 트리나 Red-Black 트리 같은 자가 균형 BST를 사용하여 항상 O(log n)을 보장합니다.</p>
+          <p class="follow-up">꼬리 질문: 정렬된 배열을 균형 BST로 변환하는 효율적인 방법은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q22</span>
+        <h3>BST에서 노드 삭제의 3가지 케이스를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><strong>Case 1 (리프 노드)</strong>: 자식이 없으므로 부모의 참조만 nil로 변경합니다. <strong>Case 2 (자식 1개)</strong>: 삭제할 노드를 유일한 자식으로 대체합니다. <strong>Case 3 (자식 2개)</strong>: 중위 후속자(오른쪽 서브트리의 최솟값) 또는 중위 선행자(왼쪽 서브트리의 최댓값)의 값을 복사한 후, 그 후속자/선행자 노드를 삭제합니다. Case 3이 가장 복잡하지만, 후속자는 자식이 최대 1개이므로 결국 Case 1 또는 2로 귀결됩니다.</p>
+          <p class="follow-up">꼬리 질문: 중위 후속자 대신 중위 선행자를 사용하면 트리 균형에 영향이 있나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q23</span>
+        <h3>Self-Balancing BST가 필요한 이유를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>일반 BST는 입력 순서에 따라 편향될 수 있어 최악 O(n)이 됩니다. Self-Balancing BST(AVL, Red-Black, B-Tree)는 삽입/삭제 시 회전(rotation) 연산으로 트리 높이를 O(log n)으로 유지합니다. AVL은 엄격한 균형(높이 차 ≤ 1)으로 검색이 빠르고, Red-Black은 느슨한 균형으로 삽입/삭제가 더 빠릅니다. Foundation의 <code>CFTree</code>나 데이터베이스 인덱스(B-Tree)도 자가 균형 트리를 사용합니다.</p>
+          <p class="follow-up">꼬리 질문: 데이터베이스에서 BST 대신 B-Tree를 사용하는 이유는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q24</span>
+        <h3>BST의 중위 순회 결과가 정렬된 순서인 이유를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>BST의 정의에 의해 왼쪽 서브트리의 모든 값 < 루트 < 오른쪽 서브트리의 모든 값입니다. 중위 순회는 왼쪽→루트→오른쪽 순서로 방문하므로, 재귀적으로 왼쪽의 모든 작은 값들을 먼저 방문하고, 현재 값을 방문한 후, 오른쪽의 큰 값들을 방문합니다. 이 과정이 모든 서브트리에서 재귀적으로 적용되므로 결과가 오름차순이 됩니다. 이 성질을 활용해 BST로 정렬 알고리즘(Tree Sort)을 구현할 수 있습니다.</p>
+          <p class="follow-up">꼬리 질문: Tree Sort의 시간 복잡도와 Quick Sort와의 관계는?</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- Heap -->
+    <div class="sub-section" id="ds-heap">
+      <div class="sub-title">Heap</div>
+
+      <div class="q-card">
+        <span class="q-num">Q25</span>
+        <h3>Heap을 Array로 구현하는 이유와 인덱스 관계를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Heap은 완전 이진 트리이므로 배열에 레벨 순서로 빈 공간 없이 저장할 수 있습니다. 인덱스 i의 노드에 대해: 부모 = (i-1)/2, 왼쪽 자식 = 2i+1, 오른쪽 자식 = 2i+2 (0-based). 포인터가 필요 없어 메모리 효율적이고, 연속 메모리라 캐시 지역성이 우수합니다. 삽입은 배열 끝에 추가 후 sift-up, 삭제는 루트와 마지막 요소를 교환 후 sift-down하면 됩니다. 두 연산 모두 O(log n)입니다.</p>
+          <p class="follow-up">꼬리 질문: 1-based 인덱싱과 0-based 인덱싱의 장단점은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q26</span>
+        <h3><code>heapify</code>의 시간 복잡도가 O(n)인 이유를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Bottom-up heapify는 배열의 뒤쪽(리프)부터 앞쪽(루트)으로 sift-down을 수행합니다. 직관적으로 n개 노드에 O(log n) sift-down이면 O(n log n) 같지만, 실제로는 대부분의 노드가 트리 하단에 있어 이동 거리가 짧습니다. 높이 h에서의 노드 수는 n/2^(h+1)이고 각각 h번 이동하므로, 총 비용은 sum(h * n/2^(h+1)) = O(n)입니다. 이는 top-down 방식(각 요소를 삽입하며 sift-up)의 O(n log n)보다 효율적입니다.</p>
+          <p class="follow-up">꼬리 질문: Swift에서 배열을 힙으로 변환하는 코드를 작성한다면 어떤 구조일까요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q27</span>
+        <h3>Priority Queue와 Heap의 관계를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Priority Queue는 추상 자료형(ADT)이고, Heap은 그 구현체입니다. Priority Queue는 "가장 높은(또는 낮은) 우선순위의 요소를 먼저 꺼낸다"는 인터페이스를 정의하고, Heap은 이를 O(log n) 삽입, O(1) 최솟/최댓값 조회, O(log n) 삭제로 효율적으로 구현합니다. 정렬된 배열이나 LinkedList로도 구현할 수 있지만 삽입이 O(n)이 됩니다. iOS에서는 Timer 스케줄링, Dijkstra 알고리즘, A* 경로 탐색 등에 활용됩니다.</p>
+          <p class="follow-up">꼬리 질문: Swift 표준 라이브러리에 Heap이 없는데 어떻게 대체하나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q28</span>
+        <h3>Top-K 문제에서 Min Heap을 사용하는 이유를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>n개 중 가장 큰 K개를 찾을 때, 크기 K의 Min Heap을 유지합니다. 새 요소가 Heap의 최솟값(루트)보다 크면 루트를 교체하고 sift-down합니다. 이렇게 하면 Heap에는 항상 지금까지 본 요소 중 가장 큰 K개가 남습니다. 시간 복잡도는 O(n log K)이고 공간은 O(K)입니다. Max Heap으로 전체를 넣으면 O(n log n) 공간 O(n)이 필요합니다. K가 n보다 훨씬 작을 때 Min Heap 방식이 메모리와 시간 모두 효율적입니다.</p>
+          <p class="follow-up">꼬리 질문: K가 n에 가까울 때는 어떤 방법이 더 효율적인가요?</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- Graph -->
+    <div class="sub-section" id="ds-graph">
+      <div class="sub-title">Graph</div>
+
+      <div class="q-card">
+        <span class="q-num">Q29</span>
+        <h3>인접 행렬(Adjacency Matrix)과 인접 리스트(Adjacency List)의 차이를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>인접 행렬은 V x V 2차원 배열로, 두 정점 간 간선 존재 여부를 O(1)로 확인합니다. 공간 O(V^2)이므로 정점이 많고 간선이 적은(희소) 그래프에서는 비효율적입니다. 인접 리스트는 각 정점의 이웃을 배열이나 LinkedList로 저장하며, 공간 O(V+E)입니다. 희소 그래프에서 메모리 효율적이고, 모든 이웃 순회가 빠릅니다. 밀집 그래프나 간선 존재 여부를 자주 확인해야 하면 행렬, 그 외에는 리스트가 유리합니다.</p>
+          <p class="follow-up">꼬리 질문: Swift에서 인접 리스트를 구현할 때 Dictionary와 Array 중 어떤 것이 적합한가요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q30</span>
+        <h3>BFS와 DFS의 차이와 각각의 사용처를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><strong>BFS(너비 우선)</strong>는 큐를 사용하여 레벨별로 탐색하며, 최단 경로(가중치 없는 그래프), 레벨별 처리에 적합합니다. <strong>DFS(깊이 우선)</strong>는 스택(또는 재귀)을 사용하여 한 경로를 끝까지 탐색하며, 경로 존재 여부, 사이클 탐지, 위상 정렬, 미로 탐색에 적합합니다. BFS는 O(V+E) 시간, O(V) 공간이 필요하고 DFS도 동일하지만, BFS는 넓은 그래프에서 메모리를 많이 사용할 수 있습니다.</p>
+          <p class="follow-up">꼬리 질문: iOS에서 뷰 계층을 탐색할 때 BFS와 DFS 중 어떤 것이 적합한가요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q31</span>
+        <h3>Dijkstra 알고리즘의 원리와 한계를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Dijkstra는 시작 정점에서 모든 정점까지의 최단 거리를 구하는 그리디 알고리즘입니다. 방문하지 않은 정점 중 최단 거리인 정점을 선택하고, 그 이웃의 거리를 갱신(relaxation)합니다. Priority Queue(Min Heap)를 사용하면 O((V+E) log V)입니다. 핵심 한계는 음수 가중치 간선이 있으면 올바른 결과를 보장하지 못한다는 점입니다. 음수 가중치가 있으면 Bellman-Ford(O(VE))를 사용해야 합니다.</p>
+          <p class="follow-up">꼬리 질문: 지도 앱에서 실시간 경로 탐색에 Dijkstra 대신 A* 알고리즘을 사용하는 이유는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q32</span>
+        <h3>위상 정렬(Topological Sort)의 조건과 활용을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>위상 정렬은 DAG(Directed Acyclic Graph, 방향 비순환 그래프)에서만 가능합니다. 사이클이 있으면 위상 정렬이 불가능하며, 이를 이용해 사이클 탐지에도 사용됩니다. Kahn의 알고리즘(BFS 기반)은 진입 차수 0인 노드를 큐에 넣고 처리하며, DFS 기반은 방문 완료 순서의 역순이 위상 순서입니다. 활용 예로는 빌드 시스템 의존성 해결(SPM, CocoaPods), 대학 수강 순서, 스프레드시트 셀 계산 순서 등이 있습니다.</p>
+          <p class="follow-up">꼬리 질문: Swift Package Manager가 패키지 의존성을 해결할 때 위상 정렬을 어떻게 활용하나요?</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- HashTable -->
+    <div class="sub-section" id="ds-hashtable">
+      <div class="sub-title">HashTable</div>
+
+      <div class="q-card">
+        <span class="q-num">Q33</span>
+        <h3>Swift <code>Dictionary</code>의 내부 구현을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Swift의 Dictionary는 오픈 어드레싱(open addressing) 방식의 해시 테이블입니다. 별도의 체이닝(LinkedList) 대신 빈 슬롯을 찾아 저장합니다. 내부적으로 비트마스크 기반 메타데이터(control bytes)를 사용하여 빈 슬롯과 삭제된 슬롯을 빠르게 구별합니다. 해시 충돌 시 linear probing 변형을 사용하며, load factor가 약 75%를 넘으면 버퍼 크기를 2배로 늘리고 rehashing합니다. 값 타입이므로 CoW가 적용됩니다.</p>
+          <p class="follow-up">꼬리 질문: Dictionary의 순서가 보장되지 않는 이유는 무엇인가요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q34</span>
+        <h3>커스텀 타입을 <code>Hashable</code>로 만들 때 주의할 점을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>Hashable</code>은 <code>Equatable</code>을 상속하므로 <code>==</code>와 <code>hash(into:)</code>가 일관되어야 합니다. 핵심 규칙: <code>a == b</code>이면 <code>a.hashValue == b.hashValue</code>여야 합니다(역은 성립하지 않아도 됨). <code>hash(into:)</code>에서는 <code>==</code>에 사용되는 프로퍼티만 포함해야 하고, mutable 프로퍼티를 해시에 사용하면 Dictionary에 넣은 후 값이 변경되어 키를 찾지 못하는 버그가 발생합니다. <code>Hasher</code>에 combine하는 순서도 결과에 영향을 줍니다.</p>
+          <p class="follow-up">꼬리 질문: <code>hash(into:)</code>에서 너무 많은 프로퍼티를 combine하면 어떤 문제가 있나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q35</span>
+        <h3>Load Factor와 Rehashing의 관계를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Load Factor = 저장된 요소 수 / 버킷 수입니다. Load Factor가 높아지면 충돌이 빈번해져 성능이 O(1)에서 O(n)으로 저하됩니다. 이를 방지하기 위해 특정 임계값(Swift Dictionary는 약 75%)을 넘으면 버킷 수를 2배로 늘리고 모든 요소를 새 해시값으로 재배치(rehashing)합니다. Rehashing은 O(n) 연산이지만 빈도가 낮아 amortized O(1)을 유지합니다. <code>Dictionary(minimumCapacity:)</code>로 미리 크기를 지정하면 rehashing을 줄일 수 있습니다.</p>
+          <p class="follow-up">꼬리 질문: Rehashing 중에 다른 스레드가 Dictionary에 접근하면 어떤 문제가 발생하나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q36</span>
+        <h3>Swift에서 <code>Dictionary</code>와 <code>Set</code>의 관계를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>Set</code>은 사실상 Value가 없는 <code>Dictionary</code>입니다. 둘 다 내부적으로 해시 테이블을 사용하며, <code>Hashable</code> 프로토콜을 키/요소 타입에 요구합니다. 검색, 삽입, 삭제 모두 평균 O(1)이고, CoW가 적용됩니다. <code>Set</code>은 합집합, 교집합, 차집합 등 집합 연산을 제공하고, <code>Dictionary</code>는 키-값 매핑을 제공합니다. 메모리 레이아웃도 유사하여, Set은 Dictionary에서 Value를 Void로 치환한 것과 개념적으로 같습니다.</p>
+          <p class="follow-up">꼬리 질문: <code>Set</code>으로 배열의 중복 제거 시 순서가 보장되지 않는 문제를 어떻게 해결하나요?</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- Trie -->
+    <div class="sub-section" id="ds-trie">
+      <div class="sub-title">Trie</div>
+
+      <div class="q-card">
+        <span class="q-num">Q37</span>
+        <h3>Trie의 검색 시간 복잡도가 O(m)인 이유를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Trie에서 m은 검색할 문자열의 길이입니다. 루트부터 시작하여 문자열의 각 문자를 따라 자식 노드로 이동하며, 총 m번 이동합니다. 각 이동은 자식 노드 탐색으로 O(1)(해시맵 또는 고정 크기 배열 사용 시)이므로 전체 O(m)입니다. 이는 저장된 문자열의 총 개수 n에 무관하다는 점이 핵심입니다. 해시 테이블의 O(m)(해시 계산에 m이 필요)과 동일하지만, Trie는 접두사 검색이 가능하다는 차별점이 있습니다.</p>
+          <p class="follow-up">꼬리 질문: Trie에서 문자 집합 크기(alphabet size)가 검색 성능에 미치는 영향은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q38</span>
+        <h3>Trie와 Hash Table의 장단점을 비교하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><strong>Trie 장점</strong>: 접두사 검색이 O(prefix length)로 효율적, 사전순 정렬 가능, 해시 충돌 없음. <strong>Trie 단점</strong>: 노드마다 자식 포인터 배열/맵이 필요해 메모리 사용량이 큼. <strong>Hash Table 장점</strong>: 평균 O(1) 검색, 메모리 효율적, 구현 간단. <strong>Hash Table 단점</strong>: 접두사 검색 불가(전체 키 비교), 해시 충돌 가능, 최악 O(n). 자동완성, 사전, IP 라우팅에는 Trie가, 단순 키-값 저장에는 Hash Table이 적합합니다.</p>
+          <p class="follow-up">꼬리 질문: 접두사 검색이 필요하지만 메모리가 제한적일 때 어떤 대안이 있나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q39</span>
+        <h3>Trie를 활용한 자동완성 기능의 구현 전략을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>사용자가 입력한 접두사로 Trie를 탐색하여 해당 노드까지 이동합니다. 그 노드의 서브트리에 있는 모든 단어가 자동완성 후보입니다. DFS로 서브트리를 순회하며 <code>isEndOfWord</code>가 true인 노드에서 완성된 단어를 수집합니다. 성능 최적화로는 각 노드에 인기도/빈도 점수를 저장하여 상위 K개만 반환하거나, 각 노드에 Top-K 결과를 미리 캐싱하는 방법이 있습니다. iOS의 <code>UISearchController</code>와 결합하여 실시간 자동완성을 구현할 수 있습니다.</p>
+          <p class="follow-up">꼬리 질문: 한글 자동완성에서 초성/중성/종성 분리를 Trie에 적용하려면?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q40</span>
+        <h3>Trie의 메모리 최적화 기법을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><strong>압축 Trie(Radix Tree)</strong>: 자식이 하나뿐인 노드를 합쳐 간선에 문자열을 저장합니다. "abc"→"d", "abc"→"e"를 "abc"에서 분기하도록 합칩니다. <strong>Ternary Search Trie</strong>: 각 노드가 left/equal/right 3개 자식만 가져 메모리 절약. <strong>배열 대신 HashMap</strong>: 자식 배열(26칸) 대신 실제 존재하는 자식만 HashMap으로 저장. <strong>비트맵</strong>: 존재하는 자식을 비트마스크로 관리. 이러한 기법으로 메모리를 50~90% 절약할 수 있습니다.</p>
+          <p class="follow-up">꼬리 질문: Radix Tree가 HTTP 라우터(Vapor 등)에서 사용되는 이유는?</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== PART 2: Swift 언어 ======================== -->
+  <section class="part-section" id="part2">
+    <div class="part-title"><span class="part-badge">PART 2</span> Swift 언어 — 30문제</div>
+    <p class="part-desc">Swift 언어의 핵심 개념과 고급 기능에 대한 면접 질문</p>
+
+    <div class="sub-section" id="swift">
+
+      <div class="q-card">
+        <span class="q-num">Q41</span>
+        <h3>Value Type과 Reference Type의 차이를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Value Type(<code>struct</code>, <code>enum</code>, 기본 타입)은 할당/전달 시 독립적인 복사본이 생성됩니다. 스택에 저장되어 빠르고, 멀티스레드에서 안전합니다. Reference Type(<code>class</code>)은 힙에 저장되고 참조(포인터)가 전달되어 여러 변수가 같은 인스턴스를 공유합니다. Value Type은 CoW로 불필요한 복사를 방지하고, Reference Type은 ARC로 메모리를 관리합니다. SwiftUI의 View는 struct, UIKit의 UIView는 class인 것이 대표적 예입니다.</p>
+          <p class="follow-up">꼬리 질문: struct 안에 class 타입 프로퍼티가 있으면 값 의미론이 깨지는 경우를 설명해 주세요.</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q42</span>
+        <h3><code>struct</code>와 <code>class</code>를 선택하는 기준은 무엇인가요?</h3>
+        <details><summary>모범 답안</summary>
+          <p>Apple 가이드라인에 따르면 기본적으로 <code>struct</code>를 선택합니다. <code>class</code>를 사용하는 경우: (1) 상속이 필요할 때, (2) 인스턴스의 정체성(identity)이 중요할 때, (3) Objective-C와 상호운용 시, (4) deinit이 필요할 때, (5) 여러 곳에서 같은 인스턴스를 공유/변경해야 할 때. <code>struct</code>는 불변성, 스레드 안전성, 성능(스택 할당)의 이점이 있습니다. SwiftUI에서는 View가 struct이고, 상태 공유는 <code>@Observable</code> class로 분리합니다.</p>
+          <p class="follow-up">꼬리 질문: struct가 힙에 할당되는 경우도 있나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q43</span>
+        <h3>ARC(Automatic Reference Counting)의 동작 원리를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>ARC는 컴파일 시점에 <code>retain</code>(참조 카운트 +1)과 <code>release</code>(참조 카운트 -1) 코드를 자동 삽입합니다. 참조 카운트가 0이 되면 <code>deinit</code>을 호출하고 메모리를 해제합니다. GC(Garbage Collection)와 달리 런타임 오버헤드가 없고 해제 시점이 예측 가능합니다. 단, 순환 참조를 자동 감지하지 못하므로 <code>weak</code>/<code>unowned</code>로 개발자가 직접 해결해야 합니다. 내부적으로 strong, weak, unowned 세 가지 참조 카운터를 별도 관리합니다.</p>
+          <p class="follow-up">꼬리 질문: ARC의 retain/release가 성능에 미치는 영향을 줄이는 방법은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q44</span>
+        <h3><code>strong</code>, <code>weak</code>, <code>unowned</code> 참조의 차이를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>strong</code>은 기본값으로 참조 카운트를 증가시키고, 참조가 존재하는 한 객체가 해제되지 않습니다. <code>weak</code>는 참조 카운트를 증가시키지 않고, 객체가 해제되면 자동으로 nil이 됩니다(Optional). <code>unowned</code>도 참조 카운트를 증가시키지 않지만, 객체 해제 후 접근하면 크래시합니다(Non-Optional). <code>weak</code>는 delegate 패턴에, <code>unowned</code>는 수명이 같거나 참조 대상이 항상 존재할 때(예: <code>lazy var</code> 클로저 내 self) 사용합니다.</p>
+          <p class="follow-up">꼬리 질문: <code>unowned(unsafe)</code>는 언제 사용하나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q45</span>
+        <h3>Retain Cycle이 발생하는 상황과 해결법을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>두 객체가 서로를 strong 참조하거나, 클로저가 self를 강하게 캡처하면 retain cycle이 발생합니다. 대표적 예: (1) A의 프로퍼티가 B를 strong 참조, B의 프로퍼티가 A를 strong 참조. (2) <code>self.completion = { self.doSomething() }</code>. 해결법: (1) 한쪽을 <code>weak</code>/<code>unowned</code>로 변경. (2) 클로저에서 <code>[weak self]</code> 또는 <code>[unowned self]</code> 캡처 리스트 사용. Instruments의 Leaks와 Memory Graph Debugger로 탐지할 수 있습니다.</p>
+          <p class="follow-up">꼬리 질문: Timer, NotificationCenter 등에서 발생하는 retain cycle 패턴은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q46</span>
+        <h3>Swift의 <code>Optional</code>이 내부적으로 어떻게 구현되어 있나요?</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>Optional</code>은 <code>enum</code>으로 구현되어 있습니다: <code>enum Optional&lt;Wrapped&gt; { case none; case some(Wrapped) }</code>. <code>nil</code>은 <code>.none</code>의 syntactic sugar이고, 값이 있으면 <code>.some(value)</code>입니다. 이 덕분에 패턴 매칭, <code>switch</code>, <code>if case let</code> 등과 자연스럽게 호환됩니다. 컴파일러 최적화로 단일 포인터 타입(class)의 Optional은 추가 메모리 없이 null 포인터로 <code>.none</code>을 표현합니다. 이중 Optional(<code>Int??</code>)도 가능하며, nested enum이 됩니다.</p>
+          <p class="follow-up">꼬리 질문: <code>Optional</code>의 <code>map</code>과 <code>flatMap</code>은 어떻게 활용하나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q47</span>
+        <h3><code>guard let</code>과 <code>if let</code>의 차이와 사용 기준을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>if let</code>은 Optional 바인딩 성공 시 내부 스코프에서만 언래핑된 값을 사용합니다. <code>guard let</code>은 실패 시 early return하고, 성공 시 이후 전체 스코프에서 값을 사용할 수 있습니다. <code>guard</code>는 전제 조건 검증에 사용하여 "golden path"(정상 흐름)의 들여쓰기를 줄입니다. 함수 초반에 매개변수 유효성 검사에는 <code>guard</code>, 분기 처리에는 <code>if let</code>이 적합합니다. Swift 5.7부터 <code>if let value</code>(변수명 생략) 문법도 지원됩니다.</p>
+          <p class="follow-up">꼬리 질문: <code>guard</code>에서 반드시 스코프를 벗어나야 하는 이유는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q48</span>
+        <h3>Protocol과 Generic의 차이와 사용 기준을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Protocol은 동적 디스패치(existential container, witness table)를 통해 런타임 다형성을 제공하고, Generic은 컴파일 타임에 특수화(specialization)되어 정적 디스패치로 성능이 좋습니다. Protocol은 이질적인 타입의 컬렉션(<code>[any Drawable]</code>)을 만들 수 있고, Generic은 동질적 타입에 최적화됩니다. Generic은 타입 관계를 정확히 표현하고 <code>where</code> 절로 제약을 줄 수 있습니다. 실무에서는 프로토콜로 인터페이스를 정의하고, Generic으로 구현하는 조합이 많습니다.</p>
+          <p class="follow-up">꼬리 질문: Protocol의 existential container 오버헤드가 성능에 미치는 구체적인 영향은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q49</span>
+        <h3>Associated Type이 무엇이고 왜 필요한가요?</h3>
+        <details><summary>모범 답안</summary>
+          <p>Associated Type은 프로토콜 내에서 사용할 타입의 플레이스홀더입니다. 제네릭의 타입 파라미터와 유사하지만 프로토콜 수준에서 사용됩니다. 예: <code>protocol Container { associatedtype Item; func append(_ item: Item) }</code>. 채택하는 타입이 구체적인 타입을 결정합니다. Associated Type이 있는 프로토콜은 <code>any</code>로 직접 사용이 제한되며(type erasure 필요), <code>some</code> 키워드나 Generic 제약으로 사용합니다. <code>Collection</code>, <code>Sequence</code> 등 표준 라이브러리에서 광범위하게 사용됩니다.</p>
+          <p class="follow-up">꼬리 질문: <code>primary associated type</code>(Swift 5.7)이 등장한 이유는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q50</span>
+        <h3>Swift Extension의 제한사항을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Extension에서는 (1) stored property를 추가할 수 없고 computed property만 가능, (2) designated initializer를 추가할 수 없고 convenience만 가능(class), (3) 기존 메서드를 override할 수 없습니다(@objc가 아닌 경우). Extension에 추가한 프로토콜 준수의 기본 구현은 동적 디스패치가 아닌 정적 디스패치될 수 있어 예상치 못한 동작이 발생할 수 있습니다. 또한 Extension은 접근 제어를 원본보다 높일 수 없습니다.</p>
+          <p class="follow-up">꼬리 질문: Extension에서 정적 디스패치로 인해 발생하는 "프로토콜 함정"을 예시로 설명해주세요.</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q51</span>
+        <h3><code>@escaping</code> 클로저란 무엇이고 왜 명시해야 하나요?</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>@escaping</code>은 클로저가 함수 실행이 끝난 후에도 호출될 수 있음을 표시합니다. 비동기 콜백, 프로퍼티 저장, 다른 escaping 클로저에 전달 등의 경우입니다. 명시해야 하는 이유: (1) 컴파일러가 캡처된 값의 수명을 관리하기 위해 힙에 저장해야 하는지 판단, (2) <code>self</code> 캡처 시 retain cycle 위험을 개발자에게 경고(<code>self.</code> 명시 요구). non-escaping(기본값)은 스택에 저장되어 더 효율적이고, 컴파일러 최적화가 가능합니다.</p>
+          <p class="follow-up">꼬리 질문: <code>@autoclosure</code>와 <code>@escaping</code>을 함께 사용하는 경우는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q52</span>
+        <h3>클로저의 캡처 리스트와 <code>[weak self]</code> 사용법을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>캡처 리스트(<code>[a, b]</code>)는 클로저가 외부 변수를 캡처하는 방식을 제어합니다. 값 타입은 캡처 시점의 복사본을, 참조 타입은 참조를 캡처합니다. <code>[weak self]</code>는 self를 약하게 캡처하여 retain cycle을 방지합니다. 사용 패턴: <code>{ [weak self] in guard let self else { return }; self.doSomething() }</code>. <code>[unowned self]</code>는 self가 항상 존재할 때 사용하며, 해제 후 접근 시 크래시합니다. GCD, Combine, completion handler에서 필수적인 패턴입니다.</p>
+          <p class="follow-up">꼬리 질문: Swift 5.3의 <code>[self]</code> 명시적 캡처와 암시적 캡처의 차이는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q53</span>
+        <h3>GCD와 Swift Concurrency(async/await)의 차이를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>GCD는 스레드 풀 기반으로 클로저를 큐에 디스패치하며, 콜백 중첩(callback hell)이 발생할 수 있습니다. async/await는 코루틴 기반으로 비동기 코드를 동기처럼 작성하여 가독성이 좋고, structured concurrency(<code>TaskGroup</code>, <code>async let</code>)로 작업 생명주기를 관리합니다. GCD는 스레드 폭발(thread explosion) 위험이 있지만, Swift Concurrency는 cooperative thread pool로 스레드 수를 코어 수로 제한합니다. 또한 <code>actor</code>로 데이터 레이스를 컴파일 타임에 방지합니다.</p>
+          <p class="follow-up">꼬리 질문: GCD 코드를 async/await로 마이그레이션할 때 <code>withCheckedContinuation</code>을 어떻게 사용하나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q54</span>
+        <h3>Swift의 <code>actor</code>가 무엇이고 어떤 문제를 해결하나요?</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>actor</code>는 참조 타입이면서 내부 상태에 대한 동기화를 자동으로 보장합니다. 외부에서 actor의 프로퍼티/메서드에 접근할 때 <code>await</code>를 사용해야 하며, 한 번에 하나의 작업만 내부 상태를 수정할 수 있습니다(직렬화). 이를 통해 data race를 컴파일 타임에 방지합니다. <code>@MainActor</code>는 메인 스레드 실행을 보장하여 UI 업데이트에 사용됩니다. actor는 lock이나 serial queue를 직접 관리하는 것보다 안전하고 간결합니다.</p>
+          <p class="follow-up">꼬리 질문: actor의 재진입(reentrancy) 문제란 무엇이고 어떻게 대처하나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q55</span>
+        <h3><code>Sendable</code> 프로토콜의 역할과 규칙을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>Sendable</code>은 concurrency 도메인(actor, task) 간에 안전하게 전달할 수 있는 타입을 표시합니다. 값 타입(struct, enum)은 모든 프로퍼티가 Sendable이면 자동 준수합니다. class는 <code>final</code>이고 모든 프로퍼티가 불변(<code>let</code>) + Sendable이어야 합니다. <code>@Sendable</code>은 클로저에 적용되어 캡처하는 값이 Sendable이어야 함을 보장합니다. Swift 6에서는 strict concurrency checking이 기본이 되어 Sendable 위반이 에러로 처리됩니다.</p>
+          <p class="follow-up">꼬리 질문: <code>@unchecked Sendable</code>은 언제 사용하나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q56</span>
+        <h3><code>throws</code>와 <code>Result</code> 타입의 차이와 사용 기준을 말해주세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>throws</code>는 Swift의 기본 에러 처리 메커니즘으로 <code>do-try-catch</code>로 처리합니다. 동기 함수에서 자연스럽고, 에러가 자동 전파됩니다. <code>Result&lt;Success, Failure&gt;</code>는 enum으로 성공/실패를 명시적으로 표현하며, 클로저 콜백에서 에러를 전달할 때 유용합니다. async/await가 등장하면서 비동기 에러 처리에 <code>throws</code>를 직접 사용할 수 있어 <code>Result</code>의 필요성이 줄었습니다. 하지만 값으로 에러를 저장/전달해야 하는 경우에는 여전히 <code>Result</code>가 유용합니다.</p>
+          <p class="follow-up">꼬리 질문: Swift 6의 typed throws(<code>throws(MyError)</code>)는 Result와 어떤 차이가 있나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q57</span>
+        <h3><code>Codable</code> 커스텀 디코딩을 구현하는 방법을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>기본 자동 합성이 불가능할 때 <code>init(from decoder: Decoder)</code>를 직접 구현합니다. <code>CodingKeys</code> enum으로 JSON 키와 프로퍼티 이름을 매핑하고, <code>container(keyedBy:)</code>로 컨테이너를 얻어 각 키별로 <code>decode</code>합니다. 중첩 JSON은 <code>nestedContainer</code>, 타입이 다른 값은 <code>decodeIfPresent</code> + 기본값, 날짜 포맷은 <code>DateDecodingStrategy</code>로 처리합니다. <code>singleValueContainer</code>, <code>unkeyedContainer</code>로 다양한 JSON 구조를 파싱할 수 있습니다.</p>
+          <p class="follow-up">꼬리 질문: 서버 응답의 snake_case를 Swift의 camelCase로 자동 변환하는 방법은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q58</span>
+        <h3>Property Wrapper의 동작 원리를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>@propertyWrapper</code>는 프로퍼티의 저장/접근 로직을 재사용 가능하게 캡슐화합니다. <code>wrappedValue</code>가 핵심으로, getter/setter에서 유효성 검사, 변환, 저장 로직을 구현합니다. <code>projectedValue</code>(<code>$</code> 접두사)로 추가 정보를 노출할 수 있습니다(SwiftUI의 <code>$binding</code>). 컴파일러가 내부적으로 별도 프로퍼티(<code>_name</code>)를 생성합니다. SwiftUI의 <code>@State</code>, <code>@Published</code>, <code>@AppStorage</code> 등이 대표적이며, 커스텀 래퍼로 <code>@Clamped</code>, <code>@UserDefault</code> 등을 만들 수 있습니다.</p>
+          <p class="follow-up">꼬리 질문: Property Wrapper 초기화에서 <code>init(wrappedValue:)</code>의 역할은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q59</span>
+        <h3><code>some</code> 키워드(Opaque Type)의 역할을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>some</code>은 반환 타입을 숨기면서 컴파일러에게는 구체적 타입을 알려주는 opaque return type입니다. <code>func makeView() -> some View</code>는 특정 View 타입을 반환하지만 호출자에게는 "어떤 View"로만 보입니다. 제네릭의 역방향으로, 호출자가 아닌 구현자가 타입을 결정합니다. 장점: (1) 구현 세부사항 은닉, (2) 제네릭 제약 유지로 컴파일러 최적화 가능, (3) Associated Type이 있는 프로토콜을 반환 타입으로 사용 가능. SwiftUI에서 필수적인 키워드입니다.</p>
+          <p class="follow-up">꼬리 질문: <code>some</code>은 왜 하나의 구체 타입만 반환해야 하나요? 분기별로 다른 타입을 반환하면?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q60</span>
+        <h3><code>any</code>와 <code>some</code>의 차이를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>some</code>(opaque type)은 컴파일 타임에 하나의 구체 타입으로 고정되어 정적 디스패치와 최적화가 가능합니다. <code>any</code>(existential type)는 런타임에 다양한 타입을 담을 수 있는 컨테이너로, 동적 디스패치를 사용합니다. <code>any Protocol</code>은 existential container(24바이트 + witness table 포인터)를 할당하여 오버헤드가 있습니다. 동질적 컬렉션에는 <code>some</code>, 이질적 컬렉션(<code>[any Drawable]</code>)에는 <code>any</code>를 사용합니다. Swift 5.7부터 <code>any</code>를 명시적으로 작성해야 합니다.</p>
+          <p class="follow-up">꼬리 질문: <code>any</code>의 성능 오버헤드를 측정하는 방법은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q61</span>
+        <h3>Copy-on-Write를 직접 구현하는 방법을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>내부에 class 기반 Storage를 두고, struct의 mutating 메서드에서 <code>isKnownUniquelyReferenced(&storage)</code>를 확인합니다. 참조가 유일하지 않으면(공유 중이면) Storage를 복사한 후 수정합니다. 유일하면 바로 수정합니다. 이 패턴으로 값 타입의 의미론을 유지하면서 불필요한 복사를 피합니다. 구현: <code>struct MyArray { private var storage: Storage; mutating func append() { if !isKnownUniquelyReferenced(&storage) { storage = storage.copy() }; storage.data.append(...) } }</code></p>
+          <p class="follow-up">꼬리 질문: <code>isKnownUniquelyReferenced</code>가 Objective-C 클래스에서 작동하지 않는 이유는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q62</span>
+        <h3><code>lazy</code> 프로퍼티의 특성과 주의할 점을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>lazy var</code>는 처음 접근할 때 초기화되는 프로퍼티입니다. 초기화 비용이 큰 객체를 지연 생성하거나, 다른 프로퍼티가 초기화된 후에야 생성할 수 있을 때 유용합니다. 주의점: (1) <code>var</code>만 가능(<code>let</code> 불가), (2) <code>mutating</code> 접근이 필요하므로 struct에서는 <code>var</code>로 선언해야 접근 가능, (3) 스레드 안전하지 않음 — 여러 스레드에서 동시 접근 시 여러 번 초기화될 수 있음, (4) <code>self</code> 캡처로 retain cycle 주의. class에서도 lock 없이는 thread-safe하지 않습니다.</p>
+          <p class="follow-up">꼬리 질문: <code>lazy</code> 대신 computed property를 사용해야 하는 경우는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q63</span>
+        <h3>Swift의 <code>subscript</code> 문법과 활용을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>subscript</code>는 컬렉션이나 시퀀스 타입에서 인덱스로 값에 접근하는 문법입니다. <code>subscript(index: Int) -> Element { get { ... } set { ... } }</code> 형태로 정의하며, <code>myObject[0]</code>처럼 사용합니다. 다중 파라미터(<code>matrix[row, col]</code>), 다중 subscript(오버로딩), static subscript도 가능합니다. Dictionary의 <code>dict[key, default: value]</code>가 좋은 활용 예입니다. 커스텀 타입에서 DSL이나 직관적인 API를 만들 때 유용합니다.</p>
+          <p class="follow-up">꼬리 질문: subscript에서 <code>async</code>나 <code>throws</code>를 사용할 수 있나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q64</span>
+        <h3><code>@dynamicMemberLookup</code>의 원리와 활용을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>@dynamicMemberLookup</code>은 dot 문법으로 접근하는 프로퍼티를 런타임에 동적으로 해석하는 기능입니다. <code>subscript(dynamicMember key: String) -> T</code>를 구현하면, 존재하지 않는 프로퍼티에 접근할 때 이 subscript가 호출됩니다. JSON 파싱(<code>json.user.name</code>), Python interop, KeyPath 기반 프록시 패턴 등에 활용됩니다. KeyPath를 파라미터로 받으면 타입 안전하게 사용할 수 있습니다. SwiftUI의 <code>@Environment</code>가 내부적으로 이 메커니즘을 활용합니다.</p>
+          <p class="follow-up">꼬리 질문: <code>@dynamicCallable</code>과 <code>@dynamicMemberLookup</code>의 차이는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q65</span>
+        <h3>Swift KeyPath의 활용 방법을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>KeyPath는 프로퍼티에 대한 타입 안전한 참조입니다. <code>\Person.name</code>으로 생성하고, <code>person[keyPath: kp]</code>로 접근합니다. <code>KeyPath</code>(읽기 전용), <code>WritableKeyPath</code>(읽기/쓰기), <code>ReferenceWritableKeyPath</code>(class용)가 있습니다. 활용: (1) 고차 함수에서 <code>\.property</code>로 간결한 접근(<code>users.map(\.name)</code>), (2) KVO 대체, (3) 정렬/필터 기준을 변수로 전달, (4) SwiftUI의 <code>ForEach</code>에서 <code>id: \.self</code>. 함수형 프로그래밍 패턴에서 매우 유용합니다.</p>
+          <p class="follow-up">꼬리 질문: KeyPath를 함수 타입(<code>(Root) -> Value</code>)으로 사용할 수 있는 이유는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q66</span>
+        <h3><code>where</code> 절의 다양한 사용법을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>where</code>는 제네릭 제약, 프로토콜 extension, 패턴 매칭 등 여러 곳에서 사용됩니다. (1) 제네릭: <code>func f&lt;T&gt;(t: T) where T: Comparable</code>, (2) Extension: <code>extension Array where Element: Numeric</code>, (3) for-in: <code>for x in arr where x > 0</code>, (4) switch/case: <code>case let x where x > 0</code>, (5) Associated Type 제약: <code>associatedtype T where T: Equatable</code>, (6) Protocol 상속: <code>protocol P: Collection where Element == Int</code>. 조건부 적합성(conditional conformance)을 표현하는 핵심 문법입니다.</p>
+          <p class="follow-up">꼬리 질문: conditional conformance(<code>extension Array: Equatable where Element: Equatable</code>)의 중요성은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q67</span>
+        <h3><code>@frozen</code>과 non-frozen enum의 차이를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>@frozen</code> enum은 향후 새 case가 추가되지 않음을 보장하여, 컴파일러가 switch에서 완전성을 확인하고 최적화할 수 있습니다. non-frozen(기본값, 라이브러리 evolution 모드)은 향후 case가 추가될 수 있어 <code>@unknown default</code>가 필요합니다. Apple 프레임워크의 많은 enum이 non-frozen이어서 OS 업데이트로 새 case가 추가될 수 있습니다. <code>@frozen</code>은 ABI 안정성을 위해 메모리 레이아웃이 고정되어 인라이닝이 가능합니다.</p>
+          <p class="follow-up">꼬리 질문: <code>@unknown default</code>에서 warning이 뜨는 이유와 의도는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q68</span>
+        <h3>Swift의 메모리 안전성(Memory Safety) 보장 메커니즘을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Swift는 "독점적 접근(Exclusive Access)" 규칙으로 같은 메모리 위치에 대한 동시 읽기-쓰기 또는 쓰기-쓰기를 금지합니다. 예: <code>swap(&a[i], &a[j])</code>에서 i == j이면 같은 메모리에 두 개의 쓰기 접근이 충돌합니다. 컴파일 타임에 감지 가능한 것은 에러로, 런타임에만 확인 가능한 것은 트랩으로 처리합니다. <code>inout</code> 파라미터, mutating 메서드, 프로퍼티 접근에서 발생할 수 있습니다. 이 메커니즘이 undefined behavior를 방지합니다.</p>
+          <p class="follow-up">꼬리 질문: <code>-enforce-exclusivity=checked</code> 옵션의 역할은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q69</span>
+        <h3><code>inout</code> 파라미터의 동작 원리를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>inout</code>은 "copy-in copy-out" 방식으로 동작합니다. 함수 호출 시 원본 값을 복사하여 전달하고, 함수가 끝나면 수정된 값을 원본 위치에 다시 써넣습니다. 최적화로 참조 전달(call by reference)이 될 수 있지만, 의미론적으로는 항상 copy-in copy-out입니다. 호출 시 <code>&</code>를 명시하여 값이 변경될 수 있음을 나타냅니다. computed property나 subscript에도 사용할 수 있으며, <code>willSet</code>/<code>didSet</code>이 있는 프로퍼티도 가능합니다.</p>
+          <p class="follow-up">꼬리 질문: <code>inout</code>과 <code>UnsafeMutablePointer</code>의 차이는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q70</span>
+        <h3><code>@inlinable</code>의 역할과 사용 시 고려사항을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>@inlinable</code>은 함수 본문을 모듈 인터페이스에 포함시켜, 호출하는 모듈에서 인라이닝(함수 호출 대신 본문을 직접 삽입)할 수 있게 합니다. 성능이 중요한 제네릭 함수, 작은 유틸리티 함수에서 함수 호출 오버헤드를 제거합니다. 고려사항: (1) 구현이 public API의 일부가 되어 변경 시 ABI 호환성에 영향, (2) <code>@usableFromInline</code>으로 내부 타입을 노출해야 할 수 있음, (3) 바이너리 크기 증가 가능. 표준 라이브러리에서 <code>map</code>, <code>filter</code> 등에 광범위하게 사용됩니다.</p>
+          <p class="follow-up">꼬리 질문: <code>@inlinable</code>과 <code>@inline(__always)</code>의 차이는?</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== PART 3: iOS 프레임워크 ======================== -->
+  <section class="part-section" id="part3">
+    <div class="part-title"><span class="part-badge">PART 3</span> iOS 프레임워크 — 30문제</div>
+    <p class="part-desc">UIKit, SwiftUI, 네트워킹, 테스트, 배포까지 iOS 실무 면접 질문</p>
+
+    <div class="sub-section" id="ios">
+
+      <div class="q-card">
+        <span class="q-num">Q71</span>
+        <h3>UIKit ViewController의 생명주기를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>init</code> → <code>loadView</code> → <code>viewDidLoad</code> → <code>viewWillAppear</code> → <code>viewDidAppear</code> → <code>viewWillDisappear</code> → <code>viewDidDisappear</code> → <code>deinit</code> 순서입니다. <code>viewDidLoad</code>는 뷰가 메모리에 로드된 후 한 번만 호출되어 초기 설정에 적합합니다. <code>viewWillAppear</code>는 화면에 표시될 때마다 호출되어 데이터 갱신에 사용합니다. <code>viewWillLayoutSubviews</code>/<code>viewDidLayoutSubviews</code>는 레이아웃 변경 시 호출됩니다. 메모리 경고 시 <code>didReceiveMemoryWarning</code>이 호출됩니다.</p>
+          <p class="follow-up">꼬리 질문: <code>viewIsAppearing</code>(iOS 13+)이 추가된 이유는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q72</span>
+        <h3>SwiftUI View의 생명주기를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>SwiftUI View(struct)는 값 타입이라 생성/소멸이 빈번합니다. body가 호출되어 뷰 트리를 생성하고, state 변경 시 body가 다시 호출됩니다. <code>.onAppear</code>는 뷰가 화면에 나타날 때, <code>.onDisappear</code>는 사라질 때 호출됩니다. <code>.task</code>는 뷰가 나타날 때 비동기 작업을 시작하고, 사라지면 자동 취소됩니다. <code>@State</code>로 관리되는 상태는 뷰 struct가 재생성되어도 유지됩니다. body의 호출 횟수와 시점은 SwiftUI가 결정하므로 side effect를 body에 넣으면 안 됩니다.</p>
+          <p class="follow-up">꼬리 질문: SwiftUI에서 body가 불필요하게 자주 호출되는 것을 방지하는 방법은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q73</span>
+        <h3><code>@State</code>, <code>@Binding</code>, <code>@ObservedObject</code>, <code>@Environment</code>의 차이를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>@State</code>: 뷰 자체가 소유하는 로컬 상태. 값 타입에 사용하며, SwiftUI가 별도 저장소에서 관리합니다. <code>@Binding</code>: 부모 뷰의 State에 대한 양방향 참조. 소유하지 않고 전달받습니다. <code>@ObservedObject</code>: <code>ObservableObject</code> 프로토콜을 준수하는 외부 참조 타입 관찰. 뷰가 소유하지 않으므로 재생성될 수 있습니다. <code>@StateObject</code>: 뷰가 소유하는 ObservableObject(한 번만 생성). <code>@Environment</code>: 뷰 계층 전체에서 공유되는 값(colorScheme, locale 등). <code>@EnvironmentObject</code>: 커스텀 ObservableObject를 환경에 주입합니다.</p>
+          <p class="follow-up">꼬리 질문: <code>@Observable</code> 매크로(Observation 프레임워크)가 등장하면서 달라진 점은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q74</span>
+        <h3>SwiftData와 Core Data의 차이를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>SwiftData는 Core Data 위에 구축된 Swift-native 영속성 프레임워크입니다. <code>@Model</code> 매크로로 모델을 정의하고(xcdatamodel 파일 불필요), <code>ModelContainer</code>/<code>ModelContext</code>로 CRUD를 수행합니다. <code>#Predicate</code> 매크로로 타입 안전한 쿼리를 작성하고, SwiftUI의 <code>@Query</code>로 자동 UI 갱신됩니다. Core Data는 <code>NSManagedObject</code> 기반으로 Objective-C 런타임에 의존하고, NSFetchRequest, NSPredicate를 사용합니다. SwiftData가 더 간결하지만, 마이그레이션이나 고급 기능에서는 Core Data가 더 세밀한 제어를 제공합니다.</p>
+          <p class="follow-up">꼬리 질문: SwiftData에서 CloudKit 동기화는 어떻게 설정하나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q75</span>
+        <h3><code>URLSession</code>의 구조와 주요 컴포넌트를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>URLSession</code>은 <code>URLSessionConfiguration</code>(default, ephemeral, background)으로 생성됩니다. <code>URLSessionTask</code>의 종류: <code>dataTask</code>(메모리 내 데이터), <code>downloadTask</code>(파일 다운로드), <code>uploadTask</code>(파일 업로드), <code>streamTask</code>(TCP/TLS). delegate 패턴으로 진행 상황, 인증, 리다이렉트 등을 세밀하게 제어할 수 있습니다. async/await API(<code>data(for:)</code>)도 지원합니다. background session은 앱이 suspended 상태에서도 전송을 계속하며, 시스템이 관리합니다.</p>
+          <p class="follow-up">꼬리 질문: <code>URLSessionConfiguration.ephemeral</code>은 어떤 상황에서 사용하나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q76</span>
+        <h3>Combine 프레임워크의 핵심 개념을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Combine은 반응형 프로그래밍 프레임워크로 <code>Publisher</code>(값을 방출), <code>Subscriber</code>(값을 수신), <code>Operator</code>(값을 변환)가 핵심입니다. Publisher는 <code>Output</code>과 <code>Failure</code> 타입을 정의합니다. 주요 Publisher: <code>Just</code>, <code>Future</code>, <code>@Published</code>, <code>NotificationCenter.publisher</code>. 주요 Operator: <code>map</code>, <code>filter</code>, <code>flatMap</code>, <code>combineLatest</code>, <code>debounce</code>. <code>sink</code>로 구독하고 <code>AnyCancellable</code>로 구독 생명주기를 관리합니다. 메모리 관리를 위해 <code>store(in: &cancellables)</code> 패턴을 사용합니다.</p>
+          <p class="follow-up">꼬리 질문: async/await가 있는데 Combine을 계속 사용해야 하는 이유는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q77</span>
+        <h3>SwiftUI에서 MVVM 패턴을 적용하는 방법을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>View(SwiftUI struct)는 UI 표현만 담당하고, ViewModel(<code>@Observable</code> class)이 비즈니스 로직과 상태를 관리합니다. Model은 데이터 구조(struct)입니다. View는 ViewModel의 프로퍼티를 바인딩하고, 사용자 액션을 ViewModel의 메서드로 전달합니다. ViewModel은 Model을 조작하고 서비스 레이어를 호출합니다. SwiftUI의 데이터 바인딩 시스템(<code>@State</code>, <code>@Bindable</code>)이 ViewModel의 변경을 자동으로 UI에 반영합니다. 테스트 시 ViewModel만 단위 테스트하면 됩니다.</p>
+          <p class="follow-up">꼬리 질문: SwiftUI에서 MVVM이 과도한 추상화라는 의견에 대해 어떻게 생각하나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q78</span>
+        <h3>Coordinator 패턴의 역할과 SwiftUI에서의 적용을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>Coordinator 패턴은 화면 전환(navigation) 로직을 ViewController/View에서 분리하여 별도 객체가 관리하게 합니다. 장점: (1) ViewController가 가벼워짐, (2) 화면 전환 로직 재사용, (3) deep link 처리 용이. UIKit에서는 Coordinator가 child coordinator를 관리하는 트리 구조를 형성합니다. SwiftUI에서는 <code>NavigationStack</code>의 path를 Coordinator가 관리하거나, <code>Router</code> 패턴으로 enum 기반 navigation을 구현합니다. 큰 앱에서 화면 간 결합도를 낮추는 데 효과적입니다.</p>
+          <p class="follow-up">꼬리 질문: SwiftUI의 <code>NavigationStack(path:)</code>이 Coordinator 패턴을 대체할 수 있나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q79</span>
+        <h3>iOS에서 Dependency Injection을 구현하는 방법을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>(1) <strong>Constructor Injection</strong>: 이니셜라이저 파라미터로 의존성 전달. 가장 권장되며 불변성 보장. (2) <strong>Property Injection</strong>: 프로퍼티에 직접 할당. 선택적 의존성에 사용. (3) <strong>Environment</strong>: SwiftUI의 <code>@Environment</code>/<code>@EnvironmentObject</code>로 뷰 계층 전체에 주입. (4) <strong>DI Container</strong>: Swinject 등 라이브러리로 등록/해결 자동화. Protocol을 인터페이스로 사용하여 구현체를 교체할 수 있게 하는 것이 핵심입니다. 테스트 시 Mock 객체를 쉽게 주입할 수 있습니다.</p>
+          <p class="follow-up">꼬리 질문: SwiftUI의 <code>@Environment</code>를 DI 컨테이너로 활용할 때의 장단점은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q80</span>
+        <h3>Mock, Stub, Spy의 차이를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><strong>Stub</strong>: 미리 정해진 값을 반환하는 가짜 객체. 테스트 대상이 의존하는 객체의 동작을 고정합니다. <strong>Mock</strong>: 호출 여부, 횟수, 파라미터를 검증하는 객체. "이 메서드가 정확히 1번 호출되었는가?"를 확인합니다. <strong>Spy</strong>: 실제 구현을 호출하면서 호출 기록을 저장하는 객체. 실제 동작 + 검증이 필요할 때 사용합니다. Swift에서는 Protocol을 정의하고 테스트용 구현체를 만들어 사용합니다. 외부 라이브러리 없이도 수동으로 구현 가능합니다.</p>
+          <p class="follow-up">꼬리 질문: Swift에서 mocking 라이브러리 없이 Protocol Mock을 효율적으로 만드는 패턴은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q81</span>
+        <h3>XCTest와 Swift Testing의 차이를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>XCTest는 기존 테스트 프레임워크로 <code>XCTestCase</code> 상속, <code>test</code> 접두사, <code>XCTAssert</code> 계열 함수를 사용합니다. Swift Testing(Xcode 16+)은 <code>@Test</code> 매크로, <code>#expect</code>/<code>#require</code> 매크로를 사용하며, class 상속 없이 struct에서도 테스트 작성이 가능합니다. <code>@Test(arguments:)</code>로 파라미터화 테스트가 간편하고, <code>@Suite</code>로 테스트를 그룹화합니다. Swift Testing은 async/await를 자연스럽게 지원하고, 실패 메시지가 더 상세합니다.</p>
+          <p class="follow-up">꼬리 질문: 기존 XCTest 프로젝트를 Swift Testing으로 점진적으로 마이그레이션하는 전략은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q82</span>
+        <h3>iOS 앱에서 메모리 사용량을 줄이는 3가지 방법을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>(1) <strong>이미지 다운샘플링</strong>: <code>ImageIO</code>의 <code>CGImageSourceCreateThumbnailAtIndex</code>로 표시 크기에 맞게 리사이즈하여 메모리를 최대 10배 절약. (2) <strong>retain cycle 제거</strong>: <code>[weak self]</code>, delegate weak 참조로 불필요한 객체 보유 방지. Memory Graph Debugger로 탐지. (3) <strong>대용량 데이터 스트리밍</strong>: 파일을 전체 로드 대신 <code>InputStream</code>이나 <code>Data.ReadingOptions.mappedIfSafe</code>로 메모리 매핑. Autorelease pool로 임시 객체 즉시 해제도 효과적입니다.</p>
+          <p class="follow-up">꼬리 질문: <code>didReceiveMemoryWarning</code> 시 어떤 리소스를 우선 해제해야 하나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q83</span>
+        <h3>Instruments를 활용한 성능 분석 방법을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>주요 Instruments: <strong>Time Profiler</strong>는 CPU 사용량과 병목 함수를 식별합니다. <strong>Allocations</strong>는 메모리 할당 추이와 대량 할당 지점을 보여줍니다. <strong>Leaks</strong>는 순환 참조로 인한 메모리 누수를 탐지합니다. <strong>Network</strong>는 네트워크 요청 타이밍과 페이로드를 분석합니다. <strong>Core Animation</strong>은 렌더링 성능(FPS, offscreen rendering)을 측정합니다. 실 디바이스에서 Release 빌드로 프로파일링해야 정확하며, Call Tree에서 "Hide System Libraries"로 앱 코드에 집중합니다.</p>
+          <p class="follow-up">꼬리 질문: Time Profiler에서 "Invert Call Tree"와 "Top Functions"의 차이는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q84</span>
+        <h3><code>UITableView</code>와 <code>UICollectionView</code>의 차이와 선택 기준을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>UITableView</code>는 단일 열 리스트에 최적화되어 있고, 기본 셀 스타일, 스와이프 액션, 섹션 인덱스 등을 쉽게 구현합니다. <code>UICollectionView</code>는 <code>UICollectionViewLayout</code>으로 그리드, 캐러셀, 핀터레스트 등 자유로운 레이아웃이 가능합니다. iOS 14+에서 <code>UICollectionViewCompositionalLayout</code>으로 복잡한 레이아웃을 선언적으로 구성합니다. 현재 Apple은 <code>UICollectionView</code>를 권장하며, <code>DiffableDataSource</code>와 함께 사용하면 자동 애니메이션이 지원됩니다.</p>
+          <p class="follow-up">꼬리 질문: SwiftUI의 <code>List</code>와 <code>LazyVGrid</code>는 내부적으로 어떤 UIKit 컴포넌트를 사용하나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q85</span>
+        <h3>Auto Layout의 우선순위(Priority) 시스템을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>제약의 우선순위는 1~1000으로, <code>.required</code>(1000)는 반드시 만족, 그 미만은 가능한 만족시키되 위반 가능합니다. 주요 값: <code>.defaultHigh</code>(750), <code>.defaultLow</code>(250). Content Hugging(확장 저항)과 Compression Resistance(압축 저항)도 우선순위로 제어합니다. Hugging이 높으면 intrinsic size 이상으로 늘어나지 않고, Compression Resistance가 높으면 줄어들지 않습니다. 충돌하는 제약이 있을 때 높은 우선순위가 승리합니다. 999를 자주 사용하면 설계를 재고해야 합니다.</p>
+          <p class="follow-up">꼬리 질문: "Unable to simultaneously satisfy constraints" 경고를 해결하는 체계적 방법은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q86</span>
+        <h3>Push Notification의 전체 흐름을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>(1) 앱이 <code>registerForRemoteNotifications()</code>로 APNs에 등록 → (2) 디바이스 토큰을 받아 서버에 전달 → (3) 서버가 APNs에 페이로드와 디바이스 토큰을 전송(HTTP/2) → (4) APNs가 디바이스에 푸시 전달 → (5) 앱이 <code>userNotificationCenter(_:didReceive:)</code>로 처리. <code>UNUserNotificationCenter</code>로 권한 요청, Notification Service Extension으로 페이로드 수정(이미지 첨부), Notification Content Extension으로 커스텀 UI를 제공합니다. Silent push로 백그라운드 데이터 갱신도 가능합니다.</p>
+          <p class="follow-up">꼬리 질문: 디바이스 토큰이 변경되는 경우와 대처 방법은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q87</span>
+        <h3>iOS App의 생명주기(App Lifecycle)를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>UIKit: <code>Not Running</code> → <code>Inactive</code> → <code>Active</code> → <code>Background</code> → <code>Suspended</code>. <code>AppDelegate</code>의 <code>didFinishLaunchingWithOptions</code>, <code>sceneDidBecomeActive</code>, <code>sceneWillResignActive</code>, <code>sceneDidEnterBackground</code> 등으로 상태 전환을 감지합니다. SwiftUI: <code>@main struct MyApp: App</code>에서 <code>scenePhase</code> 환경값으로 <code>.active</code>, <code>.inactive</code>, <code>.background</code>를 관찰합니다. Background에서는 제한된 시간(약 30초) 내에 작업을 완료해야 하며, <code>BGTaskScheduler</code>로 예약 가능합니다.</p>
+          <p class="follow-up">꼬리 질문: Scene-based lifecycle과 App-based lifecycle의 차이는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q88</span>
+        <h3>Keychain, UserDefaults, FileManager의 사용 기준을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><strong>Keychain</strong>: 비밀번호, 토큰, 인증서 등 민감 정보. 암호화 저장, 앱 삭제 후에도 유지 가능, iCloud 동기화 지원. <strong>UserDefaults</strong>: 설정값, 플래그 등 소량의 비민감 데이터. plist 기반으로 앱 시작 시 전체 로드되므로 대용량 부적합. <strong>FileManager</strong>: 이미지, 문서, 캐시 등 파일 단위 데이터. Documents(백업됨), Caches(삭제 가능), tmp(임시) 디렉토리를 용도에 맞게 사용합니다. 보안 민감도와 데이터 크기가 선택 기준입니다.</p>
+          <p class="follow-up">꼬리 질문: Keychain에서 kSecAttrAccessible의 각 옵션 차이는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q89</span>
+        <h3>네트워크 에러 처리 전략을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>(1) <strong>에러 분류</strong>: 네트워크 불가(오프라인), 타임아웃, 서버 에러(5xx), 클라이언트 에러(4xx), 파싱 에러로 구분. (2) <strong>재시도 전략</strong>: exponential backoff(1초, 2초, 4초...)으로 일시적 에러 재시도. 최대 횟수 제한. (3) <strong>사용자 피드백</strong>: 에러 유형별 적절한 메시지와 액션(재시도 버튼, 오프라인 모드 전환). (4) <strong>캐시 폴백</strong>: 네트워크 실패 시 캐시된 데이터 표시. <code>NWPathMonitor</code>로 네트워크 상태를 모니터링하여 선제적으로 대응할 수 있습니다.</p>
+          <p class="follow-up">꼬리 질문: Retry 시 idempotent하지 않은 요청(POST)은 어떻게 처리하나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q90</span>
+        <h3>이미지 캐싱 전략을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>2단계 캐싱이 일반적입니다. <strong>L1 메모리 캐시</strong>: <code>NSCache</code>를 사용하여 디코딩된 이미지를 메모리에 보관. 메모리 경고 시 자동 해제됩니다. <strong>L2 디스크 캐시</strong>: <code>URLCache</code> 또는 FileManager로 파일 시스템에 저장. 만료 정책(LRU, TTL)을 적용합니다. <code>URLSession</code>의 기본 캐싱(<code>URLCache</code>)을 활용하거나, Kingfisher/SDWebImage 같은 라이브러리가 다운로드, 디코딩, 캐싱, 다운샘플링을 통합 관리합니다. 키는 URL 해시값을 사용합니다.</p>
+          <p class="follow-up">꼬리 질문: <code>NSCache</code>와 <code>Dictionary</code>의 차이는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q91</span>
+        <h3>Deep Link와 Universal Link의 차이를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><strong>Deep Link (URL Scheme)</strong>: <code>myapp://path</code> 형태의 커스텀 스킴. 앱이 설치되지 않으면 에러. 다른 앱이 같은 스킴을 등록할 수 있어 보안 취약. <strong>Universal Link</strong>: <code>https://example.com/path</code> 형태의 표준 HTTPS URL. AASA(Apple-App-Site-Association) 파일로 도메인-앱 연결을 검증. 앱 미설치 시 웹으로 폴백. Apple이 권장하는 방식입니다. SwiftUI에서 <code>.onOpenURL</code>로 처리하고, <code>NSUserActivity</code>로 전달됩니다.</p>
+          <p class="follow-up">꼬리 질문: AASA 파일 설정 시 흔히 발생하는 실수는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q92</span>
+        <h3>앱 크기를 최적화하는 방법을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>(1) <strong>Asset Catalog</strong>: App Thinning으로 디바이스에 필요한 해상도만 포함. (2) <strong>On-Demand Resources</strong>: 게임 레벨 등 선택적 리소스를 필요 시 다운로드. (3) <strong>Swift 코드</strong>: 사용하지 않는 코드 제거, Dead Code Stripping 활성화. (4) <strong>의존성 정리</strong>: 불필요한 서드파티 프레임워크 제거, static 링킹 선호. (5) <strong>이미지 최적화</strong>: WebP/HEIC 포맷, 벡터(PDF/SVG) 활용. (6) <strong>Bitcode</strong>: 서버 측 최적화(현재 deprecated). App Store Connect에서 App Size Report로 분석합니다.</p>
+          <p class="follow-up">꼬리 질문: dylib와 static library가 앱 크기에 미치는 영향 차이는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q93</span>
+        <h3>iOS 접근성(Accessibility) 체크리스트를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>(1) <strong>VoiceOver</strong>: 모든 UI 요소에 <code>accessibilityLabel</code>, <code>accessibilityHint</code>, <code>accessibilityTraits</code> 설정. 의미 있는 읽기 순서 보장. (2) <strong>Dynamic Type</strong>: 시스템 폰트 크기 변경에 대응. <code>.font(.body)</code> 등 Dynamic Type 지원 스타일 사용. (3) <strong>색상 대비</strong>: WCAG AA 기준(4.5:1) 이상. 색상만으로 정보 전달하지 않기. (4) <strong>터치 영역</strong>: 최소 44x44pt. (5) <strong>모션 감소</strong>: <code>UIAccessibility.isReduceMotionEnabled</code> 확인. Accessibility Inspector로 검증합니다.</p>
+          <p class="follow-up">꼬리 질문: SwiftUI에서 접근성을 개선하는 구체적인 modifier들은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q94</span>
+        <h3>iOS 앱의 Localization 전략을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>String(localized:)</code> 또는 <code>NSLocalizedString</code>으로 문자열을 지역화합니다. <code>.strings</code> 파일에 키-값 쌍으로 번역을 관리하고, <code>.stringsdict</code>로 복수형을 처리합니다. Xcode의 String Catalog(.xcstrings, Xcode 15+)로 모든 지역화를 한 곳에서 관리할 수 있습니다. 날짜/숫자는 <code>DateFormatter</code>/<code>NumberFormatter</code>의 locale을 사용합니다. 레이아웃은 RTL(아랍어, 히브리어)을 고려하여 Leading/Trailing을 Left/Right 대신 사용합니다. <code>exportLocalizations</code>로 번역가에게 전달합니다.</p>
+          <p class="follow-up">꼬리 질문: 서버에서 내려오는 동적 문자열의 지역화는 어떻게 처리하나요?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q95</span>
+        <h3>iOS 앱의 CI/CD 파이프라인을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>일반적인 파이프라인: (1) <strong>코드 푸시</strong> → (2) <strong>린트</strong>(SwiftLint) → (3) <strong>빌드</strong>(xcodebuild) → (4) <strong>테스트</strong>(Unit + UI Test) → (5) <strong>코드 서명</strong>(Fastlane match) → (6) <strong>아카이브</strong> → (7) <strong>배포</strong>(TestFlight/App Store). 도구: GitHub Actions, Bitrise, Jenkins, Xcode Cloud. Fastlane으로 스크린샷 자동 생성, 메타데이터 업로드를 자동화합니다. Xcode Cloud는 Apple 네이티브 CI/CD로 Xcode에서 직접 워크플로우를 설정할 수 있습니다.</p>
+          <p class="follow-up">꼬리 질문: Xcode Cloud와 GitHub Actions의 장단점 비교는?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q96</span>
+        <h3>코드 서명과 프로비저닝 프로파일의 관계를 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><strong>인증서(Certificate)</strong>는 개발자의 신원을 증명하고, <strong>프로비저닝 프로파일</strong>은 인증서 + App ID + 디바이스 목록 + 권한(entitlements)을 묶은 파일입니다. Xcode가 앱을 빌드할 때 인증서의 개인키로 서명하고, 프로비저닝 프로파일을 포함시킵니다. iOS는 이를 검증하여 신뢰할 수 있는 앱만 실행합니다. Development(개발 디바이스), Ad Hoc(특정 디바이스), App Store(배포용), Enterprise(사내 배포) 프로파일이 있습니다. Automatic Signing으로 Xcode가 자동 관리할 수 있습니다.</p>
+          <p class="follow-up">꼬리 질문: 팀에서 인증서를 공유하는 방법과 Fastlane match의 역할은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q97</span>
+        <h3>App Store 심사 거절 시 대응 방법을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>(1) <strong>거절 사유 정확히 파악</strong>: Resolution Center에서 리뷰어의 코멘트와 스크린샷 확인. (2) <strong>가이드라인 확인</strong>: Human Interface Guidelines와 App Review Guidelines에서 해당 조항 정독. (3) <strong>수정 후 재제출</strong>: 거절 사유를 정확히 해결하고, 테스트 계정/시연 영상 등 추가 정보 제공. (4) <strong>이의 제기</strong>: 부당하다고 판단되면 App Review Board에 어필. 흔한 거절 사유: 개인정보 미흡, 로그인 없이 테스트 불가, 미완성 기능, 앱 내 결제 우회, 성능 이슈(크래시) 등입니다.</p>
+          <p class="follow-up">꼬리 질문: Guideline 4.3 (Spam) 거절을 방지하기 위한 전략은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q98</span>
+        <h3>SwiftUI의 <code>NavigationStack</code> 패턴을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><code>NavigationStack</code>(iOS 16+)은 <code>NavigationView</code>를 대체하며, 값 기반 navigation을 지원합니다. <code>NavigationStack(path: $path)</code>에 <code>NavigationPath</code>를 바인딩하면 프로그래매틱 네비게이션이 가능합니다. <code>.navigationDestination(for: Type.self)</code>로 타입별 목적지를 등록합니다. 장점: (1) 경로를 배열로 관리하여 deep link, 상태 복원 용이, (2) pop to root가 <code>path.removeLast(path.count)</code>로 간단, (3) 타입 안전한 네비게이션. <code>NavigationSplitView</code>로 iPad 2-3열 레이아웃도 지원합니다.</p>
+          <p class="follow-up">꼬리 질문: <code>NavigationPath</code>가 type-erased인 이유와 <code>[Hashable]</code> 배열 대비 장점은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q99</span>
+        <h3>무한 스크롤(Pagination) 구현 전략을 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p>(1) <strong>Offset 기반</strong>: <code>?page=2&limit=20</code>. 구현 간단하지만 중간 데이터 추가/삭제 시 중복/누락 발생. (2) <strong>Cursor 기반</strong>: <code>?after=lastItemId&limit=20</code>. 마지막 항목 ID를 커서로 사용하여 정확한 페이징. (3) <strong>트리거 시점</strong>: 마지막에서 3~5번째 항목이 보이면 다음 페이지 요청(prefetching). SwiftUI에서 <code>.onAppear</code> 또는 <code>.task</code>로 구현. (4) <strong>상태 관리</strong>: loading, loaded, error, noMore 상태를 관리하고 중복 요청 방지. 로딩 인디케이터와 에러 재시도 UI가 필요합니다.</p>
+          <p class="follow-up">꼬리 질문: UICollectionView의 <code>prefetchDataSource</code>를 활용한 최적화 방법은?</p>
+        </details>
+      </div>
+
+      <div class="q-card">
+        <span class="q-num">Q100</span>
+        <h3>iOS 앱 보안(SSL Pinning 등)에 대해 설명하세요.</h3>
+        <details><summary>모범 답안</summary>
+          <p><strong>SSL Pinning</strong>: 서버 인증서의 공개키 또는 인증서 자체를 앱에 미리 포함시켜, TLS 핸드셰이크 시 일치 여부를 확인합니다. MITM 공격을 방지합니다. <code>URLSessionDelegate</code>의 <code>didReceive challenge</code>에서 구현합니다. 추가 보안: (1) <strong>ATS(App Transport Security)</strong>: HTTPS 강제, (2) <strong>Keychain</strong>: 민감 데이터 암호화 저장, (3) <strong>Code Obfuscation</strong>: 리버스 엔지니어링 방지, (4) <strong>Jailbreak Detection</strong>: 탈옥 환경 탐지, (5) <strong>Data Protection</strong>: 파일 암호화 레벨 설정(<code>completeFileProtection</code>).</p>
+          <p class="follow-up">꼬리 질문: SSL Pinning에서 인증서 갱신 시 앱이 동작하지 않는 문제를 어떻게 예방하나요?</p>
+        </details>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // Dark mode toggle
+  function toggleDark() {
+    document.documentElement.classList.toggle('dark');
+    const isDark = document.documentElement.classList.contains('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    document.getElementById('darkBtn').textContent = isDark ? '라이트 모드' : '다크 모드';
+  }
+  // Load saved theme
+  if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.classList.add('dark');
+    document.getElementById('darkBtn').textContent = '라이트 모드';
+  }
+
+  // Toggle all details
+  let allOpen = false;
+  function toggleAll() {
+    allOpen = !allOpen;
+    document.querySelectorAll('.q-card details').forEach(d => d.open = allOpen);
+    document.getElementById('toggleBtn').textContent = allOpen ? '전체 접기' : '전체 펼치기';
+  }
+
+  // Sidebar active state on scroll
+  const sections = document.querySelectorAll('.sub-section, .part-section');
+  const sidebarLinks = document.querySelectorAll('.sidebar a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    sidebarLinks.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+  });
+
+  // Close sidebar on mobile when link clicked
+  document.querySelectorAll('.sidebar a').forEach(a => {
+    a.addEventListener('click', () => {
+      if (window.innerWidth <= 768) {
+        document.querySelector('.sidebar').classList.remove('open');
+      }
+    });
+  });
+</script>
+</body>
+</html>

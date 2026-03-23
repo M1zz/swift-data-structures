@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FG0Q3EQFWM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-FG0Q3EQFWM');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swift 자료구조 치트시트 — 개발자리</title>
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* ========== PAGE / PRINT ========== */
+@page {
+  size: A4;
+  margin: 10mm 8mm 10mm 8mm;
+}
+
+/* ========== SCREEN (dark) ========== */
+:root {
+  --bg: #0a0e1a;
+  --surface: #111827;
+  --surface2: #1e293b;
+  --border: #334155;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --text-muted: #64748b;
+  --accent: #e04a1c;
+  --blue: #2563eb;
+  --green: #16a34a;
+  --code-bg: #0f172a;
+  --card-bg: #111827;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.45;
+  font-size: 10pt;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ========== COVER ========== */
+.cover {
+  page-break-after: always;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  background: var(--bg);
+}
+.cover-badge {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-size: 9pt;
+  font-weight: 600;
+  padding: 4px 16px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.cover-title {
+  font-size: 36pt;
+  font-weight: 900;
+  color: var(--accent);
+  margin-bottom: 10px;
+  line-height: 1.15;
+}
+.cover-subtitle {
+  font-size: 13pt;
+  color: var(--text-dim);
+  font-weight: 300;
+  margin-bottom: 36px;
+}
+.cover-author {
+  font-size: 12pt;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+.cover-desc {
+  font-size: 9pt;
+  color: var(--text-muted);
+  max-width: 380px;
+  line-height: 1.7;
+}
+.cover-ds-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 32px;
+  max-width: 480px;
+}
+.cover-ds-list span {
+  background: var(--surface2);
+  color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  padding: 4px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+/* ========== CONTENT PAGES ========== */
+.page {
+  page-break-after: always;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.page-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 12px 8px;
+  flex: 1;
+}
+
+/* ========== CARD ========== */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  break-inside: avoid;
+  display: flex;
+  flex-direction: column;
+}
+.card-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 5px;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 4px;
+}
+.card-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 22px;
+}
+.card-name {
+  font-size: 12pt;
+  font-weight: 700;
+  color: #fff;
+}
+.card-def {
+  font-size: 8pt;
+  color: var(--text-dim);
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+/* complexity table */
+.cx-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 5px 0;
+  font-size: 7.5pt;
+  font-family: 'JetBrains Mono', monospace;
+}
+.cx-table th {
+  background: var(--surface2);
+  color: var(--text-dim);
+  font-weight: 500;
+  padding: 2px 5px;
+  text-align: center;
+  border: 1px solid var(--border);
+  font-size: 7pt;
+}
+.cx-table td {
+  padding: 2px 5px;
+  text-align: center;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.cx-table td:first-child {
+  text-align: left;
+  color: var(--text-dim);
+  font-size: 7pt;
+}
+.cx-good { color: #4ade80 !important; }
+.cx-ok { color: #facc15 !important; }
+.cx-bad { color: #f87171 !important; }
+
+/* code block */
+.code-block {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 5px 7px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7pt;
+  line-height: 1.5;
+  overflow-x: auto;
+  margin: 5px 0;
+  color: #e2e8f0;
+  flex: 1;
+}
+.code-block .kw { color: #c084fc; }
+.code-block .ty { color: #38bdf8; }
+.code-block .fn { color: #fbbf24; }
+.code-block .str { color: #4ade80; }
+.code-block .cm { color: #64748b; }
+.code-block .num { color: #fb923c; }
+
+/* info rows */
+.info-row {
+  display: flex;
+  gap: 4px;
+  font-size: 7.5pt;
+  margin: 2px 0;
+  line-height: 1.4;
+}
+.info-label {
+  color: var(--accent);
+  font-weight: 600;
+  min-width: 40px;
+  flex-shrink: 0;
+}
+.info-value {
+  color: var(--text-dim);
+}
+
+/* ========== COMPARISON TABLE ========== */
+.comparison-page {
+  page-break-after: always;
+  padding: 14px 10px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.comparison-title {
+  font-size: 16pt;
+  font-weight: 700;
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent);
+}
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 8pt;
+  font-family: 'JetBrains Mono', monospace;
+}
+.comparison-table th {
+  background: var(--surface2);
+  color: var(--text-dim);
+  font-weight: 600;
+  padding: 7px 5px;
+  text-align: center;
+  border: 1px solid var(--border);
+  font-size: 7.5pt;
+}
+.comparison-table th:first-child {
+  text-align: left;
+  min-width: 95px;
+}
+.comparison-table td {
+  padding: 6px 5px;
+  text-align: center;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.comparison-table td:first-child {
+  text-align: left;
+  font-weight: 600;
+  color: #fff;
+  background: var(--surface);
+}
+.comparison-table td:last-child {
+  text-align: left;
+  font-size: 7pt;
+  color: var(--text-dim);
+  font-family: 'Pretendard', sans-serif;
+}
+.comparison-table tr:nth-child(even) td {
+  background: rgba(255,255,255,0.02);
+}
+.comparison-table tr:nth-child(even) td:first-child {
+  background: var(--surface);
+}
+.comparison-note {
+  margin-top: 20px;
+  font-size: 8pt;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.comparison-note strong {
+  color: var(--text-dim);
+}
+.comparison-note .note-item {
+  margin-bottom: 4px;
+  padding-left: 12px;
+  position: relative;
+}
+.comparison-note .note-item::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+.comparison-footer {
+  margin-top: auto;
+  text-align: center;
+  font-size: 8pt;
+  color: var(--text-muted);
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.comparison-footer .brand {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ========== PRINT OVERRIDES ========== */
+@media print {
+  :root {
+    --bg: #ffffff;
+    --surface: #f8fafc;
+    --surface2: #f1f5f9;
+    --border: #cbd5e1;
+    --text: #1e293b;
+    --text-dim: #475569;
+    --text-muted: #64748b;
+    --accent: #e04a1c;
+    --blue: #2563eb;
+    --green: #16a34a;
+    --code-bg: #f8fafc;
+    --card-bg: #ffffff;
+  }
+  body {
+    background: #fff;
+    color: #1e293b;
+    font-size: 9pt;
+  }
+  .cover {
+    background: #fff;
+  }
+  .cover-badge {
+    border: 2px solid var(--accent);
+    background: #fff;
+    color: var(--accent);
+  }
+  .cover-ds-list span {
+    background: #f8fafc;
+    color: #475569;
+    border-color: #cbd5e1;
+  }
+  .card {
+    border-color: #e2e8f0;
+    box-shadow: none;
+  }
+  .card-name { color: #0f172a; }
+  .code-block {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    color: #1e293b;
+  }
+  .code-block .kw { color: #7c3aed; }
+  .code-block .ty { color: #0369a1; }
+  .code-block .fn { color: #b45309; }
+  .code-block .str { color: #15803d; }
+  .code-block .cm { color: #94a3b8; }
+  .code-block .num { color: #ea580c; }
+  .cx-good { color: #15803d !important; }
+  .cx-ok { color: #a16207 !important; }
+  .cx-bad { color: #dc2626 !important; }
+  .comparison-table td:first-child,
+  .comparison-table tr:nth-child(even) td:first-child {
+    background: #f8fafc;
+    color: #0f172a;
+  }
+  .comparison-table tr:nth-child(even) td {
+    background: #fafbfc;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== COVER ==================== -->
+<div class="cover">
+  <div class="cover-badge">Cheat Sheet</div>
+  <div class="cover-title">Swift 자료구조<br>치트시트</div>
+  <div class="cover-subtitle">10개 자료구조 핵심 요약</div>
+  <div class="cover-author">개발자리</div>
+  <div class="cover-desc">
+    면접 준비부터 실무 적용까지, Swift 개발자를 위한<br>
+    핵심 자료구조 복잡도 &amp; 코드 레퍼런스
+  </div>
+  <div class="cover-ds-list">
+    <span>Array</span>
+    <span>LinkedList</span>
+    <span>Stack</span>
+    <span>Queue</span>
+    <span>Deque</span>
+    <span>BinaryTree</span>
+    <span>BST</span>
+    <span>Heap</span>
+    <span>HashTable</span>
+    <span>Trie</span>
+  </div>
+</div>
+
+<!-- ==================== PAGE 1: Array + LinkedList ==================== -->
+<div class="page">
+  <div class="page-inner">
+
+    <!-- 1. Array -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-num">01</span>
+        <span class="card-name">Array</span>
+        <span class="card-def">연속 메모리 + Copy-on-Write</span>
+      </div>
+      <table class="cx-table">
+        <tr><th>연산</th><th>Average</th><th>Worst</th></tr>
+        <tr><td>subscript</td><td class="cx-good">O(1)</td><td class="cx-good">O(1)</td></tr>
+        <tr><td>append</td><td class="cx-good">O(1)*</td><td class="cx-bad">O(n)</td></tr>
+        <tr><td>insert(at:)</td><td class="cx-bad">O(n)</td><td class="cx-bad">O(n)</td></tr>
+        <tr><td>remove(at:)</td><td class="cx-bad">O(n)</td><td class="cx-bad">O(n)</td></tr>
+        <tr><td>contains</td><td class="cx-bad">O(n)</td><td class="cx-bad">O(n)</td></tr>
+      </table>
+      <div class="code-block"><span class="kw">var</span> nums: [<span class="ty">Int</span>] = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]
+nums.<span class="fn">append</span>(<span class="num">4</span>)          <span class="cm">// O(1) amortized</span>
+nums.<span class="fn">insert</span>(<span class="num">0</span>, at: <span class="num">0</span>)  <span class="cm">// O(n) — 전체 shift</span>
+<span class="kw">let</span> val = nums[<span class="num">2</span>]      <span class="cm">// O(1) random access</span>
+nums.<span class="fn">removeLast</span>()       <span class="cm">// O(1)</span>
+nums.<span class="fn">sort</span>()              <span class="cm">// O(n log n) TimSort</span></div>
+      <div class="info-row"><span class="info-label">사용처</span><span class="info-value">UITableView dataSource, 순차 데이터, 정렬된 컬렉션</span></div>
+      <div class="info-row"><span class="info-label">주의</span><span class="info-value">append는 amortized O(1) — 버퍼 재할당 시 O(n). CoW로 값 타입이지만 참조 공유</span></div>
+    </div>
+
+    <!-- 2. LinkedList -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-num">02</span>
+        <span class="card-name">LinkedList</span>
+        <span class="card-def">노드 + 포인터 체인</span>
+      </div>
+      <table class="cx-table">
+        <tr><th>연산</th><th>Average</th><th>Worst</th></tr>
+        <tr><td>prepend</td><td class="cx-good">O(1)</td><td class="cx-good">O(1)</td></tr>
+        <tr><td>append (tail)</td><td class="cx-good">O(1)*</td><td class="cx-good">O(1)*</td></tr>
+        <tr><td>search</td><td class="cx-bad">O(n)</td><td class="cx-bad">O(n)</td></tr>
+        <tr><td>delete(node)</td><td class="cx-good">O(1)</td><td class="cx-good">O(1)</td></tr>
+        <tr><td>index access</td><td class="cx-bad">O(n)</td><td class="cx-bad">O(n)</td></tr>
+      </table>
+      <div class="code-block"><span class="kw">class</span> <span class="ty">Node</span>&lt;<span class="ty">T</span>&gt; {
+    <span class="kw">var</span> val: <span class="ty">T</span>
+    <span class="kw">var</span> next: <span class="ty">Node</span>?
+    <span class="kw">init</span>(_ val: <span class="ty">T</span>) { <span class="kw">self</span>.val = val }
+}
+<span class="kw">let</span> head = <span class="ty">Node</span>(<span class="num">1</span>)
+head.next = <span class="ty">Node</span>(<span class="num">2</span>)  <span class="cm">// prepend/append O(1)</span></div>
+      <div class="info-row"><span class="info-label">사용처</span><span class="info-value">Undo/Redo 히스토리, LRU 캐시, 메모리 단편화에 강함</span></div>
+      <div class="info-row"><span class="info-label">주의</span><span class="info-value">캐시 미스 빈번 (비연속 메모리). Swift에서는 Array가 대부분 더 빠름</span></div>
+    </div>
+
+    <!-- 3. Stack -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-num">03</span>
+        <span class="card-name">Stack</span>
+        <span class="card-def">LIFO — 후입선출</span>
+      </div>
+      <table class="cx-table">
+        <tr><th>연산</th><th>Average</th><th>Worst</th></tr>
+        <tr><td>push</td><td class="cx-good">O(1)</td><td class="cx-bad">O(n)</td></tr>
+        <tr><td>pop</td><td class="cx-good">O(1)</td><td class="cx-good">O(1)</td></tr>
+        <tr><td>peek (top)</td><td class="cx-good">O(1)</td><td class="cx-good">O(1)</td></tr>
+        <tr><td>isEmpty</td><td class="cx-good">O(1)</td><td class="cx-good">O(1)</td></tr>
+        <tr><td>search</td><td class="cx-bad">O(n)</td><td class="cx-bad">O(n)</td></tr>
+      </table>
+      <div class="code-block"><span class="kw">var</span> stack: [<span class="ty">Int</span>] = []
+stack.<span class="fn">append</span>(<span class="num">10</span>)       <span class="cm">// push</span>
+stack.<span class="fn">append</span>(<span class="num">20</span>)       <span class="cm">// push</span>
+<span class="kw">let</span> top = stack.<span class="fn">last</span>   <span class="cm">// peek → 20</span>
+stack.<span class="fn">removeLast</span>()     <span class="cm">// pop → 20</span>
+stack.isEmpty          <span class="cm">// false</span></div>
+      <div class="info-row"><span class="info-label">사용처</span><span class="info-value">NavigationController, DFS, 괄호 매칭, 수식 계산</span></div>
+      <div class="info-row"><span class="info-label">주의</span><span class="info-value">Swift에 Stack 타입 없음 — Array로 구현. removeLast()는 빈 배열이면 crash</span></div>
+    </div>
+
+    <!-- 4. Queue -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-num">04</span>
+        <span class="card-name">Queue</span>
+        <span class="card-def">FIFO — 선입선출</span>
+      </div>
+      <table class="cx-table">
+        <tr><th>연산</th><th>Average</th><th>Worst</th></tr>
+        <tr><td>enqueue</td><td class="cx-good">O(1)</td><td class="cx-bad">O(n)</td></tr>
+        <tr><td>dequeue</td><td class="cx-bad">O(n)</td><td class="cx-bad">O(n)</td></tr>
+        <tr><td>peek (front)</td><td class="cx-good">O(1)</td><td class="cx-good">O(1)</td></tr>
+        <tr><td>isEmpty</td><td class="cx-good">O(1)</td><td class="cx-good">O(1)</td></tr>
+      </table>
+      <div class="code-block"><span class="kw">var</span> queue: [<span class="ty">Int</span>] = []
+queue.<span class="fn">append</span>(<span class="num">1</span>)         <span class="cm">// enqueue</span>
+queue.<span class="fn">append</span>(<span class="num">2</span>)         <span class="cm">// enqueue</span>
+<span class="kw">let</span> front = queue.<span class="fn">first</span> <span class="cm">// peek → 1</span>
+queue.<span class="fn">removeFirst</span>()     <span class="cm">// dequeue → 1 (O(n)!)</span>
+<span class="cm">// 성능 개선: Double-Stack 또는 Ring Buffer</span></div>
+      <div class="info-row"><span class="info-label">사용처</span><span class="info-value">BFS, OperationQueue, 네트워크 요청 대기열, 이벤트 처리</span></div>
+      <div class="info-row"><span class="info-label">주의</span><span class="info-value">Array.removeFirst()는 O(n). 실무에선 Double-Stack Queue로 amortized O(1)</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== PAGE 2: Deque + Binary Tree ==================== -->
+<div class="page">
+  <div class="page-inner">
+
+    <!-- 5. Deque -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-num">05</span>
+        <span class="card-name">Deque</span>
+        <span class="card-def">양끝 삽입/삭제 O(1)</span>
+      </div>
+      <table class="cx-table">
+        <tr><th>연산</th><th>Average</th><th>Worst</th></tr>
+        <tr><td>pushFront</td><td class="cx-good">O(1)*</td><td class="cx-bad">O(n)</td></tr>
+        <tr><td>pushBack</td><td class="cx-good">O(1)*</td><td class="cx-bad">O(n)</td></tr>
+        <tr><td>popFront</td><td class="cx-good">O(1)</td><td class="cx-good">O(1)</td></tr>
+        <tr><td>popBack</td><td class="cx-good">O(1)</td><td class="cx-good">O(1)</td></tr>
+        <tr><td>random access</td><td class="cx-good">O(1)</td><td class="cx-good">O(1)</td></tr>
+      </table>
+      <div class="code-block"><span class="cm">// Ring Buffer 기반 Deque</span>
+<span class="kw">struct</span> <span class="ty">Deque</span>&lt;<span class="ty">T</span>&gt; {
+    <span class="kw">private var</span> buf: [<span class="ty">T</span>?]; <span class="kw">private var</span> head = <span class="num">0</span>
+    <span class="kw">mutating func</span> <span class="fn">pushFront</span>(_ v: <span class="ty">T</span>) { <span class="cm">/* head-- mod cap */</span> }
+    <span class="kw">mutating func</span> <span class="fn">pushBack</span>(_ v: <span class="ty">T</span>)  { <span class="cm">/* tail++ mod cap */</span> }
+    <span class="kw">mutating func</span> <span class="fn">popFront</span>() -> <span class="ty">T</span>?  { <span class="cm">/* head++ */</span> }
+    <span class="kw">mutating func</span> <span class="fn">popBack</span>() -> <span class="ty">T</span>?   { <span class="cm">/* tail-- */</span> }
+}</div>
+      <div class="info-row"><span class="info-label">사용처</span><span class="info-value">슬라이딩 윈도우, 채팅 버퍼, 양방향 BFS, 작업 스케줄러</span></div>
+      <div class="info-row"><span class="info-label">주의</span><span class="info-value">swift-collections 패키지에 Deque 포함. Ring Buffer로 amortized O(1) 보장</span></div>
+    </div>
+
+    <!-- 6. Binary Tree -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-num">06</span>
+        <span class="card-name">Binary Tree</span>
+        <span class="card-def">노드당 자식 &le; 2</span>
+      </div>
+      <table class="cx-table">
+        <tr><th>순회 방식</th><th>순서</th><th>복잡도</th></tr>
+        <tr><td>In-order</td><td>Left → Root → Right</td><td class="cx-ok">O(n)</td></tr>
+        <tr><td>Pre-order</td><td>Root → Left → Right</td><td class="cx-ok">O(n)</td></tr>
+        <tr><td>Post-order</td><td>Left → Right → Root</td><td class="cx-ok">O(n)</td></tr>
+        <tr><td>Level-order</td><td>BFS (큐 사용)</td><td class="cx-ok">O(n)</td></tr>
+      </table>
+      <div class="code-block"><span class="kw">class</span> <span class="ty">TreeNode</span>&lt;<span class="ty">T</span>&gt; {
+    <span class="kw">var</span> val: <span class="ty">T</span>
+    <span class="kw">var</span> left: <span class="ty">TreeNode</span>?, right: <span class="ty">TreeNode</span>?
+    <span class="kw">init</span>(_ val: <span class="ty">T</span>) { <span class="kw">self</span>.val = val }
+}
+<span class="cm">// In-order traversal</span>
+<span class="kw">func</span> <span class="fn">inorder</span>(_ n: <span class="ty">TreeNode</span>&lt;<span class="ty">Int</span>&gt;?) {
+    <span class="kw">guard let</span> n <span class="kw">else</span> { <span class="kw">return</span> }
+    <span class="fn">inorder</span>(n.left); <span class="fn">print</span>(n.val); <span class="fn">inorder</span>(n.right)
+}</div>
+      <div class="info-row"><span class="info-label">사용처</span><span class="info-value">SwiftUI View 계층, DOM 트리, 수식 파싱, 파일 시스템</span></div>
+      <div class="info-row"><span class="info-label">주의</span><span class="info-value">순회 방식에 따라 결과 다름. 깊은 트리는 재귀 시 스택 오버플로우 위험</span></div>
+    </div>
+
+    <!-- 7. BST -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-num">07</span>
+        <span class="card-name">BST</span>
+        <span class="card-def">left &lt; root &lt; right</span>
+      </div>
+      <table class="cx-table">
+        <tr><th>연산</th><th>Average</th><th>Worst</th></tr>
+        <tr><td>search</td><td class="cx-good">O(log n)</td><td class="cx-bad">O(n)</td></tr>
+        <tr><td>insert</td><td class="cx-good">O(log n)</td><td class="cx-bad">O(n)</td></tr>
+        <tr><td>delete</td><td class="cx-good">O(log n)</td><td class="cx-bad">O(n)</td></tr>
+        <tr><td>min / max</td><td class="cx-good">O(log n)</td><td class="cx-bad">O(n)</td></tr>
+      </table>
+      <div class="code-block"><span class="kw">func</span> <span class="fn">search</span>(_ node: <span class="ty">TreeNode</span>&lt;<span class="ty">Int</span>&gt;?, _ t: <span class="ty">Int</span>)
+    -> <span class="ty">TreeNode</span>&lt;<span class="ty">Int</span>&gt;? {
+    <span class="kw">guard let</span> n = node <span class="kw">else</span> { <span class="kw">return nil</span> }
+    <span class="kw">if</span> t == n.val { <span class="kw">return</span> n }
+    <span class="kw">return</span> t &lt; n.val
+        ? <span class="fn">search</span>(n.left, t) : <span class="fn">search</span>(n.right, t)
+}</div>
+      <div class="info-row"><span class="info-label">사용처</span><span class="info-value">범위 검색, 정렬된 데이터 관리, DB 인덱스 기초</span></div>
+      <div class="info-row"><span class="info-label">주의</span><span class="info-value">편향 트리 시 O(n). 실무에선 AVL/Red-Black Tree로 균형 유지 필수</span></div>
+    </div>
+
+    <!-- 8. Heap -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-num">08</span>
+        <span class="card-name">Heap</span>
+        <span class="card-def">완전 이진 트리 + 힙 속성</span>
+      </div>
+      <table class="cx-table">
+        <tr><th>연산</th><th>Average</th><th>Worst</th></tr>
+        <tr><td>insert</td><td class="cx-ok">O(log n)</td><td class="cx-ok">O(log n)</td></tr>
+        <tr><td>extract</td><td class="cx-ok">O(log n)</td><td class="cx-ok">O(log n)</td></tr>
+        <tr><td>peek</td><td class="cx-good">O(1)</td><td class="cx-good">O(1)</td></tr>
+        <tr><td>buildHeap</td><td class="cx-bad">O(n)</td><td class="cx-bad">O(n)</td></tr>
+      </table>
+      <div class="code-block"><span class="cm">// 배열 기반 — parent: (i-1)/2, children: 2i+1, 2i+2</span>
+<span class="kw">var</span> heap = [<span class="num">3</span>, <span class="num">1</span>, <span class="num">4</span>, <span class="num">1</span>, <span class="num">5</span>]
+<span class="kw">func</span> <span class="fn">siftUp</span>(_ i: <span class="ty">Int</span>) {
+    <span class="kw">var</span> c = i
+    <span class="kw">while</span> c > <span class="num">0</span> && heap[c] &lt; heap[(c-<span class="num">1</span>)/<span class="num">2</span>] {
+        heap.<span class="fn">swapAt</span>(c, (c-<span class="num">1</span>)/<span class="num">2</span>); c = (c-<span class="num">1</span>)/<span class="num">2</span>
+    }
+}</div>
+      <div class="info-row"><span class="info-label">사용처</span><span class="info-value">우선순위 큐, Top-K 문제, Dijkstra, 힙 정렬, 스케줄러</span></div>
+      <div class="info-row"><span class="info-label">주의</span><span class="info-value">탐색은 O(n). Swift 표준 라이브러리에 없음 — 직접 구현 또는 swift-collections</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== PAGE 3: Hash Table + Trie ==================== -->
+<div class="page">
+  <div class="page-inner">
+
+    <!-- 9. Hash Table -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-num">09</span>
+        <span class="card-name">Hash Table</span>
+        <span class="card-def">key &rarr; hash &rarr; index</span>
+      </div>
+      <table class="cx-table">
+        <tr><th>연산</th><th>Average</th><th>Worst</th></tr>
+        <tr><td>insert</td><td class="cx-good">O(1)</td><td class="cx-bad">O(n)</td></tr>
+        <tr><td>search</td><td class="cx-good">O(1)</td><td class="cx-bad">O(n)</td></tr>
+        <tr><td>delete</td><td class="cx-good">O(1)</td><td class="cx-bad">O(n)</td></tr>
+      </table>
+      <div class="code-block"><span class="cm">// Swift Dictionary = Hash Table</span>
+<span class="kw">var</span> dict: [<span class="ty">String</span>: <span class="ty">Int</span>] = [:]
+dict[<span class="str">"apple"</span>] = <span class="num">3</span>       <span class="cm">// insert O(1)</span>
+<span class="kw">let</span> v = dict[<span class="str">"apple"</span>]    <span class="cm">// search O(1) → Optional(3)</span>
+dict.<span class="fn">removeValue</span>(forKey: <span class="str">"apple"</span>)  <span class="cm">// delete O(1)</span>
+
+<span class="cm">// Set = Hash Table (값 없이 키만)</span>
+<span class="kw">var</span> seen = <span class="ty">Set</span>&lt;<span class="ty">Int</span>&gt;()
+seen.<span class="fn">insert</span>(<span class="num">5</span>)          <span class="cm">// 중복 검사 O(1)</span>
+seen.<span class="fn">contains</span>(<span class="num">5</span>)         <span class="cm">// true</span></div>
+      <div class="info-row"><span class="info-label">사용처</span><span class="info-value">Dictionary/Set, 캐싱, 중복 검사, Two-Sum, 그래프 방문 체크</span></div>
+      <div class="info-row"><span class="info-label">주의</span><span class="info-value">해시 충돌 시 O(n). Hashable 프로토콜 준수 필요. 순서 보장 안 됨</span></div>
+    </div>
+
+    <!-- 10. Trie -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-num">10</span>
+        <span class="card-name">Trie</span>
+        <span class="card-def">접두어 트리 — 문자열 특화</span>
+      </div>
+      <table class="cx-table">
+        <tr><th>연산</th><th>복잡도</th><th>비고</th></tr>
+        <tr><td>insert</td><td class="cx-good">O(m)</td><td>m = 문자열 길이</td></tr>
+        <tr><td>search</td><td class="cx-good">O(m)</td><td>정확한 매칭</td></tr>
+        <tr><td>startsWith</td><td class="cx-good">O(m)</td><td>접두어 검색</td></tr>
+        <tr><td>delete</td><td class="cx-good">O(m)</td><td>리프→루트 정리</td></tr>
+      </table>
+      <div class="code-block"><span class="kw">class</span> <span class="ty">TrieNode</span> {
+    <span class="kw">var</span> children: [<span class="ty">Character</span>: <span class="ty">TrieNode</span>] = [:]
+    <span class="kw">var</span> isEnd = <span class="kw">false</span>
+}
+<span class="kw">func</span> <span class="fn">insert</span>(_ word: <span class="ty">String</span>) {
+    <span class="kw">var</span> node = root
+    <span class="kw">for</span> ch <span class="kw">in</span> word {
+        <span class="kw">if</span> node.children[ch] == <span class="kw">nil</span> {
+            node.children[ch] = <span class="ty">TrieNode</span>()
+        }
+        node = node.children[ch]!
+    }
+    node.isEnd = <span class="kw">true</span>
+}</div>
+      <div class="info-row"><span class="info-label">사용처</span><span class="info-value">자동완성, 사전, IP 라우팅, 맞춤법 검사</span></div>
+      <div class="info-row"><span class="info-label">주의</span><span class="info-value">메모리 사용량 큼. 한글은 자모 분리 필요. 압축 Trie(Radix Tree) 고려</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== COMPARISON TABLE ==================== -->
+<div class="comparison-page">
+  <div class="comparison-title">전체 복잡도 비교표</div>
+  <table class="comparison-table">
+    <tr>
+      <th>자료구조</th>
+      <th>Access</th>
+      <th>Search</th>
+      <th>Insert</th>
+      <th>Delete</th>
+      <th>Space</th>
+      <th>핵심 특징</th>
+    </tr>
+    <tr>
+      <td>Array</td>
+      <td class="cx-good">O(1)</td>
+      <td class="cx-bad">O(n)</td>
+      <td class="cx-bad">O(n)</td>
+      <td class="cx-bad">O(n)</td>
+      <td>O(n)</td>
+      <td>연속 메모리, CoW</td>
+    </tr>
+    <tr>
+      <td>LinkedList</td>
+      <td class="cx-bad">O(n)</td>
+      <td class="cx-bad">O(n)</td>
+      <td class="cx-good">O(1)</td>
+      <td class="cx-good">O(1)</td>
+      <td>O(n)</td>
+      <td>포인터 기반, 동적</td>
+    </tr>
+    <tr>
+      <td>Stack</td>
+      <td class="cx-bad">O(n)</td>
+      <td class="cx-bad">O(n)</td>
+      <td class="cx-good">O(1)</td>
+      <td class="cx-good">O(1)</td>
+      <td>O(n)</td>
+      <td>LIFO, top만 접근</td>
+    </tr>
+    <tr>
+      <td>Queue</td>
+      <td class="cx-bad">O(n)</td>
+      <td class="cx-bad">O(n)</td>
+      <td class="cx-good">O(1)</td>
+      <td class="cx-bad">O(n)*</td>
+      <td>O(n)</td>
+      <td>FIFO, front/back</td>
+    </tr>
+    <tr>
+      <td>Deque</td>
+      <td class="cx-good">O(1)</td>
+      <td class="cx-bad">O(n)</td>
+      <td class="cx-good">O(1)*</td>
+      <td class="cx-good">O(1)*</td>
+      <td>O(n)</td>
+      <td>양끝 O(1), Ring Buffer</td>
+    </tr>
+    <tr>
+      <td>Binary Tree</td>
+      <td class="cx-bad">O(n)</td>
+      <td class="cx-bad">O(n)</td>
+      <td class="cx-bad">O(n)</td>
+      <td class="cx-bad">O(n)</td>
+      <td>O(n)</td>
+      <td>계층 구조, 4가지 순회</td>
+    </tr>
+    <tr>
+      <td>BST</td>
+      <td class="cx-ok">O(log n)</td>
+      <td class="cx-ok">O(log n)</td>
+      <td class="cx-ok">O(log n)</td>
+      <td class="cx-ok">O(log n)</td>
+      <td>O(n)</td>
+      <td>정렬 유지, 범위 검색</td>
+    </tr>
+    <tr>
+      <td>Heap</td>
+      <td class="cx-bad">O(n)</td>
+      <td class="cx-bad">O(n)</td>
+      <td class="cx-ok">O(log n)</td>
+      <td class="cx-ok">O(log n)</td>
+      <td>O(n)</td>
+      <td>peek O(1), 배열 기반</td>
+    </tr>
+    <tr>
+      <td>Hash Table</td>
+      <td>N/A</td>
+      <td class="cx-good">O(1)</td>
+      <td class="cx-good">O(1)</td>
+      <td class="cx-good">O(1)</td>
+      <td>O(n)</td>
+      <td>키→값, Dict/Set</td>
+    </tr>
+    <tr>
+      <td>Trie</td>
+      <td>N/A</td>
+      <td class="cx-good">O(m)</td>
+      <td class="cx-good">O(m)</td>
+      <td class="cx-good">O(m)</td>
+      <td>O(n·m)</td>
+      <td>접두어 검색 특화</td>
+    </tr>
+  </table>
+
+  <div class="comparison-note">
+    <div class="note-item"><strong>* amortized</strong> — 평균적으로 O(1)이지만, 내부 버퍼 재할당 시 O(n) 발생</div>
+    <div class="note-item"><strong>BST 복잡도</strong>는 균형 트리(AVL, Red-Black) 기준. 편향 시 모든 연산 O(n)</div>
+    <div class="note-item"><strong>Hash Table Worst</strong> — 해시 충돌로 체이닝 시 O(n). 좋은 해시 함수가 핵심</div>
+    <div class="note-item"><strong>Trie의 m</strong>은 문자열 길이. n은 저장된 문자열 수</div>
+    <div class="note-item"><strong>Queue dequeue O(n)</strong>은 Array 기반. Double-Stack 사용 시 amortized O(1)</div>
+  </div>
+
+  <div class="comparison-footer">
+    <span class="brand">개발자리</span> &mdash; Swift 자료구조 치트시트 &mdash; 인쇄: Ctrl/Cmd + P → PDF로 저장
+  </div>
+</div>
+
+</body>
+</html>
