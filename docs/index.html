@@ -712,270 +712,11 @@
     white-space: nowrap;
   }
 
-  /* ─── NEWSLETTER ─── */
-  .newsletter-section {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px;
-    text-align: center;
-    margin-bottom: 32px;
-  }
 
-  /* ─── PRODUCT CARDS ─── */
-  .products-section {
-    max-width: 860px;
-    margin: 0 auto 48px;
-    padding: 0 20px;
-  }
-  .products-label {
-    font-size: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--accent);
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-  }
-  .product-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px 20px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    transition: border-color .2s, transform .2s;
-  }
-  .product-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-2px);
-  }
-  .product-badge {
-    display: inline-block;
-    font-size: 9px;
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: .06em;
-    padding: 3px 10px;
-    border-radius: 20px;
-    margin-bottom: 14px;
-  }
-  .product-badge.soon {
-    background: rgba(224,74,28,.1);
-    color: var(--accent);
-    border: 1px solid rgba(224,74,28,.25);
-  }
-  .product-badge.free {
-    background: rgba(22,163,74,.1);
-    color: var(--accent3);
-    border: 1px solid rgba(22,163,74,.25);
-  }
-  .product-preview {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 9px 20px;
-    background: var(--accent);
-    color: #fff;
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: 700;
-    text-decoration: none;
-    transition: opacity .15s;
-    margin-bottom: 8px;
-  }
-  .product-preview:hover { opacity: .85; }
-  .product-icon { font-size: 28px; margin-bottom: 12px; }
-  .product-name {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 4px;
-  }
-  .product-desc {
-    font-size: 11px;
-    color: var(--text2);
-    line-height: 1.5;
-    margin-bottom: 14px;
-  }
-  .product-price {
-    font-size: 18px;
-    font-weight: 800;
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--accent);
-    margin-bottom: 14px;
-  }
-  .product-price span {
-    font-size: 11px;
-    font-weight: 400;
-    color: var(--text3);
-  }
-  .product-notify {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 9px 20px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all .15s;
-    text-decoration: none;
-  }
-  .product-notify:hover {
-    background: var(--accent);
-    color: #fff;
-    border-color: var(--accent);
-  }
-  @media (max-width: 768px) {
-    .products-grid { grid-template-columns: 1fr; }
-  }
-  .newsletter-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; color: var(--text); }
-  .newsletter-desc { font-size: 11px; color: var(--text2); margin-bottom: 16px; line-height: 1.5; }
-  .newsletter-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 28px;
-    background: var(--accent);
-    color: #fff;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 700;
-    text-decoration: none;
-    transition: opacity .15s;
-  }
-  .newsletter-btn:hover { opacity: .85; }
-  .newsletter-sub { font-size: 10px; color: var(--text3); margin-top: 10px; }
 
-  /* ─── MENTORING CTA ─── */
-  .mentoring-section {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px;
-    text-align: center;
-    margin-bottom: 32px;
-  }
-  .mentoring-icon { font-size: 22px; margin-bottom: 8px; }
-  .mentoring-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 4px;
-  }
-  .mentoring-desc {
-    font-size: 12px;
-    color: var(--text2);
-    line-height: 1.5;
-    margin-bottom: 16px;
-  }
-  .mentoring-tags {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 16px;
-  }
-  .mentoring-tag {
-    font-size: 11px;
-    font-family: 'JetBrains Mono';
-    color: var(--accent2);
-    background: var(--accent2-rgba-12);
-    border-radius: 6px;
-    padding: 4px 10px;
-  }
-  .mentoring-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 12px 28px;
-    background: var(--accent2);
-    color: #fff;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 700;
-    text-decoration: none;
-    transition: opacity .15s;
-  }
-  .mentoring-btn:hover { opacity: .85; }
 
-  /* FLOATING DONATION BUTTON */
-  .donate-fab {
-    position: fixed;
-    bottom: 28px;
-    right: 28px;
-    z-index: 999;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
-  }
-  .donate-fab-btn {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    background: var(--accent);
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    box-shadow: 0 4px 16px rgba(0,0,0,.18);
-    transition: transform .15s, box-shadow .15s;
-  }
-  .donate-fab-btn:hover { transform: scale(1.08); box-shadow: 0 6px 20px rgba(0,0,0,.25); }
-  .donate-fab-popup {
-    display: none;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 8px 32px rgba(0,0,0,.15);
-    width: 220px;
-  }
-  .donate-fab-popup.open { display: block; }
-  .donate-fab-popup-title {
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 4px;
-    color: var(--text);
-  }
-  .donate-fab-popup-desc {
-    font-size: 11px;
-    color: var(--text2);
-    margin-bottom: 14px;
-    line-height: 1.5;
-  }
-  .donate-fab-qr {
-    width: 150px;
-    height: 150px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    display: block;
-    margin: 0 auto 10px;
-  }
-  .donate-fab-name {
-    font-size: 13px;
-    font-family: 'JetBrains Mono';
-    color: var(--text2);
-  }
-  .donate-fab-badge {
-    font-size: 11px;
-    color: var(--text3);
-    margin-top: 4px;
-    font-family: 'JetBrains Mono';
-  }
+
+
 
   /* HOME PAGE */
   .home-hero {
@@ -1542,14 +1283,6 @@
     </div>
   </div>
 
-  <!-- NEWSLETTER -->
-  <div style="margin:40px 0;padding:20px 24px;background:var(--surface);border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
-    <div>
-      <div style="font-size:14px;font-weight:700;color:var(--text);">📬 새 콘텐츠 알림</div>
-      <div style="font-size:11px;color:var(--text2);margin-top:2px;">문제집·해설집 출시 소식 및 Swift 팁</div>
-    </div>
-    <a href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:9px 20px;background:var(--accent);color:#fff;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;transition:opacity .15s;">무료 구독 →</a>
-  </div>
 
   <!-- WHY IS IT SO SLOW? -->
   <div class="flow-section">
@@ -2034,28 +1767,7 @@ heap.<span class="hl">removeMin</span>()</pre>
       <a class="chapter-cta-btn" href="#ch-1">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </div>
 
-    <!-- Newsletter -->
-    <div class="newsletter-section">
-      <div class="newsletter-title">📬 뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
-      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
-      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
-    </div>
 
-    <!-- Mentoring -->
-    <div class="mentoring-section">
-      <div class="mentoring-icon">🎓</div>
-      <div class="mentoring-title">1:1 멘토링</div>
-      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
-      <div class="mentoring-tags">
-        <span class="mentoring-tag">코드 리뷰</span>
-        <span class="mentoring-tag">커리어 상담</span>
-        <span class="mentoring-tag">포트폴리오</span>
-        <span class="mentoring-tag">취업 준비</span>
-      </div>
-      <div style="font-size:20px;font-weight:800;color:var(--accent);margin:12px 0 4px;font-family:'JetBrains Mono',monospace;">₩20,000<span style="font-size:12px;font-weight:400;color:var(--text3);">/30분</span></div>
-      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
-    </div>
 
     <div class="section-heading">코멘트</div>
     <div class="utterances-wrap" id="utterances-ch0"></div>
@@ -2201,25 +1913,6 @@ heap.<span class="hl">removeMin</span>()</pre>
         LIFO와 FIFO, 두 가지 핵심 패턴을 배웁니다
       </div>
       <a class="chapter-cta-btn" href="#ch-2">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-    </div>
-    <div class="newsletter-section">
-      <div class="newsletter-title">📬 뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
-      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
-      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
-    </div>
-    <div class="mentoring-section">
-      <div class="mentoring-icon">🎓</div>
-      <div class="mentoring-title">1:1 멘토링</div>
-      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
-      <div class="mentoring-tags">
-        <span class="mentoring-tag">코드 리뷰</span>
-        <span class="mentoring-tag">커리어 상담</span>
-        <span class="mentoring-tag">포트폴리오</span>
-        <span class="mentoring-tag">취업 준비</span>
-      </div>
-      <div style="font-size:20px;font-weight:800;color:var(--accent);margin:12px 0 4px;font-family:'JetBrains Mono',monospace;">₩20,000<span style="font-size:12px;font-weight:400;color:var(--text3);">/30분</span></div>
-      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
     </div>
     <div class="section-heading">코멘트</div>
     <div class="utterances-wrap" id="utterances-ch1"></div>
@@ -2374,25 +2067,6 @@ heap.<span class="hl">removeMin</span>()</pre>
       </div>
       <a class="chapter-cta-btn" href="#ch-3">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </div>
-    <div class="newsletter-section">
-      <div class="newsletter-title">📬 뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
-      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
-      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
-    </div>
-    <div class="mentoring-section">
-      <div class="mentoring-icon">🎓</div>
-      <div class="mentoring-title">1:1 멘토링</div>
-      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
-      <div class="mentoring-tags">
-        <span class="mentoring-tag">코드 리뷰</span>
-        <span class="mentoring-tag">커리어 상담</span>
-        <span class="mentoring-tag">포트폴리오</span>
-        <span class="mentoring-tag">취업 준비</span>
-      </div>
-      <div style="font-size:20px;font-weight:800;color:var(--accent);margin:12px 0 4px;font-family:'JetBrains Mono',monospace;">₩20,000<span style="font-size:12px;font-weight:400;color:var(--text3);">/30분</span></div>
-      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
-    </div>
     <div class="section-heading">코멘트</div>
     <div class="utterances-wrap" id="utterances-ch2"></div>
   </div>
@@ -2537,25 +2211,6 @@ heap.<span class="hl">removeMin</span>()</pre>
         트리 순회(전위, 중위, 후위, 레벨)를 시각적으로 이해합니다
       </div>
       <a class="chapter-cta-btn" href="#ch-4">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-    </div>
-    <div class="newsletter-section">
-      <div class="newsletter-title">📬 뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
-      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
-      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
-    </div>
-    <div class="mentoring-section">
-      <div class="mentoring-icon">🎓</div>
-      <div class="mentoring-title">1:1 멘토링</div>
-      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
-      <div class="mentoring-tags">
-        <span class="mentoring-tag">코드 리뷰</span>
-        <span class="mentoring-tag">커리어 상담</span>
-        <span class="mentoring-tag">포트폴리오</span>
-        <span class="mentoring-tag">취업 준비</span>
-      </div>
-      <div style="font-size:20px;font-weight:800;color:var(--accent);margin:12px 0 4px;font-family:'JetBrains Mono',monospace;">₩20,000<span style="font-size:12px;font-weight:400;color:var(--text3);">/30분</span></div>
-      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
     </div>
     <div class="section-heading">코멘트</div>
     <div class="utterances-wrap" id="utterances-ch3"></div>
@@ -2704,25 +2359,6 @@ heap.<span class="hl">removeMin</span>()</pre>
       </div>
       <a class="chapter-cta-btn" href="#ch-5">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </div>
-    <div class="newsletter-section">
-      <div class="newsletter-title">📬 뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
-      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
-      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
-    </div>
-    <div class="mentoring-section">
-      <div class="mentoring-icon">🎓</div>
-      <div class="mentoring-title">1:1 멘토링</div>
-      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
-      <div class="mentoring-tags">
-        <span class="mentoring-tag">코드 리뷰</span>
-        <span class="mentoring-tag">커리어 상담</span>
-        <span class="mentoring-tag">포트폴리오</span>
-        <span class="mentoring-tag">취업 준비</span>
-      </div>
-      <div style="font-size:20px;font-weight:800;color:var(--accent);margin:12px 0 4px;font-family:'JetBrains Mono',monospace;">₩20,000<span style="font-size:12px;font-weight:400;color:var(--text3);">/30분</span></div>
-      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
-    </div>
     <div class="section-heading">코멘트</div>
     <div class="utterances-wrap" id="utterances-ch4"></div>
   </div>
@@ -2865,25 +2501,6 @@ heap.<span class="hl">removeMin</span>()</pre>
         최솟값/최댓값을 O(1)에 꺼내는 구조를 알아봅니다
       </div>
       <a class="chapter-cta-btn" href="#ch-6">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-    </div>
-    <div class="newsletter-section">
-      <div class="newsletter-title">📬 뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
-      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
-      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
-    </div>
-    <div class="mentoring-section">
-      <div class="mentoring-icon">🎓</div>
-      <div class="mentoring-title">1:1 멘토링</div>
-      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
-      <div class="mentoring-tags">
-        <span class="mentoring-tag">코드 리뷰</span>
-        <span class="mentoring-tag">커리어 상담</span>
-        <span class="mentoring-tag">포트폴리오</span>
-        <span class="mentoring-tag">취업 준비</span>
-      </div>
-      <div style="font-size:20px;font-weight:800;color:var(--accent);margin:12px 0 4px;font-family:'JetBrains Mono',monospace;">₩20,000<span style="font-size:12px;font-weight:400;color:var(--text3);">/30분</span></div>
-      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
     </div>
     <div class="section-heading">코멘트</div>
     <div class="utterances-wrap" id="utterances-ch5"></div>
@@ -3031,25 +2648,6 @@ heap.<span class="hl">removeMin</span>()</pre>
       </div>
       <a class="chapter-cta-btn" href="#ch-7">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </div>
-    <div class="newsletter-section">
-      <div class="newsletter-title">📬 뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
-      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
-      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
-    </div>
-    <div class="mentoring-section">
-      <div class="mentoring-icon">🎓</div>
-      <div class="mentoring-title">1:1 멘토링</div>
-      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
-      <div class="mentoring-tags">
-        <span class="mentoring-tag">코드 리뷰</span>
-        <span class="mentoring-tag">커리어 상담</span>
-        <span class="mentoring-tag">포트폴리오</span>
-        <span class="mentoring-tag">취업 준비</span>
-      </div>
-      <div style="font-size:20px;font-weight:800;color:var(--accent);margin:12px 0 4px;font-family:'JetBrains Mono',monospace;">₩20,000<span style="font-size:12px;font-weight:400;color:var(--text3);">/30분</span></div>
-      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
-    </div>
     <div class="section-heading">코멘트</div>
     <div class="utterances-wrap" id="utterances-ch6"></div>
   </div>
@@ -3192,25 +2790,6 @@ heap.<span class="hl">removeMin</span>()</pre>
         O(1) 조회의 비밀, 해시 충돌 해결법을 배웁니다
       </div>
       <a class="chapter-cta-btn" href="#ch-8">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-    </div>
-    <div class="newsletter-section">
-      <div class="newsletter-title">📬 뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
-      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
-      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
-    </div>
-    <div class="mentoring-section">
-      <div class="mentoring-icon">🎓</div>
-      <div class="mentoring-title">1:1 멘토링</div>
-      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
-      <div class="mentoring-tags">
-        <span class="mentoring-tag">코드 리뷰</span>
-        <span class="mentoring-tag">커리어 상담</span>
-        <span class="mentoring-tag">포트폴리오</span>
-        <span class="mentoring-tag">취업 준비</span>
-      </div>
-      <div style="font-size:20px;font-weight:800;color:var(--accent);margin:12px 0 4px;font-family:'JetBrains Mono',monospace;">₩20,000<span style="font-size:12px;font-weight:400;color:var(--text3);">/30분</span></div>
-      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
     </div>
     <div class="section-heading">코멘트</div>
     <div class="utterances-wrap" id="utterances-ch7"></div>
@@ -3356,25 +2935,6 @@ heap.<span class="hl">removeMin</span>()</pre>
       </div>
       <a class="chapter-cta-btn" href="#ch-9">다음 챕터 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </div>
-    <div class="newsletter-section">
-      <div class="newsletter-title">📬 뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
-      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
-      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
-    </div>
-    <div class="mentoring-section">
-      <div class="mentoring-icon">🎓</div>
-      <div class="mentoring-title">1:1 멘토링</div>
-      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
-      <div class="mentoring-tags">
-        <span class="mentoring-tag">코드 리뷰</span>
-        <span class="mentoring-tag">커리어 상담</span>
-        <span class="mentoring-tag">포트폴리오</span>
-        <span class="mentoring-tag">취업 준비</span>
-      </div>
-      <div style="font-size:20px;font-weight:800;color:var(--accent);margin:12px 0 4px;font-family:'JetBrains Mono',monospace;">₩20,000<span style="font-size:12px;font-weight:400;color:var(--text3);">/30분</span></div>
-      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
-    </div>
     <div class="section-heading">코멘트</div>
     <div class="utterances-wrap" id="utterances-ch8"></div>
   </div>
@@ -3519,46 +3079,6 @@ heap.<span class="hl">removeMin</span>()</pre>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
         <a class="chapter-cta-complete" href="learn.html">심화 학습 커리큘럼 →</a>
         <a class="chapter-cta-btn" href="https://m1zz.github.io/cs-swiftUI/" style="background:var(--accent2);">SwiftUI 커리큘럼 →</a>
-      </div>
-    </div>
-    <div class="newsletter-section">
-      <div class="newsletter-title">📬 뉴스레터</div>
-      <div class="newsletter-desc">새 챕터, iOS 개발 팁을 이메일로 가장 먼저 받아보세요</div>
-      <a class="newsletter-btn" href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener">무료 구독하기 →</a>
-      <div class="newsletter-sub">Substack · 언제든지 구독 취소 가능</div>
-    </div>
-    <div class="mentoring-section">
-      <div class="mentoring-icon">🎓</div>
-      <div class="mentoring-title">1:1 멘토링</div>
-      <div class="mentoring-desc">혼자 고민하지 마세요. 코드 리뷰, 커리어 상담, 취업 준비까지<br>현직 iOS 개발자 멘토가 함께합니다.</div>
-      <div class="mentoring-tags">
-        <span class="mentoring-tag">코드 리뷰</span>
-        <span class="mentoring-tag">커리어 상담</span>
-        <span class="mentoring-tag">포트폴리오</span>
-        <span class="mentoring-tag">취업 준비</span>
-      </div>
-      <div style="font-size:20px;font-weight:800;color:var(--accent);margin:12px 0 4px;font-family:'JetBrains Mono',monospace;">₩20,000<span style="font-size:12px;font-weight:400;color:var(--text3);">/30분</span></div>
-      <a class="mentoring-btn" href="https://inf.run/4VzFE" target="_blank" rel="noopener">멘토링 신청하기</a>
-    </div>
-    <!-- PRODUCTS — 완주 후에만 노출 -->
-    <div style="margin-bottom:32px;">
-      <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;">다음 단계</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
-        <a href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener" style="text-decoration:none;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 14px;text-align:center;transition:border-color .15s;">
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;">📝 코딩테스트 문제집</div>
-          <div style="font-size:10px;color:var(--text3);">50문제 · ₩9,900</div>
-          <div style="font-size:9px;color:var(--accent);margin-top:6px;">출시 알림 →</div>
-        </a>
-        <a href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener" style="text-decoration:none;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 14px;text-align:center;transition:border-color .15s;">
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;">🗂 치트시트 PDF</div>
-          <div style="font-size:10px;color:var(--text3);">핵심 요약 · ₩4,900</div>
-          <div style="font-size:9px;color:var(--accent);margin-top:6px;">출시 알림 →</div>
-        </a>
-        <a href="https://leeo25.substack.com/subscribe" target="_blank" rel="noopener" style="text-decoration:none;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 14px;text-align:center;transition:border-color .15s;">
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;">💼 기술면접 질문집</div>
-          <div style="font-size:10px;color:var(--text3);">100문제 · ₩12,900</div>
-          <div style="font-size:9px;color:var(--accent);margin-top:6px;">출시 알림 →</div>
-        </a>
       </div>
     </div>
 
@@ -5183,50 +4703,14 @@ function toggleLang() {
 
 </script>
 
-<!-- FLOATING DONATION BUTTON -->
-<div class="donate-fab" id="donate-fab">
-  <div class="donate-fab-popup" id="donate-popup">
-    <div class="donate-fab-popup-title">후원하기 ☕</div>
-    <div class="donate-fab-popup-desc">콘텐츠가 도움이 됐다면<br>커피 한 잔의 후원을 부탁드려요 :)</div>
-    <img class="donate-fab-qr" src="kakao-pay-qr.jpg" alt="카카오페이 QR">
-    <div class="donate-fab-name">이현호</div>
-    <div class="donate-fab-badge">💬 카카오페이</div>
-  </div>
-  <button class="donate-fab-btn" onclick="toggleDonatePopup()" title="후원하기">☕</button>
-</div>
 
 <script>
-function toggleDonatePopup() {
-  document.getElementById('donate-popup').classList.toggle('open');
-}
-document.addEventListener('click', function(e) {
-  const fab = document.getElementById('donate-fab');
-  if (!fab.contains(e.target)) {
-    document.getElementById('donate-popup').classList.remove('open');
-  }
-});
-
-// ─── SHOW NEWSLETTER & MENTORING ONLY ON ch-0, ch-4, ch-9 ─────────
-document.querySelectorAll('.chapter').forEach((ch, i) => {
-  if (i !== 0 && i !== 4 && i !== 9) {
-    const nl = ch.querySelector('.newsletter-section');
-    const mt = ch.querySelector('.mentoring-section');
-    if (nl) nl.style.display = 'none';
-    if (mt) mt.style.display = 'none';
-  }
-});
 // ─── GA4 EVENT TRACKING ────────────────────────────────────────────────
 document.addEventListener('click', function(e) {
   var link = e.target.closest('a');
   if (!link) return;
   var href = link.href || '';
-  if (href.includes('inf.run')) {
-    gtag('event', 'mentoring_click', { chapter: getCurrentChapter() });
-  } else if (link.classList.contains('product-notify')) {
-    gtag('event', 'product_notify_click', { product: link.closest('.product-card').querySelector('.product-name').textContent });
-  } else if (href.includes('substack.com')) {
-    gtag('event', 'newsletter_click', { chapter: getCurrentChapter() });
-  } else if (href.includes('.zip')) {
+  if (href.includes('.zip')) {
     gtag('event', 'playground_download', { file: href.split('/').pop() });
   }
 });
