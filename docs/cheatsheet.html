@@ -22,8 +22,24 @@
   margin: 10mm 8mm 10mm 8mm;
 }
 
-/* ========== SCREEN (dark) ========== */
+/* ========== LIGHT (default) ========== */
 :root {
+  --bg: #ffffff;
+  --surface: #f8fafc;
+  --surface2: #f1f5f9;
+  --border: #cbd5e1;
+  --text: #1e293b;
+  --text-dim: #475569;
+  --text-muted: #64748b;
+  --accent: #e04a1c;
+  --blue: #2563eb;
+  --green: #16a34a;
+  --code-bg: #f8fafc;
+  --card-bg: #ffffff;
+}
+
+/* ========== DARK ========== */
+html.dark {
   --bg: #0a0e1a;
   --surface: #111827;
   --surface2: #1e293b;
@@ -31,9 +47,6 @@
   --text: #e2e8f0;
   --text-dim: #94a3b8;
   --text-muted: #64748b;
-  --accent: #e04a1c;
-  --blue: #2563eb;
-  --green: #16a34a;
   --code-bg: #0f172a;
   --card-bg: #111827;
 }
@@ -160,7 +173,7 @@ body {
 .card-name {
   font-size: 12pt;
   font-weight: 700;
-  color: #fff;
+  color: var(--text);
 }
 .card-def {
   font-size: 8pt;
@@ -197,9 +210,12 @@ body {
   color: var(--text-dim);
   font-size: 7pt;
 }
-.cx-good { color: #4ade80 !important; }
-.cx-ok { color: #facc15 !important; }
-.cx-bad { color: #f87171 !important; }
+.cx-good { color: #15803d !important; }
+.cx-ok { color: #a16207 !important; }
+.cx-bad { color: #dc2626 !important; }
+html.dark .cx-good { color: #4ade80 !important; }
+html.dark .cx-ok { color: #facc15 !important; }
+html.dark .cx-bad { color: #f87171 !important; }
 
 /* code block */
 .code-block {
@@ -212,15 +228,21 @@ body {
   line-height: 1.5;
   overflow-x: auto;
   margin: 5px 0;
-  color: #e2e8f0;
+  color: var(--text);
   flex: 1;
 }
-.code-block .kw { color: #c084fc; }
-.code-block .ty { color: #38bdf8; }
-.code-block .fn { color: #fbbf24; }
-.code-block .str { color: #4ade80; }
-.code-block .cm { color: #64748b; }
-.code-block .num { color: #fb923c; }
+.code-block .kw { color: #7c3aed; }
+.code-block .ty { color: #0369a1; }
+.code-block .fn { color: #b45309; }
+.code-block .str { color: #15803d; }
+.code-block .cm { color: #94a3b8; }
+.code-block .num { color: #ea580c; }
+html.dark .code-block .kw { color: #c084fc; }
+html.dark .code-block .ty { color: #38bdf8; }
+html.dark .code-block .fn { color: #fbbf24; }
+html.dark .code-block .str { color: #4ade80; }
+html.dark .code-block .cm { color: #64748b; }
+html.dark .code-block .num { color: #fb923c; }
 
 /* info rows */
 .info-row {
@@ -285,7 +307,7 @@ body {
 .comparison-table td:first-child {
   text-align: left;
   font-weight: 600;
-  color: #fff;
+  color: var(--text);
   background: var(--surface);
 }
 .comparison-table td:last-child {
@@ -295,7 +317,7 @@ body {
   font-family: 'Pretendard', sans-serif;
 }
 .comparison-table tr:nth-child(even) td {
-  background: rgba(255,255,255,0.02);
+  background: var(--surface);
 }
 .comparison-table tr:nth-child(even) td:first-child {
   background: var(--surface);
@@ -333,71 +355,37 @@ body {
   font-weight: 700;
 }
 
+/* ========== THEME TOGGLE ========== */
+.theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 999;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+  transition: all .15s;
+}
+.theme-toggle:hover { transform: scale(1.1); }
+
 /* ========== PRINT OVERRIDES ========== */
 @media print {
-  :root {
-    --bg: #ffffff;
-    --surface: #f8fafc;
-    --surface2: #f1f5f9;
-    --border: #cbd5e1;
-    --text: #1e293b;
-    --text-dim: #475569;
-    --text-muted: #64748b;
-    --accent: #e04a1c;
-    --blue: #2563eb;
-    --green: #16a34a;
-    --code-bg: #f8fafc;
-    --card-bg: #ffffff;
-  }
-  body {
-    background: #fff;
-    color: #1e293b;
-    font-size: 9pt;
-  }
-  .cover {
-    background: #fff;
-  }
-  .cover-badge {
-    border: 2px solid var(--accent);
-    background: #fff;
-    color: var(--accent);
-  }
-  .cover-ds-list span {
-    background: #f8fafc;
-    color: #475569;
-    border-color: #cbd5e1;
-  }
-  .card {
-    border-color: #e2e8f0;
-    box-shadow: none;
-  }
-  .card-name { color: #0f172a; }
-  .code-block {
-    background: #f8fafc;
-    border-color: #e2e8f0;
-    color: #1e293b;
-  }
-  .code-block .kw { color: #7c3aed; }
-  .code-block .ty { color: #0369a1; }
-  .code-block .fn { color: #b45309; }
-  .code-block .str { color: #15803d; }
-  .code-block .cm { color: #94a3b8; }
-  .code-block .num { color: #ea580c; }
-  .cx-good { color: #15803d !important; }
-  .cx-ok { color: #a16207 !important; }
-  .cx-bad { color: #dc2626 !important; }
-  .comparison-table td:first-child,
-  .comparison-table tr:nth-child(even) td:first-child {
-    background: #f8fafc;
-    color: #0f172a;
-  }
-  .comparison-table tr:nth-child(even) td {
-    background: #fafbfc;
-  }
+  .theme-toggle { display: none; }
+  body { font-size: 9pt; }
+  .card { box-shadow: none; }
 }
 </style>
 </head>
 <body>
+<button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙</button>
 
 <!-- ==================== COVER ==================== -->
 <div class="cover">
@@ -827,5 +815,17 @@ seen.<span class="fn">contains</span>(<span class="num">5</span>)         <span 
   </div>
 </div>
 
+<script>
+function toggleTheme() {
+  document.documentElement.classList.toggle('dark');
+  var isDark = document.documentElement.classList.contains('dark');
+  localStorage.setItem('cs-theme', isDark ? 'dark' : 'light');
+  document.getElementById('themeBtn').textContent = isDark ? '☀️' : '🌙';
+}
+if (localStorage.getItem('cs-theme') === 'dark') {
+  document.documentElement.classList.add('dark');
+  document.getElementById('themeBtn').textContent = '☀️';
+}
+</script>
 </body>
 </html>
